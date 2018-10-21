@@ -1,0 +1,32 @@
+package com.accp.cfg;
+
+import java.util.Date;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import com.accp.vo.szy.ListVo;
+
+@Configuration
+@EnableScheduling
+public class EmailConfig {
+	  /**
+	   * 每分钟清空一次过期安全码
+	   */
+	  @Scheduled(cron="0 0/1 * * * ?") 
+	  public void setTimeOutEmail() {
+		  System.out.println("执行Email清空==========");
+		  long nd = 1000 * 24 * 60 * 60;
+		  long nh = 1000 * 60 * 60;
+		  long nm = 1000 * 60;
+		  if(ListVo.emailList!=null) {
+			  for (String item : ListVo.emailList.keySet()) {
+				  long diff=new Date().getTime()-ListVo.emailList.get(item).getTime().getTime();
+				  if(diff%nd%nh/nm>=5) {
+					  ListVo.emailList.remove(item);
+				  }
+			  }
+		  }
+	  }
+}

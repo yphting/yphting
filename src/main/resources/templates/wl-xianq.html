@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	    
+<title>我发出的物流_韩汀社区</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../../Public/css/common.css" />
+<body><iframe name="topost" id="topost" style="display:none;" src="./wl-xianq_files/saved_resource.html"></iframe>
+
+
+<!--header-->
+<div class="header" id="botop">
+		<div class="h_top">
+		<div class="b_box">
+			<div class="top_nav"><a href="http://www.yphting.com/index.php?m=&amp;">首页</a><span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=seller">商家入驻</a><span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=help">帮助中心</a><span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=index">关于韩汀</a><span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=contact">联系我们</a></div>
+			
+			<div class="top_right login_right">
+						<a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=index">郑石平</a>
+						<span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=logout">退出</a>
+            <span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=sms"><img src="./wl-xianq_files/e_i.png" alt=""></a>
+            <script>$('.top_right').addClass('login_right');</script>
+						<!--
+			<a href="javascript:void(0);" class="i_rover"></a>
+			-->
+			</div>
+		</div>
+	</div>
+    
+    <div class="b_box nav_header community_header">
+		<a class="logo my_logo" href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=index">御品韩汀</a>
+		<ul class="member_nav_ul">
+        	        	<li class="cur" id="li2"><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=index">个人中心</a><span class="my_nav_i"></span></li>
+            <li id="li3"><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=config">账户设置</a><span class="my_nav_i"></span></li>
+            <li id="li4"><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=sms">消息</a><span class="my_nav_i"></span></li>
+            
+        </ul>
+	</div>
+</div>
+<!--header end-->
+
+
+<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=help" class="zy_box">预定流程指引</a>
+
+<div class="bg_c4 pt1">
+	<div class="b_box">
+    	<div class="sv_path border_c sv_nbor">
+        	<div class="fr c_4"><a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=trading" class="btna_s2 f14">交易须知</a></div>
+            <a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=index">会员中心</a>
+                        <span class="s_sp_v">-</span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=logistics">我发出的物流</a>
+        </div>
+		<div class="business_order_nav business_order_nav_1mem">
+			<ul class="business_order_nav_ul">
+				<li class="cur"><a href="javascript:void(0);">提交发货申请</a></li>
+				<li><a href="javascript:void(0);">审核中</a></li>
+				<li><a href="javascript:void(0);">审核通过</a></li>
+				<li><a href="javascript:void(0);">已发国际EMS</a></li>
+				<li><a href="javascript:void(0);">完成发货</a></li>
+			</ul>
+		</div>
+
+        <div class="business_order_box_1mem business_order_box">
+			<p class="f14 mt10"><span class="c_4">物流服务状态</span><span class="big_font d_ff">待付款</span>			
+			</p>
+			<div class="my_hy_btn wl_btn_yu">
+			<a href="wu_zhif.html" class="btn_jy_a btn_jy_a3">去支付</a>
+			</div>															        </div>
+        
+        <div class="my_booking_cont">
+        	<ul class="my_booking_cont_ul" >
+            	<li class="cel_1">
+                    <p class="c_4 f12">服务订单号</p>
+                    <p class="mt5" th:text="${logistics.logisticsid}">15395256239412</p>
+					<p class="c_4 f12" >发货方式</p>
+                    <p class="mt5" th:text="${logistics.delivery}">自发</p>
+					<p class="c_4 f12">下单时间</p>
+                    <p class="mt5"  th:text="${#dates.format(logistics.ordertime,'yyyy-MM-dd')}">2018-10-14 22:00</p>
+																				                </li>
+                <li class="cel_2">
+                	<p class="c_4 f12 mt10">物品信息</p>
+					<p class="c_4 f12">重量</p>
+                    <p class="mt5"  th:text="${logistics.kg}">11kg</p>
+                    <p class="c_4 f12" >金币金额</p>
+                    <div class="num_1 f16 mt5"  th:text="${logistics.price}">462</div>
+                    <p class="c_4 f12">物品标题与描述</p>
+                    <p  th:text="${logistics.title}">yyy</p>
+					<p class="f12 mt5 line20"  th:text="${logistics.describe}">gg
+</p>
+					<div class="tk_img_d2">
+										<img src="./wl-xianq_files/20181014095949-98206.png" alt="" width="100">					</div>
+                </li>
+                <li>
+                	<p class="c_4 f12">您的发货信息</p>
+                    <p class="mt5"  th:text="${logistics.useraddr}">中国 湖北 天门市 111					<br>1 1</p>
+					<p class="c_4 f12">您的收货信息</p>
+                    <p class="mt5"  th:text="${logistics.collectgoodsaddr}">中国 湖南 怀化市 1111					<br>111 11</p>
+                </li>
+            </ul>
+        </div>
+        
+
+        
+	</div>
+</div>
+
+<!--footer-->
+<div class="footer community_footer_dl">
+	<dl class="footer_dl">
+		<dt>
+		<div class="footer_ewm_box"><img src="./wl-xianq_files/footer_ewm.png" alt=""></div>
+			<span class="ft_ewm_name">御品韩汀</span>
+		</dt>
+		<dd>
+			<p class="flink"><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=seller">商家入驻</a>|<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=help">帮助中心</a>|<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=index&amp;key=jobs">人才招聘</a>|<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=contact">联系我们</a>|<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=sitemap">网站地图</a>|<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=terms">使用条款</a></p>
+			<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江2栋2502号 |网站负责人：夏先生 |   邮编：21917</p>
+			<p>官方QQ：3119683838 | 微信公众号：御品韩汀 | 官网邮箱：3119683838@qq.com | 联系电话：0731-2286-7673</p>
+			<p>Copyright © 2016 - 2017 yphting.com 版权所有</p>		</dd>
+	</dl>
+</div>
+<!--footer end-->
+
+<!--right nav-->
+<ul class="right_nav">
+	<li><a href="javascript:void(0);" class="rn_tel">客服电话</a><div class="over_show kf_tel">0731-282802603</div></li>
+	<li><a href="javascript:void(0);" class="rn_wx">官方微信</a><div class="over_show"><img src="./wl-xianq_files/r_ewm.jpg" alt="" class="gw_ewm"></div></li>
+	<li><a href="tencent://Message/?Uin=3119683838&amp;websiteName=http://www.yphting.com=&amp;Menu=yes" class="rn_kf">在线客服</a></li>
+	<li><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=logistics&amp;lid=39#" class="rn_top" style="display: block;">Back top</a></li>
+</ul>
+<!--right nav end-->
+
+<link rel="stylesheet" href="./wl-xianq_files/validationEngine.jquery.css" type="text/css">
+<script src="./wl-xianq_files/jquery.validationEngine-zh_CN.js.下载" type="text/javascript" charset="utf-8">
+</script>
+<script src="./wl-xianq_files/jquery.validationEngine.js.下载" type="text/javascript" charset="utf-8">
+</script>
+<script>
+function beforeCall2(form, status){
+	showloading();
+}
+function ajaxValidationCallback2(d, form, json, options){
+	console.log(json);
+	showtip(json.msg);
+	if(json.state === 1){
+		setTimeout("location.reload()",2000);
+	}
+};
+
+jQuery(document).ready(function(){
+	// binds form submission and fields to the validation engine
+	jQuery("#formtopcontact").validationEngine({autoHidePrompt:true,autoHideDelay:1000,binded:false,promptPosition:'topLeft'
+		,ajaxFormValidation: false,ajaxFormValidationMethod: 'post',onBeforeAjaxFormValidation: beforeCall2,onAjaxFormComplete: ajaxValidationCallback2
+	});
+});
+
+function chktop(){
+	_len = $('.chk_1:checked').length;
+	if(!_len){
+		showtip('请选择加盟方式');
+		return false;
+	}
+}
+</script>
+
+<!--联系我们的浮层-->
+<div class="pop_contact">
+	<a href="javascript:void(0);" class="close_pop_contact"></a>
+	<div class="w1000">
+		<div class="pcontact_left">
+			<a href="http://www.yphting.com/index.php?m=&amp;" class="logo">御品韩汀</a>
+			<ul class="pcontact_ul">
+				<li><div class="wr_linka"><a href="http://www.yphting.com/"></a></div>公司官网：http://www.yphting.com</li>
+				<li><div class="wr_linka"><a href="http://weidian.com/?userid=765635894&amp;wfr=c"></a></div>公司微店：http://weidian.com/?userid=765635894&amp;wfr=c</li>
+			</ul>
+			<ul class="pcontact_ul2">
+				<li><span class="pcu pcu1"></span>联系方式：0731-2286-7673</li>
+				<li><span class="pcu pcu2"></span>客服电话：0731-282802603</li>
+				<li><span class="pcu pcu3"></span>住所：경기도 수원시 영통구 영통동 1021-4 청명타운텔 609호</li>
+				<li class="last"><h3 class="contact_us_h3">CONTACT US</h3>联系我们</li>
+			</ul>
+		</div>
+		<div class="pcontact_right">
+			<h2 class="contact_us_title">和我们联系吧</h2>
+			<form method="post" id="formtopcontact" action="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=contact" target="topost" onsubmit="return chktop()">
+			<ul class="pcontact_ul3">
+				<li><span class="pcspr pcspr1"></span><input id="name" name="name" class="pop_cus_input validate[required]" placeholder="姓名" type="text"></li>
+				<li><span class="pcspr pcspr2"></span><input name="tel" id="tel" class="pop_cus_input validate[required,custom[phone]]" placeholder="电话" type="text"></li>
+				<li><span class="pcspr pcspr3"></span><input name="email" id="email" class="pop_cus_input validate[required,custom[email]]" placeholder="邮箱" type="text"></li>
+				<li><span class="pcspr pcspr4"></span><input name="content" id="content" class="pop_cus_input validate[required]" placeholder="具体需求" type="text"></li>
+				<li class="sel_work">
+					<div class="sel_work_box">
+						<span class="input-group-addon">
+							<span class="hz_icon_top">
+								<input id="title1" name="title[]" value="我要兼职" class="chk_1" type="checkbox">
+								<label for="title1"></label>
+							</span>
+						</span>
+						<span class="sel_work_text">我要兼职</span>
+					</div>
+					<div class="sel_work_box">
+						<span class="input-group-addon">
+							<span class="hz_icon_top">
+								<input id="title2" name="title[]" value="我要成为代理" class="chk_1" type="checkbox">
+								<label for="title2"></label> 
+							</span>
+						</span>
+						<span class="sel_work_text">我要成为代理</span>
+					</div>
+					<div class="sel_work_box">
+						<span class="input-group-addon">
+							<span class="hz_icon_top">
+								<input id="title3" name="title[]" value="我要咨询整形" class="chk_1" type="checkbox">
+								<label for="title3"></label> 
+							</span>
+						</span>
+						<span class="sel_work_text">我要咨询整形</span>
+					</div>
+				</li>
+				<input type="hidden" name="act" value="contact">
+				<li><a class="border_tj" href="javascript:void(0);" onclick="$(&#39;#formtopcontact&#39;).submit()" id="submit-btn">立即提交</a></li>
+			</ul>
+			<input type="hidden" name="__hash__" value="1b71bb3985f69b36ff4b1cd4c5ec54f0_6972a3fd320b613d1da9a5b5701c073a"></form>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!--联系我们的浮层 end-->
+
+<script src="./wl-xianq_files/jquery.scrollto.js.下载"></script>
+<script src="./wl-xianq_files/common.js.下载"></script>
+
+
+
+</body></html>

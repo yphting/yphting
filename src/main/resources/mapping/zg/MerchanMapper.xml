@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper    namespace="com.accp.dao.zg.IMerchantDao">
+		<select   id="queryUserinfo" resultType="com.accp.pojo.User">
+			  select *from user where userName=#{username}
+		</select>
+		
+<resultMap  id="ServicesMap"  type="com.accp.vo.zg.ServicesVo">
+		<result column="serviceID" property="serviceid" />
+		<result column="stName" property="stname" />
+		<result column="serviceCoverImg" property="servicecoverimg" />
+		<result column="serviceImgUrlOne" property="serviceimgurlone" />
+		<result column="serviceImgUrlTwo" property="serviceimgurltwo" />
+		<result column="serviceImgUrlThree" property="serviceimgurlthree" />
+		<result column="serviceImgUrlFour" property="serviceimgurlfour" />
+		<result column="serviceTitle" property="servicetitle" />
+		<result column="serviceFuTitle" property="servicefutitle" />
+		<result column="serviceStartDate" property="servicestartdate" />
+		<result column="serviceEndDate" property="serviceenddate" />
+		<result column="servicePrice" property="serviceprice" />
+		<result column="servicecity" property="servicecity" />
+		<result column="serviceIntro" property="serviceintro" />
+		<result column="name" property="name" />
+		<result column="serviceCostTypeID" property="servicecosttypeid" />
+		<result column="serviceCostInclude" property="servicecostinclude" />
+		<result column="number" property="number" />
+		<result column="uploadtitle" property="uploadtitle" />
+		<result column="uploadDataUrl" property="uploaddataurl" />
+		<result column="releaseTime" property="releasetime" />
+		<result column="auditStatus" property="auditstatus" />
+		
+		</resultMap>
+		
+		<select  id="queryServiceByTitle" resultMap="ServicesMap"  >
+							SELECT * FROM services AS s
+							LEFT JOIN servicetype AS t
+							ON s.`stid`=t.`stid`
+							LEFT JOIN orders AS o
+							ON s.`serviceID`=o.`serviceID`
+							LEFT JOIN sharea AS ea  ON s.`country`=ea.`areaID`
+
+			<where>
+			<if test="serviceTitle!=null">
+				and serviceTitle like '${serviceTitle}%'
+			</if>
+	
+		</where>
+		</select>
+		<insert id="addServices">
+			INSERT INTO `services` (`stid`, `userID`, `resourceID`,`serviceTitle`, `serviceFuTitle`,`servicePrice`,
+		 `serviceCoverImg`, `serviceImgUrlOne`,`serviceImgUrlTwo`, `serviceImgUrlThree`, `serviceImgUrlFour`,
+		  `serviceCostTypeID`,`serviceIntro`, `serviceCity`,`country`, `serviceCostInclude`, 
+		   `serviceStartDate`,`serviceEndDate`, `schoolRegion`, `schoolNameByCN`,`majoyNameByCN`,
+		   `schoolNameByROK`, `majoyNameByROK`,`goodAtMajoy`,`hospitalName`,`serviceHour`,`uploadtitle` `uploadDataUrl`,`releaseTime`,
+		    `browseNumber`,`weight`,`recommendBool`, `adminOpinion`,`auditStatus`)VALUES 
+		  (#{services.stid},#{services.userid},#{services.resourceid},#{services.servicetitle},#{services.servicefutitle},
+		  #{services.serviceprice},#{services.servicecoverimg},#{services.serviceimgurlone},#{services.serviceImgurltwo},
+		  #{services.serviceimgurlthree}, #{services.serviceimgurlfour},#{services.servicecosttypeid},#{services.serviceintro},
+		  #{services.servicecity},#{services.country},#{services.servicecostinclude},#{services.servicestartdate},#{services.serviceenddate},
+		  #{services.schoolregion},#{services.schoolnamebycn},#{services.majoynamebycn},#{services.schoolnamebyrok},#{services.majoynamebyrok},#{services.goodatmajoy},
+		  #{services.hospitalname},#{services.servicehour},#{services.uploadtitle},#{services.uploaddataurl},NOW(),#{services.browsenumber},#{services.weight},#{services.recommendbool},#{services.adminopinion},2);
+		</insert>
+		<delete id="deleteService">
+			delete from services where serviceID=#{serviceID}
+		</delete>
+		
+	<update id="updateServicelx">
+		update services
+		<set>
+			<if test="services.stid!=null">
+				stid=#{services.stid},
+			</if>
+			<if test="services.userid!=null">
+				userID=#{services.userid},
+			</if>
+			<if test="services.servicetitle!=null">
+				serviceTitle=#{services.servicetitle},
+			</if>
+			<if test="services.servicefutitle!=null">
+				serviceFuTitle=#{services.servicefutitle},
+			</if>
+			<if test="services.serviceprice!=null">
+				servicePrice=#{services.serviceprice},
+			</if>
+			<if test="services.servicecoverimg!=null">
+				serviceCoverImg=#{services.servicecoverimg},
+			</if>
+			<if test="services.serviceimgurlone!=null">
+				serviceImgUrlOne=#{services.serviceimgurlone},
+			</if>
+			<if test="services.serviceimgurltwo!=null">
+				serviceImgUrlTwo=#{services.serviceimgurltwo},
+			</if>
+				<if test="services.serviceimgurlthree!=null">
+				serviceImgUrlThree=#{services.serviceimgurlthree},
+			</if>
+				<if test="services.serviceimgurlfour!=null">
+				serviceImgUrlFour=#{services.serviceimgurlfour},
+			</if>
+			<if test="services.servicecosttypeid!=null">
+				serviceCostTypeID=#{services.servicecosttypeid},
+			</if>
+				<if test="services.serviceintro!=null">
+				serviceIntro=#{services.serviceintro},
+			</if>
+				<if test="services.servicecity!=null">
+				serviceCity=#{services.servicecity},
+			</if>
+			<if test="services.country!=null">
+				country=#{services.country},
+			</if>
+				<if test="services.servicecostinclude!=null">
+				serviceCostInclude=#{services.servicecostinclude},
+			</if>
+				<if test="services.servicestartdate!=null">
+				serviceStartDate=#{services.servicestartdate},
+			</if>
+				<if test="services.serviceenddate!=null">
+				serviceEndDate=#{services.serviceenddate},
+			</if>
+				<if test="services.schoolregion!=null">
+				schoolRegion=#{services.schoolregion},
+			</if>
+				<if test="services.schoolnamebycn!=null">
+				schoolNameByCN=#{services.schoolnamebycn},
+			</if>
+			<if test="services.majoynamebycn!=null">
+				majoyNameByCN=#{services.majoynamebycn},
+			</if>
+			
+			<if test="services.schoolnamebyrok!=null">
+				schoolNameByROK=#{services.schoolnamebyrok},
+			</if>
+			
+			<if test="services.majoynamebyrok!=null">
+				majoyNameByROK=#{services.majoynamebyrok},
+			</if>
+			<if test="services.goodatmajoy!=null">
+					goodAtMajoy=#{services.goodatmajoy},
+			</if>
+			<if test="services.hospitalname!=null">
+				hospitalName=#{services.hospitalname},
+			</if>
+			<if test="services.servicehour!=null">
+				serviceHour=#{services.servicehour},
+			</if>
+				<if test="services.uploadtitle!=null">
+				uploadtitle=#{services.uploadtitle},
+			</if>
+				<if test="services.uploaddataurl!=null">
+				uploadDataUrl=#{services.uploaddataurl},
+			</if>
+			<if test="services.releasetime!=null">
+				releaseTime=#{services.releasetime},
+			</if>
+			<if test="services.weight!=null">
+				weight=#{services.weight},
+			</if>
+			<if test="services.browsenumber!=null">
+				browseNumber=#{services.browsenumber},
+			</if>
+		
+				<if test="services.recommendbool!=null">
+				recommendBool=#{services.recommendbool},
+			</if>
+			<if test="services.adminopinion!=null">
+				adminOpinion=#{services.adminopinion},
+			</if>
+			<if test="services.auditstatus!=null">
+				auditStatus=#{services.auditstatus},
+			</if>
+		
+		</set>
+		where serviceID=#{services.serviceid}
+		</update>
+		
+</mapper>    

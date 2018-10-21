@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace:接口完整限定名 -->
+<mapper namespace="com.accp.dao.sxy.IForumDao">
+	<!-- 动态加载板块 -->
+	<select id="queryBlock" resultType="Forummanagement">
+		SELECT * FROM forummanagement WHERE pid = 0
+	</select>
+	<select id="queryColumn" resultType="Forummanagement">
+		select * from `forummanagement` where pid = #{pid}
+	</select>
+	<select id="queryTitleName" resultType="Forummanagement">
+		select * from forummanagement where fmid=#{fmid}
+	</select>
+	<!-- 动态加载板块结束 -->
+	
+	<!-- 显示帖子列表映射map -->
+	<resultMap type="com.accp.vo.sxy.PostcommentVo" id="PostcommentVoMap">
+		<association property="user" column="commentator" select="queryUserById"></association>
+	</resultMap>
+	<resultMap type="com.accp.vo.sxy.PostVo" id="PostVoMap">
+		<association property="user" column="userid" select="queryUserById"></association>
+		<association property="forum" column="fmid" select="queryForumByFmid"></association>
+		<association property="lastcomment" column="postid" select="queryLastcommentByPostid"></association>
+		<association property="count" column="postid" select="queryCountByPostid"></association>
+	</resultMap>
+	<!-- 发帖人 -->
+	<select id="queryUserById" resultType="user">
+		select * from user where userid=#{0}
+	</select>
+	<!-- 栏目所属 -->
+	<select id="queryForumByFmid" resultType="forummanagement">
+		select * from forummanagement where fmid=#{0}
+	</select>
+	<!-- 查询最后回复人 -->
+	<select id="queryLastcommentByPostid" resultMap="PostcommentVoMap">
+		select * from postcomment where postid=#{0} order by reviewtime desc limit 0,1
+	</select>
+	<!-- 查询评论数 -->
+	<select id="queryCountByPostid" resultType="java.lang.Integer">
+		select count(1) from postcomment where postid=#{0}
+	</select>
+	<!-- 查询帖子列表 -->
+	<select id="queryPostList" resultMap="PostVoMap">
+		select *,(select max(reviewtime) from postcomment p where p.postId=po.postId)lasttime
+		from post po
+		where fmid in (select fmid from forummanagement where pid=#{pid})
+		<if test="title!=null">
+			and title like '%${title}%'
+		</if>
+		<if test="forumid!=null">
+		    and fmid = #{forumid}
+		</if>
+		<if test="essence!=0">
+			and essence = #{essence}
+		</if>
+		<if test="orderId=0">
+		order by solid desc,releasetime desc
+		</if>
+		<if test="orderId=1">
+		order by solid desc,essence desc,lasttime desc,releasetime desc
+		</if>
+	</select>
+	<!-- 显示帖子列表结束 -->
+</mapper>

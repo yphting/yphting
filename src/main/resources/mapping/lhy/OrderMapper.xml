@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.lhy.OrderDao">
+	<resultMap type="com.accp.vo.lhy.Services" id="ServiceMap">
+		<association property="user" column="userid" select="queryUserById"></association>
+		<association property="serviceType" column="stid"
+			select="queryServiceTypeById"></association>
+	</resultMap>
+	<resultMap type="com.accp.vo.lhy.Orders" id="OrderMap">
+		<association property="service" column="serviceid" select="queryServiceById"></association>
+	</resultMap>
+
+	<select id="queryUserById" resultType="user">
+		select *
+		from user
+		where
+		userid=#{0}
+	</select>
+	<select id="queryServiceTypeById" resultType="servicetype">
+		select *
+		from
+		servicetype
+		where stid=#{0}
+	</select>
+	<select id="queryServiceById" resultMap="ServiceMap">
+		select *
+		from services
+		where serviceid=#{0}
+	</select>
+
+	<select id="queryOrderList" resultMap="OrderMap">
+		select *
+		from orders
+		where userid=#{order.userid}
+		<if test="order.orderid!=null">
+			and (orderid=#{order.orderid} or serviceid in(select serviceid
+			from services where servicetitle like '%${order.orderid}%'))
+		</if>
+		<if test="order.orderstatus!=null">
+			and orderstatus=#{order.orderstatus}
+		</if>
+	</select>
+	<select id="queryOrderById" resultMap="OrderMap">
+		select *
+		from orders
+		where
+		orderid=#{orderid}
+	</select>
+
+	<update id="updateOrder">
+		update orders
+		<set>
+			<if test="order.orderstatus!=null">
+				orderstatus=#{order.orderstatus},
+			</if>
+			<if test="order.paymenttime!=null">
+				paymenttime=#{order.paymenttime},
+			</if>
+		</set>
+		where orderid=#{order.orderid}
+	</update>
+</mapper>

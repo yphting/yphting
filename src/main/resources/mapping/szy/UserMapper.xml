@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.szy.IUserDao">
+	<select id="queryEmail" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM `login`
+		WHERE userEmail=#{email}
+	</select>
+	<insert id="saveEmailUser">
+		INSERT INTO
+		`user`(`userName`,`userSex`,`userMoney`,`userIntegral`,`merchantType`)
+		VALUES(#{emailDate.nickName},1,0,0,0);
+		INSERT INTO `login`(`userID`,`loginType`,`userEmail`,`userPwd`)
+		VALUES((SELECT MAX(`userID`) FROM `user`),1,#{emailDate.email},#{emailDate.password})
+	</insert>
+	<select id="login" resultType="com.accp.pojo.User">
+	SELECT * FROM `user`
+	WHERE `userID` = (SELECT `userID` FROM `login` WHERE `userEmail`=#{email} AND `userPwd`=#{password})
+	</select>
+	<update id="updatePwd">
+		UPDATE `login`
+		SET `userPwd`=#{password}
+		WHERE `userEmail`=#{email}
+	</update>
+	<!-- 查询中韩行政地区 -->
+	<select id="querySharea" resultType="com.accp.pojo.Sharea">
+		select * from `sharea` 
+	</select>
+	<update id="updateUserInfo">
+		UPDATE `user`
+		SET `userRealName`=#{u.userrealname},`userSex`=#{u.usersex},`userPhone`=#{u.userphone},`provincialID`=#{u.provincialid},`cityID`=#{u.cityid},`countyID`=#{u.countyid},`adDetail`=#{u.addetail}
+		WHERE `userID`=#{u.userid}
+	</update>
+	<select id="queryUser" resultType="com.accp.pojo.User">
+		SELECT * FROM `user`
+		where `userID` = #{userID}
+	</select>
+	<update id="updateUserImg">
+		UPDATE `user`
+		SET `userImgPath`=#{userImg}
+		WHERE `userID`=#{userID}
+	</update>
+	<select id="querySerType" resultType="java.lang.String">
+		SELECT stName FROM `servicetype`
+		WHERE stid=#{id}
+	</select>
+	<update id="updateUserDpxx">
+		UPDATE `user`
+		<set>
+			<if test="u.merchanttype!=null and u.merchanttype!=''">
+				`merchanttype` = #{u.merchanttype},
+			</if>
+			<if test="u.shopname!=null and u.shopname!=''">
+				`shopName` = #{u.shopname},
+			</if>
+			<if test="u.userrealname!=null and u.userrealname!=''">
+				`userrealname` = #{u.userrealname},
+			</if>
+			<if test="u.signature!=null and u.signature!=''">
+				`signature` = #{u.signature},
+			</if>
+			<if test="u.shopimg!=null and u.shopimg!=''">
+				`shopimg` = #{u.shopimg},
+			</if>
+			<if test="u.identitytype!=null and u.identitytype!=''">
+				`identitytype` = #{u.identitytype},
+			</if>
+			<if test="u.identitynumder!=null and u.identitynumder!=''">
+				`identitynumder` = #{u.identitynumder},
+			</if>
+			<if test="u.identityrealname!=null and u.identityrealname!=''">
+				`identityrealname` = #{u.identityrealname},
+			</if>
+			<if test="u.country!=null and u.country!=''">
+				`country` = #{u.country},
+			</if>
+			<if test="u.provincialid!=null and u.provincialid!=''">
+				`provincialid` = #{u.provincialid},
+			</if>
+			<if test="u.cityid!=null and u.cityid!=''">
+				`cityid` = #{u.cityid},
+			</if>
+			<if test="u.countyid!=null and u.countyid!=''">
+				`countyid` = #{u.countyid},
+			</if>
+			<if test="u.addetail!=null and u.addetail!=''">
+				`addetail` = #{u.addetail},
+			</if>
+			<if test="u.identitypositiveimg!=null and u.identitypositiveimg!=''">
+				`identitypositiveimg` = #{u.identitypositiveimg},
+			</if>
+			<if test="u.identitynegativeimg!=null and u.identitynegativeimg!=''">
+				`identitynegativeimg` = #{u.identitynegativeimg},
+			</if>
+			<if test="u.identityhandimg!=null and u.identityhandimg!=''">
+				`identityhandimg` = #{u.identityhandimg},
+			</if>
+			<if test="u.languagenametext!=null and u.languagenametext!=''">
+				`languagenametext` = #{u.languagenametext},
+			</if>
+			<if test="u.majornametext!=null and u.majornametext!=''">
+				`majornametext` = #{u.majornametext},
+			</if>
+			<if test="u.livecityid!=null and u.livecityid!=''">
+				`livecityid` = #{u.livecityid},
+			</if>
+			<if test="u.merchantemail!=null and u.merchantemail!=''">
+				`merchantemail` = #{u.merchantemail},
+			</if>
+			<if test="u.merchantphone!=null and u.merchantphone!=''">
+				`merchantphone` = #{u.merchantphone},
+			</if>
+			<if test="u.qq!=null and u.qq!=''">
+				`qq` = #{u.qq},
+			</if>
+			<if test="u.wechat!=null and u.wechat!=''">
+				`wechat` = #{u.wechat},
+			</if>
+			<if test="u.profession!=null and u.profession!=''">
+				`profession` = #{u.profession},
+			</if>
+			<if test="u.height!=null and u.height!=''">
+				`height` = #{u.height},
+			</if>
+			<if test="u.constellation!=null and u.constellation!=''">
+				`constellation` = #{u.constellation},
+			</if>
+			<if test="u.age!=null and u.age!=''">
+				`age` = #{u.age},
+			</if>
+			<if test="u.selfintroduction!=null and u.selfintroduction!=''">
+				`selfintroduction` = #{u.selfintroduction},
+			</if>
+		</set>
+		<where>
+			`userID` = #{u.userid}
+		</where>
+	</update>
+	<select id="queryXtNews" resultType="com.accp.pojo.News">
+		SELECT * FROM `news`
+		WHERE `addRessee`=#{userid} and `newsType`=#{newsType}
+		<if test="newsType==2">
+			GROUP BY `messageGroup`
+		</if>
+	</select>
+	<update id="updateXtNews">
+		UPDATE `news`
+		SET `readState` =TRUE
+		WHERE `newsID`=#{newsID}
+	</update>
+</mapper>

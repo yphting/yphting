@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.dao.zsp.GoldnotesDao">
+	<!-- 查询金币流行 -->
+	<select id="goldnotesQueryAll" resultType="Goldnotes">
+		SELECT * FROM
+		GoldnoTes WHERE userId=#{userId}
+		ORDER BY `recordDate` DESC
+	</select>
+	<!-- 查询积分流行 -->
+	<select id="IntegralRecordQueryAll" resultType="integralrecord">
+		SELECT * FROM
+		IntegralRecord WHERE userId=#{userId}
+	</select>
+	<!-- 添加金币提现记录 -->
+	<insert id="addPutforWard">
+		<!-- 添加金币提现表 -->
+		<!-- INSERT INTO putforWard(userID,money,bankName,auditstatus,submitTime) 
+			value(#{putforWard.userid},#{putforWard.money},#{putforWard.bankname},1,#{putforWard.submittime,jdbcType=DATE}); -->
+		INSERT INTO putforWard(`userID`,`putname`,`bankID`,`bankAccount`,
+		`openBankName`,`submitTime`,`auditTime`,`money`,`auditStatus`)VALUES
+		(#{putforWard.userid},#{putforWard.putname},#{putforWard.bankid},#{putforWard.bankaccount},#{putforWard.openbankname},
+		#{putforWard.submittime,jdbcType=DATE},NULL,#{putforWard.money},1);
+
+		<!-- 添加金币提现记录表 -->
+	<!-- 	INSERT INTO
+		putforwardRecord(`userID`,`bankName`,`submitTime`,`completeTime`,`money`,`adminOpinion`)
+		VALUES(#{putforWard.userid},#{putforWard.bankname},#{putforWard.submittime,jdbcType=DATE},NULL,#{putforWard.money},NULL);
+		 -->
+		 INSERT INTO putforwardRecord(userID,`bankAccount`,`bankID`,`submitTime`,`completeTime`,`money`,`adminOpinion`)
+	VALUES(#{putforWard.userid},#{putforWard.bankaccount},#{putforWard.bankid},#{putforWard.submittime,jdbcType=DATE},NULL,#{putforWard.money},NULL);
+	
+		 <!-- 记录金币流向记录 -->
+		INSERT INTO
+		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
+		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=DATE},NULL,-#{putforWard.money},1)
+	</insert>
+	<!-- 添加金币流向记录表 -->
+	<insert id="addGoldnotes" useGeneratedKeys="true"
+		keyProperty="recordid" parameterType="com.accp.pojo.Goldnotes">
+		INSERT INTO
+		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
+		VALUES(#{userid},#{recorddate,jdbcType=DATE}
+		,NULL,#{recordinandout},1)<!-- #{goldnotes.recorddate,jdbcType=DATE} -->
+	</insert>
+	<!-- 查询物流记录 -->
+	<select id="getListlogistics" resultType="logistics">
+		SELECT * FROM logistics ORDER BY `orderTime` DESC
+	</select>
+	<!-- 查询商品服务评价记录 -->
+	<select id="getListEvaluationService"
+		resultType="evaluationservice">
+		SELECT * FROM EvaluationService WHERE `userID`=#{evaluationservice.userid}
+		ORDER BY `serviceAppraiseDate` DESC
+	</select>
+	<!-- 查询银行类别 -->
+	<select id="getListBankType" resultType="banktype">
+		SELECT * FROM BankType
+	</select>
+
+<insert id="addLogistics">
+INSERT  INTO `logistics`(`userID`,`orderID`,`title`,`describe`,img1,img2,img3,img4,img5,
+kG,delivery,userPhone,userAddr,collectGoods ,collectGoodsPhone,collectGoodsAddr,orderTime)
+
+values(#{logistics.userid},#{logistics.orderid},#{logistics.title},#{logistics.describe},#{logistics.img1},#{logistics.img2},#{logistics.img3},#{logistics.img4},#{logistics.img5},
+#{logistics.kg},#{logistics.delivery},#{logistics.userphone},#{logistics.useraddr},
+#{logistics.collectgoods},#{logistics.collectgoodsphone},#{logistics.collectgoodsaddr},#{logistics.ordertime,jdbcType=DATE});
+
+</insert>
+<!-- 查询物流详情 -->
+<select id="getLogistics" resultType="Logistics">
+     SELECT * FROM Logistics WHERE LogisticsId=#{id} and userId=#{userId}
+</select>
+<!-- 查询地址表  -->
+<select id="getShAreaById" resultType="sharea">
+    SELECT * FROM ShArea WHERE pId=#{id}
+    
+</select>
+</mapper>
