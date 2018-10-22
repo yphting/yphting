@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,10 +21,7 @@
 						<a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=index">郑石平</a>
 						<span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=logout">退出</a>
             <span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=sms"><img src="./wl-xianq_files/e_i.png" alt=""></a>
-            <script>$('.top_right').addClass('login_right');</script>
-						<!--
-			<a href="javascript:void(0);" class="i_rover"></a>
-			-->
+
 			</div>
 		</div>
 	</div>
@@ -64,7 +62,7 @@
 			<p class="f14 mt10"><span class="c_4">物流服务状态</span><span class="big_font d_ff">待付款</span>			
 			</p>
 			<div class="my_hy_btn wl_btn_yu">
-			<a href="wu_zhif.html" class="btn_jy_a btn_jy_a3">去支付</a>
+			<a th:href="@{/zsp/c/getLogisticsByPrice(id=${logistics.logisticsid})}" class="btn_jy_a btn_jy_a3">去支付</a>
 			</div>															        </div>
         
         <div class="my_booking_cont">
@@ -226,8 +224,6 @@ function chktop(){
 </div>
 <!--联系我们的浮层 end-->
 
-<script src="./wl-xianq_files/jquery.scrollto.js.下载"></script>
-<script src="./wl-xianq_files/common.js.下载"></script>
 
 
 

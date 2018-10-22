@@ -76,6 +76,39 @@ values(#{logistics.userid},#{logistics.orderid},#{logistics.title},#{logistics.d
 <!-- 查询地址表  -->
 <select id="getShAreaById" resultType="sharea">
     SELECT * FROM ShArea WHERE pId=#{id}
-    
 </select>
+<select id="getUser" resultType="user">
+     SELECT * FROM `user`WHERE userId=#{userId};
+</select>
+<update id="updUser">
+     UPDATE `user` SET userMoney=#{moEry} WHERE userId={userId};
+</update>
+<select id="getGoldnotesById" resultType="logistics">
+SELECT * FROM `goldnoTes` WHERE recordId=#{recordId};
+</select>
+<update id="updGoldnotes">
+      UPDATE goldnoTes SET auditStatus=#{auditStatus} WHERE recordId=#{recordId}
+</update>
+<!-- 查询 当前用户收藏的商家 -->
+<select id="getMerchantCollectionById" resultMap="billMap">
+       SELECT u.userName,u.shopName, u.signature,u.shopImg,
+       s.serviceCoverImg,s.serviceFuTitle,s.servicePrice 
+        FROM services s LEFT JOIN  `user` u ON s.userid=u.userid  
+WHERE u.userid=#{userId}
+</select>
+<select id="getServicesByUserId" resultType="services">
+    SELECT * FROM `services` WHERE serviceId IN
+    (SELECT serviceId FROM  ServiceCollection WHERE userId=#{userId})
+</select>
+<resultMap id="billMap" type="com.accp.vo.zsp.userVo">
+		<id column="userName" property="userName"></id>
+		<result column="shopName" property="shopName"></result>
+		<result column="signature" property="signature"></result>
+		<result column="shopImg" property="shopImg"></result>
+		<collection property="servicesVo" ofType="ServicesVo">
+			<result column="serviceCoverImg" property="serviceCoverImg"></result>
+			<result column="serviceFuTitle" property="serviceFuTitle"></result>
+			<result column="servicePrice" property="servicePrice"></result>	
+		</collection>
+	</resultMap>
 </mapper>

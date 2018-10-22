@@ -23,10 +23,14 @@ import com.accp.pojo.Evaluationservice;
 import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
+import com.accp.pojo.Merchantcollection;
 import com.accp.pojo.Putforward;
+import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
+import com.accp.vo.zsp.ServicesVo;
+import com.accp.vo.zsp.userVo;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -50,9 +54,17 @@ public class GoldnotesAction {
 			p = 1;
 		if (s == null)
 			s = 6;
-		Integer userId = ((User)session.getAttribute("USER")).getUserid();
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}		
 		PageInfo<Goldnotes> pageInfo = biz.goldnotesQueryAll(p, s, userId);
+		User users = biz.getUser(userId);
 		model.addAttribute("PAGE_INFO", pageInfo);
+		model.addAttribute("USER", users);
 		return "grzx-moneys";
 	}
 
@@ -69,9 +81,17 @@ public class GoldnotesAction {
 	public String IntegralRecordQueryAll(Model model, HttpSession session, Integer p, Integer s) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		Integer userId = 1;
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
+		User users=biz.getUser(userId);
 		PageInfo<Integralrecord> pageInfo = biz.IntegralRecordQueryAll(p, s, userId);
 		model.addAttribute("PAGE_INFO", pageInfo);
+		model.addAttribute("USER",users);
 		return "grzx-points";
 	}
 
@@ -85,10 +105,16 @@ public class GoldnotesAction {
 	 */
 	@PostMapping("addPutforWard")
 	public String addGoldnotes(Model model, HttpSession session, Putforward putforward) {
-
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
 		putforward.setSubmittime(new Date());
+		putforward.setUserid(userId);
 		biz.addPutforWard(putforward);
-		System.out.println("322");
 		return "redirect:/zsp/c/goldnotesQueryAll";
 	}
 /**
@@ -100,10 +126,14 @@ public class GoldnotesAction {
  */
 	@PostMapping("addGoldnotes")
 	public String addGoldnotes(Model model, HttpSession session, Goldnotes goldnotes) {
-        Date date=new Date();
-        
-        System.out.println("时间  "+date);
-		goldnotes.setUserid(((User)session.getAttribute("USER")).getUserid());
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
+		goldnotes.setUserid(userId);
 		goldnotes.setRecorddate(new Date());
 		biz.addGoldnotes(goldnotes);
 		return "redirect:/zsp/c/goldnotesQueryAll";
@@ -122,7 +152,14 @@ public class GoldnotesAction {
 	public String getListLogistics(Model model, HttpSession session,Integer p, Integer s,Logistics logistics) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		logistics.setUserid(((User)session.getAttribute("USER")).getUserid());
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
+		logistics.setUserid(userId);
 		PageInfo<Logistics> pageInfo=biz.getListLogistics(p, s, logistics);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "grzx-logistics";
@@ -140,7 +177,14 @@ public class GoldnotesAction {
 	public String getListEvaluationService(Model model, HttpSession session,Integer p, Integer s,Evaluationservice evaluationService) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		evaluationService.setUserid(((User)session.getAttribute("USER")).getUserid());		
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
+		evaluationService.setUserid(userId);
 		PageInfo<Evaluationservice> pageInfo =biz.getListEvaluationService(p, s, evaluationService);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "grzx-comments";
@@ -152,21 +196,29 @@ public class GoldnotesAction {
 	 * @return
 	 */
 	@GetMapping("getListBankType")
-    public String getListBankType(Model model, HttpSession session) {
-    	List<Banktype>list=biz.getListBankType();
-    	model.addAttribute("List",list);
-    	return "jinb-tixt";
-    }
+	public String getListBankType(Model model, HttpSession session) {
+		Integer userId=null;
+		User users = (User) session.getAttribute("User");
+		if (users == null) {
+			userId=1;
+		} else {
+			userId=users.getUserid();
+		}
+		User user = biz.getUser(userId);
+		List<Banktype> list = biz.getListBankType();
+		model.addAttribute("List", list);
+		model.addAttribute("USER",user);
+		return "jinb-tixt";
+	}
+
 	/**
-	 * 查询商品收藏表
+	 * 添加物流记录
 	 * @param model
 	 * @param session
+	 * @param logistics
+	 * @param imgFile
 	 * @return
 	 */
-	@GetMapping("getListBanke")
-	public String getListBanke(Model model, HttpSession session) {
-		return "grzx-favs";
-	}
 	@PostMapping("addLogistics")
 	public String addLogistics(Model model, HttpSession session,Logistics logistics,MultipartFile[] imgFile) {
 		try {
@@ -202,11 +254,7 @@ public class GoldnotesAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-//		logistics.setImg1("");
-//		logistics.setImg2("");
-//		logistics.setImg3("");
-//		logistics.setImg4("");
-//		logistics.setImg5("");
+
 		logistics.setOrdertime(new Date());
 		biz.addLogistics(logistics);
 		User user=(User) session.getAttribute("User");
@@ -217,6 +265,13 @@ public class GoldnotesAction {
 		}
 		return "redirect:/zsp/c/getListLogistics";
 	}
+	/**
+	 * 查询物流记录详情
+	 * @param model
+	 * @param session
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("getLogistics")
 	public String getLogistics(Model model, HttpSession session,Integer id) {
 	    User user=(User) session.getAttribute("user");
@@ -233,6 +288,13 @@ public class GoldnotesAction {
 		model.addAttribute("logistics",logistics);
 		return "wl-xianq";
 	}
+	/**
+	 * 查询物流支付页面
+	 * @param model
+	 * @param session
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("getLogisticsByPrice")
 	public String getLogisticsByPrice(Model model, HttpSession session,Integer id) {
 	    User user=(User) session.getAttribute("user");
@@ -245,19 +307,96 @@ public class GoldnotesAction {
 	    if(id==null) {
 	    	id=1;
 	    }
-		Logistics logistics=biz.getLogistics(userId,id);
-		model.addAttribute("logistics",logistics);
+	    User users=biz.getUser(userId);
+		Logistics logistics = biz.getLogistics(userId, id);
+		model.addAttribute("Logistics",logistics);
+		model.addAttribute("USER",users);
 		return "wu_zhif";
 	}
+	/**
+	 * 查询地址
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("getShAreaById")
-	public String getShAreaById(Model model, HttpSession session) {
+	public String getShAreaById(Model model, HttpSession session) {   
 		List<Sharea>Sharea=biz.getShAreaById(0);
 		model.addAttribute("ShArea",Sharea);
 		return "wu-fwl";
 	}
+	/**
+	 * 查询地址省市
+	 * @param model
+	 * @param session
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("getShAreaBy")
 	@ResponseBody
 	public List<Sharea> getShAreaBy(Model model, HttpSession session,Integer id) {		
 		return biz.getShAreaById(id);
 	}
+	/**
+	 * 金币充值
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("getLogisticsById")
+    public String getLogisticsById(Model model, HttpSession session) {
+    	Integer userId=null;
+		User users = (User) session.getAttribute("User");
+		if (users == null) {
+			userId=1;
+		} else {
+			userId=users.getUserid();
+		}
+		User user = biz.getUser(userId);
+		model.addAttribute("USER",user);
+    	return "jinb-index";
+    }
+	/**
+	 * 查询商品收藏
+	 * 
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("getMerchantCollectionById")
+	public String getMerchantCollectionById(Model model, HttpSession session,Integer p, Integer s) {
+		if (p == null)p = 1;
+		if (s == null)s = 6;
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
+		PageInfo<userVo>pageInfo= biz.getMerchantCollectionById(p, s, userId);
+		model.addAttribute("PAGE_INFO",pageInfo);
+		return "sc-sj";
+	}
+	/**
+	 * 查询商家收藏记录
+	 * @param model
+	 * @param session
+	 * @return 返回商家收藏页面 sc-sj。html
+	 */
+	@GetMapping("getServicesByUserId")
+    public String getServicesByUserId(Model model, HttpSession session,Integer p, Integer s) {
+		if (p == null)p = 1;
+		if (s == null)s = 6;
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
+		PageInfo<Services>pageInfo= biz.getServicesByUserId(p, s, userId);
+		model.addAttribute("PAGE_INFO",pageInfo);
+		return "grzx-favs";
+    }
 }

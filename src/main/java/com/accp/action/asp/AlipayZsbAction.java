@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.accp.action.config.AlipayConfig;
 import com.accp.biz.zsp.GoldnotesBiz;
 import com.accp.pojo.Goldnotes;
+import com.accp.pojo.User;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -33,6 +35,7 @@ public class AlipayZsbAction {// response
 	 * 
 	 * @param request
 	 * @param response
+	 * 
 	 * @throws AlipayApiException
 	 * @throws IOException
 	 */
@@ -164,12 +167,21 @@ public class AlipayZsbAction {// response
 		return "return_url";
 	}*/
 	@RequestMapping("viewOrder")
-	public void viewOrder(HttpServletRequest req, Model mod, HttpServletResponse rep,Goldnotes goldnotes) throws AlipayApiException, IOException {
+	public void viewOrder(HttpSession session,HttpServletRequest req, Model mod, HttpServletResponse rep,Goldnotes goldnotes) throws AlipayApiException, IOException {
+		User user=(User)session.getAttribute("USER");
+		Integer userId=null;
+		if(user==null) {
+			userId = 1;
+		}else {
+			userId=user.getUserid();
+		}
 		//获得初始化的AlipayClient
-		goldnotes.setUserid(1);
+		goldnotes.setUserid(userId);
 		goldnotes.setRecorddate(new Date());
 		AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 		biz.addGoldnotes(goldnotes);
+		User users=new User();
+		
 //		//设置请求参数
 		AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
 		alipayRequest.setReturnUrl(AlipayConfig.return_url);
@@ -231,6 +243,7 @@ public class AlipayZsbAction {// response
 			request.setAttribute("out_trade_no", out_trade_no);
 			request.setAttribute("trade_no", trade_no);
 			request.setAttribute("total_amount", total_amount);
+
 		}else {
 			request.setAttribute("reason", "验签失败");
 		}
@@ -238,7 +251,7 @@ public class AlipayZsbAction {// response
 		return "return_url";
 	}
 	@RequestMapping("notify_url")
-	public String notifyUrl(HttpServletRequest request, HttpServletResponse response)
+	public String notifyUrl(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws AlipayApiException, UnsupportedEncodingException {
 		//获取支付宝POST过来反馈信息
 		Map<String,String> params = new HashMap<String,String>();
@@ -266,7 +279,10 @@ public class AlipayZsbAction {// response
 		
 			//交易状态
 /*			String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
-*/			String total_amount = "322";
+*/			
+			
+			
+			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 			request.setAttribute("out_trade_no", out_trade_no);
 			request.setAttribute("trade_no", trade_no);
 			request.setAttribute("total_amount", total_amount);

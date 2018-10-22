@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -112,7 +113,7 @@
 						<option>请选择</option><option th:each="temp,iterState:${ShArea}" th:value="${temp.areaid}">[[${temp.name}]]</option>					</select>
 					<select class="sel_f sel_f2 sel_b2" name="areaid2" id="areaid2">
 						<option id="areaid2_option">请选择</option>
-						</select>
+					</select>
 					<select class="sel_f sel_f2 sel_b2 validate[required]" id="areaid3" name="areaid3">
 						<option value="3">请选择</option>
 					</select>
@@ -134,11 +135,11 @@
 			<dl class="info_form_dl">
 				<dt>国内收货信息</dt>
 				<dd class="c_4 f14">
-					<select class="sel_f sel_f2 sel_b2" name="shareaid1 zid">
+					<select class="sel_f sel_f2 sel_b2" name="shareaid1">
 						<option>请选择</option><option th:each="temp,iterState:${ShArea}" th:value="${temp.areaid}">[[${temp.name}]]</option>					</select>
-					<select class="sel_f sel_f2 sel_b2" name="shareaid2" id="shareaid2" onChange="setarea(this.value,'shareaid3')">
+					<select class="sel_f sel_f2 sel_b2" name="shareaid2" id="shareaid2">
 						<option >请选择</option>
-						</select>
+					</select>
 					<select class="sel_f sel_f2 sel_b2 validate[required]" id="shareaid3" name="shareaid3">
 						<option value="d">请选择</option>
 					</select>
@@ -235,7 +236,6 @@
 		     			    	  return false;
 		            		  }
 			      
-	            		 /*   */
 		            	  } 	
 		            	  $("[name='kg']").on('input propertychange',function(){
 		            		   var kg=$("[name='kg']").val();
@@ -249,26 +249,71 @@
 			            			  return false;
 			            		  }
 		            	  });
-		            	  
+		            	  //发货人地址 
 		            	  $("[name='userAddr']").change(function(){
 		            		 var id= $("[name='userAddr']").find("option:selected").val();
-		            		  $.ajax("/zsp/c/getShAreaBy?id="+id,{
+		            		 $("#areaid2").html("");
+		            		 $.ajax("/zsp/c/getShAreaBy?id="+id,{
 		            				type:"get",
 		            				dataType:"json",
 		            				timeout:5000,
 		            				success:function(data){
-		            				//	alert(0);
-		            				//	alert(data);
 		            				   $.each(data,function(i,obj){
-		            					 //  alert(obj.name);
-		            					   
-		            					   //$("[#shareaid2]")
-		            					   //$("[#shareaid2").append("<option>4434</option>");
- 		            					 //  $("#shareaid2").append("<option value="+obj.areaid+">"+obj.name+"</option>");
- 	            				    }); 
+		            					  var opt=$("<option></option>").val(obj.areaid).text(obj.name);
+		            					  $("#areaid2").append(opt);
+		            				   }); 
 		            			    }
 		            			});
 		            	  });
+		            	   $("[name='areaid2']").change(function(){
+			            		 var id= $("[name='areaid2']").find("option:selected").val();
+			            		 $("#areaid3").html("");
+			            		 $.ajax("/zsp/c/getShAreaBy?id="+id,{
+			            				type:"get",
+			            				dataType:"json",
+			            				timeout:5000,
+			            				success:function(data){
+			            				   $.each(data,function(i,obj){
+			            					   var opt=$("<option></option>").val(obj.areaid).text(obj.name);
+				            					  $("#areaid3").append(opt);
+			            				   }); 
+			            			    }
+			            			});
+			            	  });
+		            	  //收货人地址 
+		            	  $("[name='shareaid1']").change(function(){
+			            		 var id= $("[name='shareaid1']").find("option:selected").val();
+			            		  $("[name='shareaid2']").html("");
+			            		  $.ajax("/zsp/c/getShAreaBy?id="+id,{
+			            				type:"get",
+			            				dataType:"json",
+			            				timeout:5000,
+			            				success:function(data){
+			            				   $.each(data,function(i,obj){
+			            					   var opt=$("<option></option>").val(obj.areaid).text(obj.name);
+				            					  $("[name='shareaid2']").append(opt);
+			            				
+			            				   }); 
+			            			    }
+			            			}); 
+			            	  });
+		            	  	  $("[name='shareaid2']").change(function(){
+			            		 var id= $("[name='shareaid2']").find("option:selected").val();
+			            		 $("[name='shareaid3']").html("");
+			            		alert(id);
+			            		   $.ajax("/zsp/c/getShAreaBy?id="+id,{
+			            				type:"get",
+			            				dataType:"json",
+			            				timeout:5000,
+			            				success:function(data){
+			            				   $.each(data,function(i,obj){
+			            					   var opt=$("<option></option>").val(obj.areaid).text(obj.name);
+				            					  $("[name='shareaid3']").append(opt);
+			            				
+			            				   }); 
+			            			    }
+			            			}); 
+			            	  }); 
 				</script>
 	</div>
 </div>

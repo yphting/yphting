@@ -10,7 +10,11 @@ import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
 import com.accp.pojo.Putforward;
+import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
+import com.accp.pojo.User;
+import com.accp.vo.zsp.ServicesVo;
+import com.accp.vo.zsp.userVo;
 
 
 public interface GoldnotesDao {
@@ -73,4 +77,39 @@ public interface GoldnotesDao {
      * @return
      */
     public List<Sharea> getShAreaById(@Param("id")Integer id);
+    /**
+     * 查询用户余额
+     * @param userId
+     * @return
+     */
+    public User getUser (@Param("userId")Integer userId);
+    /**
+     * 修改用户金币余额
+     * @param user
+     * @return
+     */
+    public int updUser(@Param("moery")Integer moery ,@Param("userId")Integer userId);
+    /**
+     *查询充值记录是否存在
+     * @param logisticsId
+     * @return
+     */
+    public Goldnotes getGoldnotesById(@Param("recordId")Integer recordId);
+    /**
+     * 修改充值记录状态
+     * @return
+     */
+     public int updGoldnotes(@Param("recordId")Integer recordId,@Param("auditStatus")Integer auditStatus);
+     /**
+      * 查询当前用户收藏的商家
+      * @param userId
+      * @return
+      */
+     public List<userVo>getMerchantCollectionById(@Param("userId")Integer userId);
+     /**
+      * 查询当前用户收藏的服务
+      * @param userId
+      * @return
+      */
+     public List<Services>getServicesByUserId(@Param("userId")Integer userId);
 }

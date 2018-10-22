@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <title>我的金币_韩汀社区</title>
-	<link href="/Public/css/common.css" rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css"
+	href="/Public/css/common.css" />
 </head>
 <iframe name="topost" id="topost" style="display: none;"></iframe>
 
@@ -18,16 +21,16 @@
 				<div class="top_nav">
 					<a href="/index.php/">首页</a><span class="ht_line"></span><a
 						href="/index.php/Home/Member/seller.html">商家入驻</a><span
-						class="ht_line"></span><a href="/index.php/Home/About/help.html">帮助中心</a><span
-						class="ht_line"></span><a href="/index.php/Home/About/index.html">关于韩汀</a><span
+						class="ht_line"></span><a href="">帮助中心</a><span
+						class="ht_line"></span><a href="">关于韩汀</a><span
 						class="ht_line"></span><a
-						href="/index.php/Home/About/contact.html">联系我们</a>
+						href="">联系我们</a>
 				</div>
 
 				<div class="top_right">
 					<a href="index.html">郑石平</a> <span class="ht_line"></span><a
 						href="/index.php/Home/Member/logout.html">退出</a> <span
-						class="ht_line"></span><a href="/index.php/Home/Member/sms.html"><img
+						class="ht_line"></span><a href=""><img
 						src="/Public/images/e_i.png" alt="" /></a>
 
 
@@ -36,7 +39,7 @@
 		</div>
 
 		<div class="b_box nav_header community_header">
-			<a class="logo my_logo" href="/index.php/Home/Index/index.html">御品韩汀</a>
+			<a class="logo my_logo" href="">御品韩汀</a>
 			<ul class="member_nav_ul">
 				<li class="cur" id="li2"><a href="">个人中心</a><span
 					class="my_nav_i"></span></li>
@@ -60,14 +63,14 @@
 			<div class="member_left">
 				<h1 class="member_left_title">个人中心</h1>
 				<ul class="member_system_ul">
-					<li><a href="grzx-order.html"><span class="msp2 pre_c1"></span>我预订的服务</a>
+					<li><a href=""><span class="msp2 pre_c1"></span>我预订的服务</a>
 					</li>
-					<li><a href="grzx-downloads.html"><span
+					<li><a href=""><span
 							class="msp2 pre_c2"></span>我的下载</a></li>
 					<li><a href=""><span class="msp2 community_sp csp7"></span>我的帖子</a>
 					</li>
 
-					<li><a href="grzx-favs.html"><span class="msp2 pre_c3"></span>我的收藏</a>
+					<li><a href=""><span class="msp2 pre_c3"></span>我的收藏</a>
 					</li>
 					<li><a href="/zsp/c/goldnotesQueryAll"><span class="msp2 pre_c4"></span>我的金币</a>
 					</li>
@@ -88,12 +91,12 @@
 			<div class="member_right site_msg_w">
 				<div class="member_system_r_top top_nor2">
 					<div class="search_right_box my_t_r">
-						<a href="/jinb-index.html" class="btna_s3">充值</a><a
+						<a href="/zsp/c/getLogisticsById" class="btna_s3">充值</a><a
 							href="/zsp/c/getListBankType" class="btna_s3">提现</a>
 					</div>
 					<span class="fl">我的金币</span>
 					<ul class="fl pre_uul">
-						<li><span class="prus psi2">金币余额</span><span class="tsfont">5000.00</span></li>
+						<li><span class="prus psi2">金币余额</span><span class="tsfont">[[${USER.usermoney}]]</span></li>
 					</ul>
 				</div>
 				<div class="my_money_w">
@@ -111,7 +114,9 @@
 								class="btna_s2 f14">什么是金币？</a>
 						</div>
 					</div>
-			
+					<script>
+						$('.li0').addClass('cur');
+					</script>
 					<table class="point_table" cellpadding="0" cellspacing="0">
 						<thead>
 							<tr style="background-color: #EFEFEF">
@@ -294,8 +299,6 @@
 		</div>
 	</div>
 	<!--联系我们的浮层 end-->
-
-
-
+	<script src="/Public/js/jquery.scrollto.js"></script>
 </body>
 </html>

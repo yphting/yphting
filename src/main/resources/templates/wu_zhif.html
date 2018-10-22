@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- saved from url=(0157)http://www.yphting.com/index.php?m=Home&c=Payment&a=pay&id=40&t=2&continue=aHR0cDovL3d3dy55cGh0aW5nLmNvbS9pbmRleC5waHA%2AbT1Ib21lJmM9TWVtYmVyJmE9bG9naXN0aWNz -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -5,15 +6,12 @@
 
     
 <title>韩汀社区</title>
-<link rel="shortcut icon" href="../../Public/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/Public/images/favicon.ico" type="image/x-icon">
 
- <link href="../../Public/css/owl.carousel.css" rel="stylesheet">
+ <link href="/Public/css/owl.carousel.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css"
-	href="../../Public/css/common.css" /><script src="./wu_zhif_files/jquery-1.8.3.min.js.下载"></script>
-<!-- <script src="./wu_zhif_files/layer.js.下载"></script><link rel="stylesheet" href="./wu_zhif_files/layer.css" id="layui_layer_skinlayercss" style="">
-<script>
-_weburl = 'http://www.yphting.com';
-</script>-->
+	href="/Public/css/common.css" /><script src="./wu_zhif_files/jquery-1.8.3.min.js.下载"></script>
+
 <body><iframe name="topost" id="topost" style="display:none;" src="./wu_zhif_files/saved_resource.html"></iframe>
 
 
@@ -27,7 +25,6 @@ _weburl = 'http://www.yphting.com';
 						<a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=index">郑石平</a>
 						<span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=logout">退出</a>
             <span class="ht_line"></span><a href="http://www.yphting.com/index.php?m=Home&amp;c=Member&amp;a=sms"><img src="./wu_zhif_files/e_i.png" alt=""></a>
-            <script>$('.top_right').addClass('login_right');</script>
 			</div>
 		</div>
 	</div>
@@ -44,12 +41,12 @@ _weburl = 'http://www.yphting.com';
 	<div class="b_box">
         <h3 class="yd_sev_h3 nopl">支付信息</h3>
         <div class="fa_zf_part">
-        	<div class="fa_zf_r">需要支付<span class="jy_num">3232</span></div>
-            现金币余额<span class="jy_num now_num" >0</span>
+        	<div class="fa_zf_r">需要支付<span class="jy_num">[[${Logistics.price}]]</span></div>
+            现金币余额<span class="jy_num now_num" >[[${USER.usermoney}]]</span>
         </div>
         
         <div class="fa_xz">
-			<div class="fa_zf_r t_c"><a href="/jinb-index.html" class="btn_jy_a f22">充值</a><br>
+			<div class="fa_zf_r t_c"><a href="/zsp/c/getLogisticsById" class="btn_jy_a f22">充值</a><br>
 			<span class="f14 c_4">您的余额不足</span></div>
 			        </div>
 	</div>
@@ -154,7 +151,6 @@ _weburl = 'http://www.yphting.com';
 	<div class="payment_suc_text" style="height:auto;">谢谢您提交物流申请，我们会尽快处理您的物流申请。</div>
 </div>
 <!--站内信 弹框 end-->
-s
 
 
 </body></html>

@@ -15,7 +15,11 @@ import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
 import com.accp.pojo.Putforward;
+import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
+import com.accp.pojo.User;
+import com.accp.vo.zsp.ServicesVo;
+import com.accp.vo.zsp.userVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -61,6 +65,7 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
+    	
     	dao.addGoldnotes(goldnotes);
 	}
     /**
@@ -110,5 +115,37 @@ public class GoldnotesBiz {
   }
   public List<Sharea>getShAreaById(Integer id) {
 	  return dao.getShAreaById(id);
+  }
+  /**
+   * 查询用户余额
+   * @param userId
+   * @return
+   */
+  public User getUser(Integer userId) {
+	  return dao.getUser(userId);
+  }
+  /**
+   * 修改金币记录状态
+   * @param recordId
+   * @param auditStatus
+   */
+  public void updGoldnotes(Integer recordId,Integer auditStatus) {
+	  dao.updGoldnotes(recordId, auditStatus);
+  }
+  /**
+   * 查询当前金币记录是否存在
+   * @param recordId
+   * @return
+   */
+  public Goldnotes getGoldnotesById(Integer recordId) {
+	  return dao.getGoldnotesById(recordId);
+  }
+  public PageInfo<Services>getServicesByUserId(Integer pageNum,Integer pageSize,Integer userId){
+	  PageHelper.startPage(pageNum, pageSize);
+	  return new PageInfo<Services>(dao.getServicesByUserId(userId));
+  }
+  public PageInfo<userVo>getMerchantCollectionById(Integer pageNum,Integer pageSize,Integer userId){
+	  PageHelper.startPage(pageNum, pageSize);
+	  return new PageInfo<userVo>(dao.getMerchantCollectionById(userId));
   }
 }
