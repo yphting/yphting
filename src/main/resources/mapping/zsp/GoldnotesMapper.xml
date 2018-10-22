@@ -105,7 +105,7 @@ WHERE u.userid=#{userId}
 		<result column="shopName" property="shopName"></result>
 		<result column="signature" property="signature"></result>
 		<result column="shopImg" property="shopImg"></result>
-		<collection property="servicesVo" ofType="ServicesVo">
+		<collection property="servicesVo" ofType="com.accp.vo.zsp.ServicesVo">
 			<result column="serviceCoverImg" property="serviceCoverImg"></result>
 			<result column="serviceFuTitle" property="serviceFuTitle"></result>
 			<result column="servicePrice" property="servicePrice"></result>	
