@@ -8,6 +8,7 @@ import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
 import com.accp.pojo.Resouroe;
+import com.accp.pojo.Servicecollection;
 import com.accp.pojo.Servicedes;
 import com.accp.pojo.Servicelevel;
 import com.accp.pojo.Services;
@@ -110,6 +111,12 @@ public interface MerchantEnterAndServiceDao {
 	 */
 	public List<Complainttype> queryComplainttype();
 	/**
+	 * 进入服务详情添加浏览数
+	 * @param sid
+	 * @return
+	 */
+	public int updateServiceBrowseNumber(@Param("sid")Integer sid);
+	/**
 	 * 举报商家
 	 * @param obj
 	 * @return
@@ -126,4 +133,25 @@ public interface MerchantEnterAndServiceDao {
 	 * @return
 	 */
 	public int submitReserve(@Param("obj")SerReserveVO obj);
+	/**
+	 * 验证用户是否已经收藏过该商品
+	 * @param uid
+	 * @param sid
+	 * @return
+	 */
+	public Servicecollection queryUserSerCollectionCheck(@Param("uid")Integer uid,@Param("sid")Integer sid);
+	/**
+	 * 取消收藏
+	 * @param uid	用户编号
+	 * @param sid	服务编号
+	 * @return
+	 */
+	public int deleteSerCollection(@Param("uid")Integer uid,@Param("sid")Integer sid);
+	/**
+	 * 添加收藏
+	 * @param uid	用户编号
+	 * @param sid	服务编号
+	 * @return
+	 */
+	public int saveSerCollection(@Param("uid")Integer uid,@Param("sid")Integer sid);
 }

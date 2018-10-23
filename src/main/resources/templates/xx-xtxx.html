@@ -86,10 +86,10 @@
 					<h1 class="member_left_title">消息</h1>
 					<ul class="member_system_ul">
 						<li class="cur">
-							<a href=""><span class="msp mss1"></span>系统消息(<span class="sms_sp_n" name="xtxx">0</span>)</a>
+							<a href="xx-xtxx.html"><span class="msp mss1"></span>系统消息(<span class="sms_sp_n" name="xtxx">0</span>)</a>
 						</li>
 						<li>
-							<a href=""><span class="msp mss2"></span>站内信(<span class="sms_sp_n">0</span>)</a>
+							<a href="xx-znx.html"><span class="msp mss2"></span>站内信(<span class="sms_sp_n" name="znx">0</span>)</a>
 						</li>
 					</ul>
 				</div>
@@ -120,14 +120,14 @@
 						<div class="page_w">
 							<div class="page">
 								<div class="nav">
-									<a class="page_prev prevdisabled" href="">上一页</a>
+									<a class="page_prev prevdisabled" href="javascript:void(0)" name="prePage">上一页</a>
 									<span class="cur">1</span>
-									<a class="page_next" href="">下一页</a>
+									<a class="page_next" href="javascript:void(0)" name="nextPage">下一页</a>
 								</div>
 							</div>
 							<div class="sys_btn">
 								<a href="javascript:void(0)" class="smszt" name="yidu">置为已读</a>
-								<a href="" class="smsdel">删除</a>
+								<a href="javascript:void(0)" class="smsdel" name="delete">删除</a>
 							</div>
 						</div>
 						<!--page end-->
@@ -184,6 +184,7 @@
 		<!--right nav end-->
 
 	</body>
+<script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript">
 var newsType=1;
 var pageNum=1;
@@ -203,19 +204,59 @@ var pageSize=8;
 				$(".member_s_list_ul").append(li);
 			})
 			$("[name=xtxx]").html(num);
+			$("[name=prePage]").attr("id",data.prePage);
+			$("[name=nextPage]").attr("id",data.nextPage);
 		})
-		
 	}
+	$("[name=prePage]").click(function(){
+		pageNum=$(this).attr("id");
+		if(pageNum==0){
+			return;
+		}
+		queryXX();
+	})
+	$("[name=nextPage]").click(function(){
+		pageNum=$(this).attr("id");
+		if(pageNum==0){
+			return;
+		}
+		queryXX();
+	})
 	queryXX();
 	$("[name=yidu]").click(function(){
 		var newsid="";
 		$.each($("[name=xtxxlist]"),function(i,obj){
 			if($(obj).attr("checked")=="checked"){
-				newsid=$(obj).attr("id")+",";
+				newsid=newsid+","+$(obj).attr("id");
 			}
 		})
+		if(newsid==""){
+			alert("请选择信息");
+			return;
+		}
 		$.post("/c/szy/user/updateXtNews",{"newsID":newsid},function(data){
 			if(data.code="200"){
+				queryXX();
+			}
+		})
+	})
+	$("[name=delete]").click(function(){
+		var newsid="";
+		$.each($("[name=xtxxlist]"),function(i,obj){
+			if($(obj).attr("checked")=="checked"){
+				newsid=newsid+","+$(obj).attr("id");
+			}
+		})
+		if(newsid==""){
+			alert("请选择信息");
+			return;
+		}
+		if(confirm("确认删除吗？")==false){
+			return;
+		}
+		$.post("/c/szy/user/deleteNews",{"newsID":newsid},function(data){
+			if(data.code="200"){
+				alert("删除成功");
 				queryXX();
 			}
 		})

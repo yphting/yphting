@@ -142,13 +142,51 @@
 	<select id="queryXtNews" resultType="com.accp.pojo.News">
 		SELECT * FROM `news`
 		WHERE `addRessee`=#{userid} and `newsType`=#{newsType}
-		<if test="newsType==2">
-			GROUP BY `messageGroup`
-		</if>
+		ORDER BY `sendingTime` DESC
 	</select>
 	<update id="updateXtNews">
 		UPDATE `news`
 		SET `readState` =TRUE
 		WHERE `newsID`=#{newsID}
 	</update>
+	<delete id="deleteNews">
+		DELETE FROM `news`
+		WHERE `newsID`=#{newsID}
+	</delete>
+	<select id="queryZnxNews" resultMap="queryNews">
+		SELECT * FROM `news`
+		WHERE `addRessee`=#{userid} and `newsType`=2
+		GROUP BY `messageGroup`
+		ORDER BY `sendingTime` DESC
+	</select>
+	<resultMap type="com.accp.vo.szy.NewsVo" id="queryNews">
+		<id column="newsid" property="newsid"/>
+		<result column="thesender" property="thesender"/>
+		<result column="addressee" property="addressee"/>
+		<result column="sendingtime" property="sendingtime"/>
+		<result column="readstate" property="readstate"/>
+		<result column="newstype" property="newstype"/>
+		<result column="messagegroup" property="messagegroup"/>		
+		<result column="content" property="content"/>
+		<association property="Sender" column="thesender" select="selectUser"></association>
+		<association property="Ressee" column="addressee" select="selectUser"></association>
+	</resultMap>
+	<select id="selectUser" resultType="com.accp.pojo.User">
+		SELECT * FROM `user`
+		where `userID` = #{0}
+	</select>
+	<update id="updateZnxNews">
+		UPDATE `news`
+		SET `readState` =TRUE
+		WHERE `messageGroup`=#{groupID}
+	</update>
+	<delete id="deleteZnxNews">
+		DELETE FROM `news`
+		WHERE `messageGroup`=#{groupID}
+	</delete>
+	<select id="queryZnxXq" resultMap="queryNews">
+		SELECT * FROM `news`
+		WHERE  `messageGroup` =#{groupID}
+		ORDER BY `sendingTime` 
+	</select>
 </mapper>

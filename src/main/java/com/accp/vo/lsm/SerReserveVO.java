@@ -1,6 +1,8 @@
 package com.accp.vo.lsm;
 
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 预约服务显示和提交
  * @author lsm
@@ -11,9 +13,12 @@ public class SerReserveVO {
 	private Integer userID;	//用户编号
 	private Integer serviceID;	//服务编号 
 	private Integer serviceTypeID;	//一级服务类别编号
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date reserveStartDate;	//预约开始时间：自驾游
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date reserveEndDate;	//预约结束时间：自驾游
-	private Integer reserveDayCount;	//预约天数：自驾游
+	private Integer reserveDayCount;	//预约天数：自驾游	
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date reserveDate;	//预约日期：微整形
 	private Integer personCount;	//人数：自驾游、微整形、留学中介
 	private Integer quantity;	//数量：韩语翻译
