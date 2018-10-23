@@ -15,6 +15,8 @@ public class Services {
 
     private String servicefutitle;
 
+    private String downloadtitle;
+
     private Integer serviceprice;
 
     private String servicecoverimg;
@@ -57,8 +59,6 @@ public class Services {
 
     private Integer servicehour;
 
-    private String uploadtitle;
-    
     private String uploaddataurl;
 
     private Date releasetime;
@@ -119,6 +119,14 @@ public class Services {
 
     public void setServicefutitle(String servicefutitle) {
         this.servicefutitle = servicefutitle == null ? null : servicefutitle.trim();
+    }
+
+    public String getDownloadtitle() {
+        return downloadtitle;
+    }
+
+    public void setDownloadtitle(String downloadtitle) {
+        this.downloadtitle = downloadtitle == null ? null : downloadtitle.trim();
     }
 
     public Integer getServiceprice() {
@@ -344,113 +352,4 @@ public class Services {
     public void setAdminopinion(String adminopinion) {
         this.adminopinion = adminopinion == null ? null : adminopinion.trim();
     }
-    
-    public String getUploadtitle() {
-		return uploadtitle;
-	}
-
-	public void setUploadtitle(String uploadtitle) {
-		this.uploadtitle = uploadtitle;
-	}
-
-	public Services() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Services(Integer serviceid, Integer stid, Integer userid, Integer resourceid, String servicetitle,
-			String servicefutitle, Integer serviceprice, String servicecoverimg, String serviceimgurlone,
-			String serviceimgurltwo, String serviceimgurlthree, String serviceimgurlfour, String servicecosttypeid,
-			String serviceintro, String servicecity, Integer country, String servicecostinclude, Date servicestartdate,
-			Date serviceenddate, String schoolregion, String schoolnamebycn, String majoynamebycn,
-			String schoolnamebyrok, String majoynamebyrok, String goodatmajoy, String hospitalname, Integer servicehour,
-			String uploadtitle, String uploaddataurl, Date releasetime, Integer browsenumber, Float weight,
-			Boolean recommendbool, Integer auditstatus, String adminopinion) {
-		super();
-		this.serviceid = serviceid;
-		this.stid = stid;
-		this.userid = userid;
-		this.resourceid = resourceid;
-		this.servicetitle = servicetitle;
-		this.servicefutitle = servicefutitle;
-		this.serviceprice = serviceprice;
-		this.servicecoverimg = servicecoverimg;
-		this.serviceimgurlone = serviceimgurlone;
-		this.serviceimgurltwo = serviceimgurltwo;
-		this.serviceimgurlthree = serviceimgurlthree;
-		this.serviceimgurlfour = serviceimgurlfour;
-		this.servicecosttypeid = servicecosttypeid;
-		this.serviceintro = serviceintro;
-		this.servicecity = servicecity;
-		this.country = country;
-		this.servicecostinclude = servicecostinclude;
-		this.servicestartdate = servicestartdate;
-		this.serviceenddate = serviceenddate;
-		this.schoolregion = schoolregion;
-		this.schoolnamebycn = schoolnamebycn;
-		this.majoynamebycn = majoynamebycn;
-		this.schoolnamebyrok = schoolnamebyrok;
-		this.majoynamebyrok = majoynamebyrok;
-		this.goodatmajoy = goodatmajoy;
-		this.hospitalname = hospitalname;
-		this.servicehour = servicehour;
-		this.uploadtitle = uploadtitle;
-		this.uploaddataurl = uploaddataurl;
-		this.releasetime = releasetime;
-		this.browsenumber = browsenumber;
-		this.weight = weight;
-		this.recommendbool = recommendbool;
-		this.auditstatus = auditstatus;
-		this.adminopinion = adminopinion;
-	}
-
-	public Services(Integer stid, Integer userid, Integer resourceid, String servicetitle, String servicefutitle,
-			Integer serviceprice, String servicecoverimg, String serviceimgurlone, String serviceimgurltwo,
-			String serviceimgurlthree, String serviceimgurlfour, String servicecosttypeid, String serviceintro,
-			String servicecity, Integer country, String servicecostinclude, Date servicestartdate, Date serviceenddate,
-			String schoolregion, String schoolnamebycn, String majoynamebycn, String schoolnamebyrok,
-			String majoynamebyrok, String goodatmajoy, String hospitalname, Integer servicehour, String uploadtitle,
-			String uploaddataurl, Integer browsenumber, Float weight, Boolean recommendbool, String adminopinion) {
-		super();
-		this.stid = stid;
-		this.userid = userid;
-		this.resourceid = resourceid;
-		this.servicetitle = servicetitle;
-		this.servicefutitle = servicefutitle;
-		this.serviceprice = serviceprice;
-		this.servicecoverimg = servicecoverimg;
-		this.serviceimgurlone = serviceimgurlone;
-		this.serviceimgurltwo = serviceimgurltwo;
-		this.serviceimgurlthree = serviceimgurlthree;
-		this.serviceimgurlfour = serviceimgurlfour;
-		this.servicecosttypeid = servicecosttypeid;
-		this.serviceintro = serviceintro;
-		this.servicecity = servicecity;
-		this.country = country;
-		this.servicecostinclude = servicecostinclude;
-		this.servicestartdate = servicestartdate;
-		this.serviceenddate = serviceenddate;
-		this.schoolregion = schoolregion;
-		this.schoolnamebycn = schoolnamebycn;
-		this.majoynamebycn = majoynamebycn;
-		this.schoolnamebyrok = schoolnamebyrok;
-		this.majoynamebyrok = majoynamebyrok;
-		this.goodatmajoy = goodatmajoy;
-		this.hospitalname = hospitalname;
-		this.servicehour = servicehour;
-		this.uploadtitle = uploadtitle;
-		this.uploaddataurl = uploaddataurl;
-		this.browsenumber = browsenumber;
-		this.weight = weight;
-		this.recommendbool = recommendbool;
-		this.adminopinion = adminopinion;
-	}
-
-	
-
-	
-
-    
-    
-    
-    
 }

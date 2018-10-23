@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.dao.lhy.EvaluateDao;
 import com.accp.dao.lhy.OrderDao;
 import com.accp.dao.lhy.UserDao;
 import com.accp.pojo.User;
+import com.accp.vo.lhy.Evaluate;
 import com.accp.vo.lhy.OrderInfo;
 import com.accp.vo.lhy.Orders;
 import com.github.pagehelper.PageHelper;
@@ -21,6 +23,8 @@ public class OrderBiz {
 	private OrderDao orderDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private EvaluateDao evaluateDao;
 
 	/**
 	 * 分页查询订单列表
@@ -47,7 +51,9 @@ public class OrderBiz {
 	 */
 	public OrderInfo queryOrderInfo(int userid) {
 		int topay = 0, receipt = 0, tbconfirmed = 0, tbevaluated = 0;
-		for (Orders o : orderDao.queryOrderList(new Orders(userid, null, null))) {
+		Orders order = new Orders();
+		order.setUserid(userid);
+		for (Orders o : orderDao.queryOrderList(order)) {
 			switch (o.getOrderstatus()) {
 			case 1:
 				topay++;
@@ -110,9 +116,35 @@ public class OrderBiz {
 		return orderDao.updateOrder(order);
 	}
 
+	/**
+	 * 完成订单
+	 * 
+	 * @param usermoney
+	 *            金额
+	 * @param userid
+	 *            商户编号
+	 * @param order
+	 *            订单
+	 * @return
+	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean ok(int usermoney, int userid, Orders order) {
 		userDao.updateUserMoney(usermoney, userid);
+		return orderDao.updateOrder(order);
+	}
+
+	/**
+	 * 评价订单
+	 * 
+	 * @param evaluate
+	 *            评价
+	 * @param order
+	 *            订单
+	 * @return
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+	public boolean evaluateOk(Evaluate evaluate, Orders order) {
+		evaluateDao.saveEvaluate(evaluate);
 		return orderDao.updateOrder(order);
 	}
 }

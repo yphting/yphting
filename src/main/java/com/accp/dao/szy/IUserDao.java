@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.accp.pojo.News;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
+import com.accp.vo.szy.NewsVo;
 import com.accp.vo.szy.TimeOutEmailDateVo;
 
 public interface IUserDao {
@@ -77,9 +78,39 @@ public interface IUserDao {
 	 */
 	public List<News> queryXtNews(@Param("userid")Integer userID,@Param("newsType")Integer newsType);
 	/**
-	 * 修改已读状态
+	 * 修改系统信息已读状态
 	 * @param newsID
 	 * @return
 	 */
 	public int updateXtNews(@Param("newsID")String newsID);
+	/**
+	 * 删除系统信息
+	 * @param newsID
+	 * @return
+	 */
+	public int deleteNews(@Param("newsID")String newsID);
+	/**
+	 * 查询站内信
+	 * @param userID
+	 * @return
+	 */
+	public List<NewsVo> queryZnxNews(@Param("userid")Integer userID);
+	/**
+	 * 修改站内信已读状态
+	 * @param groupID
+	 * @return
+	 */
+	public int updateZnxNews(@Param("groupID")String groupID);
+	/**
+	 * 删除站内信
+	 * @param newsID
+	 * @return
+	 */
+	public int deleteZnxNews(@Param("groupID")String groupID);
+	/**
+	 * 查询站内信详情
+	 * @param groupID
+	 * @return
+	 */
+	public List<NewsVo> queryZnxXq(@Param("groupID")String groupID);
 }

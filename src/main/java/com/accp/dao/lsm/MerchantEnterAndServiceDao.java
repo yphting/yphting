@@ -11,7 +11,6 @@ import com.accp.pojo.Resouroe;
 import com.accp.pojo.Servicecollection;
 import com.accp.pojo.Servicedes;
 import com.accp.pojo.Servicelevel;
-import com.accp.pojo.Servicereporting;
 import com.accp.pojo.Services;
 import com.accp.pojo.Servicetype;
 import com.accp.pojo.Sharea;
