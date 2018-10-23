@@ -80,10 +80,10 @@
 			<div class="member_left">
 				<h1 class="member_left_title">消息</h1>
 				<ul class="member_system_ul">
-					<li class="cur"><a href="xx-xtxx.html"><span
+					<li ><a href="/xx-xtxx.html"><span
 							class="msp mss1"></span>系统消息(<span class="sms_sp_n" name="xtxx">0</span>)</a>
 					</li>
-					<li><a href="xx-znx.html"><span class="msp mss2"></span>站内信(<span
+					<li class="cur"><a href="/xx-znx.html"><span class="msp mss2"></span>站内信(<span
 							class="sms_sp_n" name="znx">0</span>)</a></li>
 				</ul>
 			</div>
@@ -91,52 +91,34 @@
 			<!--member right-->
 			<div class="member_right site_msg_w">
 				<div class="member_system_r_top and_who">
-					与<span>[[${news[0].Sender.shopname}]]</span>-<span>[[${news[0].Sender.userrealname}]]</span>对话中
+					<span>[[${news[0].Sender.shopname}]]</span>-<span>[[${news[0].Ressee.username}]]</span>对话中
 				</div>
 				
 				<div class="xqData">
-							<div class="date_line">
-					<span class="date_line_time">2018-09-20</span>
-				</div>
-				<ul class="member_s_list_ul mslist_ul2">
+				<div class="date_line"><span class="date_line_time">[[${#dates.format(news[0].sendingtime, 'yyyy-MM-dd')}]]</span></div>			
+				<ul class="member_s_list_ul mslist_ul2" th:each="temp,iter :${news}">
+					 
+						<div th:if="${iter.index!=0}">
+							<div class="date_line" th:if="${#dates.format(news[iter.index-1].sendingtime,'yyyy-MM-dd')<#dates.format(temp.sendingtime,'yyyy-MM-dd')}"><span class="date_line_time">[[${#dates.format(temp.sendingtime, 'yyyy-MM-dd')}]]
+							</span></div>
+						</div>
+					 
 					<li>
 						<p class="bbs_user_photo">
-							<img
-								src="http://thirdqq.qlogo.cn/qqapp/101390132/D81FE8BF55FB9B4D96B7DD6B937E776A/100"
-								alt="梦的N次方-煎饼果子" />
+							<img th:src="${temp.Sender.userimgpath}" alt="梦的N次方-煎饼果子" />
 						</p>
 						<div class="bbs_user_text">
 							<p class="email_con ec2">
-								<span class="date_p fr">11:14</span><a
-									href="/index.php/Home/Homepage/index/sid/303.html">梦的N次方-煎饼果子</a>
+								<span class="date_p fr">[[${#dates.format(temp.sendingtime, 'HH:mm')}]]</span><a
+									href="/index.php/Home/Homepage/index/sid/303.html">[[${temp.Sender.shopname}]]-[[${temp.Sender.username}]]</a>
 							</p>
 							<h3 class="member_s_name">
-								<a href="javascript:void(0);" rel="2744" class="talk_del_a">删除</a>1
+								<a href="javascript:void(0);" rel="2744" class="talk_del_a">删除</a>[[${temp.content}]]
 							</h3>
 						</div>
 					</li>
 				</ul>
-				<div class="date_line">
-					<span class="date_line_time">2018-09-21</span>
-				</div>
-				<ul class="member_s_list_ul mslist_ul2">
-					<li>
-						<p class="bbs_user_photo">
-							<img
-								src="http://thirdqq.qlogo.cn/qqapp/101390132/63711D27D29A9936CEFAD700EA04D123/100"
-								alt="梦的N次方" />
-						</p>
-						<div class="bbs_user_text">
-							<p class="email_con ec2">
-								<span class="date_p fr">16:24</span><a
-									href="/index.php/Home/Homepage/index/sid/304.html">梦的N次方</a>
-							</p>
-							<h3 class="member_s_name">
-								<a href="javascript:void(0);" rel="2802" class="talk_del_a">删除</a>123
-							</h3>
-						</div>
-					</li>
-				</ul>
+			
 				</div>
 		
 				<!--page-->
@@ -144,8 +126,7 @@
 					<div class="page">
 						<div class='nav'>
 							<a class="page_prev prevdisabled" href="javascript:;">上一页</a> <span
-								class="cur">1</span> <a class="page_next nextdisabled"
-								href="javascript:;">下一页</a>
+								class="cur">1</span> <a class="page_next nextdisabled" href="javascript:;">下一页</a>
 						</div>
 					</div>
 				</div>
@@ -154,9 +135,9 @@
 				<div class="send_box">
 					<input type="hidden" id="smsuid" value="303" /> <input
 						type="hidden" id="reid" value="2804" />
-					<textarea class="text_area_2" id="smsmsg"></textarea>
+					<textarea class="text_area_2" id="smsmsg" name="content"></textarea>
 					<div class="member_bt_btm2">
-						<a href="javascript:void(0);" onclick="sendsms()">发送</a>
+						<a href="javascript:void(0);" name="fasong">发送</a>
 					</div>
 				</div>
 			</div>
@@ -209,30 +190,19 @@
 
 </body>
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
+<script type="text/javascript" src="/Public/js/noRead.js"></script>
 <script type="text/javascript" th:inline="javascript">
-	var data =[[${news}]];
-	$(".xqData").html("");
-	$.each(JSON.parse(data),function(i,obj){
-		var time=new Date(obj.sendingtime);
-		var xqtime=time.getHours()+":"+time.getMinutes();
-		//var div=$('<div class="date_line"><span class="date_line_time">'+time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+'</span></div>');
-		//$(".xqData").append(div);
-		var ulData=$('	<ul class="member_s_list_ul mslist_ul2"> '+
-				+'<li>'+
-				+'<p class="bbs_user_photo">'+
-				+'	<img src="'+obj.Sender.userimgpath+'" />'+
-				+'</p>'+
-				+'<div class="bbs_user_text">'+
-				+'<p class="email_con ec2">'+
-				+'	<span class="date_p fr">'+xqtime+'</span><a'+
-				+'		href="javascript:void(0)">'+obj.Sender.shopname+'-'+obj.Sender.userrealname+'</a>'+
-				+'</p>'+
-				+'<h3 class="member_s_name">'+
-				+'	<a href="javascript:void(0);" rel="2744" class="talk_del_a">删除</a>1'+
-				+'</h3>'+
-				+'</div>'+
-				+'</li></ul>');
-		$(".xqData").append(ulData);
+weiduInfo();
+	$("[name=fasong]").click(function(){
+		var content=$("[name=content]").val();
+		if(content==""){
+			alert("请输入发送内容！");
+			return;
+		}
+		var newstype=2;
+		var messagegroup=[[${news[0].messagegroup}]];
+		var thesender=[[${param.thesender}]];
+		location.href="/c/szy/user/saveZnx?content="+content+"&newstype="+newstype+"&messagegroup="+messagegroup+"&thesender="+thesender;
 	})
 </script>
 

@@ -450,4 +450,37 @@ public class UserAction {
 		model.addAttribute("news", biz.queryZnxXq(groupID));
 		return "/xx-znx-xq.html";
 	}
+	/**
+	 * 新增站内信
+	 * @param session
+	 * @param thesender
+	 * @param content
+	 * @param newstype
+	 * @param messagegroup
+	 * @return
+	 */
+	@RequestMapping(value="/user/saveZnx",method=RequestMethod.GET)
+	public String saveZnx(HttpSession session,Integer thesender,String content,Integer newstype,Integer messagegroup) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		News n=new News();
+		n.setThesender(userID);
+		n.setContent(content);
+		n.setNewstype(newstype);
+		n.setMessagegroup(messagegroup);
+		n.setAddressee(thesender);
+		biz.saveZnx(n);
+		return "redirect:/c/szy/user/queryZnxXq?groupID="+messagegroup+"&thesender="+thesender;
+	}
+	
+	/**
+	 * 查询所有信息
+	 * @param userID
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryAllNews",method=RequestMethod.GET)
+	@ResponseBody
+	public List<News> queryAllNews(HttpSession session){
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		return biz.queryAllNews(userID);
+	}
 }

@@ -2,6 +2,7 @@ package com.accp.biz.szy;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -177,5 +178,22 @@ public class UserBiz {
 	 */
 	public List<NewsVo> queryZnxXq(String groupID){
 		return dao.queryZnxXq(groupID);
+	}
+	/**
+	 * 新增站内信
+	 * @param news
+	 * @return
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+	public boolean saveZnx(News news) {
+		return dao.saveZnx(news)>0;
+	}
+	/**
+	 * 查询所有信息
+	 * @param userID
+	 * @return
+	 */
+	public List<News> queryAllNews(Integer userID){
+		return dao.queryAllNews(userID);
 	}
 }
