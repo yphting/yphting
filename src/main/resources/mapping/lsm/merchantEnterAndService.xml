@@ -404,4 +404,25 @@
 		INSERT INTO`servicecollection`(`serviceID`,`userID`,`collectionTime`)
 		VALUES(#{sid},#{uid},NOW())
 	</insert>
+	<!-- 首页社区服务广告位查询 -->
+	<select id="queryHomeAdvertising" resultType="Advertisement">
+		<include refid="selectAll"/>
+		`advertisement`
+		<where>
+			<if test="flag==1">
+				`atid` = 1
+			</if>
+			<if test="flag==2">
+				`atid` IN(4,5,6,7)
+			</if>
+		</where>
+	</select>
+	<!-- 首页社区服务星级服务商家推荐 -->
+	<select id="querySerRecommendVO" resultType="com.accp.vo.lsm.SerRecommendVO">
+		SELECT u.`userID`,u.`userName`,u.`userImgPath`,u.`shopImg`,u.`selfIntroduction`,u.`merchantLevel`
+		FROM `user` AS u
+		WHERE u.`firstServiceID` = #{stid} OR `secondServiceID` = #{stid}
+		ORDER BY `merchantLevel` DESC,`orderCount` DESC
+		LIMIT 9
+	</select>
 </mapper>

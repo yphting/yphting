@@ -113,4 +113,16 @@ public interface IUserDao {
 	 * @return
 	 */
 	public List<NewsVo> queryZnxXq(@Param("groupID")String groupID);
+	/**
+	 * 新增站内信
+	 * @param news
+	 * @return
+	 */
+	public int saveZnx(@Param("news")News news);
+	/**
+	 * 查询所有信息
+	 * @param userID
+	 * @return
+	 */
+	public List<News> queryAllNews(@Param("userid")Integer userID);
 }

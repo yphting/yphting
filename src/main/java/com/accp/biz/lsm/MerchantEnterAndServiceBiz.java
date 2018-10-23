@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.dao.lsm.MerchantEnterAndServiceDao;
+import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
@@ -22,6 +23,7 @@ import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.vo.lsm.EsLevelVO;
 import com.accp.vo.lsm.SameServiceVO;
+import com.accp.vo.lsm.SerRecommendVO;
 import com.accp.vo.lsm.SerReserveVO;
 import com.accp.vo.lsm.ServiceDetailInfo;
 import com.accp.vo.lsm.ServiceMerchantInfo;
@@ -208,5 +210,21 @@ public class MerchantEnterAndServiceBiz {
 	 */
 	public int saveSerCollection(Integer uid,Integer sid) {
 		return dao.saveSerCollection(uid, sid);
+	}
+	/**
+	 * 首页社区服务广告位查询
+	 * @param flag
+	 * @return
+	 */
+	public List<Advertisement> queryHomeAdvertising(Integer flag) {
+		return dao.queryHomeAdvertising(flag);
+	}
+	/**
+	 * 首页社区服务星级服务推荐商家
+	 * @param stid
+	 * @return
+	 */
+	public List<SerRecommendVO> querySerRecommendVO(Integer stid){
+		return dao.querySerRecommendVO(stid);
 	}
 }

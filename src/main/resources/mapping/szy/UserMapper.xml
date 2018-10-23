@@ -189,4 +189,12 @@
 		WHERE  `messageGroup` =#{groupID}
 		ORDER BY `sendingTime` 
 	</select>
+	<insert id="saveZnx">
+		INSERT INTO `news`(`theSender`,`addRessee`,`content`,`newsType`,`messageGroup`)
+		VALUE(#{news.thesender},#{news.addressee},#{news.content},#{news.newstype},#{news.messagegroup})
+	</insert>
+	<select id="queryAllNews" resultType="com.accp.pojo.News">
+		SELECT * FROM `news`
+		WHERE `addRessee`=#{userid} 
+	</select>
 </mapper>
