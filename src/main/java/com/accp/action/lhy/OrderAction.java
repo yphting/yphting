@@ -15,6 +15,7 @@ import com.accp.biz.lhy.UserBiz;
 import com.accp.pojo.User;
 import com.accp.vo.lhy.Evaluate;
 import com.accp.vo.lhy.Orders;
+import com.accp.vo.lhy.Refund;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -185,12 +186,19 @@ public class OrderAction {
 		updateOrder.setOrderid(orderid);
 		updateOrder.setCommentstatus(2);
 		orderBiz.evaluateOk(evaluate, updateOrder);
-		return "redirect:/c/lhy/evaluate/query/list";
+		return "";
 	}
 
 	@RequestMapping("/order/refund")
 	public String refund(@RequestParam(required = true) String orderid, Model model) {
 		model.addAttribute("order", orderBiz.queryOrderById(orderid));
 		return "grzx-order-refund";
+	}
+
+	@RequestMapping("/order/refund/ok")
+	public String refundOk(Refund refund, Model model) {
+		// 新增退款信息，修改订单退款状态
+		
+		return "";
 	}
 }
