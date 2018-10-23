@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>韩语翻译详情_韩汀社区</title>
+		<title>留学中介详情_韩汀社区</title>
 		<link rel="stylesheet" th:href="@{/Public/css/owl.carousel.css}" />
 		<link rel="stylesheet" th:href="@{/Public/css/common.css}" />
 		<style type="text/css">
@@ -33,8 +33,8 @@
 				<ul class="nav_ul">
 					<li><a href="/index.php/Home/Service/driving.html"><span class="community_sp csp1"></span><br>自驾游</a></li>
 					<li><a href="/index.php/Home/Service/plastic.html"><span class="community_sp csp2"></span><br>微整形</a></li>
-					<li><a href="/index.php/Home/Service/agents.html"><span class="community_sp csp3"></span><br>留学中介</a></li>
-					<li class="cur"><a href="/index.php/Home/Service/translate.html"><span class="community_sp csp4"></span><br>韩语翻译</a></li>
+					<li class="cur"><a href="/index.php/Home/Service/agents.html"><span class="community_sp csp3"></span><br>留学中介</a></li>
+					<li><a href="/index.php/Home/Service/translate.html"><span class="community_sp csp4"></span><br>韩语翻译</a></li>
 					<li><a href="/index.php/Home/Service/learning.html"><span class="community_sp csp5"></span><br>学习资源</a></li>
 					<li><a href="/index.php/Home/Service/logistics.html"><span class="community_sp csp6"></span><br>韩汀物流</a></li>
 					<li><a href="/index.php/Home/Bbs/index.html"><span class="community_sp csp7"></span><br>韩汀·论坛 中文</a></li>
@@ -112,8 +112,13 @@
 								</li>																
 							</ul>
 						</div>
-						<div class="business_detail_text_box"></div>
+						<div class="business_detail_text_box" th:text="${serDetailObj.serviceIntro}"></div>
 						<ul class="business_detail_ul_list">
+							<li>
+								<h4 class="business_h4">服务城市</h4>
+								<p class="business_pt">
+								<span>首尔特别市</span><span>釜山广域市</span><span>大邱广域市</span><span>江原道</span>						</p>
+							</li>
 							<li>
 								<h4 class="business_h4">关于我</h4>
 								<p class="business_pt"><span th:if="${serDetailObj.height!=null}" th:text="${serDetailObj.height+'cm'}">170cm</span><span th:if="${serDetailObj.age!=null}" th:text="${serDetailObj.age+'岁'}">19岁</span><span th:if="${serDetailObj.constellation!=null}" th:text="${serDetailObj.constellation}">射手座</span><span th:if="${serDetailObj.profession!=null}" th:text="${serDetailObj.profession}">java开发工程师</span></p>
@@ -123,10 +128,14 @@
 								<p class="business_pt" th:text="${serDetailObj.serviceCostTypeID}">测试资源费用说明</p>
 							</li>
 							<li class="nobr">
-								<h4 class="business_h4">服务介绍</h4>
+								<h4 class="business_h4">服务描述</h4>
 								<dl class="business_servie_dl">
-									<div th:text="${serDetailObj.serviceIntro}">测试资源服务简介</div>
+									<dd th:each="temp,iter : ${serDetailObj.serDesList}">
+										<h3 class="bsdl_h3" th:text="${temp.servicedestitle}">留学中介服务描述标题</h3>
+										<div th:utext="${temp.servicedescontentiourl}">留学中介真是好啊描述内容</div>
+									</dd>						
 								</dl>
+								<div class="down_bt_b"><a href="/index.php/Home/Service/pdf/aid/601.html" class="down_bt_ba" target="_blank"><span class="d_wn_is dwi2"></span>下载描述PDF</a></div>					
 							</li>
 						</ul>
 					</div>
@@ -138,8 +147,7 @@
 						<div class="business_detail_online_box" style="bottom: -394px; height: 344px;">
 							<h2 class="online_h2">在线预约</h2>
 							<div class="online_part">
-								<div class="fr"><span class="num_1" th:text="${serDetailObj.servicePrice}">2</span>
-								/每100字小时/天						</div>
+								<div class="fr"><span class="num_1" th:text="${serDetailObj.servicePrice}">5500</span></div>
 								<p>[[${serDetailObj.serviceFuTitle==null||serDetailObj.serviceFuTitle==''?'无副标题':serDetailObj.serviceFuTitle}]]</p>
 							</div>
 							<div class="online_part">
@@ -147,21 +155,32 @@
 									<dt>费用包含</dt>
 									<dd th:text="${serDetailObj.serviceCostInclude}"></dd>
 								</dl>
-							</div>					
-							<form id="formbook" method="post"  action="/c/lsm/serReserveUrl">
-								<dl class="online_dl">
+							</div>
+							<form id="formbook" method="post" action="/c/lsm/serReserveUrl">
+								<dl class="online_dl online_dl2">
 									<dt class="wall">
-										<p class="c_4 p_tti">需要翻译份数<input type="text" id="num" onchange="count()" name="quantity" class="input_c fynum"></p>
+										<select class="fr sel_online_1" name="personCount" id="personCount">
+											<option value="1">1人</option>
+											<option value="2">2人</option>
+											<option value="3">3人</option>
+											<option value="4">4人</option>
+											<option value="5">5人</option>
+											<option value="6">6人</option>
+											<option value="7">7人</option>
+											<option value="8">8人</option>
+											<option value="9">9人</option>
+										</select>
+										<p class="c_4 p_tti">预定人数</p>
 									</dt>
-								</dl>
-								<div class="clear"></div>
+									<div class="clear"></div>
+								</dl>	
 								<a href="javascript:void(0);" class="online_sq_btn" onclick="reserveCheck()">
 									<span class="st_1">金币合计</span>
 									<span class="st_2">申请预定</span>
-									<span class="st_3" th:text="${serDetailObj.servicePrice}">2</span>
+									<span class="st_3" th:text="${serDetailObj.servicePrice}">5500</span>
 									<span class="st_4"></span>
 								</a>
-								<input type="hidden" name="serviceTypeID" value="4"/>
+								<input type="hidden" name="serviceTypeID" value="3"/>
 								<input type="hidden" name="serviceID" th:value="${serDetailObj.serviceID}"/>
 								<input type="hidden" name="subtotal"/>
 							</form>
@@ -406,6 +425,7 @@
 			var businessID = [[${serMerchantObj.userID}]];	//商家编号
 			var serviceID = [[${serDetailObj.serviceID}]];	//服务编号
 			var stName = [[${serDetailObj.stName}]];//服务类别名称
+			alert(jQuery(".pop_sel_jq li label input[name=reason]:checked").length);
 			if(jQuery(".pop_sel_jq li label input[name=reason]:checked").length==0){
 				alert("请选择举报原因！");
 			}else{
@@ -493,12 +513,9 @@
 			jQuery("[name=subtotal]").val(subtotal);
 			jQuery("#formbook").submit();
 		}
-		//改变值时
-		function count(){
-			var price = [[${serDetailObj.servicePrice}]];
-			var num = jQuery("#num").val();
-			jQuery(".online_sq_btn span:eq(2)").text(price*num);
-		}
+		jQuery("#personCount").change(function(){
+			jQuery("a.online_sq_btn span:eq(2)").text([[${serDetailObj.servicePrice}]]*jQuery("#personCount").val());
+		})
 	</script>
 
 </html>

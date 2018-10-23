@@ -2,6 +2,7 @@ package com.accp.biz.lsm;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -13,6 +14,7 @@ import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
 import com.accp.pojo.Resouroe;
+import com.accp.pojo.Servicecollection;
 import com.accp.pojo.Servicedes;
 import com.accp.pojo.Servicelevel;
 import com.accp.pojo.Services;
@@ -153,6 +155,14 @@ public class MerchantEnterAndServiceBiz {
 		return dao.queryComplainttype();
 	}
 	/**
+	 * 进入服务详情添加浏览数
+	 * @param sid
+	 * @return
+	 */
+	public int updateServiceBrowseNumber(Integer sid) {
+		return dao.updateServiceBrowseNumber(sid);
+	}
+	/**
 	 * 举报商家
 	 * @param obj
 	 * @return
@@ -173,5 +183,32 @@ public class MerchantEnterAndServiceBiz {
 	 */
 	public int submitReserve(SerReserveVO obj) {
 		return dao.submitReserve(obj);
+	}
+	/**
+	 * 验证用户是否已经收藏过该商品
+	 * @param uid
+	 * @param sid
+	 * @return
+	 */
+	public Servicecollection queryUserSerCollectionCheck(Integer uid,Integer sid) {
+		return dao.queryUserSerCollectionCheck(uid, sid);
+	}
+	/**
+	 * 取消收藏
+	 * @param uid	用户编号
+	 * @param sid	服务编号
+	 * @return
+	 */
+	public int deleteSerCollection(Integer uid,Integer sid) {
+		return dao.deleteSerCollection(uid, sid);
+	}
+	/**
+	 * 添加收藏
+	 * @param uid	用户编号
+	 * @param sid	服务编号
+	 * @return
+	 */
+	public int saveSerCollection(Integer uid,Integer sid) {
+		return dao.saveSerCollection(uid, sid);
 	}
 }

@@ -138,7 +138,9 @@ public class MerchantEnterAndServiceAction {
 		List<SameServiceVO> sameserList = biz.querySameServiceVO(sid);
 		//举报原因查询
 		List<Complainttype> complainttypeList = biz.queryComplainttype();
-		//广告查询
+		//更新浏览数
+		biz.updateServiceBrowseNumber(sid);
+		//广告查询：未完成
 		System.out.println(JSON.toJSONString(complainttypeList));
 		model.addAttribute("serMerchantObj",serMerchantObj);
 		model.addAttribute("serDetailObj",serDetailObj);
@@ -264,8 +266,8 @@ public class MerchantEnterAndServiceAction {
 	 */
 	@PostMapping("serReserve")
 	public String submitReserve(HttpSession session,SerReserveVO obj,MultipartFile hyFile) {
-		User loginUser = (User)session.getAttribute("USER");
-		Integer loginUserID = loginUser.getUserid();	//当前登录用户编号
+		//User loginUser = (User)session.getAttribute("USER");
+		//Integer loginUserID = loginUser.getUserid();	//当前登录用户编号
 		//时间戳
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		//订单号
@@ -282,8 +284,33 @@ public class MerchantEnterAndServiceAction {
 			}
 		}
 		obj.setOrderID(orderID);
-		obj.setUserID(loginUserID);
+		obj.setUserID(19);
 		biz.submitReserve(obj);
-		return "/grzx-index.html";
+		return "test";
 	}
+	/**
+	 * 收藏服务
+	 * @param session
+	 * @param sid
+	 * @return
+	 */
+	@GetMapping("api/serviceCollection")
+	@ResponseBody
+	public Map<String,String> serviceCollection(HttpSession session,Integer sid){
+		Map<String,String> message = new HashMap<String,String>();
+		User loginUser = (User)session.getAttribute("USER");
+		//Integer uid = loginUser.getUserid();
+		Integer uid = 19;
+		if(biz.queryUserSerCollectionCheck(uid, sid)==null) {
+			biz.saveSerCollection(uid, sid);
+			message.put("code", "200");
+			message.put("msg", "已收藏");
+		}else {
+			biz.deleteSerCollection(uid, sid);
+			message.put("code", "200");
+			message.put("msg", "取消收藏");
+		}
+		return message;
+	}
+	
 }
