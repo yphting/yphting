@@ -28,6 +28,7 @@ import com.accp.util.email.Email;
 import com.accp.util.email.EmailBoard;
 import com.accp.util.file.Upload;
 import com.accp.vo.szy.ListVo;
+import com.accp.vo.szy.NewsVo;
 import com.accp.vo.szy.TimeOutEmailDateVo;
 import com.github.pagehelper.PageInfo;
 
@@ -106,7 +107,11 @@ public class UserAction {
 			}
 		}
 	}
-	
+	/**
+	 * 新增邮箱登陆用户
+	 * @param tqedv
+	 * @return
+	 */
 	@RequestMapping(value="/user/saveEmail",method=RequestMethod.POST)
 	public String saveEmail(TimeOutEmailDateVo tqedv) {
 		if(biz.saveEmailUser(tqedv)) {
@@ -300,7 +305,7 @@ public class UserAction {
 		return "redirect:/c/szy/user/getdpszInfo";
 	}
 	/**
-	 * 分页查询用户信息
+	 * 分页查询用户系统信息
 	 * @param session
 	 * @param newsType
 	 * @param pageNum
@@ -314,11 +319,17 @@ public class UserAction {
 		return biz.queryNewPageInfo(userID, newsType, pageNum, pageSize);
 	}
 	
+	/**
+	 * 修改已读状态
+	 * @param newsID
+	 * @return
+	 */
 	@RequestMapping(value="/user/updateXtNews",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> updateXtNews(String newsID){
 		Map<String,String> m=new HashMap<>();
-		newsID=newsID.substring(0, newsID.length()-1);
+		System.out.println(newsID);
+		newsID=newsID.substring(1, newsID.length());
 		System.out.println(newsID);
 		String[] Ids=newsID.split(",");
 		try {
@@ -331,5 +342,112 @@ public class UserAction {
 			m.put("msg", e.getMessage());
 		}
 		return m;
+	}
+	
+	/**
+	 * 删除系统消息
+	 * @param newsID
+	 * @return
+	 */
+	@RequestMapping(value="/user/deleteNews",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> deleteNews(String newsID){
+		Map<String,String> m=new HashMap<>();
+		newsID=newsID.substring(1, newsID.length());
+		String[] Ids=newsID.split(",");
+		try {
+			for (String id : Ids) {
+				biz.deleteNews(id);
+			}
+			m.put("code", "200");
+		} catch (Exception e) {
+			m.put("code", "500");
+			m.put("msg", e.getMessage());
+		}
+		return m;
+	}
+	/**
+	 * 获取当前用户session
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryAUser")
+	@ResponseBody
+	public User queryAUser(HttpSession session) {
+		User u=new User();
+		u=(User)session.getAttribute("USER");
+		return u;
+	}
+	/**
+	 * 查询用户站内信
+	 * @param session
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryZnxNewsPageInfo",method=RequestMethod.GET)
+	@ResponseBody
+	public PageInfo<NewsVo>  queryZnxNewsPageInfo(HttpSession session,Integer pageNum,Integer pageSize){
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		return biz.queryZnxNewsPageInfo(userID, pageNum, pageSize);
+	}
+	/**
+	 * 修改站内信状态
+	 * @param groupID
+	 * @return
+	 */
+	@RequestMapping(value="/user/updateZnxNews",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> updateZnxNews(String groupID) {
+		Map<String,String> m=new HashMap<>();
+		System.out.println(groupID);
+		groupID=groupID.substring(1, groupID.length());
+		System.out.println(groupID);
+		String[] Ids=groupID.split(",");
+		try {
+			for (String id : Ids) {
+				biz.updateZnxNews(id);
+			}
+			m.put("code", "200");
+		} catch (Exception e) {
+			m.put("code", "500");
+			m.put("msg", e.getMessage());
+		}
+		return m;
+	}
+	
+
+	/**
+	 * 删除系统消息
+	 * @param newsID
+	 * @return
+	 */
+	@RequestMapping(value="/user/deleteZnxNews",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> deleteZnxNews(String groupID){
+		Map<String,String> m=new HashMap<>();
+		groupID=groupID.substring(1, groupID.length());
+		String[] Ids=groupID.split(",");
+		try {
+			for (String id : Ids) {
+				biz.deleteZnxNews(id);
+			}
+			m.put("code", "200");
+		} catch (Exception e) {
+			m.put("code", "500");
+			m.put("msg", e.getMessage());
+		}
+		return m; 
+	}
+	/**
+	 * 查询站内信详情
+	 * @param model
+	 * @param groupID
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryZnxXq",method=RequestMethod.GET)
+	public String queryZnxXq(Model model ,String groupID) {
+		model.addAttribute("news", biz.queryZnxXq(groupID));
+		return "/xx-znx-xq.html";
 	}
 }
