@@ -187,4 +187,8 @@ public class OrderAction {
 		orderBiz.evaluateOk(evaluate, updateOrder);
 		return "redirect:/c/lhy/evaluate/query/list";
 	}
+	
+	public String refund(@RequestParam(required = true) String orderid, Model model) {
+		return "grzx-order-refund";
+	}
 }

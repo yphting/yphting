@@ -37,7 +37,8 @@
 		from orders
 		where userid=#{order.userid}
 		<if test="order.orderid!=null">
-			and (orderid=#{order.orderid} or serviceid in(select serviceid
+			and (orderid=#{order.orderid} or serviceid in(select
+			serviceid
 			from services where servicetitle like '%${order.orderid}%'))
 		</if>
 		<if test="order.orderstatus!=null">
@@ -59,6 +60,9 @@
 			</if>
 			<if test="order.paymenttime!=null">
 				paymenttime=#{order.paymenttime},
+			</if>
+			<if test="order.commentstatus!=null">
+				commentstatus=#{order.commentstatus},
 			</if>
 		</set>
 		where orderid=#{order.orderid}
