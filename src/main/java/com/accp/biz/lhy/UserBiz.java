@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.dao.lhy.UserDao;
 import com.accp.vo.lhy.User;
 
-@Service("lhyusrbiz")
+@Service("lhyuserbiz")
 @Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
 public class UserBiz {
 	@Autowired
