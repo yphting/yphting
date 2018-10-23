@@ -212,7 +212,7 @@
 <script type="text/javascript" th:inline="javascript">
 	var data =[[${news}]];
 	$(".xqData").html("");
-	$.each([[${news}]],function(i,obj){
+	$.each(JSON.parse(data),function(i,obj){
 		var time=new Date(obj.sendingtime);
 		var xqtime=time.getHours()+":"+time.getMinutes();
 		//var div=$('<div class="date_line"><span class="date_line_time">'+time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+'</span></div>');
