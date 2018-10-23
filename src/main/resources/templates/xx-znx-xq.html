@@ -93,7 +93,9 @@
 				<div class="member_system_r_top and_who">
 					与<span>[[${news[0].Sender.shopname}]]</span>-<span>[[${news[0].Sender.userrealname}]]</span>对话中
 				</div>
-				<div class="date_line">
+				
+				<div class="xqData">
+							<div class="date_line">
 					<span class="date_line_time">2018-09-20</span>
 				</div>
 				<ul class="member_s_list_ul mslist_ul2">
@@ -135,6 +137,8 @@
 						</div>
 					</li>
 				</ul>
+				</div>
+		
 				<!--page-->
 				<div class="page_w">
 					<div class="page">
@@ -207,10 +211,28 @@
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript" th:inline="javascript">
 	var data =[[${news}]];
-	$.each(data,function(i,obj){
+	$(".xqData").html("");
+	$.each([[${news}]],function(i,obj){
 		var time=new Date(obj.sendingtime);
-		var div=$('<div class="date_line"><span class="date_line_time">'+time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+'</span></div>');
-		$(".member_right").append(div);
+		var xqtime=time.getHours()+":"+time.getMinutes();
+		//var div=$('<div class="date_line"><span class="date_line_time">'+time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+'</span></div>');
+		//$(".xqData").append(div);
+		var ulData=$('	<ul class="member_s_list_ul mslist_ul2"> '+
+				+'<li>'+
+				+'<p class="bbs_user_photo">'+
+				+'	<img src="'+obj.Sender.userimgpath+'" />'+
+				+'</p>'+
+				+'<div class="bbs_user_text">'+
+				+'<p class="email_con ec2">'+
+				+'	<span class="date_p fr">'+xqtime+'</span><a'+
+				+'		href="javascript:void(0)">'+obj.Sender.shopname+'-'+obj.Sender.userrealname+'</a>'+
+				+'</p>'+
+				+'<h3 class="member_s_name">'+
+				+'	<a href="javascript:void(0);" rel="2744" class="talk_del_a">删除</a>1'+
+				+'</h3>'+
+				+'</div>'+
+				+'</li></ul>');
+		$(".xqData").append(ulData);
 	})
 </script>
 

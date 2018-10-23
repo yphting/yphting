@@ -181,9 +181,9 @@
 				var li;
 				if(obj.readstate==false){
 					num=num+1;
-					li=$('<li><p class="bbs_user_photo"><img src="'+obj.sender.shopimg+'" alt=""></p><div class="m_sys_r"><p class="date_p">'+obj.sendingtime+'</p><p class="del_btn_p"><a href="" rel="2805">删除</a><input type="checkbox" class="checkbox_sel" id="'+obj.messagegroup+'" name="znx"></p></div><div class="bbs_user_text"><h3 class="member_s_name"><a href="javascript:void(0)">梦的N次方</a></h3><p class="email_con ec2"><a href="/c/szy/user/queryZnxXq?groupID='+obj.messagegroup+'">'+obj.content+'</a></p></div></li>');
+					li=$('<li><p class="bbs_user_photo"><img src="'+obj.sender.userimgpath+'" alt=""></p><div class="m_sys_r"><p class="date_p">'+obj.sendingtime+'</p><p class="del_btn_p"><a href="" rel="2805">删除</a><input type="checkbox" class="checkbox_sel" id="'+obj.messagegroup+'" name="znx"></p></div><div class="bbs_user_text"><h3 class="member_s_name"><a href="javascript:void(0)">梦的N次方</a></h3><p class="email_con ec2"><a href="/c/szy/user/queryZnxXq?groupID='+obj.messagegroup+'">'+obj.content+'</a></p></div></li>');
 				}else{
-					li=$('<li><p class="bbs_user_photo"><img src="'+obj.sender.shopimg+'" alt=""></p><div class="m_sys_r"><p class="date_p">'+obj.sendingtime+'</p><p class="del_btn_p"><a href="" rel="2805">删除</a><input type="checkbox" class="checkbox_sel" id="'+obj.messagegroup+'" name="znx"></p></div><div class="bbs_user_text"><h3 class="member_s_name"><a href="javascript:void(0)">梦的N次方</a></h3><p class="email_con "><a href="/c/szy/user/queryZnxXq?groupID='+obj.messagegroup+'">'+obj.content+'</a></p></div></li>');
+					li=$('<li><p class="bbs_user_photo"><img src="'+obj.sender.userimgpath+'" alt=""></p><div class="m_sys_r"><p class="date_p">'+obj.sendingtime+'</p><p class="del_btn_p"><a href="" rel="2805">删除</a><input type="checkbox" class="checkbox_sel" id="'+obj.messagegroup+'" name="znx"></p></div><div class="bbs_user_text"><h3 class="member_s_name"><a href="javascript:void(0)">梦的N次方</a></h3><p class="email_con "><a href="/c/szy/user/queryZnxXq?groupID='+obj.messagegroup+'">'+obj.content+'</a></p></div></li>');
 				}
 				$(".member_s_list_ul").append(li);
 			})
