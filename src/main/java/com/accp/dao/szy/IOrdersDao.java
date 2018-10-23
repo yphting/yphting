@@ -1,0 +1,25 @@
+package com.accp.dao.szy;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.accp.pojo.Servicetype;
+import com.accp.vo.szy.OrderInfoVo;
+
+public interface IOrdersDao {
+	/**
+	 * 查询当前用户收到的预定信息
+	 * @param userID 用户ID
+	 * @param orderStatus 订单状态
+	 * @param refundstatus 退款状态
+	 * @return
+	 */
+	public List<OrderInfoVo> queryUserOrder(@Param("userid")Integer userID,@Param("orderStatus")Integer orderStatus,@Param("refundstatus")Integer refundstatus,@Param("orderID")String orderID);
+	/**
+	 * 查询服务类别
+	 * @param stid
+	 * @return
+	 */
+	public Servicetype querySerType(@Param("stid")Integer stid);
+}

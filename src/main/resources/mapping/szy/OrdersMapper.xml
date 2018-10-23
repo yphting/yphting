@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.szy.IOrdersDao">
+	<select id="queryUserOrder" resultMap="queryOrders">
+		SELECT * FROM orders
+		WHERE serviceID IN(SELECT `serviceID` FROM services WHERE `userID`=#{userid})
+			<if test="orderStatus!=null and orderStatus!=0">
+		 		and orderStatus =#{orderStatus}
+			</if>
+			<if test="refundstatus!=null and refundstatus!=0">
+				and refundstatus =#{refundstatus}
+			</if>
+			<if test='orderID!=null and orderID!=""'>
+				and orderID like '%${orderID}%'
+			</if>
+	</select>
+	<select id="selectUser" resultType="com.accp.pojo.User">
+		SELECT * FROM `user`
+		where `userID` = #{0}
+	</select>
+	<select id="querySer" resultType="com.accp.pojo.Services">
+		SELECT * FROM `services`
+		WHERE `serviceID`=#{0}
+	</select>
+	<resultMap type="com.accp.vo.szy.OrderInfoVo" id="queryOrders">
+		<id column="orderID" property="orderid"/>
+		<result column="userID" property="userid"/>
+		<result column="serviceID" property="serviceid"/>
+		<result column="resouroeID" property="resouroeid"/>
+		<result column="orderType" property="ordertype"/>
+		<result column="orderTime" property="ordertime"/>
+		<result column="paymentTime" property="paymenttime"/>
+		<result column="receiptTime" property="receipttime"/>
+		<result column="provideServicesTime" property="provideservicestime"/>
+		<result column="completeTime" property="completetime"/>
+		<result column="remarks" property="remarks"/>
+		<result column="scheduledStartTime" property="scheduledstarttime"/>
+		<result column="scheduledEndTime" property="scheduledendtime"/>
+		<result column="population" property="population"/>
+		<result column="number" property="number"/>
+		<result column="smallPlan" property="smallplan"/>
+		<result column="totalPrice" property="totalprice"/>
+		<result column="uploadPath" property="uploadpath"/>
+		<result column="weight" property="weight"/>
+		<result column="integral" property="integral"/>
+		<result column="collectGoods" property="collectgoods"/>
+		<result column="AddressID" property="addressid"/>
+		<result column="orderStatus" property="orderstatus"/>
+		<result column="commentstatus" property="commentstatus"/>
+		<result column="refundstatus" property="refundstatus"/>
+		<result column="filesatus" property="filesatus"/>
+		<result column="documentpath" property="documentpath"/>
+		<association property="u" column="userID" select="selectUser"></association>
+		<association property="ser" column="serviceID" select="querySer"></association>
+	</resultMap>
+	
+	<select id="querySerType" resultType="com.accp.pojo.Servicetype">
+		SELECT * FROM `servicetype`
+		WHERE `stid` = #{stid}
+	</select>
+</mapper>

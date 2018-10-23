@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <title>我收到的预定_韩汀社区</title>
 <link rel="shortcut icon" href="/Public/images/favicon.ico"  type="image/x-icon" />
+	<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
+		
 <link href="/Public/css/owl.carousel.css" rel="stylesheet" />
 <link href="/Public/css/common.css" rel="stylesheet" />
 
@@ -48,7 +50,7 @@ span  .time2 {
 				<div class="top_right">
 					<a href="#">.2304</a> <span class="ht_line"></span><a href="#">退出</a>
 					<span class="ht_line"></span><a href="#"><img
-						src="Public/images/e_i.png" alt="" /></a>
+						src="/Public/images/e_i.png" alt="" /></a>
 
 				</div>
 			</div>
@@ -125,6 +127,51 @@ span  .time2 {
 						<li class="cel_l6">操作</li>
 					</ul>
 				</div>
+				<!--booking_list-->
+				<div class="booking_list " th:each="temp,iter :${pageInfo.list}">
+					<div class="book_top business_top">
+						<ul class="book_top_ul">
+							<li><span class="c_4">下单日期</span>[[${#dates.format(temp.ordertime, 'yyyy-MM-dd')}]]</li>
+							<li><span class="c_4">预订编号</span>[[${temp.orderid}]]</li>
+						</ul>
+					</div>
+					<div class="book_bt business_bt">
+						<ul class="book_bt_ul">
+							<li class="cel_l1"><img
+								th:src="${temp.ser.servicecoverimg}" alt="留学中介测试标题" /></li>
+							<li class="cel_l2">
+								<div class="yd_xm_title">
+									<a href="javascript:void(0)" target="_blank">[[${temp.ser.servicetitle}]]</a>
+								</div>
+								<p>
+									<span class="num_1 num_1_s">[[${temp.smallplan}]]</span>
+								</p>
+								<p>自驾游</p>
+							
+								
+							</li>
+							<li class="cel_l3">1</li>
+							<li class="cel_l4 shopname" alt="薄言"
+								rel="http://thirdqq.qlogo.cn/qqapp/101390132/065718293A44A4650E1089B9A260A1B4/100">薄言
+								<br />
+							<a href="javascript:;" onclick="showmsg(this)" rel="345"
+								class="btna_s2">站内信用户</a>
+							</li>
+							<li class="cel_l5"><span class="num_1 num_1_s">999.0</span></li>
+							<li class="cel_l6">不同意<br />
+							<br />
+							<a href="/index.php/Home/Seller/order/oid/100588.html"
+								class="btna_s2">查看详细</a>
+							</li>
+							<li class="cel_l7"><a
+								href="/index.php/Home/Seller/refund/oid/100588.html"
+								class="btna_s2">查看退款详情</a><br />
+							<span class="c_4">待评价</span><br /></li>
+						</ul>
+					</div>
+				</div>
+				<!--booking_list end-->
+
 				<!--page-->
 				<div class="page"></div>
 				<!--page end-->
@@ -286,4 +333,8 @@ span  .time2 {
 	</div>
 
 </body>
+<script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
+<script type="text/javascript" th:inline="javascript">
+	
+</script>
 </html>
