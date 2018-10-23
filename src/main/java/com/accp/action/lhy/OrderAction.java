@@ -24,7 +24,7 @@ public class OrderAction {
 	private OrderBiz orderBiz;
 	@Autowired
 	private UserBiz userBiz;
- 
+
 	/**
 	 * 查询订单列表
 	 * 
@@ -187,8 +187,10 @@ public class OrderAction {
 		orderBiz.evaluateOk(evaluate, updateOrder);
 		return "redirect:/c/lhy/evaluate/query/list";
 	}
-	
+
+	@RequestMapping("/order/refund")
 	public String refund(@RequestParam(required = true) String orderid, Model model) {
+		model.addAttribute("order", orderBiz.queryOrderById(orderid));
 		return "grzx-order-refund";
 	}
 }
