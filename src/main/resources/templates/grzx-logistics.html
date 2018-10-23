@@ -131,10 +131,27 @@
 								width="80">下单日期</th>
 							<th width="80"><span  class="num_1">[[${temp.price}]]</span>金币</th>
 							<th th:text="${temp.describe}" width="80">发货方式</th>
-							<th th:text="${temp.auditstatus}" width="80">状态</th>
-							<th  width="80" class="th_c"><a th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
-								 class="btna_s2">去支付</a><br />
-								 <a th:href="@{/zsp/c/getLogistics(id=${temp.logisticsid})}" 
+							<th th:if="${temp.auditstatus==1}" width="80">待审核</th>
+							<th th:if="${temp.auditstatus==2}" width="80">审核通过</th>
+							<th th:if="${temp.auditstatus==3}" width="80">待提供快递单号</th>
+							<th th:if="${temp.auditstatus==4}" width="80">待签收</th>
+							<th th:if="${temp.auditstatus==5}" width="80">待评价</th>
+							<th th:if="${temp.auditstatus==6}" width="80">待付款</th>
+<!-- 							<span th:if="${temp.mstate==0}" style="color:blue;">未读</span>
+ -->							
+							<th  width="80" class="th_c">
+							<!-- <a  th:if="${temp.auditstatus==1}"  th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
+								 class="btna_s2">去支付</a>
+						      <a  th:if="${temp.auditstatus==2}" style="display:none"  th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
+								 class="btna_s2">去支付</a>
+						    <a  th:if="${temp.auditstatus==3}" style="display:none" th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
+								 class="btna_s2">去支付</a>
+								 <a  th:if="${temp.auditstatus==4}" style="display:none" th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
+								 class="btna_s2">去支付</a> -->
+								 <a  th:if="${temp.auditstatus==6}" th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
+								 class="btna_s2">去支付</a> 
+							<br />
+								 <a th:href="@{/zsp/c/getLogistics(id=${temp.logisticsid},auditstatus=${temp.auditstatus})}" 
 								class="btna_s2">查看详细</a></th>
 						</tr>
 					</tbody>

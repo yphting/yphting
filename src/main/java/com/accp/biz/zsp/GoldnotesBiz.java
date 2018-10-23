@@ -1,5 +1,6 @@
 package com.accp.biz.zsp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class GoldnotesBiz {
 	 * @param userId用户id
 	 * @return
 	 */
-    public  PageInfo<Goldnotes> goldnotesQueryAll(Integer pageNum,Integer pageSize,Integer userId) {
+    public  PageInfo<Goldnotes> goldnotesQueryAll(Integer pageNum,Integer pageSize,Integer userId,Integer acquisitionMode) {
     	 PageHelper.startPage(pageNum,pageSize);
-  	   return new PageInfo<Goldnotes>(dao.goldnotesQueryAll(userId));
+  	   return new PageInfo<Goldnotes>(dao.goldnotesQueryAll(userId,acquisitionMode));
     }
     /**
      * 查询积分流向
@@ -57,6 +58,9 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addPutforWard(Putforward  putforward) {
+    	User user=dao.getUser(putforward.getUserid());
+    	Integer money=(int) (user.getUsermoney()-putforward.getMoney());
+    	dao.updUser(money, putforward.getUserid());
 		dao.addPutforWard(putforward);
 	}
     /**
@@ -65,7 +69,9 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
-    	
+    	User user=dao.getUser(goldnotes.getUserid());
+    	Integer money=(int) (user.getUsermoney()+goldnotes.getRecordinandout());
+    	dao.updUser(money, goldnotes.getUserid());
     	dao.addGoldnotes(goldnotes);
 	}
     /**
@@ -129,6 +135,7 @@ public class GoldnotesBiz {
    * @param recordId
    * @param auditStatus
    */
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
   public void updGoldnotes(Integer recordId,Integer auditStatus) {
 	  dao.updGoldnotes(recordId, auditStatus);
   }
@@ -147,5 +154,18 @@ public class GoldnotesBiz {
   public PageInfo<userVo>getMerchantCollectionById(Integer pageNum,Integer pageSize,Integer userId){
 	  PageHelper.startPage(pageNum, pageSize);
 	  return new PageInfo<userVo>(dao.getMerchantCollectionById(userId));
+  }
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updUser(Integer moery,Integer userId,Integer logisticsid) {
+	  Logistics logistics=new Logistics();
+	  logistics.setAuditstatus(2);
+	  logistics.setOrdertime(new Date());
+	  logistics.setLogisticsid(logisticsid);
+	  dao.updatedLogistics(logistics);
+	  dao.updUser(moery, userId);
+  }
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updatedLogistics(Logistics logistics) {
+	  dao.updatedLogistics(logistics);
   }
 }

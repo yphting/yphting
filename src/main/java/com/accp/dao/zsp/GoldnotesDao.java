@@ -23,7 +23,8 @@ public interface GoldnotesDao {
 	 * @param userId
 	 * @return
 	 */
-    public List<Goldnotes>goldnotesQueryAll(@Param("userId")Integer userId);
+    public List<Goldnotes>goldnotesQueryAll(@Param("userId")Integer userId,
+    		@Param("acquisitionMode")Integer acquisitionMode);
     /**
      * 查询积分流向
      * @param userId
@@ -112,4 +113,10 @@ public interface GoldnotesDao {
       * @return
       */
      public List<Services>getServicesByUserId(@Param("userId")Integer userId);
+     /**
+      * 修改物流
+      * @param logistics
+      * @return
+      */
+     public int updatedLogistics(@Param("logistics")Logistics logistics);
 }

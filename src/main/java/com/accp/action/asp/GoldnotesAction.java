@@ -4,7 +4,9 @@ package com.accp.action.asp;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,13 +25,11 @@ import com.accp.pojo.Evaluationservice;
 import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
-import com.accp.pojo.Merchantcollection;
 import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
-import com.accp.vo.zsp.ServicesVo;
 import com.accp.vo.zsp.userVo;
 import com.github.pagehelper.PageInfo;
 
@@ -49,7 +49,7 @@ public class GoldnotesAction {
 	 * @return
 	 */
 	@GetMapping("goldnotesQueryAll")
-	public String goldnotesQueryAll(Model model, HttpSession session, Integer p, Integer s) {
+	public String goldnotesQueryAll(Model model, HttpSession session, Integer p, Integer s,Integer acquisitionMode) {
 		if (p == null)
 			p = 1;
 		if (s == null)
@@ -60,8 +60,10 @@ public class GoldnotesAction {
 			userId = 1;
 		}else {
 			userId=user.getUserid();
-		}		
-		PageInfo<Goldnotes> pageInfo = biz.goldnotesQueryAll(p, s, userId);
+		}
+		
+		System.out.println("acquisitionMode   "+acquisitionMode);
+		PageInfo<Goldnotes> pageInfo = biz.goldnotesQueryAll(p, s, userId,acquisitionMode);
 		User users = biz.getUser(userId);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		model.addAttribute("USER", users);
@@ -220,7 +222,15 @@ public class GoldnotesAction {
 	 * @return
 	 */
 	@PostMapping("addLogistics")
-	public String addLogistics(Model model, HttpSession session,Logistics logistics,MultipartFile[] imgFile) {
+	public String addLogistics(Model model, HttpSession session,Logistics logistics,MultipartFile[] imgFile,
+			String areaid11,String areaid22,String areaid33,String areaid4,
+			String shareaid11,String shareaid22,String shareaid33,String shareaid4) {
+		User users = (User) session.getAttribute("User");
+		if (users == null) {
+			logistics.setUserid(1);
+		} else {
+			logistics.setUserid(users.getUserid());
+		}
 		try {
 			List<String> imgUrls=new ArrayList<>(0);
 			for (int i = 0; i < imgFile.length; i++) {
@@ -254,15 +264,10 @@ public class GoldnotesAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-
+        logistics.setCollectgoodsaddr(shareaid11+shareaid22+shareaid33+shareaid4);
+        logistics.setUseraddr(areaid11+areaid22+areaid33+areaid4);;
 		logistics.setOrdertime(new Date());
 		biz.addLogistics(logistics);
-		User user=(User) session.getAttribute("User");
-		if(user==null) {
-			logistics.setUserid(1);
-		}else {
-			logistics.setUserid(user.getUserid());
-		}
 		return "redirect:/zsp/c/getListLogistics";
 	}
 	/**
@@ -273,7 +278,7 @@ public class GoldnotesAction {
 	 * @return
 	 */
 	@GetMapping("getLogistics")
-	public String getLogistics(Model model, HttpSession session,Integer id) {
+	public String getLogistics(Model model, HttpSession session,Integer id,Integer auditstatus) {
 	    User user=(User) session.getAttribute("user");
 	    Integer userId=null;
 	    if(user==null) {
@@ -286,7 +291,19 @@ public class GoldnotesAction {
 	    }
 		Logistics logistics=biz.getLogistics(userId,id);
 		model.addAttribute("logistics",logistics);
-		return "wl-xianq";
+		if(auditstatus==1) {
+			return "待审核";
+		}else if(auditstatus==2){
+			return "wl-shz";//审核通过
+		}else if(auditstatus==3) {
+			return "wl-sh";//已发国际EMS
+		}else if(auditstatus==4) {
+			return "";//待收货
+		}else if(auditstatus==5) {
+			return "";//待评价
+		}else {
+			return "wl-xianq";//待支付
+		}
 	}
 	/**
 	 * 查询物流支付页面
@@ -311,7 +328,16 @@ public class GoldnotesAction {
 		Logistics logistics = biz.getLogistics(userId, id);
 		model.addAttribute("Logistics",logistics);
 		model.addAttribute("USER",users);
-		return "wu_zhif";
+		Goldnotes goldnotes=new Goldnotes();
+		goldnotes.setUserid(userId);
+		goldnotes.setRecorddate(new Date());
+		/*goldnotes.set
+		biz.addGoldnotes(goldnotes);*/
+		if(users.getUsermoney()<logistics.getPrice()) {
+			return "wu_zhif";
+		}else {
+			return "wl-zf";
+		}
 	}
 	/**
 	 * 查询地址
@@ -399,4 +425,25 @@ public class GoldnotesAction {
 		model.addAttribute("PAGE_INFO",pageInfo);
 		return "grzx-favs";
     }
+	@GetMapping("updlogistics")
+	@ResponseBody
+	public Map<String, String> updlogistics(Model model, HttpSession session,Integer logisticsid,Integer userprice) {		
+				Map<String, String> message=new HashMap<String,String>();
+				try {
+					User user=(User)session.getAttribute("USER");
+					Integer userId=null;
+					if(user==null) {
+						userId = 1;
+					}else {
+						userId=user.getUserid();
+					}
+					biz.updUser(userprice,userId,logisticsid);
+					message.put("code", "200");
+					message.put("msg", "ok");
+				} catch (Exception ex) {
+					message.put("code", "500");
+					message.put("msg", ex.getMessage());
+				}
+				return message;
+	}
 }

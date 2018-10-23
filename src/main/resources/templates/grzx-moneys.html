@@ -132,13 +132,11 @@
  								<td th:text="${#dates.format(temp.recorddate,'yyyy-MM-dd')}">2000-12-13</td><!--  hh:mm:ss -->
  								<td th:text="${temp.recorddescribe}"></td>
 								<td th:text="${temp.recordinandout}">记录描述</td>
-								<td>
-									<div th:switch="${temp.auditstatus}">
-										<span th:case="1" style="color:blue ;">待审核</span>
-									    <span th:case="2" style="color: green;">审核通过</span> 
-										<span th:case="3" style="color: red;">未通过</span>
-									</div>
-								</td>
+								<td th:if="${temp.auditstatus==1}">待审核</td>
+								<td th:if="${temp.auditstatus==2}">审核成功</td>
+								<td th:if="${temp.auditstatus==3}">审核失败</td>
+								<td th:if="${temp.auditstatus==4}">交易成功</td>
+								<td th:if="${temp.auditstatus==5}">交易失败</td>
 							</tr>
 							<tr>
 								<th>2017-05-05</th>
