@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.biz.lsm.MerchantEnterAndServiceBiz;
+import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
@@ -29,6 +30,7 @@ import com.accp.pojo.User;
 import com.accp.util.file.Upload;
 import com.accp.vo.lsm.EsLevelVO;
 import com.accp.vo.lsm.SameServiceVO;
+import com.accp.vo.lsm.SerRecommendVO;
 import com.accp.vo.lsm.SerReserveVO;
 import com.accp.vo.lsm.ServiceDetailInfo;
 import com.accp.vo.lsm.ServiceMerchantInfo;
@@ -313,4 +315,26 @@ public class MerchantEnterAndServiceAction {
 		return message;
 	}
 	
+	@GetMapping("homeUrl")
+	public String homeUrl(Model model) {
+		//首页社区服务轮播图广告位查询
+		List<Advertisement> homeSlideshowList = biz.queryHomeAdvertising(1);
+		//首页社区服务中间广告位查询
+		List<Advertisement> homeMidAdvertingList = biz.queryHomeAdvertising(2);
+		//五大星级服务商家查询
+		List<SerRecommendVO> recommendStidByOneList = biz.querySerRecommendVO(1);	//自驾游
+		List<SerRecommendVO> recommendStidByTwoList = biz.querySerRecommendVO(2);	//微整形
+		List<SerRecommendVO> recommendStidByThreeList = biz.querySerRecommendVO(3);	//留学中介
+		List<SerRecommendVO> recommendStidByFourList = biz.querySerRecommendVO(4);	//韩语翻译
+		List<SerRecommendVO> recommendStidByFiveList = biz.querySerRecommendVO(5);	//学习资源
+		//韩汀社区论坛热门贴查询
+		model.addAttribute("homeSlideshowList",homeSlideshowList);
+		model.addAttribute("homeMidAdvertingList",homeMidAdvertingList);
+		model.addAttribute("recommendStidByOneList",recommendStidByOneList);
+		model.addAttribute("recommendStidByTwoList",recommendStidByTwoList);
+		model.addAttribute("recommendStidByThreeList",recommendStidByThreeList);
+		model.addAttribute("recommendStidByFourList",recommendStidByFourList);
+		model.addAttribute("recommendStidByFiveList",recommendStidByFiveList);
+		return "fw-sy";
+	}
 }
