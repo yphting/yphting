@@ -62,12 +62,10 @@ public class ThirdLogin {
 			}
 		} finally {
 			try {
-				if (out != null) {
+				if (out != null)
 					out.close();
-				}
-				if (in != null) {
+				if (in != null)
 					in.close();
-				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}

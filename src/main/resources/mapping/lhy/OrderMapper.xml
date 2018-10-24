@@ -44,6 +44,9 @@
 		<if test="order.orderstatus!=null">
 			and orderstatus=#{order.orderstatus}
 		</if>
+		<if test="order.commentstatus!=null">
+			and commentstatus=#{order.commentstatus}
+		</if>
 	</select>
 	<select id="queryOrderById" resultMap="OrderMap">
 		select *

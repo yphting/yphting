@@ -58,9 +58,8 @@ public class Upload {
 		String url = suffix + route;
 		String path = UPLOADED_FOLDER + route;
 		File dest = new File(path);
-		if (!dest.getParentFile().exists()) {
+		if (!dest.getParentFile().exists())
 			dest.getParentFile().mkdirs();
-		}
 		file.transferTo(dest);
 		return url;
 	}

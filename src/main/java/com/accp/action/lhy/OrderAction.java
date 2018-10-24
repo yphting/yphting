@@ -172,12 +172,13 @@ public class OrderAction {
 	@RequestMapping("/order/query/list")
 	public String queryOrderList(@RequestParam(defaultValue = "1") Integer page,
 			@RequestParam(defaultValue = "") String orderid, @RequestParam(defaultValue = "") Integer status,
-			Model model, HttpSession session) {
+			@RequestParam(required = false) Integer commentstatus, Model model, HttpSession session) {
 		Integer userId = ((User) session.getAttribute("USER")).getUserid();
 		Orders order = new Orders();
 		order.setUserid(userId);
 		order.setOrderid(orderid);
 		order.setOrderstatus(status);
+		order.setCommentstatus(commentstatus);
 		PageInfo<Orders> pageInfo = orderBiz.queryOrderList(order, page, 2);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("orderInfo", orderBiz.queryOrderInfo(userId));

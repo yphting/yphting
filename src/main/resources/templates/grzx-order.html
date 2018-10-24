@@ -138,7 +138,7 @@
 							<a th:href="@{/c/lhy/order/query/list(status=4)}">待确认<span class="pre_asp" th:text="${orderInfo.tbconfirmed}">0</span></a>
 						</li>
 						<li class="last" id="zt5">
-							<a th:href="@{/c/lhy/order/query/list(status=5)}">待评价<span class="pre_asp" th:text="${orderInfo.tbevaluated}">0</span></a>
+							<a th:href="@{/c/lhy/order/query/list(status=5,commentstatus=1)}">待评价<span class="pre_asp" th:text="${orderInfo.tbevaluated}">0</span></a>
 						</li>
 					</ul>
 					<!--booking_list-->
