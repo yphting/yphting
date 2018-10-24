@@ -103,13 +103,13 @@
 						<span class="c_9">* 温馨提示：</span> 本次售后服务将由 商家<a href=""
 							class="c_9 mlr10" th:text="${order.service.user.shopname}"></a>为您提供
 					</p>
-					<form method="post" target="topost" id="formmsg"
-						action="">
-						<input type="hidden" name="orderid" value="100539">
+					<form method="post" id="formmsg"
+						action="/c/lhy/order/refund/ok" enctype="multipart/form-data">
+						<input type="hidden" name="orderid" th:value="${order.orderid}">
 						<ul class="member_zl_ul">
 							<li><span class="m_zl_sp">退款原因</span>
 								<div class="m_zl_r">
-									<select class="sel_f sel_f2" name="reason">
+									<select class="sel_f sel_f2" name="refundreason">
 										<option value="描述不符">描述不符</option>
 										<option value="尚未接单">尚未接单</option>
 										<option value="其它原因">其它原因</option>
@@ -118,13 +118,13 @@
 							</li>
 							<li><span class="m_zl_sp">退款金币</span>
 								<div class="m_zl_r">
-									<input type="text" th:placeholder="|最大${order.smallplan}|" name="money" id="money"
+									<input type="text" th:placeholder="|最大${order.smallplan}|" name="applyrefundmoney"
 										class="input_c w350">
 								</div>
 							</li>
 							<li><span class="m_zl_sp">描述</span>
 								<div class="m_zl_r">
-									<textarea class="input_c in_ms" name="descr" id="descr"></textarea>
+									<textarea class="input_c in_ms" name="refundexplain"></textarea>
 								</div>
 							</li>
 							<li><span class="m_zl_sp">上传凭证</span>

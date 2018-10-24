@@ -23,6 +23,7 @@
 		<association property="user" column="commentator" select="queryUserById"></association>
 	</resultMap>
 	<resultMap type="com.accp.vo.sxy.PostVo" id="PostVoMap">
+		<result property="postid" column="postID"/>
 		<association property="user" column="userid" select="queryUserById"></association>
 		<association property="forum" column="fmid" select="queryForumByFmid"></association>
 		<association property="lastcomment" column="postid" select="queryLastcommentByPostid"></association>
@@ -66,4 +67,58 @@
 		</if>
 	</select>
 	<!-- 显示帖子列表结束 -->
+	
+	<!-- 显示热门帖子 -->
+	<select id="queryHotPost" resultMap="PostVoMap">
+		SELECT *,(SELECT MAX(reviewtime) FROM postcomment p WHERE p.postId=po.postId)lasttime,(SELECT COUNT(1)FROM postcomment p WHERE p.postId=po.postId GROUP BY postId) cocount
+		FROM post po
+		<if test="title!=null">
+			where title like '%${title}%'
+		</if>
+		ORDER BY solid DESC,essence DESC,cocount DESC
+	</select>
+	
+	<!-- 发布帖子 -->
+	<insert id="savePost">
+		insert into post(`userID`,`fmID`,`title`,`content`,`releaseTime`)
+		values(#{post.userid},#{post.fmid},#{post.title},#{post.content},#{post.releasetime})
+	</insert>
+	<!-- 每次发帖增加5积分 -->
+	<insert id="updateJIntegral">
+		update user set userIntegral = userIntegral+5
+		where userId = #{userId}
+	</insert>
+	<!-- 查询帖子详情 -->
+	<select id="queryPostDetail" resultMap="PostVoMap">
+		select *,(select max(reviewtime) from postcomment p where p.postId=po.postId)lasttime
+		from post po
+		where postId = #{postId}
+	</select>
+	
+	<!-- 查询帖子详情内评论列表 -->
+	<select id="queryComment" resultMap="PostcommentVoMap">
+		select * from postcomment 
+		where postId = #{postId}
+		order by reviewtime desc
+	</select>
+	
+	<!-- 查询帖子详情右侧最新话题 -->
+	<select id="queryNewPost" resultMap="PostVoMap">
+		select *
+		from post po
+		where fmid = #{fmid}
+		order by releasetime desc
+		limit 0,3
+	</select>
+	
+	<!-- 查询我的韩汀论坛中我的发帖 -->
+	<select id="queryMyPost" resultMap="PostVoMap">
+		SELECT *,(SELECT MAX(reviewtime) FROM postcomment p WHERE p.postId=po.postId)lasttime
+		FROM post po
+		WHERE userId = #{userId}
+		<if test="title!=null">
+			and title like '%${title}%'
+		</if>
+		ORDER BY releasetime DESC
+	</select>
 </mapper>

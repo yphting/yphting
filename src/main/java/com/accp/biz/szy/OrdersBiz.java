@@ -34,4 +34,13 @@ public class OrdersBiz {
 	public Servicetype querySerType(Integer stid) {
 		return dao.querySerType(stid);
 	}
+	/**
+	 * 修改订单
+	 * @param orderStatus
+	 * @param orderID
+	 * @return
+	 */
+	public int updateOrders(Integer orderStatus,String orderID) {
+		return dao.updateOrders(orderStatus, orderID);
+	}
 }

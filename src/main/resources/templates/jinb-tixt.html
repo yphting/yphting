@@ -88,31 +88,13 @@
 					<ul class="member_zl_ul">
 						<li><span class="m_zl_sp">金币余额 ：</span>
 							<div class="m_zl_r">
-								<span class="tsfont c_8 f18 num_1">500</span>
+								<span class="tsfont c_8 f18 num_1">[[${USER.usermoney}]]</span>
 							</div></li>
 						<li><span class="m_zl_sp">银行名称：</span>
 							<div class="m_zl_r">
 								<select class="sel_f sel_f2" name="bankid">
  								<option th:each="temp,iterState:${List}" th:value="${temp.bankid}">[[${temp.bankname}]]<option>
- 								<!-- <option>中国工商银行</option>
-									<option>中国农业银行</option>
-									<option>中国建设银行</option>
-									<option>中国银行</option>
-									<option>中国邮政储蓄银行</option>
-									<option>交通银行</option>
-									<option>中信银行</option>
-									<option>中国民生银行</option>
-									<option>中国光大银行</option>
-									<option>兴业银行</option>
-									<option>浦发银行</option>
-									<option>广发银行</option>
-									<option>平安银行</option>
-									<option>华夏银行</option>
-									<option>北京银行</option>
-									<option>上海银行</option>
-									<option>江苏银行</option>
-									<option>北京农商银行</option>
-									<option>江苏省农信社</option> -->
+ 								
 								</select>
 							</div></li>
 						<li><span class="m_zl_sp">开户行：</span>

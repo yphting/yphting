@@ -44,6 +44,9 @@
 		<if test="order.orderstatus!=null">
 			and orderstatus=#{order.orderstatus}
 		</if>
+		<if test="order.commentstatus!=null">
+			and commentstatus=#{order.commentstatus}
+		</if>
 	</select>
 	<select id="queryOrderById" resultMap="OrderMap">
 		select *
@@ -63,6 +66,9 @@
 			</if>
 			<if test="order.commentstatus!=null">
 				commentstatus=#{order.commentstatus},
+			</if>
+			<if test="order.refundstatus!=null">
+				refundstatus=#{order.refundstatus},
 			</if>
 		</set>
 		where orderid=#{order.orderid}
