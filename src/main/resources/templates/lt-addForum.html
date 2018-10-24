@@ -354,5 +354,46 @@
 					$(".upvideo").hide();
 				}
 			}
+			
+			$(".btn_jy_a").click(function(){
+				if($("[name=catid]").val()==""||$("[name=subject]").val()==""||$("[name=content]").val()==""){
+					alert("请填写完整的信息！");
+				}else{
+					var obj = new Object();
+					obj["fmid"] = $("[name=catid]").val();
+				 	obj["title"] = $("[name=subject]").val();
+				 	obj["content"] = $("[name=content]").val();
+				 	var year = new Date().getFullYear();
+				 	var month = new Date().getMonth()+1;
+				 	var day = new Date().getDate();
+				 	var hour = new Date().getHours();
+				 	var minute = new Date().getMinutes();
+				 	var second = new Date().getSeconds();
+				 	obj["releasetime"] = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+				 	savePost(obj);
+				}
+			})
+			
+			function savePost(obj){
+			 	$.ajax({
+			 		url:"/c/sxy/savePost",
+			 		type:"post",
+			 		data:JSON.stringify(obj),
+					contentType:"application/json",
+					success:function(data){
+						if(data>0){
+							alert("发布成功,增加5积分。");
+							location.href="/c/sxy/column?pid=1&orderId=1&essence=1";
+							$("[name=subject]").val("");
+							$("[name=content]").val("");
+						}else{
+							alert("发布失败！");
+						}
+					},
+					error:function(){
+						alert("操作错误！");
+					}
+			 	})
+			}
 			</script>
 </html>
