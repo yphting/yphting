@@ -5,6 +5,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.accp.dao.lhy.RefundDao">
+	<resultMap type="com.accp.vo.lhy.Refund" id="refundMap">
+		<association property="user" column="userid" select="com.accp.dao.lhy.UserDao.queryUserById"></association>
+	</resultMap>
+
+	<select id="queryRefundByOrderId" resultMap="refundMap">
+		select * from
+		refund
+		where orderid=#{orderid}
+	</select>
+
 	<insert id="saveRefund">
 		insert
 		refund(point,orderid,userid,refundimg,applyrefundmoney,applicationtime,refundreason,refundexplain)

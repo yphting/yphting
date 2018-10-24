@@ -87,7 +87,7 @@ public class OrderAction {
 	public String ok(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "") String orderid,
 			@RequestParam(required = true) String updateid) {
 		// 商家入款，更新订单状态，完成时间
-		// 商家金币记录，站内信商家
+		// 金币记录，站内信商家
 		Orders order = orderBiz.queryOrderById(updateid);
 		Orders updateOrder = new Orders();
 		updateOrder.setOrderid(updateid);
@@ -150,7 +150,7 @@ public class OrderAction {
 		order.setOrderid(refund.getOrderid());
 		order.setRefundstatus(1);
 		orderBiz.refundok(refund, order);
-		return "redirect:/c/lhy/order/query/list";
+		return "redirect:/c/lhy/refund/detail?orderid=" + refund.getOrderid();
 	}
 
 	/**

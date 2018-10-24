@@ -211,6 +211,7 @@
 									<br th:if="${temp.orderstatus==5&&temp.commentstatus==3}"/>
 									<a th:href="@{/c/lhy/order/cancel(page=${param.page},orderid=${param.orderid},updateid=${temp.orderid})}" onclick="" th:if="${temp.orderstatus==1}">取消服务</a>
 									<a th:href="@{/c/lhy/order/refund(orderid=${temp.orderid})}" th:if="${temp.orderstatus==5&&temp.refundstatus==0}">申请退款</a>
+									<a class="btna_s2" th:href="@{/c/lhy/refund/detail(orderid=${temp.orderid})}" th:if="${temp.orderstatus==5&&temp.refundstatus>0}">查看退款详情</a>
 								</li>
 							</ul>
 						</div>
