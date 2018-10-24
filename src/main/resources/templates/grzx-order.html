@@ -205,6 +205,10 @@
 									<br th:if="${temp.orderstatus==5&&temp.filesatus==2}"/>
 									<a th:href="@{/c/lhy/order/evaluate(orderid=${temp.orderid})}" class="btna_s3" th:if="${temp.orderstatus==5&&temp.commentstatus==1}">评价</a>
 									<br th:if="${temp.orderstatus==5&&temp.commentstatus==1}"/>
+									<span class="c_4" th:if="${temp.orderstatus==5&&temp.commentstatus==2}">已评价</span>
+									<br th:if="${temp.orderstatus==5&&temp.commentstatus==2}"/>
+									<span class="c_4" th:if="${temp.orderstatus==5&&temp.commentstatus==3}">双方已评</span>
+									<br th:if="${temp.orderstatus==5&&temp.commentstatus==3}"/>
 									<a th:href="@{/c/lhy/order/cancel(page=${param.page},orderid=${param.orderid},updateid=${temp.orderid})}" onclick="" th:if="${temp.orderstatus==1}">取消服务</a>
 									<a th:href="@{/c/lhy/order/refund(orderid=${temp.orderid})}" th:if="${temp.orderstatus==5&&temp.refundstatus==0}">申请退款</a>
 								</li>

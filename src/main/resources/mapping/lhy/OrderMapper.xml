@@ -64,6 +64,9 @@
 			<if test="order.commentstatus!=null">
 				commentstatus=#{order.commentstatus},
 			</if>
+			<if test="order.refundstatus!=null">
+				refundstatus=#{order.refundstatus},
+			</if>
 		</set>
 		where orderid=#{order.orderid}
 	</update>

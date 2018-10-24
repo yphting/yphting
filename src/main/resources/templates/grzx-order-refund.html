@@ -100,11 +100,11 @@
 				<div class="member_right site_msg_w">
 					<div class="member_system_r_top mt10">申请退款</div>
 					<p class="request_refund c_4">
-						<span class="c_9">* 温馨提示：</span> 本次售后服务将由 商家<a href="/c/lhy/order/refund/ok"
+						<span class="c_9">* 温馨提示：</span> 本次售后服务将由 商家<a href=""
 							class="c_9 mlr10" th:text="${order.service.user.shopname}"></a>为您提供
 					</p>
 					<form method="post" target="topost" id="formmsg"
-						action="">
+						action="/c/lhy/order/refund/ok" enctype="multipart/form-data">
 						<input type="hidden" name="orderid" th:value="${order.orderid}">
 						<ul class="member_zl_ul">
 							<li><span class="m_zl_sp">退款原因</span>
