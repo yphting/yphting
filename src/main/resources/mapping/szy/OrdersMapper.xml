@@ -62,4 +62,10 @@
 		SELECT * FROM `servicetype`
 		WHERE `stid` = #{stid}
 	</select>
+	
+	<update id="updateOrders">
+	UPDATE `orders`
+	SET `orderStatus`=#{orderStatus}
+	WHERE `orderID`=#{orderID}
+	</update>
 </mapper>

@@ -144,29 +144,58 @@ span  .time2 {
 									<a href="javascript:void(0)" target="_blank">[[${temp.ser.servicetitle}]]</a>
 								</div>
 								<p>
-									<span class="num_1 num_1_s">[[${temp.smallplan}]]</span>
+									<span class="num_1 num_1_s">[[${temp.ser.serviceprice}]]</span>
 								</p>
-								<p>自驾游</p>
+								<p name="stid">[[${temp.ser.stid}]]</p>
 							
 								
 							</li>
-							<li class="cel_l3">1</li>
-							<li class="cel_l4 shopname" alt="薄言"
-								rel="http://thirdqq.qlogo.cn/qqapp/101390132/065718293A44A4650E1089B9A260A1B4/100">薄言
+							<li class="cel_l3">[[${temp.number}]]</li>
+							<li class="cel_l4 shopname">[[${temp.u.username}]]
 								<br />
 							<a href="javascript:;" onclick="showmsg(this)" rel="345"
-								class="btna_s2">站内信用户</a>
+								class="btna_s2" th:if="${temp.orderstatus!=1}">站内信用户</a>
 							</li>
-							<li class="cel_l5"><span class="num_1 num_1_s">999.0</span></li>
-							<li class="cel_l6">不同意<br />
+							<li class="cel_l5"><span class="num_1 num_1_s">[[${temp.smallplan}]]</span></li>
+							<li class="cel_l6">
+								<span th:if="${temp.orderstatus==1}">待付款</span>
+								<span th:if="${temp.orderstatus==2}">待接单</span>
+								<span th:if="${temp.orderstatus==3}">待提供服务</span>
+								<span th:if="${temp.orderstatus==4}">已提供服务</span>
+								<span th:if="${temp.orderstatus==5 and  temp.commentstatus==1 and temp.refundstatus==0}">待评价</span>
+								<span th:if="${temp.orderstatus==5 and  temp.commentstatus==2 and temp.refundstatus==0}">已评价</span>
+								<span th:if="${temp.orderstatus==5 and  temp.commentstatus==3 and temp.refundstatus==0}">双方已评</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==1}">退款申请中</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==2}">不同意</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==3}">管理员介入</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==4}">管理员拒绝</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==5}">退款完成</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==5}">退款取消</span>
+								<span th:if="${temp.orderstatus==6}">服务取消</span>
+								<span th:if="${temp.orderstatus==7}">未接单</span>
+								<span th:if="${temp.orderstatus==8}">已退款</span>
 							<br />
-							<a href="/index.php/Home/Seller/order/oid/100588.html"
-								class="btna_s2">查看详细</a>
+								<a  href=""class="btna_s2">查看详细</a>
 							</li>
-							<li class="cel_l7"><a
-								href="/index.php/Home/Seller/refund/oid/100588.html"
-								class="btna_s2">查看退款详情</a><br />
-							<span class="c_4">待评价</span><br /></li>
+							<li class="cel_l7">
+							<span th:if="${temp.orderstatus==1}">-</span>
+							<span th:if="${temp.orderstatus==2}">
+								<a href=""class="btna_s2">接单</a><br />
+								<a href=""class="btna_s2">取消订单</a><br />
+							</span>
+							<span th:if="${temp.orderstatus==3}">
+								<a href="" class="btna_s2">提供服务</a><br />
+							</span>
+							<span th:if="${temp.orderstatus==4}">-</span>
+							<span th:if="${temp.orderstatus==5}">
+									<a href="" th:if="${temp.refundstatus!=0}" class="btna_s2">查看退款详情<br /></a>
+									<span class="c_4" th:if="${temp.commentstatus==1}">待评价</span>
+									<span class="c_4" th:if="${temp.commentstatus==2}">已评价</span>
+									<span class="c_4" th:if="${temp.commentstatus==3}">双方已评</span>
+							</span>
+						
+							
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -218,7 +247,7 @@ span  .time2 {
 		<dl class="footer_dl">
 			<dt>
 				<div class="footer_ewm_box">
-					<img src="Public/images/footer_ewm.png" alt="" />
+					<img src="/Public/images/footer_ewm.png" alt="" />
 				</div>
 				<span class="ft_ewm_name">御品韩汀</span>
 			</dt>
@@ -245,7 +274,7 @@ span  .time2 {
 		<div class="over_show kf_tel">0731-2286-7673</div></li>
 		<li><a href="javascript:void(0);" class="rn_wx">官方微信</a>
 		<div class="over_show">
-				<img src="Public/images/r_ewm.jpg" alt="" class="gw_ewm" />
+				<img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm" />
 			</div></li>
 		<li><a
 			href="tencent://Message/?Uin=3119683838&websiteName=http://yphting.zglxkj.com=&Menu=yes"
@@ -335,6 +364,13 @@ span  .time2 {
 </body>
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript" th:inline="javascript">
+	$.each($("[name=stid]"),function(i,obj){
+		var stid=$(this).html();
+		var p=$(this);
+		$.getJSON("/c/szy/order/querySerType",{"stid":stid},function(data){
+			p.html(data.stname);
+		})
+	})
 	
 </script>
 </html>

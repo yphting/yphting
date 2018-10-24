@@ -15,7 +15,7 @@ import com.accp.pojo.User;
 
 @Controller
 @RequestMapping("/c/szy")
-public class OrdersActiom {
+public class OrdersAction {
 	@Autowired
 	private OrdersBiz biz;
 	/**
@@ -32,9 +32,19 @@ public class OrdersActiom {
 		model.addAttribute("pageInfo", biz.queryUserOrder(userID, orderStatus, refundstatus, orderID, pageNum, pageSize));
 		return "/sjzx-order.html";
 	}
+	/**
+	 * 查询类型
+	 * @param stid
+	 * @return
+	 */
 	@RequestMapping(value="/order/querySerType",method=RequestMethod.GET)
 	@ResponseBody
 	public Servicetype querySerType(Integer stid) {
 		return biz.querySerType(stid);
+	}
+	@RequestMapping(value="/order/querySerType",method=RequestMethod.POST)
+	public String updateOrders(Integer orderStatus,String orderID) {
+		biz.updateOrders(orderStatus, orderID);
+		return "redirect:/c/szy/order/queryAllOrder";
 	}
 }

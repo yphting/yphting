@@ -2,6 +2,8 @@ package com.accp.action.szy;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,7 @@ import com.accp.util.code.VerifyCode;
 import com.accp.util.email.Email;
 import com.accp.util.email.EmailBoard;
 import com.accp.util.file.Upload;
+import com.accp.util.rsaKey.RSAUtils;
 import com.accp.vo.szy.ListVo;
 import com.accp.vo.szy.NewsVo;
 import com.accp.vo.szy.TimeOutEmailDateVo;
@@ -121,23 +124,64 @@ public class UserAction {
 		}
 	}
 	/**
-	 * 登陆
-	 * @param session
+	 * 获取公钥
 	 * @param email
+	 * @return
+	 */
+	@RequestMapping(value="/user/rsaKey",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> generateRSAKey(String email){
+				// 将公钥传到前端
+	            Map<String,String> map = new HashMap<String,String>();
+		 try {
+				// 获取公钥和私钥
+				HashMap<String, Object> keys = RSAUtils.getKeys();
+	            RSAPublicKey publicKey = (RSAPublicKey) keys.get("public");
+	            RSAPrivateKey privateKey = (RSAPrivateKey) keys.get("private");
+	            // 保存私钥到 redis，也可以保存到数据库
+	            try {
+					ListVo.emailService.put(email, privateKey);
+				} catch (Exception e) {
+					System.out.println("私钥存储失败");
+				}
+	            // 注意返回modulus和exponent以16为基数的BigInteger的字符串表示形式
+	            map.put("modulus", publicKey.getModulus().toString(16));
+	            map.put("exponent", publicKey.getPublicExponent().toString(16));
+	        } catch (Exception e) {
+	        	map.put("msg", e.getMessage());
+	        } 
+		 return map;
+	}
+	/**
+	 * 解密 登陆方法
+	 * @param username
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value="/user/login",method=RequestMethod.GET)
-	public String login(HttpSession session,String email,String password) {
-		User u=biz.login(email, password);
-		if(u!=null) {
-			session.setAttribute("USER", u);
-			session.setAttribute("Email", email);
-			return "redirect:/grzx-index.html";
-		}else {
-			return "szy-login.html";
-		}
-	}
+	@RequestMapping(value="/user/checkRSAKey",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> checkRSAKey(HttpSession session,String email,String password) {
+	        Object object = ListVo.emailService.get(email);
+	        Map<String,String> map = new HashMap<String,String>();
+	        try {
+	            // 解密
+	        	System.out.println(password);
+	            String decryptByPrivateKey = RSAUtils.decryptByPrivateKey(password, (RSAPrivateKey) object);
+	            System.out.println(decryptByPrivateKey);
+	            User u=biz.login(email, decryptByPrivateKey);
+	    		if(u!=null) {
+	    			session.setAttribute("USER", u);
+	    			session.setAttribute("Email", email);
+	    			map.put("code", "200");
+	    		}else {
+	    			map.put("code", "500");
+	    		}
+	        } catch (Exception e) {
+	            map.put("msg", e.getMessage());
+	        }
+	        return map;
+	 }
+
 	/**
 	 * 站外修改密码
 	 * @param email

@@ -22,4 +22,11 @@ public interface IOrdersDao {
 	 * @return
 	 */
 	public Servicetype querySerType(@Param("stid")Integer stid);
+	/**
+	 * 修改订单状态
+	 * @param orderStatus
+	 * @param orderID
+	 * @return
+	 */
+	public int updateOrders(@Param("orderStatus")Integer orderStatus,@Param("orderID")String orderID);
 }
