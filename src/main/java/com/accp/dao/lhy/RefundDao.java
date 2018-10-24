@@ -16,7 +16,12 @@ public interface RefundDao {
 	 */
 	boolean saveRefund(@Param("refund") Refund refund);
 
-	List<Refund> queryRefundByOrderId(@Param("orderid") Integer orderId);
-
-	List<Refund> queryRefundByOrderId(String orderId);
+	/**
+	 * 获取退款箱单
+	 * 
+	 * @param orderId
+	 *            订单编号
+	 * @return
+	 */
+	List<Refund> queryRefundByOrderId(@Param("orderid") String orderId);
 }

@@ -17,6 +17,13 @@ public class RefundBiz {
 	@Autowired
 	private RefundDao dao;
 
+	/**
+	 * 获取退款详单
+	 * 
+	 * @param orderId
+	 *            订单编号
+	 * @return
+	 */
 	public List<Refund> queryRefundByOrderId(String orderId) {
 		return dao.queryRefundByOrderId(orderId);
 	}

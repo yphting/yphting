@@ -103,7 +103,7 @@
 						<span class="c_9">* 温馨提示：</span> 本次售后服务将由 商家<a href=""
 							class="c_9 mlr10" th:text="${order.service.user.shopname}"></a>为您提供
 					</p>
-					<form method="post" target="topost" id="formmsg"
+					<form method="post" id="formmsg"
 						action="/c/lhy/order/refund/ok" enctype="multipart/form-data">
 						<input type="hidden" name="orderid" th:value="${order.orderid}">
 						<ul class="member_zl_ul">

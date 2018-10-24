@@ -17,6 +17,14 @@ public class RefundAction {
 	@Autowired
 	private RefundBiz refundBiz;
 
+	/**
+	 * 查看退款详情
+	 * 
+	 * @param orderid
+	 *            订单编号
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/refund/detail")
 	public String refundDetail(@RequestParam(required = true) String orderid, Model model) {
 		model.addAttribute("order", orderBiz.queryOrderById(orderid));
