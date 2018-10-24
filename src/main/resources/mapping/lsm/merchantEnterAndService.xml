@@ -416,6 +416,9 @@
 				`atid` IN(4,5,6,7)
 			</if>
 		</where>
+		<if test="flag==1">
+			ORDER BY `aorder` 
+		</if>
 	</select>
 	<!-- 首页社区服务星级服务商家推荐 -->
 	<select id="querySerRecommendVO" resultType="com.accp.vo.lsm.SerRecommendVO">
@@ -423,6 +426,28 @@
 		FROM `user` AS u
 		WHERE u.`firstServiceID` = #{stid} OR `secondServiceID` = #{stid}
 		ORDER BY `merchantLevel` DESC,`orderCount` DESC
+		LIMIT 9
+	</select>
+	<!-- 查询首页社区服务最新帖子 --> 
+	<select id="queryHomePostVO" resultType="com.accp.vo.lsm.HomePostVO">
+		SELECT p.`postID`,p.`title`,u.`userID`,u.`userName`,u.`userImgPath`,f.`fmName`,IF(TIMESTAMPDIFF(HOUR,p.`releaseTime`,NOW())>=24,CONCAT(TIMESTAMPDIFF(DAY,p.`releaseTime`,NOW()),'天'), CONCAT(CONCAT(FLOOR(TIMESTAMPDIFF(MINUTE,p.`releaseTime`,NOW())/60),'小时'),CONCAT(FLOOR(SUBSTRING_INDEX(TIMESTAMPDIFF(MINUTE,p.`releaseTime`,NOW())/60,'.',-1)/10000*60),'分钟'))) AS 'releaseTime',
+		(SELECT u.`userID` FROM `postcomment` AS pc INNER JOIN `user` AS u ON u.`userID` = pc.`commentator` WHERE `postID` = p.`postID` AND pid = 0 AND `operatingState` = 1 ORDER BY `reviewTime` DESC LIMIT 1) AS `replyUserID`,
+		(SELECT u.`userName` FROM `postcomment` AS pc INNER JOIN `user` AS u ON u.`userID` = pc.`commentator` WHERE `postID` = p.`postID` AND pid = 0 AND `operatingState` = 1 ORDER BY `reviewTime` DESC LIMIT 1) AS `replyUserName`,
+		(SELECT IF(TIMESTAMPDIFF(HOUR,pc.`reviewTime`,NOW())>=24,CONCAT(TIMESTAMPDIFF(DAY,pc.`reviewTime`,NOW()),'天'), CONCAT(CONCAT(FLOOR(TIMESTAMPDIFF(MINUTE,pc.`reviewTime`,NOW())/60),'小时'),CONCAT(FLOOR(SUBSTRING_INDEX(TIMESTAMPDIFF(MINUTE,pc.`reviewTime`,NOW())/60,'.',-1)/10000*60),'分钟'))) FROM `postcomment` AS pc INNER JOIN `user` AS u ON u.`userID` = pc.`commentator` WHERE `postID` = p.`postID` AND pid = 0 AND `operatingState` = 1 ORDER BY `reviewTime` DESC LIMIT 1) AS `replyUserTime`
+		FROM `post` AS p
+		INNER JOIN `user` AS u
+		ON u.`userID` = p.`userID`
+		INNER JOIN `forummanagement` AS f
+		ON f.`fmID` = p.`fmID`
+		ORDER BY p.`releaseTime` DESC
+		LIMIT 9
+	</select>
+	<!-- 查询首页社区服务美妆天地板块帖子 -->
+	<select id="queryHomePostByMakeup" resultType="Post">
+		SELECT *
+		FROM `post`
+		WHERE `fmID` = 29
+		ORDER BY `releaseTime` DESC
 		LIMIT 9
 	</select>
 </mapper>

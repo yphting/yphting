@@ -312,93 +312,43 @@
 						<!--item-->
 						<div class="owl-wrapper-outer">
 							<div class="owl-wrapper" style="width: 7200px; left: 0px; display: block; transition: all 400ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-								<div class="owl-item" style="width: 1200px;">
+								<div class="owl-item" style="width: 1200px;" th:if="${homePostVOList.size()>0}">
 									<div class="item">
 										<div class="study_part">
 											<ul class="study_part_ul">
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/109.html" class="study_style">财经类</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/565.html">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
+												<li th:each="temp,iter : ${homePostVOList}" th:if="${iter.count<=3}">
+													<a href="javascript:void(0);" class="study_style" th:text="${temp.fmName}">财经类</a>
+													<h4 class="study_h4"><a href="javascript:void(0);" th:text="${temp.title}">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
 													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/256.html"><img src="http://thirdqq.qlogo.cn/qqapp/101390132/7B23878391313C02EF4607004A1EB131/100" alt="say goodbye" height="50" class="star_user_photo"></a></dt>
+														<dt><a href="javascript:void(0);"><img th:src="${temp.userImgPath}" th:alt="${temp.userName}" height="50" class="star_user_photo"></a></dt>
 														<dd>
 															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/256.html">say goodbye</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/109.html">财经类</a> • </p>
-															<p class="date_sp">18天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/47.html" class="study_style">交朋结友</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/563.html">爱你妈</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/298.html"><img src="http://thirdqq.qlogo.cn/qqapp/101390132/E4FD7DF7641EEB7B14F9E27152ACF876/100" alt="尧尧" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/298.html">尧尧</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/47.html">交朋结友</a> • 27天前<span class="bbs_dot">·</span>最后回复
-																<a href="/index.php/Home/Homepage/index/sid/249.html" class="lst_nem">。</a>
+																<a href="javascript:void(0);" th:text="${temp.userName}">say goodbye</a> •
+																<a href="/index.php/Home/Bbs/lists/cid/109.html" th:text="${temp.fmName}">财经类</a>
+																 • [[${temp.replyUserTime!=null&&temp.replyUserTime!=''?temp.replyUserTime+'前':''}]]<span class="bbs_dot" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">·</span>
+																 <span th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">最后回复</span>
+																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem" th:text="${temp.replyUserName}" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">make Bug</a>
 															</p>
-															<p class="date_sp">28天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li class="last">
-													<a href="/index.php/Home/Bbs/lists/cid/109.html" class="study_style">财经类</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/562.html">11</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/268.html"><img src="http://thirdqq.qlogo.cn/qqapp/101390132/1A74E83FEA4D68101B2FA83D259CB4F4/100" alt="ぺ獨冢誋憶い" height="50" class="star_user_photo"><img src="/Public/images/bbs_user_i.png" alt="" class="hg_i_1"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/268.html">ぺ獨冢誋憶い</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/109.html">财经类</a> • </p>
-															<p class="date_sp">36天前 </p>
+															<p class="date_sp" th:text="${temp.releaseTime+'前'}">18天前 </p>
 														</dd>
 													</dl>
 												</li>
 											</ul>
 											<ul class="study_part_ul">
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/147.html" class="study_style">韩国</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/561.html">xiong</a></h4>
+												<li th:each="temp,iter : ${homePostVOList}" th:if="${iter.count>=4&&iter.count<=6}">
+													<a href="javascript:void(0);" class="study_style" th:text="${temp.fmName}">财经类</a>
+													<h4 class="study_h4"><a href="javascript:void(0);" th:text="${temp.title}">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
 													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/268.html"><img src="http://thirdqq.qlogo.cn/qqapp/101390132/1A74E83FEA4D68101B2FA83D259CB4F4/100" alt="ぺ獨冢誋憶い" height="50" class="star_user_photo"><img src="/Public/images/bbs_user_i.png" alt="" class="hg_i_1"></a></dt>
+														<dt><a href="javascript:void(0);"><img th:src="${temp.userImgPath}" th:alt="${temp.userName}" height="50" class="star_user_photo"></a></dt>
 														<dd>
 															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/268.html">ぺ獨冢誋憶い</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/147.html">韩国</a> • 13天前<span class="bbs_dot">·</span>最后回复
-																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem">make Bug</a>
+																<a href="javascript:void(0);" th:text="${temp.userName}">say goodbye</a> •
+																<a href="/index.php/Home/Bbs/lists/cid/109.html" th:text="${temp.fmName}">财经类</a>
+																 • [[${temp.replyUserTime!=null&&temp.replyUserTime!=''?temp.replyUserTime+'前':''}]]<span class="bbs_dot" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">·</span>
+																 <span th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">最后回复</span>
+																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem" th:text="${temp.replyUserName}" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">make Bug</a>
 															</p>
-															<p class="date_sp">36天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/151.html" class="study_style">校园求职</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/544.html">职业介绍</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/160.html"><img src="/Uploads/image/2018-05/20180505041059-65847.gif" alt="我想静静" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/160.html">我想静静</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/151.html">校园求职</a> • 146天前<span class="bbs_dot">·</span>最后回复
-																<a href="/index.php/Home/Homepage/index/sid/160.html" class="lst_nem">我想静静</a>
-															</p>
-															<p class="date_sp">153天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li class="last">
-													<a href="/index.php/Home/Bbs/lists/cid/151.html" class="study_style">校园求职</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/543.html">求设计师工作</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/96.html"><img src="http://q.qlogo.cn/qqapp/101390132/B136DB42EFAA32F4F6E0A3ED25F25541/100" alt="기쿠지로의 여름 " height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/96.html">기쿠지로의 여름 </a> •
-																<a href="/index.php/Home/Bbs/lists/cid/151.html">校园求职</a> • </p>
-															<p class="date_sp">170天前 </p>
+															<p class="date_sp" th:text="${temp.releaseTime+'前'}">18天前 </p>
 														</dd>
 													</dl>
 												</li>
@@ -407,28 +357,12 @@
 											<div class="study_right">
 												<a href="/index.php/Home/Bbs/lists/cid/9.html" class="study_style">美妆天地</a>
 												<ul class="study_video_ul">
-													<li class="last">
+													<li class="last" th:each="temp,iter : ${homePostMakeUpList}" th:if="${iter.count<=3}">
 														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/548.html"><img src="/temp/20180506095758-51083.jpg" alt="韩语入门-第一讲" width="170" height="100"><span class="video_tiem">12分13秒</span></a>
+															<a href="javascript:void(0);"><img th:src="${temp.coverpath}" th:alt="${temp.title}" width="170" height="100"><span class="video_tiem" th:text="${temp.time}">12分13秒</span></a>
 														</div>
 														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/548.html">韩语入门-第一讲</a>
-														</p>
-													</li>
-													<li class="last">
-														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/546.html"><img src="/temp/20180506091450-60739.jpg" alt="古井" width="170" height="100"><span class="video_tiem">10：10</span></a>
-														</div>
-														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/546.html">古井</a>
-														</p>
-													</li>
-													<li class="last">
-														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/486.html"><img src="/Public/images/study_img_1.jpg" alt="1111" width="170" height="100"><span class="video_tiem"></span></a>
-														</div>
-														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/486.html">1111</a>
+															<a href="javascript:void(0);" th:text="${temp.title}">韩语入门-第一讲</a>
 														</p>
 													</li>
 												</ul>
@@ -436,93 +370,43 @@
 										</div>
 									</div>
 								</div>
-								<div class="owl-item" style="width: 1200px;">
+								<div class="owl-item" style="width: 1200px;" th:if="${homePostVOList.size()>6}">
 									<div class="item">
 										<div class="study_part">
 											<ul class="study_part_ul">
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/150.html" class="study_style">校园招聘</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/542.html">韩国大使馆招人</a></h4>
+												<li th:each="temp,iter : ${homePostVOList}" th:if="${iter.count>=7&&iter.count<=9}">
+													<a href="javascript:void(0);" class="study_style" th:text="${temp.fmName}">财经类</a>
+													<h4 class="study_h4"><a href="javascript:void(0);" th:text="${temp.title}">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
 													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/158.html"><img src="/Uploads/image/2018-05/20180506110841-67573.jpg" alt="浊酒倾觞" height="50" class="star_user_photo"></a></dt>
+														<dt><a href="javascript:void(0);"><img th:src="${temp.userImgPath}" th:alt="${temp.userName}" height="50" class="star_user_photo"></a></dt>
 														<dd>
 															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/158.html">浊酒倾觞</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/150.html">校园招聘</a> • </p>
-															<p class="date_sp">174天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/194.html" class="study_style">大学教程</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/541.html">韩国与中国的差别是什么？</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/158.html"><img src="/Uploads/image/2018-05/20180506110841-67573.jpg" alt="浊酒倾觞" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/158.html">浊酒倾觞</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/194.html">大学教程</a> • </p>
-															<p class="date_sp">176天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li class="last">
-													<a href="/index.php/Home/Bbs/lists/cid/150.html" class="study_style">校园招聘</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/539.html">招一名家教！</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/158.html"><img src="/Uploads/image/2018-05/20180506110841-67573.jpg" alt="浊酒倾觞" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/158.html">浊酒倾觞</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/150.html">校园招聘</a> • 140天前<span class="bbs_dot">·</span>最后回复
-																<a href="/index.php/Home/Homepage/index/sid/147.html" class="lst_nem">ゝ浅默淡殇ヽ</a>
+																<a href="javascript:void(0);" th:text="${temp.userName}">say goodbye</a> •
+																<a href="/index.php/Home/Bbs/lists/cid/109.html" th:text="${temp.fmName}">财经类</a>
+																 • [[${temp.replyUserTime!=null&&temp.replyUserTime!=''?temp.replyUserTime+'前':''}]]<span class="bbs_dot" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">·</span>
+																 <span th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">最后回复</span>
+																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem" th:text="${temp.replyUserName}" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">make Bug</a>
 															</p>
-															<p class="date_sp">177天前 </p>
+															<p class="date_sp" th:text="${temp.releaseTime+'前'}">18天前 </p>
 														</dd>
 													</dl>
 												</li>
 											</ul>
 											<ul class="study_part_ul">
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/151.html" class="study_style">校园求职</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/538.html">工业大学招教师一名</a></h4>
+												<li th:each="temp,iter : ${homePostVOList}" th:if="${iter.count>=10&&iter.count<=12}">
+													<a href="javascript:void(0);" class="study_style" th:text="${temp.fmName}">财经类</a>
+													<h4 class="study_h4"><a href="javascript:void(0);" th:text="${temp.title}">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
 													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/158.html"><img src="/Uploads/image/2018-05/20180506110841-67573.jpg" alt="浊酒倾觞" height="50" class="star_user_photo"></a></dt>
+														<dt><a href="javascript:void(0);"><img th:src="${temp.userImgPath}" th:alt="${temp.userName}" height="50" class="star_user_photo"></a></dt>
 														<dd>
 															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/158.html">浊酒倾觞</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/151.html">校园求职</a> • </p>
-															<p class="date_sp">177天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/135.html" class="study_style">韩语求助</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/535.html">이건 너무 말도 안되는거 아냐? 这简直太离谱了！</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/158.html"><img src="/Uploads/image/2018-05/20180506110841-67573.jpg" alt="浊酒倾觞" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/158.html">浊酒倾觞</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/135.html">韩语求助</a> • 141天前<span class="bbs_dot">·</span>最后回复
-																<a href="/index.php/Home/Homepage/index/sid/147.html" class="lst_nem">ゝ浅默淡殇ヽ</a>
+																<a href="javascript:void(0);" th:text="${temp.userName}">say goodbye</a> •
+																<a href="/index.php/Home/Bbs/lists/cid/109.html" th:text="${temp.fmName}">财经类</a>
+																 • [[${temp.replyUserTime!=null&&temp.replyUserTime!=''?temp.replyUserTime+'前':''}]]<span class="bbs_dot" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">·</span>
+																 <span th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">最后回复</span>
+																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem" th:text="${temp.replyUserName}" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">make Bug</a>
 															</p>
-															<p class="date_sp">178天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li class="last">
-													<a href="/index.php/Home/Bbs/lists/cid/71.html" class="study_style">整形后记</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/511.html">测试</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/96.html"><img src="http://q.qlogo.cn/qqapp/101390132/B136DB42EFAA32F4F6E0A3ED25F25541/100" alt="기쿠지로의 여름 " height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/96.html">기쿠지로의 여름 </a> •
-																<a href="/index.php/Home/Bbs/lists/cid/71.html">整形后记</a> • 200天前<span class="bbs_dot">·</span>最后回复
-																<a href="/index.php/Home/Homepage/index/sid/96.html" class="lst_nem">기쿠지로의 여름 </a>
-															</p>
-															<p class="date_sp">209天前 </p>
+															<p class="date_sp" th:text="${temp.releaseTime+'前'}">18天前 </p>
 														</dd>
 													</dl>
 												</li>
@@ -531,28 +415,12 @@
 											<div class="study_right">
 												<a href="/index.php/Home/Bbs/lists/cid/9.html" class="study_style">美妆天地</a>
 												<ul class="study_video_ul">
-													<li class="last">
+													<li class="last" th:each="temp,iter : ${homePostMakeUpList}" th:if="${iter.count>=4&&iter.count<=6}">
 														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/394.html"><img src="/Uploads/image/2017-05/20170528110431-16116.jpg" alt="SWEET &amp; ELEGANT PROM MAKEUP" width="170" height="100"><span class="video_tiem">5分08秒</span></a>
+															<a href="javascript:void(0);"><img th:src="${temp.coverpath}" th:alt="${temp.title}" width="170" height="100"><span class="video_tiem" th:text="${temp.time}">12分13秒</span></a>
 														</div>
 														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/394.html">SWEET &amp; ELEGANT</a>
-														</p>
-													</li>
-													<li class="last">
-														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/390.html"><img src="/Uploads/image/2017-05/20170527014658-18456.jpg" alt="宋慧喬化妝師示範大熱雙色唇妝！" width="170" height="100"><span class="video_tiem">02分22秒</span></a>
-														</div>
-														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/390.html">宋慧喬化妝師示範大熱雙色唇妝！</a>
-														</p>
-													</li>
-													<li class="last">
-														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/389.html"><img src="/Uploads/image/2017-05/20170525063855-44967.jpg" alt="Korean Makeup flower" width="170" height="100"><span class="video_tiem">3分10秒</span></a>
-														</div>
-														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/389.html">Korean Makeup flower</a>
+															<a href="javascript:void(0);" th:text="${temp.title}">韩语入门-第一讲</a>
 														</p>
 													</li>
 												</ul>
@@ -560,87 +428,43 @@
 										</div>
 									</div>
 								</div>
-								<div class="owl-item" style="width: 1200px;">
+								<div class="owl-item" style="width: 1200px;" th:if="${homePostVOList.size()>0}">
 									<div class="item">
 										<div class="study_part">
 											<ul class="study_part_ul">
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/8.html" class="study_style">语种学习</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/510.html">测试</a></h4>
+												<li th:each="temp,iter : ${homePostVOList}" th:if="${iter.count>=13&&iter.count<=15}">
+													<a href="javascript:void(0);" class="study_style" th:text="${temp.fmName}">财经类</a>
+													<h4 class="study_h4"><a href="javascript:void(0);" th:text="${temp.title}">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
 													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/146.html"><img src="/Public/images/s_photo_1.jpg" alt="" height="50" class="star_user_photo"></a></dt>
+														<dt><a href="javascript:void(0);"><img th:src="${temp.userImgPath}" th:alt="${temp.userName}" height="50" class="star_user_photo"></a></dt>
 														<dd>
 															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/146.html"></a> •
-																<a href="/index.php/Home/Bbs/lists/cid/8.html">语种学习</a> • </p>
-															<p class="date_sp">213天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/8.html" class="study_style">语种学习</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/509.html">韩语学习的魅力</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/91.html"><img src="/Uploads/image/2017-05/20170515072017-32499.jpg" alt="御品韩汀" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/91.html">御品韩汀</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/8.html">语种学习</a> • </p>
-															<p class="date_sp">214天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li class="last">
-													<a href="/index.php/Home/Bbs/lists/cid/55.html" class="study_style">留学资讯</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/508.html">美国留学不是问题！</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/91.html"><img src="/Uploads/image/2017-05/20170515072017-32499.jpg" alt="御品韩汀" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/91.html">御品韩汀</a> •
-																<a href="/index.php/Home/Bbs/lists/cid/55.html">留学资讯</a> • </p>
-															<p class="date_sp">214天前 </p>
+																<a href="javascript:void(0);" th:text="${temp.userName}">say goodbye</a> •
+																<a href="/index.php/Home/Bbs/lists/cid/109.html" th:text="${temp.fmName}">财经类</a>
+																 • [[${temp.replyUserTime!=null&&temp.replyUserTime!=''?temp.replyUserTime+'前':''}]]<span class="bbs_dot" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">·</span>
+																 <span th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">最后回复</span>
+																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem" th:text="${temp.replyUserName}" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">make Bug</a>
+															</p>
+															<p class="date_sp" th:text="${temp.releaseTime+'前'}">18天前 </p>
 														</dd>
 													</dl>
 												</li>
 											</ul>
 											<ul class="study_part_ul">
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/150.html" class="study_style">校园招聘</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/507.html">测试</a></h4>
+												<li th:each="temp,iter : ${homePostVOList}" th:if="${iter.count>=16&&iter.count<=18}">
+													<a href="javascript:void(0);" class="study_style" th:text="${temp.fmName}">财经类</a>
+													<h4 class="study_h4"><a href="javascript:void(0);" th:text="${temp.title}">吱吱吱吱吱吱吱吱吱吱吱吱</a></h4>
 													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/143.html"><img src="/Public/images/s_photo_1.jpg" alt="" height="50" class="star_user_photo"></a></dt>
+														<dt><a href="javascript:void(0);"><img th:src="${temp.userImgPath}" th:alt="${temp.userName}" height="50" class="star_user_photo"></a></dt>
 														<dd>
 															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/143.html"></a> •
-																<a href="/index.php/Home/Bbs/lists/cid/150.html">校园招聘</a> • </p>
-															<p class="date_sp">217天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li>
-													<a href="/index.php/Home/Bbs/lists/cid/8.html" class="study_style">语种学习</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/505.html">445</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/143.html"><img src="/Public/images/s_photo_1.jpg" alt="" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/143.html"></a> •
-																<a href="/index.php/Home/Bbs/lists/cid/8.html">语种学习</a> • </p>
-															<p class="date_sp">218天前 </p>
-														</dd>
-													</dl>
-												</li>
-												<li class="last">
-													<a href="/index.php/Home/Bbs/lists/cid/8.html" class="study_style">语种学习</a>
-													<h4 class="study_h4"><a href="/index.php/Home/Bbs/detail/aid/504.html">44744</a></h4>
-													<dl class="study_dl">
-														<dt><a href="/index.php/Home/Homepage/index/sid/143.html"><img src="/Public/images/s_photo_1.jpg" alt="" height="50" class="star_user_photo"></a></dt>
-														<dd>
-															<p class="study_p1">
-																<a href="/index.php/Home/Homepage/index/sid/143.html"></a> •
-																<a href="/index.php/Home/Bbs/lists/cid/8.html">语种学习</a> • </p>
-															<p class="date_sp">218天前 </p>
+																<a href="javascript:void(0);" th:text="${temp.userName}">say goodbye</a> •
+																<a href="/index.php/Home/Bbs/lists/cid/109.html" th:text="${temp.fmName}">财经类</a>
+																 • [[${temp.replyUserTime!=null&&temp.replyUserTime!=''?temp.replyUserTime+'前':''}]]<span class="bbs_dot" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">·</span>
+																 <span th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">最后回复</span>
+																<a href="/index.php/Home/Homepage/index/sid/270.html" class="lst_nem" th:text="${temp.replyUserName}" th:if="${temp.replyUserTime!=null&&temp.replyUserTime!=''}">make Bug</a>
+															</p>
+															<p class="date_sp" th:text="${temp.releaseTime+'前'}">18天前 </p>
 														</dd>
 													</dl>
 												</li>
@@ -649,28 +473,12 @@
 											<div class="study_right">
 												<a href="/index.php/Home/Bbs/lists/cid/9.html" class="study_style">美妆天地</a>
 												<ul class="study_video_ul">
-													<li class="last">
+													<li class="last" th:each="temp,iter : ${homePostMakeUpList}" th:if="${iter.count>=7&&iter.count<=9}">
 														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/383.html"><img src="/Uploads/image/2017-05/20170524055853-94094.jpg" alt="Korean Makeup ｜Jessie L." width="170" height="100"><span class="video_tiem">06分36秒</span></a>
+															<a href="javascript:void(0);"><img th:src="${temp.coverpath}" th:alt="${temp.title}" width="170" height="100"><span class="video_tiem" th:text="${temp.time}">12分13秒</span></a>
 														</div>
 														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/383.html">Korean Makeup ｜Jessie L.</a>
-														</p>
-													</li>
-													<li class="last">
-														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/379.html"><img src="/Uploads/image/2017-05/20170515055037-58590.jpg" alt="로드샵특집1, 학생 메이크업 " width="170" height="100"><span class="video_tiem">03分50秒</span></a>
-														</div>
-														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/379.html">로드샵특집1, 학생 메이크업</a>
-														</p>
-													</li>
-													<li class="last">
-														<div class="study_video_img">
-															<a href="/index.php/Home/Bbs/detail/aid/321.html"><img src="/Uploads/image/2017-05/20170504102733-27237.jpg" alt="超級無敵簡單男生日常妝完整步驟" width="170" height="100"><span class="video_tiem">04分58秒</span></a>
-														</div>
-														<p class="study_video_text">
-															<a href="/index.php/Home/Bbs/detail/aid/321.html">超級無敵簡單男生日常妝完整步驟</a>
+															<a href="javascript:void(0);" th:text="${temp.title}">韩语入门-第一讲</a>
 														</p>
 													</li>
 												</ul>
@@ -678,13 +486,14 @@
 										</div>
 									</div>
 								</div>
+								
 							</div>
 						</div>
 						<div class="owl-controls clickable">
-							<div class="owl-pagination">
-								<div class="owl-page active"><span class=""></span></div>
-								<div class="owl-page"><span class=""></span></div>
-								<div class="owl-page"><span class=""></span></div>
+							<div class="owl-pagination" th:if="${homePostVOList.size()>0}">
+								<div class="owl-page active" th:if="${homePostVOList.size()>6}"><span class=""></span></div>
+								<div class="owl-page" th:if="${homePostVOList.size()>6}"><span class=""></span></div>
+								<div class="owl-page" th:if="${homePostVOList.size()>12}"><span class=""></span></div>
 							</div>
 						</div>
 					</div>
