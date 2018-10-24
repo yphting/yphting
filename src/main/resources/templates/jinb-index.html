@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>账户充值_韩汀社区</title>
 <link rel="stylesheet" type="text/css"
-	href="../../Public/css/common.css" />
-	<script type="text/javascript" src="../../Public/js/jquery-1.8.3.min.js"></script>
+	href="/Public/css/common.css" />
+	<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
 <body>
 	<!--header-->
 	<div class="header" id="botop">
@@ -14,16 +14,16 @@
 			<div class="b_box">
 				<div class="top_nav">
 					<a href="/index.php?m=&">首页</a><span class="ht_line"></span><a
-						href="/index.php?m=Home&c=Member&a=seller">商家入驻</a><span
-						class="ht_line"></span><a href="/index.php?m=Home&c=About&a=help">帮助中心</a><span
-						class="ht_line"></span><a href="/index.php?m=Home&c=About&a=index">关于韩汀</a><span
+						href="">商家入驻</a><span
+						class="ht_line"></span><a href="">帮助中心</a><span
+						class="ht_line"></span><a href="">关于韩汀</a><span
 						class="ht_line"></span><a
-						href="/index.php?m=Home&c=About&a=contact">联系我们</a>
+						href="">联系我们</a>
 				</div>
 
 				<div class="top_right">
 					<a href="">郑石平</a> <span class="ht_line"></span><a
-						href="/index.php?m=Home&c=Member&a=logout">退出</a> <span
+						href="">退出</a> <span
 						class="ht_line"></span><a href="="><img
 						src="/Public/images/e_i.png" alt="" /></a>
 	
@@ -38,7 +38,7 @@
 			<a class="logo my_logo" href="">御品韩汀</a>
 			<ul class="member_nav_ul">
 				<li class="cur" id="li2"><a
-					href="/index.php?m=Home&c=Member&a=index">个人中心</a><span
+					href="">个人中心</a><span
 					class="my_nav_i"></span></li>
 				<li id="li3"><a href="">账户设置</a><span class="my_nav_i"></span></li>
 				<li id="li4"><a href="">消息</a><span class="my_nav_i"></span></li>
@@ -58,16 +58,17 @@
 			<div class="member_left">
 				<h1 class="member_left_title">个人中心</h1>
 				<ul class="member_system_ul">
-					<li><a href=""><span class="msp2 pre_c1"></span>我预订的服务</a></li class="cur">
-					<li><a href=""><span class="msp2 pre_c2"></span>我的下载</a></li class="cur">
-					<li><a href=""><span class="msp2 pre_c3"></span>我的收藏</a></li class="cur">
-					<li class="cur"><a href=""><span class="msp2 pre_c4"></span>我的金币</a></li class="cur">
-					<li><a href=""><span class="msp2 pre_c5"></span>我的积分</a></li class="cur">
-					<li><a href=""><span class="msp2 pre_c6"></span>我的评价</a></li class="cur">
-					<li><a href=""><span class="msp2 pre_c7"></span>我的退款</a></li class="cur">
-					<li><a href=""><span class="msp2 pre_c8"></span>我的物流</a></li class="cur">
-					<li><a target="_blank" href="/index.php?m=Home&c=About&a=help"><span
-							class="msp2 pre_c9"></span>帮助中心</a></li class="cur">
+					<li><a href=""><span class="msp2 pre_c1"></span>我预订的服务</a></li >
+					<li><a href=""><span class="msp2 pre_c2"></span>我的下载</a></li>
+					<li><a href=""><span class="msp2 pre_c3"></span>我的收藏</a></li >
+					<li class="cur"><a href="">
+					<span class="msp2 pre_c4"></span>我的金币</a></li >
+					<li><a href=""><span class="msp2 pre_c5"></span>我的积分</a></li >
+					<li><a href=""><span class="msp2 pre_c6"></span>我的评价</a></li >
+					<li><a href=""><span class="msp2 pre_c7"></span>我的退款</a></li >
+					<li><a href=""><span class="msp2 pre_c8"></span>我的物流</a></li >
+					<li><a target="_blank" href=""><span
+							class="msp2 pre_c9"></span>帮助中心</a></li >
 				</ul>
 			</div>
 			<!--member left end-->
@@ -77,11 +78,11 @@
 					<a href="/zsp/c/goldnotesQueryAll" class="fr btna_s2 f14">返回我的金币<span
 						class="sjt">>></span></a> 账户充值
 				</div>
-				<form id="formcz" action="zfb/c/viewOrder" method="post">
+				<form id="formcz" action="/zfb/c/viewOrder" method="post">
 					<ul class="member_zl_ul">
 						<li><span class="m_zl_sp">金币余额 ：</span>
 							<div class="m_zl_r">
-								<span id="recordInAndOut" class="num_1 c_7 f16">500</span>
+								<span id="recordInAndOut" class="num_1 c_7 f16">[[${USER.usermoney}]]</span>
 							</div></li>
 						<li><span class="m_zl_sp">充值：</span>
 							<div class="m_zl_r" style="overflow: inherit;">

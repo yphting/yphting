@@ -5,9 +5,20 @@
 <mapper namespace="com.accp.dao.zsp.GoldnotesDao">
 	<!-- 查询金币流行 -->
 	<select id="goldnotesQueryAll" resultType="Goldnotes">
-		SELECT * FROM
+		<!-- SELECT * FROM
 		GoldnoTes WHERE userId=#{userId}
-		ORDER BY `recordDate` DESC
+		ORDER BY `recordDate` DESC -->
+		 SELECT * FROM GoldnoTes 
+		 <where>
+		     <if test="userId!=null">
+		          and userId=#{userId}
+		     </if>
+		     <if test="acquisitionMode!=null">
+		          and acquisitionMode=#{acquisitionMode}
+		     </if>
+		 </where>
+ORDER BY `recordDate` DESC 
+		
 	</select>
 	<!-- 查询积分流行 -->
 	<select id="IntegralRecordQueryAll" resultType="integralrecord">
@@ -35,7 +46,7 @@
 		 <!-- 记录金币流向记录 -->
 		INSERT INTO
 		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
-		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=DATE},NULL,-#{putforWard.money},1)
+		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=DATE},'金币提现',-#{putforWard.money},4)
 	</insert>
 	<!-- 添加金币流向记录表 -->
 	<insert id="addGoldnotes" useGeneratedKeys="true"
@@ -43,7 +54,7 @@
 		INSERT INTO
 		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
 		VALUES(#{userid},#{recorddate,jdbcType=DATE}
-		,NULL,#{recordinandout},1)<!-- #{goldnotes.recorddate,jdbcType=DATE} -->
+		,#{recorddescribe},#{recordinandout},#{auditstatus})<!-- #{goldnotes.recorddate,jdbcType=DATE} -->
 	</insert>
 	<!-- 查询物流记录 -->
 	<select id="getListlogistics" resultType="logistics">
@@ -62,11 +73,11 @@
 
 <insert id="addLogistics">
 INSERT  INTO `logistics`(`userID`,`orderID`,`title`,`describe`,img1,img2,img3,img4,img5,
-kG,delivery,userPhone,userAddr,collectGoods ,collectGoodsPhone,collectGoodsAddr,orderTime)
+kG,delivery,userPhone,userAddr,collectGoods ,collectGoodsPhone,collectGoodsAddr,orderTime,userName,price)
 
 values(#{logistics.userid},#{logistics.orderid},#{logistics.title},#{logistics.describe},#{logistics.img1},#{logistics.img2},#{logistics.img3},#{logistics.img4},#{logistics.img5},
 #{logistics.kg},#{logistics.delivery},#{logistics.userphone},#{logistics.useraddr},
-#{logistics.collectgoods},#{logistics.collectgoodsphone},#{logistics.collectgoodsaddr},#{logistics.ordertime,jdbcType=DATE});
+#{logistics.collectgoods},#{logistics.collectgoodsphone},#{logistics.collectgoodsaddr},#{logistics.ordertime,jdbcType=DATE},#{logistics.username},#{logistics.price});
 
 </insert>
 <!-- 查询物流详情 -->
@@ -76,6 +87,43 @@ values(#{logistics.userid},#{logistics.orderid},#{logistics.title},#{logistics.d
 <!-- 查询地址表  -->
 <select id="getShAreaById" resultType="sharea">
     SELECT * FROM ShArea WHERE pId=#{id}
-    
 </select>
+<select id="getUser" resultType="user">
+     SELECT * FROM `user`WHERE userId=#{userId};
+</select>
+<update id="updUser">
+     UPDATE `user` SET userMoney=#{moery} WHERE userId=#{userId};
+</update>
+<select id="getGoldnotesById" resultType="logistics">
+SELECT * FROM `goldnoTes` WHERE recordId=#{recordId};
+</select>
+<update id="updGoldnotes">
+      UPDATE goldnoTes SET auditStatus=#{auditStatus} WHERE recordId=#{recordId}
+</update>
+<!-- 查询 当前用户收藏的商家 -->
+<select id="getMerchantCollectionById" resultMap="billMap">
+       SELECT u.userName,u.shopName, u.signature,u.shopImg,
+       s.serviceCoverImg,s.serviceFuTitle,s.servicePrice 
+        FROM services s LEFT JOIN  `user` u ON s.userid=u.userid  
+WHERE u.userid=#{userId}
+</select>
+<select id="getServicesByUserId" resultType="services">
+    SELECT * FROM `services` WHERE serviceId IN
+    (SELECT serviceId FROM  ServiceCollection WHERE userId=#{userId})
+</select>
+<resultMap id="billMap" type="com.accp.vo.zsp.userVo">
+		<id column="userName" property="userName"></id>
+		<result column="shopName" property="shopName"></result>
+		<result column="signature" property="signature"></result>
+		<result column="shopImg" property="shopImg"></result>
+		<collection property="servicesVo" ofType="com.accp.vo.zsp.ServicesVo">
+			<result column="serviceCoverImg" property="serviceCoverImg"></result>
+			<result column="serviceFuTitle" property="serviceFuTitle"></result>
+			<result column="servicePrice" property="servicePrice"></result>	
+		</collection>
+	</resultMap>
+	  <update id="updatedLogistics">
+	  UPDATE `logistics` SET auditStatus=#{logistics.auditstatus}
+	     WHERE `logisticsID`=#{logistics.logisticsid}
+	</update> 
 </mapper>

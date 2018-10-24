@@ -1,5 +1,6 @@
 package com.accp.biz.zsp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,11 @@ import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
 import com.accp.pojo.Putforward;
+import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
+import com.accp.pojo.User;
+import com.accp.vo.zsp.ServicesVo;
+import com.accp.vo.zsp.userVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -32,9 +37,9 @@ public class GoldnotesBiz {
 	 * @param userId用户id
 	 * @return
 	 */
-    public  PageInfo<Goldnotes> goldnotesQueryAll(Integer pageNum,Integer pageSize,Integer userId) {
+    public  PageInfo<Goldnotes> goldnotesQueryAll(Integer pageNum,Integer pageSize,Integer userId,Integer acquisitionMode) {
     	 PageHelper.startPage(pageNum,pageSize);
-  	   return new PageInfo<Goldnotes>(dao.goldnotesQueryAll(userId));
+  	   return new PageInfo<Goldnotes>(dao.goldnotesQueryAll(userId,acquisitionMode));
     }
     /**
      * 查询积分流向
@@ -53,6 +58,9 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addPutforWard(Putforward  putforward) {
+    	User user=dao.getUser(putforward.getUserid());
+    	Integer money=(int) (user.getUsermoney()-putforward.getMoney());
+    	dao.updUser(money, putforward.getUserid());
 		dao.addPutforWard(putforward);
 	}
     /**
@@ -61,6 +69,9 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
+    	User user=dao.getUser(goldnotes.getUserid());
+    	Integer money=(int) (user.getUsermoney()+goldnotes.getRecordinandout());
+    	dao.updUser(money, goldnotes.getUserid());
     	dao.addGoldnotes(goldnotes);
 	}
     /**
@@ -110,5 +121,51 @@ public class GoldnotesBiz {
   }
   public List<Sharea>getShAreaById(Integer id) {
 	  return dao.getShAreaById(id);
+  }
+  /**
+   * 查询用户余额
+   * @param userId
+   * @return
+   */
+  public User getUser(Integer userId) {
+	  return dao.getUser(userId);
+  }
+  /**
+   * 修改金币记录状态
+   * @param recordId
+   * @param auditStatus
+   */
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updGoldnotes(Integer recordId,Integer auditStatus) {
+	  dao.updGoldnotes(recordId, auditStatus);
+  }
+  /**
+   * 查询当前金币记录是否存在
+   * @param recordId
+   * @return
+   */
+  public Goldnotes getGoldnotesById(Integer recordId) {
+	  return dao.getGoldnotesById(recordId);
+  }
+  public PageInfo<Services>getServicesByUserId(Integer pageNum,Integer pageSize,Integer userId){
+	  PageHelper.startPage(pageNum, pageSize);
+	  return new PageInfo<Services>(dao.getServicesByUserId(userId));
+  }
+  public PageInfo<userVo>getMerchantCollectionById(Integer pageNum,Integer pageSize,Integer userId){
+	  PageHelper.startPage(pageNum, pageSize);
+	  return new PageInfo<userVo>(dao.getMerchantCollectionById(userId));
+  }
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updUser(Integer moery,Integer userId,Integer logisticsid) {
+	  Logistics logistics=new Logistics();
+	  logistics.setAuditstatus(2);
+	  logistics.setOrdertime(new Date());
+	  logistics.setLogisticsid(logisticsid);
+	  dao.updatedLogistics(logistics);
+	  dao.updUser(moery, userId);
+  }
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updatedLogistics(Logistics logistics) {
+	  dao.updatedLogistics(logistics);
   }
 }
