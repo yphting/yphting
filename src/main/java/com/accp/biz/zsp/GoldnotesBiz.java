@@ -19,7 +19,9 @@ import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
+import com.accp.vo.zsp.EvaluationserviceToservicesVo;
 import com.accp.vo.zsp.ServicesVo;
+import com.accp.vo.zsp.UserToServicesVo;
 import com.accp.vo.zsp.userVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -92,9 +94,9 @@ public class GoldnotesBiz {
      * @param evaluationservice
      * @return
      */
-  public PageInfo<Evaluationservice>getListEvaluationService(Integer pageNum,Integer pageSize,Evaluationservice evaluationservice){
+  public PageInfo<EvaluationserviceToservicesVo>getListEvaluationService(Integer pageNum,Integer pageSize,Evaluationservice evaluationservice){
 	  PageHelper.startPage(pageNum, pageSize);
-	  return new PageInfo<Evaluationservice>(dao.getListEvaluationService(evaluationservice));
+	  return new PageInfo<EvaluationserviceToservicesVo>(dao.getListEvaluationService(evaluationservice));
   }
   /**
    * 查询银行类别
@@ -147,14 +149,34 @@ public class GoldnotesBiz {
   public Goldnotes getGoldnotesById(Integer recordId) {
 	  return dao.getGoldnotesById(recordId);
   }
+  /**
+   * 查询收藏的服务
+   * @param pageNum
+   * @param pageSize
+   * @param userId
+   * @return
+   */
   public PageInfo<Services>getServicesByUserId(Integer pageNum,Integer pageSize,Integer userId){
 	  PageHelper.startPage(pageNum, pageSize);
 	  return new PageInfo<Services>(dao.getServicesByUserId(userId));
   }
+  /**
+   * 查询收藏的服务及商家
+   * @param pageNum
+   * @param pageSize
+   * @param userId
+   * @return
+   */
   public PageInfo<userVo>getMerchantCollectionById(Integer pageNum,Integer pageSize,Integer userId){
 	  PageHelper.startPage(pageNum, pageSize);
 	  return new PageInfo<userVo>(dao.getMerchantCollectionById(userId));
   }
+  /**
+   * 修改用户余额合物流状态
+   * @param moery
+   * @param userId
+   * @param logisticsid
+   */
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
   public void updUser(Integer moery,Integer userId,Integer logisticsid) {
 	  Logistics logistics=new Logistics();
@@ -164,8 +186,15 @@ public class GoldnotesBiz {
 	  dao.updatedLogistics(logistics);
 	  dao.updUser(moery, userId);
   }
+  /**
+   * 修改物流状态
+   * @param logistics
+   */
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
   public void updatedLogistics(Logistics logistics) {
 	  dao.updatedLogistics(logistics);
+  }
+  public List<UserToServicesVo>getUserToServicesVo(){
+	  return dao.getUserToServicesVo();
   }
 }
