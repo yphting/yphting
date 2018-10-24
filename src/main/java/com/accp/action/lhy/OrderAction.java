@@ -119,7 +119,7 @@ public class OrderAction {
 		updateOrder.setOrderid(orderid);
 		updateOrder.setCommentstatus(2);
 		orderBiz.evaluateOk(evaluate, updateOrder);
-		return "";
+		return "redirect:/zsp/c/EvaluationService";
 	}
 
 	/**
