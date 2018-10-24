@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
 import com.accp.pojo.Resouroe;
+import com.accp.pojo.Servicecollection;
 import com.accp.pojo.Servicedes;
 import com.accp.pojo.Servicelevel;
 import com.accp.pojo.Services;
@@ -21,6 +23,7 @@ import com.accp.vo.lsm.SerReserveVO;
 import com.accp.vo.lsm.ServiceDetailInfo;
 import com.accp.vo.lsm.ServiceMerchantInfo;
 import com.accp.vo.lsm.ServiceSelect;
+import com.accp.vo.lsm.SerRecommendVO;
 
 /**
  * 商家入驻和服务Dao层
@@ -110,6 +113,12 @@ public interface MerchantEnterAndServiceDao {
 	 */
 	public List<Complainttype> queryComplainttype();
 	/**
+	 * 进入服务详情添加浏览数
+	 * @param sid
+	 * @return
+	 */
+	public int updateServiceBrowseNumber(@Param("sid")Integer sid);
+	/**
 	 * 举报商家
 	 * @param obj
 	 * @return
@@ -126,4 +135,38 @@ public interface MerchantEnterAndServiceDao {
 	 * @return
 	 */
 	public int submitReserve(@Param("obj")SerReserveVO obj);
+	/**
+	 * 验证用户是否已经收藏过该商品
+	 * @param uid
+	 * @param sid
+	 * @return
+	 */
+	public Servicecollection queryUserSerCollectionCheck(@Param("uid")Integer uid,@Param("sid")Integer sid);
+	/**
+	 * 取消收藏
+	 * @param uid	用户编号
+	 * @param sid	服务编号
+	 * @return
+	 */
+	public int deleteSerCollection(@Param("uid")Integer uid,@Param("sid")Integer sid);
+	/**
+	 * 添加收藏
+	 * @param uid	用户编号
+	 * @param sid	服务编号
+	 * @return
+	 */
+	public int saveSerCollection(@Param("uid")Integer uid,@Param("sid")Integer sid);
+	/**
+	 * 首页社区服务广告位查询
+	 * @param flag
+	 * @return
+	 */
+	public List<Advertisement> queryHomeAdvertising(@Param("flag")Integer flag);
+	/**
+	 * 首页社区服务星级服务推荐商家
+	 * @param stid
+	 * @return
+	 */
+	public List<SerRecommendVO> querySerRecommendVO(@Param("stid")Integer stid);
+	
 }

@@ -42,7 +42,7 @@ public class BeansConfig {
 		fjhmc.setFeatures(SerializerFeature.WriteEnumUsingToString, SerializerFeature.WriteMapNullValue,
 				SerializerFeature.QuoteFieldNames, SerializerFeature.PrettyFormat,
 				SerializerFeature.WriteDateUseDateFormat, SerializerFeature.WriteNullNumberAsZero,
-				SerializerFeature.WriteNullStringAsEmpty);
+				SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.DisableCircularReferenceDetect);
 		return new HttpMessageConverters(fjhmc);
 	}
 	

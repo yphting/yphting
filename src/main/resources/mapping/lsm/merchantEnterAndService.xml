@@ -339,19 +339,25 @@
 	<insert id="submitReserve">
 		INSERT INTO `orders`(`orderID`,`userID`,`serviceID`,`orderTime`,`remarks`,`scheduledStartTime`,`scheduledEndTime`,`population`,`number`,`smallPlan`,`uploadPath`,`orderStatus`)
 		VALUES(#{obj.orderID},#{obj.userID},#{obj.serviceID},NOW(),#{obj.remarks},
-		<!-- 自驾游：预约开始时间 -->
-		<if test="obj.reserveStartDate==null or obj.reserveStartDate==''">
+		<!-- 自驾游、微整形：预约开始时间 -->
+		<if test="obj.reserveStartDate==null and obj.reserveDate==null">
 		(NULL),
 		</if>
-		<if test="obj.reserveStartDate!=null and obj.reserveStartDate!=''">
+		<if test="obj.reserveStartDate!=null and obj.reserveDate==null">
 		#{obj.reserveStartDate},
 		</if>
-		<!-- 自驾游：预约结束时间 -->
-		<if test="obj.reserveEndDate==null or obj.reserveEndDate==''">
+		<if test="obj.reserveDate!=null">
+		#{obj.reserveDate},
+		</if>
+		<!-- 自驾游、微整形：预约结束时间 -->
+		<if test="obj.reserveEndDate==null and obj.reserveDate==null">
 		(NULL),
 		</if>
-		<if test="obj.reserveEndDate!=null and obj.reserveEndDate!=''">
+		<if test="obj.reserveEndDate!=null and obj.reserveDate==null">
 		#{obj.reserveEndDate},
+		</if>
+		<if test="obj.reserveDate!=null">
+		#{obj.reserveDate},
 		</if>
 		<!-- 自驾游、微整形、留学中介：人数 -->
 		<if test="obj.serviceTypeID!=1 and obj.serviceTypeID!=2 and obj.serviceTypeID!=3">
@@ -377,4 +383,46 @@
 		</if>
 		1)
 	</insert>
+	<!-- 进入服务详情添加浏览数 -->
+	<update id="updateServiceBrowseNumber">
+		UPDATE `services` 
+		SET `browseNumber` = `browseNumber` + 1
+		WHERE `serviceID` = #{sid}
+	</update>
+	<!-- 验证用户是否已经收藏过该商品 -->
+	<select id="queryUserSerCollectionCheck" resultType="Servicecollection">
+		SELECT *
+		FROM `servicecollection`
+		WHERE `serviceID` = #{sid} AND `userID` = #{uid}
+	</select>
+	<!-- 取消收藏 -->
+	<delete id="deleteSerCollection">
+		DELETE FROM `servicecollection` WHERE `serviceID` = #{sid} AND `userID` = #{uid}
+	</delete>
+	<!-- 添加收藏 -->
+	<insert id="saveSerCollection">
+		INSERT INTO`servicecollection`(`serviceID`,`userID`,`collectionTime`)
+		VALUES(#{sid},#{uid},NOW())
+	</insert>
+	<!-- 首页社区服务广告位查询 -->
+	<select id="queryHomeAdvertising" resultType="Advertisement">
+		<include refid="selectAll"/>
+		`advertisement`
+		<where>
+			<if test="flag==1">
+				`atid` = 1
+			</if>
+			<if test="flag==2">
+				`atid` IN(4,5,6,7)
+			</if>
+		</where>
+	</select>
+	<!-- 首页社区服务星级服务商家推荐 -->
+	<select id="querySerRecommendVO" resultType="com.accp.vo.lsm.SerRecommendVO">
+		SELECT u.`userID`,u.`userName`,u.`userImgPath`,u.`shopImg`,u.`selfIntroduction`,u.`merchantLevel`
+		FROM `user` AS u
+		WHERE u.`firstServiceID` = #{stid} OR `secondServiceID` = #{stid}
+		ORDER BY `merchantLevel` DESC,`orderCount` DESC
+		LIMIT 9
+	</select>
 </mapper>
