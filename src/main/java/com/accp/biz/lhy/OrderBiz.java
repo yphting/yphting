@@ -68,8 +68,9 @@ public class OrderBiz {
 			case 4:
 				tbconfirmed++;
 				break;
-			case 7:
-				tbevaluated++;
+			case 5:
+				if (o.getCommentstatus() == 1)
+					tbevaluated++;
 				break;
 			}
 		}
