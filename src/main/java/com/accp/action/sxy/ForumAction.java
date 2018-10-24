@@ -28,7 +28,6 @@ public class ForumAction {
 		@Autowired
 		private ForumBiz biz;
 		
-		
 		@GetMapping("column")
 		public String showColumn(@RequestParam(required=true)Integer pid,@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="2")Integer size,@RequestParam(required=false)String title,@RequestParam(required=false)Integer forumId,@RequestParam(required=true)Integer orderId,@RequestParam(required=false)Integer essence,Model model) {
 
