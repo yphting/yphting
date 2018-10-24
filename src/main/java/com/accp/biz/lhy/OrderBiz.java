@@ -8,11 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.dao.lhy.EvaluateDao;
 import com.accp.dao.lhy.OrderDao;
+import com.accp.dao.lhy.RefundDao;
 import com.accp.dao.lhy.UserDao;
 import com.accp.pojo.User;
 import com.accp.vo.lhy.Evaluate;
 import com.accp.vo.lhy.OrderInfo;
 import com.accp.vo.lhy.Orders;
+import com.accp.vo.lhy.Refund;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -25,6 +27,8 @@ public class OrderBiz {
 	private UserDao userDao;
 	@Autowired
 	private EvaluateDao evaluateDao;
+	@Autowired
+	private RefundDao refundDao;
 
 	/**
 	 * 分页查询订单列表
@@ -64,8 +68,9 @@ public class OrderBiz {
 			case 4:
 				tbconfirmed++;
 				break;
-			case 7:
-				tbevaluated++;
+			case 5:
+				if (o.getCommentstatus() == 1)
+					tbevaluated++;
 				break;
 			}
 		}
@@ -145,6 +150,21 @@ public class OrderBiz {
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean evaluateOk(Evaluate evaluate, Orders order) {
 		evaluateDao.saveEvaluate(evaluate);
+		return orderDao.updateOrder(order);
+	}
+
+	/**
+	 * 申请退款
+	 * 
+	 * @param refund
+	 *            退款
+	 * @param order
+	 *            订单
+	 * @return
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+	public boolean refundok(Refund refund, Orders order) {
+		refundDao.saveRefund(refund);
 		return orderDao.updateOrder(order);
 	}
 }

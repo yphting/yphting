@@ -7,7 +7,7 @@
 <mapper namespace="com.accp.dao.lhy.UserDao">
 	<select id="queryUserById" resultType="com.accp.vo.lhy.User">
 		select * from user where
-		userid=#{userid}
+		userid=#{0}
 	</select>
 	
 	<update id="updateUserMoney">

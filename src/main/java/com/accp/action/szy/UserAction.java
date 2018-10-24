@@ -2,6 +2,8 @@ package com.accp.action.szy;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +29,9 @@ import com.accp.util.code.VerifyCode;
 import com.accp.util.email.Email;
 import com.accp.util.email.EmailBoard;
 import com.accp.util.file.Upload;
+import com.accp.util.rsaKey.RSAUtils;
 import com.accp.vo.szy.ListVo;
+import com.accp.vo.szy.NewsVo;
 import com.accp.vo.szy.TimeOutEmailDateVo;
 import com.github.pagehelper.PageInfo;
 
@@ -106,7 +110,11 @@ public class UserAction {
 			}
 		}
 	}
-	
+	/**
+	 * 新增邮箱登陆用户
+	 * @param tqedv
+	 * @return
+	 */
 	@RequestMapping(value="/user/saveEmail",method=RequestMethod.POST)
 	public String saveEmail(TimeOutEmailDateVo tqedv) {
 		if(biz.saveEmailUser(tqedv)) {
@@ -116,23 +124,64 @@ public class UserAction {
 		}
 	}
 	/**
-	 * 登陆
-	 * @param session
+	 * 获取公钥
 	 * @param email
+	 * @return
+	 */
+	@RequestMapping(value="/user/rsaKey",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> generateRSAKey(String email){
+				// 将公钥传到前端
+	            Map<String,String> map = new HashMap<String,String>();
+		 try {
+				// 获取公钥和私钥
+				HashMap<String, Object> keys = RSAUtils.getKeys();
+	            RSAPublicKey publicKey = (RSAPublicKey) keys.get("public");
+	            RSAPrivateKey privateKey = (RSAPrivateKey) keys.get("private");
+	            // 保存私钥到 redis，也可以保存到数据库
+	            try {
+					ListVo.emailService.put(email, privateKey);
+				} catch (Exception e) {
+					System.out.println("私钥存储失败");
+				}
+	            // 注意返回modulus和exponent以16为基数的BigInteger的字符串表示形式
+	            map.put("modulus", publicKey.getModulus().toString(16));
+	            map.put("exponent", publicKey.getPublicExponent().toString(16));
+	        } catch (Exception e) {
+	        	map.put("msg", e.getMessage());
+	        } 
+		 return map;
+	}
+	/**
+	 * 解密 登陆方法
+	 * @param username
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value="/user/login",method=RequestMethod.GET)
-	public String login(HttpSession session,String email,String password) {
-		User u=biz.login(email, password);
-		if(u!=null) {
-			session.setAttribute("USER", u);
-			session.setAttribute("Email", email);
-			return "redirect:/grzx-index.html";
-		}else {
-			return "szy-login.html";
-		}
-	}
+	@RequestMapping(value="/user/checkRSAKey",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> checkRSAKey(HttpSession session,String email,String password) {
+	        Object object = ListVo.emailService.get(email);
+	        Map<String,String> map = new HashMap<String,String>();
+	        try {
+	            // 解密
+	        	System.out.println(password);
+	            String decryptByPrivateKey = RSAUtils.decryptByPrivateKey(password, (RSAPrivateKey) object);
+	            System.out.println(decryptByPrivateKey);
+	            User u=biz.login(email, decryptByPrivateKey);
+	    		if(u!=null) {
+	    			session.setAttribute("USER", u);
+	    			session.setAttribute("Email", email);
+	    			map.put("code", "200");
+	    		}else {
+	    			map.put("code", "500");
+	    		}
+	        } catch (Exception e) {
+	            map.put("msg", e.getMessage());
+	        }
+	        return map;
+	 }
+
 	/**
 	 * 站外修改密码
 	 * @param email
@@ -300,7 +349,7 @@ public class UserAction {
 		return "redirect:/c/szy/user/getdpszInfo";
 	}
 	/**
-	 * 分页查询用户信息
+	 * 分页查询用户系统信息
 	 * @param session
 	 * @param newsType
 	 * @param pageNum
@@ -314,11 +363,17 @@ public class UserAction {
 		return biz.queryNewPageInfo(userID, newsType, pageNum, pageSize);
 	}
 	
+	/**
+	 * 修改已读状态
+	 * @param newsID
+	 * @return
+	 */
 	@RequestMapping(value="/user/updateXtNews",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> updateXtNews(String newsID){
 		Map<String,String> m=new HashMap<>();
-		newsID=newsID.substring(0, newsID.length()-1);
+		System.out.println(newsID);
+		newsID=newsID.substring(1, newsID.length());
 		System.out.println(newsID);
 		String[] Ids=newsID.split(",");
 		try {
@@ -331,5 +386,145 @@ public class UserAction {
 			m.put("msg", e.getMessage());
 		}
 		return m;
+	}
+	
+	/**
+	 * 删除系统消息
+	 * @param newsID
+	 * @return
+	 */
+	@RequestMapping(value="/user/deleteNews",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> deleteNews(String newsID){
+		Map<String,String> m=new HashMap<>();
+		newsID=newsID.substring(1, newsID.length());
+		String[] Ids=newsID.split(",");
+		try {
+			for (String id : Ids) {
+				biz.deleteNews(id);
+			}
+			m.put("code", "200");
+		} catch (Exception e) {
+			m.put("code", "500");
+			m.put("msg", e.getMessage());
+		}
+		return m;
+	}
+	/**
+	 * 获取当前用户session
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryAUser")
+	@ResponseBody
+	public User queryAUser(HttpSession session) {
+		User u=new User();
+		u=(User)session.getAttribute("USER");
+		return u;
+	}
+	/**
+	 * 查询用户站内信
+	 * @param session
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryZnxNewsPageInfo",method=RequestMethod.GET)
+	@ResponseBody
+	public PageInfo<NewsVo>  queryZnxNewsPageInfo(HttpSession session,Integer pageNum,Integer pageSize){
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		return biz.queryZnxNewsPageInfo(userID, pageNum, pageSize);
+	}
+	/**
+	 * 修改站内信状态
+	 * @param groupID
+	 * @return
+	 */
+	@RequestMapping(value="/user/updateZnxNews",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> updateZnxNews(String groupID) {
+		Map<String,String> m=new HashMap<>();
+		System.out.println(groupID);
+		groupID=groupID.substring(1, groupID.length());
+		System.out.println(groupID);
+		String[] Ids=groupID.split(",");
+		try {
+			for (String id : Ids) {
+				biz.updateZnxNews(id);
+			}
+			m.put("code", "200");
+		} catch (Exception e) {
+			m.put("code", "500");
+			m.put("msg", e.getMessage());
+		}
+		return m;
+	}
+	
+
+	/**
+	 * 删除系统消息
+	 * @param newsID
+	 * @return
+	 */
+	@RequestMapping(value="/user/deleteZnxNews",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> deleteZnxNews(String groupID){
+		Map<String,String> m=new HashMap<>();
+		groupID=groupID.substring(1, groupID.length());
+		String[] Ids=groupID.split(",");
+		try {
+			for (String id : Ids) {
+				biz.deleteZnxNews(id);
+			}
+			m.put("code", "200");
+		} catch (Exception e) {
+			m.put("code", "500");
+			m.put("msg", e.getMessage());
+		}
+		return m; 
+	}
+	/**
+	 * 查询站内信详情
+	 * @param model
+	 * @param groupID
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryZnxXq",method=RequestMethod.GET)
+	public String queryZnxXq(Model model ,String groupID) {
+		model.addAttribute("news", biz.queryZnxXq(groupID));
+		return "/xx-znx-xq.html";
+	}
+	/**
+	 * 新增站内信
+	 * @param session
+	 * @param thesender
+	 * @param content
+	 * @param newstype
+	 * @param messagegroup
+	 * @return
+	 */
+	@RequestMapping(value="/user/saveZnx",method=RequestMethod.GET)
+	public String saveZnx(HttpSession session,Integer thesender,String content,Integer newstype,Integer messagegroup) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		News n=new News();
+		n.setThesender(userID);
+		n.setContent(content);
+		n.setNewstype(newstype);
+		n.setMessagegroup(messagegroup);
+		n.setAddressee(thesender);
+		biz.saveZnx(n);
+		return "redirect:/c/szy/user/queryZnxXq?groupID="+messagegroup+"&thesender="+thesender;
+	}
+	
+	/**
+	 * 查询所有信息
+	 * @param userID
+	 * @return
+	 */
+	@RequestMapping(value="/user/queryAllNews",method=RequestMethod.GET)
+	@ResponseBody
+	public List<News> queryAllNews(HttpSession session){
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		return biz.queryAllNews(userID);
 	}
 }

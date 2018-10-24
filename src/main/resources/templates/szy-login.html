@@ -53,7 +53,7 @@
 						height="420" alt="首页登入图-gif"></a>
 				</dt>
 				<dd>
-					<form action="/c/szy/user/login" method="get" id="formlogin" target="topost" onsubmit="return submit1();">
+					<form action="javascript:void(0)" method="get" id="formlogin" target="topost" onsubmit="return submit1();">
 						<h1 class="login_title">使用邮箱登录</h1>
 						<ul class="login_ul">
 							<li><input type="email" placeholder="邮箱" name="email"
@@ -61,16 +61,13 @@
 							<li><input type="password" placeholder="密码" name="password"
 								class="input_c validate[required,minSize[6]]"></li>
 							<li><input type="text" placeholder="验证码" name="code"
-								id="code" class="input_c validate[required]"> <span
-								class="yzmCode"></span></li>
-							<li><a href="javascript:void(0);" class="login_abtn"
-								onclick="$('#formlogin').submit()">立即登录</a></li>
-							<li class="forget_reg"><a href="szy-zuce.html" class="fr">还没有账号？点击注册»</a><a
-								href="szy-mima.html">忘记密码»</a></li>
+								id="code" class="input_c validate[required]">
+								 <span class="yzmCode"></span></li>
+							<li><a href="javascript:void(0);" class="login_abtn" name="login">立即登录</a>
+							</li>
+							<li class="forget_reg"><a href="szy-zuce.html" class="fr">还没有账号？点击注册»</a><a href="szy-mima.html">忘记密码»</a></li>
 						</ul>
-						<input type="submit" style="display: none;"> <input
-							type="hidden" name="__hash__"
-							value="028871b590612346f0fd145aaaa5ae59_986efd3a7ee05f8039b05a2fc2526997">
+						<input type="submit" style="display: none;"> 
 					</form>
 					<h1 class="login_title_2">使用第三方账号登录</h1>
 					<div class="other_login">
@@ -91,7 +88,7 @@
 		<dl class="footer_dl">
 			<dt>
 				<div class="footer_ewm_box">
-					<img src="Public/images/footer_ewm.png" alt="">
+					<img src="/Public/images/footer_ewm.png" alt="">
 				</div>
 				<span class="ft_ewm_name">御品韩汀</span>
 			</dt>
@@ -116,13 +113,14 @@
 			<div class="over_show kf_tel">0731-2286-7673</div></li>
 		<li><a href="" class="rn_wx">官方微信</a>
 			<div class="over_show">
-				<img src="Public/images/r_ewm.jpg" alt="" class="gw_ewm">
+				<img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm">
 			</div></li>
 		<li><a href="" class="rn_kf">在线客服</a></li>
 		<li><a href="" class="rn_top">Back top</a></li>
 	</ul>
 	<!--right nav end-->
 </body>
+<script type="text/javascript" src="/Public/js/security.js"></script>
 <script type="text/javascript">
 		create_code();
 		function submit1(){
@@ -144,5 +142,28 @@
 				}
 			}
 		}
+		$("[name=login]").click(function(){
+			if(!submit1()){
+				return;
+			} 
+			var email=$("[name=email]").val();
+			var password=$("[name=password]").val();
+			$.getJSON("/c/szy/user/rsaKey",{"email":email},function(data){
+				   var pwdKey = new RSAUtils.getKeyPair(data.exponent,"",data.modulus);
+	               var reversedPwd = password.split("").reverse().join("");
+	               var encrypedPwd = RSAUtils.encryptedString(pwdKey,reversedPwd);
+	           		$.getJSON("/c/szy/user/checkRSAKey",{"email":email,"password":encrypedPwd},function(result){
+	           			if(result.code=="200"){
+	           				alert("登陆成功！");
+	           				location.href="/grzx-index.html";
+	           			}else if(result.code=="500"){
+	           				alert("登陆失败！账户或密码错误");
+	           				$("[name=password]").val("");
+	           			}else{
+	           				alert("系统异常："+result.msg);
+	           			}
+	           		})
+			})
+		})
 	</script>
 </html>
