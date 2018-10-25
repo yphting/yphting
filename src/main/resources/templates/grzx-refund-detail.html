@@ -31,14 +31,14 @@
 			<ul class="member_nav_ul">
 				<li id="li1"><a href="">商家中心</a><span class="my_nav_i"></span></li>
 				<style type="text/css">
-				.layui-layer-btn .layui-layer-btn0 {
-					background: #4c1b98;
-				}
-				
-				.layui-layer-btn .layui-layer-btn0:hover {
-					background: #340d6f;
-				}
-				</style>
+.layui-layer-btn .layui-layer-btn0 {
+	background: #4c1b98;
+}
+
+.layui-layer-btn .layui-layer-btn0:hover {
+	background: #340d6f;
+}
+</style>
 				<li class="cur" id="li2"><a href="">个人中心</a><span
 					class="my_nav_i"></span></li>
 				<li id="li3"><a href="">账户设置</a><span class="my_nav_i"></span></li>
@@ -62,21 +62,21 @@
 			<div class="refund_press">
 				<div class="refund_press_line">
 					<div class="refund_press_w"
-						th:style="${order.refundstatus==3?'width:100%':''}"></div>
+						th:style="${order.refundstatus==5?'width:100%':''}"></div>
 					<div class="press_step pst1">
 						<span class="step had_step"></span>
 						<p class="f14">买家提交申请</p>
 						<p class="f12 c_4">服务单已申请成功，待商家处理中</p>
 					</div>
 					<div class="press_step pst2">
-						<span th:class="|step ${order.refundstatus==3}?:'had_step'|"></span>
+						<span th:class="|step ${order.refundstatus==5?'had_step':''}|"></span>
 						<p class="f14 c_4">商家 处理退款申请</p>
-						<p th:if="${order.refundstatus==1}" class="f12 c_4">待商家处理</p>
-						<p th:if="${order.refundstatus==2}" class="f12 c_4">商家不同意退款</p>
-						<p th:if="${order.refundstatus==5}" class="f12 c_4">商家同意退款</p>
+						<p th:if="${refund.auditstatus==1}" class="f12 c_4">待商家处理</p>
+						<p th:if="${refund.auditstatus==2}" class="f12 c_4">商家同意退款</p>
+						<p th:if="${refund.auditstatus==3}" class="f12 c_4">商家不同意退款</p>
 					</div>
 					<div class="press_step pst3">
-						<span th:class="|step ${order.refundstatus==3}?:'had_step'|"></span>
+						<span th:class="|step ${order.refundstatus==5?'had_step':''}|"></span>
 						<p class="f14 c_4">完成</p>
 					</div>
 				</div>
@@ -99,13 +99,41 @@
 							<div th:if="${order.refundstatus==5}" class="refund_title">状态：退款完成</div>
 							<div th:if="${order.refundstatus==6}" class="refund_title">状态：退款取消</div>
 						</li>
-						<li th:each="temp:${refund}" class="last">
-							<div th:if="${temp.point==1}" class="refund_title">
-								买家<a href="" class="btna_s2 mlr10" th:text="${temp.user.username}"></a>[[${#dates.format(temp.applicationtime,'yyyy-MM-dd')}]]
+						<li th:if="${refund.adminstatus>1}">
+							<div class="refund_title">
+								管理员协商结果<span class="ml10">[[${#dates.format(refund.admintime,'yyyy-MM-dd')}]]</span>
 							</div>
-							<p th:if="${temp.point==1}" class="refund_p">
-								买家（[[${temp.user.username}]]）于[[${#dates.format(temp.applicationtime,'yyyy-MM-dd')}]]创建了退款申请<br>申请金额：[[${temp.applyrefundmoney}]]
-								金币<br>退款原因：[[${temp.refundreason}]]<br>退款说明：[[${temp.refundexplain}]]
+							<p class="refund_p">
+								退款金额：[[${refund.actualrefundmoney}]]金币<br>退款说明：[[${refund.adminremarks}]]
+							</p>
+						</li>
+						<li th:if="${refund.auditstatus>1}">
+							<div th:if="${refund.auditstatus==2}"
+								class="refund_title">
+								商家<a href="" class="btna_s2 mlr10"
+									th:text="${order.service.user.shopname}"></a>[[${#dates.format(refund.audittime,'yyyy-MM-dd')}]]
+							</div>
+							<p th:if="${refund.auditstatus==2}" class="refund_p">
+								商家（[[${order.service.user.shopname}]]）同意退款部分金币<br>退款金额：[[${refund.actualrefundmoney}]]
+								金币<br>退款说明：[[${refund.businessremarks}]]
+							</p>
+							<div th:if="${refund.auditstatus==3}"
+								class="refund_title">
+								商家<a href="" class="btna_s2 mlr10"
+									th:text="${order.service.user.shopname}"></a>[[${#dates.format(refund.audittime,'yyyy-MM-dd')}]]
+							</div>
+							<p th:if="${refund.auditstatus==3}" class="refund_p">
+								商家（[[${order.service.user.shopname}]]）不同意退款部分金币<br>退款金额：0金币<br>退款说明：[[${refund.businessremarks}]]
+							</p>
+						</li>
+						<li class="last">
+							<div class="refund_title">
+								买家<a href="" class="btna_s2 mlr10"
+									th:text="${refund.user.username}"></a>[[${#dates.format(refund.applicationtime,'yyyy-MM-dd')}]]
+							</div>
+							<p class="refund_p">
+								买家（[[${refund.user.username}]]）于[[${#dates.format(refund.applicationtime,'yyyy-MM-dd')}]]创建了退款申请<br>申请金额：[[${refund.applyrefundmoney}]]
+								金币<br>退款原因：[[${refund.refundreason}]]<br>退款说明：[[${refund.refundexplain}]]
 							</p>
 						</li>
 					</ul>

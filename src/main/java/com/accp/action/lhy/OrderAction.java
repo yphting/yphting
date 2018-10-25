@@ -93,6 +93,8 @@ public class OrderAction {
 		updateOrder.setOrderid(updateid);
 		updateOrder.setOrderstatus(5);
 		updateOrder.setCompletetime(new Date());
+		updateOrder.setCommentstatus(1);
+		updateOrder.setRefundstatus(0);
 		orderBiz.ok(order.getSmallplan(), order.getService().getUser().getUserid(), updateOrder);
 		return "redirect:/c/lhy/order/query/list?page=" + page + "&orderid=" + orderid;
 	}
@@ -148,6 +150,7 @@ public class OrderAction {
 			String fileName = Upload.uploadFile(file);
 			refund.setRefundimg(fileName);
 		}
+		refund.setAuditstatus(1);
 		Orders order = new Orders();
 		order.setOrderid(refund.getOrderid());
 		order.setRefundstatus(1);

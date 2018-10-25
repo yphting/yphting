@@ -1,7 +1,5 @@
 package com.accp.biz.lhy;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -24,7 +22,7 @@ public class RefundBiz {
 	 *            订单编号
 	 * @return
 	 */
-	public List<Refund> queryRefundByOrderId(String orderId) {
+	public Refund queryRefundByOrderId(String orderId) {
 		return dao.queryRefundByOrderId(orderId);
 	}
 }
