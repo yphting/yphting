@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.dao.sxy.IForumDao;
 import com.accp.pojo.Forummanagement;
 import com.accp.pojo.Post;
+import com.accp.pojo.Postcollection;
+import com.accp.pojo.Postfabulous;
 import com.accp.vo.sxy.PostVo;
 import com.accp.vo.sxy.PostcommentVo;
 import com.github.pagehelper.PageHelper;
@@ -125,4 +127,76 @@ public class ForumBiz {
 		PageHelper.startPage(page, size);
 		return new PageInfo<PostVo>(dao.queryMyPost(userId,title));
 	}
-}
+	
+	/**
+	 * 查询我的韩汀论坛中我回复的帖子列表
+	 * @param page
+	 * @param size
+	 * @param userId
+	 * @param title
+	 * @return
+	 */
+	public PageInfo<PostVo> queryMyComment(Integer page,Integer size,Integer userId,String title){
+		PageHelper.startPage(page, size);
+		return new PageInfo<PostVo>(dao.queryMyComment(userId,title));
+	}
+	
+	/**
+	 * 查询我的韩汀论坛中我收藏的帖子列表
+	 * @param page
+	 * @param size
+	 * @param userId
+	 * @param title
+	 * @return
+	 */
+	public PageInfo<PostVo> queryMyCollection(Integer page,Integer size,Integer userId,String title){
+		PageHelper.startPage(page, size);
+		return new PageInfo<PostVo>(dao.queryMyCollection(userId, title));
+	}
+	
+	/**
+	 * 验证是否重复收藏
+	 * @param postId
+	 * @param userId
+	 * @return
+	 */
+	public int checkHasCollection(Integer postId,Integer userId) {
+		return dao.checkHasCollection(postId, userId);
+	}
+	/**
+	 * 验证是否收藏或点赞自己帖子
+	 * @param postId
+	 * @param userId
+	 * @return
+	 */
+	public int checkIsSelf(Integer postId,Integer userId) {
+		return dao.checkIsSelf(postId, userId);
+	}
+	
+	/**
+	 * 收藏
+	 * @param collec
+	 */
+	public void saveCollection(Postcollection collec) {
+		dao.saveCollection(collec);
+	}
+	
+	/**
+	 * 验证是否重复点赞
+	 * @param postId
+	 * @param userId
+	 * @return
+	 */
+	public int checkHasFabulous(Integer postId,Integer userId) {
+		return dao.checkHasFabulous(postId, userId);
+	}
+	
+	/**
+	 * 点赞
+	 * @param fabu
+	 */
+	public void saveFabulous(Postfabulous fabu) {
+		dao.saveFabulous(fabu);
+	}
+	
+} 

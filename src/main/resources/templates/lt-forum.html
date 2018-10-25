@@ -74,7 +74,7 @@
 							<a th:href="@{/c/sxy/hotPost(pid=${param.pid},page=1,title=${param.title})}"><span class="line"></span>热门话题</a>
 						</li>
 						<li>
-							<a th:href="@{/c/sxy/myPost(page=1,title=${param.title})}"><span class="line"></span>我的韩汀论坛</a>
+							<a th:href="@{/c/sxy/myPost(type=1,page=1,title=${param.title})}"><span class="line"></span>我的韩汀论坛</a>
 						</li>
 						<!-- 版块列表 -->
 						<li th:data-pid="${temp.fmid}" th:each="temp,item : ${BLIST}">
@@ -156,9 +156,9 @@
 					<div class="page_w">
 						<div class="page">
 							<div class="nav">
-								<a th:if="${PAGE_INFO.isHasPreviousPage()}" class="page_prev prevdisabled" th:href="@{/c/sxy/column(pid=${param.pid},page=${PAGE_INFO.prePage},title=${param.title},orderId=${param.orderId},essence=0)}">上一页</a> 
-								<a th:href="@{/c/sxy/column(pid=${param.pid},page=${item.count},title=${param.title},orderId=${param.orderId},essence=0)}" th:data-page="${item.count}" th:each="temp,item : ${PAGE_INFO.navigatepageNums}" th:text="${item.count}"></a>
-								<a th:if="${PAGE_INFO.isHasNextPage()}" class="page_next nextdisabled" th:href="@{/c/sxy/column(pid=${param.pid},page=${PAGE_INFO.nextPage},title=${param.title},orderId=${param.orderId},essence=0)}">下一页</a>
+								<a th:if="${PAGE_INFO.isHasPreviousPage()}" class="page_prev prevdisabled" th:href="@{/c/sxy/column(pid=${param.pid},page=${PAGE_INFO.prePage},forumId=${param.forumId},title=${param.title},orderId=${param.orderId},essence=0)}">上一页</a> 
+								<a th:href="@{/c/sxy/column(pid=${param.pid},page=${item.count},title=${param.title},forumId=${param.forumId},orderId=${param.orderId},essence=0)}" th:data-page="${item.count}" th:each="temp,item : ${PAGE_INFO.navigatepageNums}" th:text="${item.count}"></a>
+								<a th:if="${PAGE_INFO.isHasNextPage()}" class="page_next nextdisabled" th:href="@{/c/sxy/column(pid=${param.pid},page=${PAGE_INFO.nextPage},forumId=${param.forumId},title=${param.title},orderId=${param.orderId},essence=0)}">下一页</a>
 							</div>
 						</div>
 					</div>

@@ -1,5 +1,7 @@
 package com.accp.vo.sxy;
 
+import java.util.List;
+
 import com.accp.pojo.Forummanagement;
 import com.accp.pojo.Post;
 import com.accp.pojo.User;
@@ -9,6 +11,7 @@ public class PostVo extends Post {
 	private Forummanagement forum;
 	private PostcommentVo lastcomment;
 	private Integer count;
+	private List<PostcommentVo> commentlist;
 
 	public User getUser() {
 		return user;
@@ -41,4 +44,13 @@ public class PostVo extends Post {
 	public void setLastcomment(PostcommentVo lastcomment) {
 		this.lastcomment = lastcomment;
 	}
+
+	public List<PostcommentVo> getCommentlist() {
+		return commentlist;
+	}
+
+	public void setCommentlist(List<PostcommentVo> commentlist) {
+		this.commentlist = commentlist;
+	}
+	
 }
