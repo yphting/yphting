@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.accp.pojo.Orders;
 import com.accp.pojo.Servicetype;
 import com.accp.vo.szy.OrderInfoVo;
 
@@ -29,4 +30,9 @@ public interface IOrdersDao {
 	 * @return
 	 */
 	public int updateOrders(@Param("orderStatus")Integer orderStatus,@Param("orderID")String orderID);
+	/**
+	 * 查询商家所有订单
+	 * @return
+	 */
+	public List<Orders> queryCountOrder(@Param("userid")Integer userID);
 }

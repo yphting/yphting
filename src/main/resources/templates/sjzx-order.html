@@ -99,23 +99,21 @@ span  .time2 {
 				<div class="member_system_r_top">
 					<div class="search_right_box">
 						<div class="search_sec">
-							<form method="post">
-								<input type="text" name="orderkey" placeholder="输入服务标题或订单号进行搜索"
-									class="s_sec_input" /><input type="submit" value=""
-									class="s_sec_btn" /> <input type="hidden" name="__hash__"
-									value="dbd2b4e8116e0d4d753c832ffda3e4cf_acb1678a5bf33923c5aafe85d3382fa9" />
+							<form action="javascript:void(0);" method="get">
+								<input type="text" name="orderID" placeholder="输入订单号进行搜索" class="s_sec_input"  />
+								<input type="submit" value="" name="tijiao" class="s_sec_btn" /> 
 							</form>
 						</div>
 					</div>
 					我收到的预定
 				</div>
-				<ul class="pre_about_info yd_list_2 yd_list_3">
-					<li class="cur"><a href="#">全部</a></li>
-					<li><a href="#">待接单<span class="pre_asp">0</span></a></li>
-					<li><a href="#">待服务<span class="pre_asp">0</span></a></li>
-					<li><a href="#">待完成<span class="pre_asp">0</span></a></li>
-					<li><a href="#">退款中<span class="pre_asp">0</span></a></li>
-					<li class="last "><a href="#">完成交易<span class="pre_asp">0</span></a></li>
+				<ul class="pre_about_info yd_list_2 yd_list_3" id="typeul">
+					<li class="cur"><a href="javascript:void(0)" id="0">全部</a></li>
+					<li><a href="javascript:void(0)" id="2">待接单<span class="pre_asp">0</span></a></li>
+					<li><a href="javascript:void(0)" id="3">待服务<span class="pre_asp">0</span></a></li>
+					<li><a href="javascript:void(0)" id="4">待完成<span class="pre_asp">0</span></a></li>
+					<li><a href="javascript:void(0)" id="9">退款中<span class="pre_asp">0</span></a></li>
+					<li class="last "><a href="javascript:void(0)" id="5">完成交易<span class="pre_asp">0</span></a></li>
 				</ul>
 				<div class="business_title_box">
 					<ul class="book_bt_ul">
@@ -132,7 +130,7 @@ span  .time2 {
 					<div class="book_top business_top">
 						<ul class="book_top_ul">
 							<li><span class="c_4">下单日期</span>[[${#dates.format(temp.ordertime, 'yyyy-MM-dd')}]]</li>
-							<li><span class="c_4">预订编号</span>[[${temp.orderid}]]</li>
+							<li><span class="c_4">预订编号</span><span>[[${temp.orderid}]]</span></li>
 						</ul>
 					</div>
 					<div class="book_bt business_bt">
@@ -150,7 +148,13 @@ span  .time2 {
 							
 								
 							</li>
-							<li class="cel_l3">[[${temp.number}]]</li>
+							<li class="cel_l3">
+								<span th:if="${temp.number>0}">[[${temp.number}]]</span>
+								<span th:if="${temp.number==null}">[[${#dates.format(temp.scheduledstarttime,'yyyy-MM-dd')}]]-
+								[[${#dates.format(temp.scheduledendtime,'yyyy-MM-dd')}]]
+								</span>
+								
+							</li>
 							<li class="cel_l4 shopname">[[${temp.u.username}]]
 								<br />
 							<a href="javascript:;" onclick="showmsg(this)" rel="345"
@@ -175,25 +179,27 @@ span  .time2 {
 								<span th:if="${temp.orderstatus==7}">未接单</span>
 								<span th:if="${temp.orderstatus==8}">已退款</span>
 							<br />
-								<a  href=""class="btna_s2">查看详细</a>
+								<a  href="javascript:void(0)" class="btna_s2">查看详细</a>
 							</li>
 							<li class="cel_l7">
 							<span th:if="${temp.orderstatus==1}">-</span>
 							<span th:if="${temp.orderstatus==2}">
-								<a href=""class="btna_s2">接单</a><br />
-								<a href=""class="btna_s2">取消订单</a><br />
+								<a href="javascript:void(0)" class="btna_s2" name="caozuo">接单</a><br />
+								<a href="javascript:void(0)" class="btna_s2" name="caozuo">取消订单</a><br />
 							</span>
 							<span th:if="${temp.orderstatus==3}">
-								<a href="" class="btna_s2">提供服务</a><br />
+								<a href="javascript:void(0)" class="btna_s2" name="caozuo">提供服务</a><br />
 							</span>
 							<span th:if="${temp.orderstatus==4}">-</span>
 							<span th:if="${temp.orderstatus==5}">
-									<a href="" th:if="${temp.refundstatus!=0}" class="btna_s2">查看退款详情<br /></a>
+									<a href="javascript:void(0)" th:if="${temp.refundstatus!=0}" class="btna_s2">查看退款详情<br /></a>
 									<span class="c_4" th:if="${temp.commentstatus==1}">待评价</span>
 									<span class="c_4" th:if="${temp.commentstatus==2}">已评价</span>
 									<span class="c_4" th:if="${temp.commentstatus==3}">双方已评</span>
 							</span>
-						
+							<span th:if="${temp.orderstatus==6}">-</span>
+							<span th:if="${temp.orderstatus==7}">-</span>
+							<span th:if="${temp.orderstatus==8}">-</span>
 							
 							</li>
 						</ul>
@@ -202,7 +208,17 @@ span  .time2 {
 				<!--booking_list end-->
 
 				<!--page-->
-				<div class="page"></div>
+					<div class="page" th:if="${pageInfo.total>0}">
+						<div class='nav'>
+							<a class="page_next" th:if="${pageInfo.hasPreviousPage}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${pageInfo.prePage},pageSize=5,orderID=)}">上一页</a>
+							<a class="page_next nextdisabled" th:if="${!pageInfo.hasPreviousPage}" href="javascript:;">上一页</a>
+
+							<a th:each="temp:${pageInfo.navigatepageNums}" th:class="${temp==pageInfo.pageNum?'cur':'num'}" th:text="${temp}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${temp},pageSize=5,orderID=)}"></a>
+
+							<a class="page_next" th:if="${pageInfo.hasNextPage}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${pageInfo.nextPage},pageSize=5,orderID=)}">下一页</a>
+							<a class="page_next nextdisabled" th:if="${!pageInfo.hasNextPage}" href="javascript:;">下一页</a>
+						</div>
+					</div>
 				<!--page end-->
 			</div>
 			<!--member right end-->
@@ -210,7 +226,7 @@ span  .time2 {
 
 			<!--ad-->
 			<div class="ad_box2">
-				<a href=""></a>
+				<a href="javascript:void(0)"></a>
 			</div>
 			<!--ad end-->
 		</div>
@@ -371,6 +387,39 @@ span  .time2 {
 			p.html(data.stname);
 		})
 	})
-	
+	$("[name=caozuo]").click(function(){
+		var type=$(this).html();
+		var orderStatus=0;
+		if(type.trim()=="接单"){
+			if(!confirm("确认接单吗？")) return;
+			orderStatus=3;
+		}else if(type.trim()=="取消订单"){
+			if(!confirm("确认取消订单吗？")) return;
+			orderStatus=7;
+		}else if(type.trim()=="提供服务"){
+			if(!confirm("确认已提供服务？")) return;
+			orderStatus=4;
+		}
+		var orderID=$(this).parents("div").prev().find("ul li:eq(1) span:eq(1)").html();
+		location.href="/c/szy/order/updateOrders?orderStatus="+orderStatus+"&orderID="+orderID;
+	})
+	$("#typeul li a").click(function(){
+		var orderStatus=$(this).attr("id");
+		if(orderStatus.trim()==9){
+			location.href="/c/szy/order/queryAllOrder?orderStatus=5&refundstatus=1&pageNum=1&pageSize=5&orderID=";
+		}else if(orderStatus.trim()==0){
+			location.href="/c/szy/order/queryAllOrder?orderStatus="+orderStatus+"&refundstatus=-1&pageNum=1&pageSize=5&orderID="
+		}else{
+			location.href="/c/szy/order/queryAllOrder?orderStatus="+orderStatus+"&refundstatus=0&pageNum=1&pageSize=5&orderID="
+		}
+	})
+	$("[name=tijiao]").click(function(){
+		var orderID=$("[name=orderID]").val();
+		if(orderID.trim()==""){
+			alert("请输入订单号");
+			return;
+		}
+		location.href="/c/szy/order/queryAllOrder?orderStatus=0&refundstatus=-1&pageNum=1&pageSize=5&orderID="+orderID;
+	})
 </script>
 </html>
