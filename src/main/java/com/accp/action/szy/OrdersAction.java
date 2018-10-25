@@ -1,5 +1,7 @@
 package com.accp.action.szy;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.biz.szy.OrdersBiz;
+import com.accp.pojo.Orders;
 import com.accp.pojo.Servicetype;
 import com.accp.pojo.User;
 
@@ -42,9 +45,26 @@ public class OrdersAction {
 	public Servicetype querySerType(Integer stid) {
 		return biz.querySerType(stid);
 	}
-	@RequestMapping(value="/order/querySerType",method=RequestMethod.POST)
+	/**
+	 * 修改状态
+	 * @param orderStatus
+	 * @param orderID
+	 * @return
+	 */
+	@RequestMapping(value="/order/updateOrders",method=RequestMethod.GET)
 	public String updateOrders(Integer orderStatus,String orderID) {
 		biz.updateOrders(orderStatus, orderID);
-		return "redirect:/c/szy/order/queryAllOrder";
+		return "redirect:/c/szy/order/queryAllOrder?orderStatus=0&refundstatus=0&pageNum=1&pageSize=5&orderID=";
+	}
+	/**
+	 * 查询所有订单信息
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/order/queryCountOrder",method=RequestMethod.GET)
+	@ResponseBody
+	public List<Orders> queryCountOrder(HttpSession session) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		return biz.queryCountOrder(userID);
 	}
 }

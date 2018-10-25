@@ -1,6 +1,8 @@
 package com.accp.biz.szy;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.dao.szy.IOrdersDao;
+import com.accp.pojo.Orders;
 import com.accp.pojo.Servicetype;
 import com.accp.vo.szy.OrderInfoVo;
 import com.github.pagehelper.PageHelper;
@@ -40,7 +43,16 @@ public class OrdersBiz {
 	 * @param orderID
 	 * @return
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public int updateOrders(Integer orderStatus,String orderID) {
 		return dao.updateOrders(orderStatus, orderID);
+	}
+	/**
+	 * 查询所有订单
+	 * @param userID
+	 * @return
+	 */
+	public List<Orders> queryCountOrder(Integer userID) {
+		return dao.queryCountOrder(userID);
 	}
 }

@@ -11,7 +11,7 @@
 			<if test="orderStatus!=null and orderStatus!=0">
 		 		and orderStatus =#{orderStatus}
 			</if>
-			<if test="refundstatus!=null and refundstatus!=0">
+			<if test="refundstatus!=null and refundstatus!=-1">
 				and refundstatus =#{refundstatus}
 			</if>
 			<if test='orderID!=null and orderID!=""'>
@@ -68,4 +68,8 @@
 	SET `orderStatus`=#{orderStatus}
 	WHERE `orderID`=#{orderID}
 	</update>
+	<select id="queryCountOrder" resultType="com.accp.pojo.Orders">
+		SELECT * FROM orders
+		WHERE serviceID IN(SELECT `serviceID` FROM services WHERE `userID`=#{userid})
+	</select>
 </mapper>
