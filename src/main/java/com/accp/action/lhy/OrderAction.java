@@ -144,8 +144,10 @@ public class OrderAction {
 		refund.setPoint(1);
 		refund.setUserid(userId);
 		refund.setApplicationtime(new Date());
-		String fileName = Upload.uploadFile(file);
-		refund.setRefundimg(fileName);
+		if (file != null && !file.isEmpty()) {
+			String fileName = Upload.uploadFile(file);
+			refund.setRefundimg(fileName);
+		}
 		Orders order = new Orders();
 		order.setOrderid(refund.getOrderid());
 		order.setRefundstatus(1);
