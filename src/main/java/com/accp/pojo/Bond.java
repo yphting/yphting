@@ -9,7 +9,7 @@ public class Bond {
 
     private Integer bondtype;
 
-    private String goldcoin;
+    private Float goldcoin;
 
     private Date submittime;
 
@@ -43,12 +43,12 @@ public class Bond {
         this.bondtype = bondtype;
     }
 
-    public String getGoldcoin() {
+    public Float getGoldcoin() {
         return goldcoin;
     }
 
-    public void setGoldcoin(String goldcoin) {
-        this.goldcoin = goldcoin == null ? null : goldcoin.trim();
+    public void setGoldcoin(Float goldcoin) {
+        this.goldcoin = goldcoin;
     }
 
     public Date getSubmittime() {

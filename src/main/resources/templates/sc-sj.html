@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -71,7 +72,7 @@
 					</form>
 				</div>
 				<div class="collection_tab">
-					<a href="">服务收藏</a> <a href="" class="cur">商家收藏</a>
+					<a href="/zsp/c/getServicesByUserId">服务收藏</a> <a href="/zsp/c/getMerchantCollectionById" class="cur">商家收藏</a>
 				</div>
 			</div>
 			<!--collection_box-->
@@ -144,248 +145,32 @@
 
 				<div class="service_recs">服务推荐</div>
 				<div id="service_recs" class="owl-carousel">
-					<div class="item">
+					<div class="item" th:each="temp2,iterState:${LIST}">
 						<ul class="us_ul_list">
 							<li><a href=""
 								target="_blank">
 									<div class="per_pic">
-										<img src="" alt="地形设计及模型制作" />
+										<img th:src="${temp2.serviceCoverImg}"  />
 									</div>
 									<div class="per_text">
-										<h3>地形设计及模型制作</h3>
+										<h3>[[${temp2.shopName}]]</h3>
 										<dl class="star_user_dl fl">
 											<dt>
-												<img src="" alt="本分ら " class="star_user_photo" />
+												<img th:src="${temp2.shopImg}"  class="star_user_photo" />
 											</dt>
 											<dd>
 												<div class="star_user_name_s">
-													<h3 class="star_user_name">本分ら</h3>
+													<h3 class="star_user_name">[[${temp2.userName}]]</h3>
 												</div>
 											</dd>
 										</dl>
-										<div class="fr i_3">300</div>
+										<div class="fr i_3">[[${temp2.servicePrice}]]</div>
 										<div class="clear"></div>
 									</div>
 							</a></li>
 						</ul>
 					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="/index.php?m=Home&c=Service&a=detail&id=402"
-								target="_blank">
-									<div class="per_pic">
-										<img src="" alt="延世大学/연세대학교 " />
-									</div>
-									<div class="per_text">
-										<h3>延世大学/연세대학교</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="紫陌″de店铺" class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">紫陌″de店铺</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">75</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="时蕴整形外科" />
-									</div>
-									<div class="per_text">
-										<h3>时蕴整形外科</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="■ˉ苏〃筱萌◇◆ " class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">■ˉ苏〃筱萌◇◆</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">1250</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="泰迪熊珍藏馆/테디베어팜" />
-									</div>
-									<div class="per_text">
-										<h3>泰迪熊珍藏馆/테디베어팜</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="■ˉ苏〃筱萌◇◆ " class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">■ˉ苏〃筱萌◇◆</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">1200</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="雪岳山国立公园/설악산국립공원권금성·신흥사" />
-									</div>
-									<div class="per_text">
-										<h3>雪岳山国立公园/설악산국립공원권금성·신흥사</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="■ˉ苏〃筱萌◇◆ " class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">■ˉ苏〃筱萌◇◆</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">1588</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="济州室内观光/제주 시내관광" />
-									</div>
-									<div class="per_text">
-										<h3>济州室内观光/제주 시내관광</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="仰望幸福(｡◕ˇ∀ˇ◕）的小铺" class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">仰望幸福(｡◕ˇ∀ˇ◕）的小铺</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">2500</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="圣托里尼咖啡馆/산토리니카페" />
-									</div>
-									<div class="per_text">
-										<h3>圣托里尼咖啡馆/산토리니카페</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="Ｍrゞ紫諾╮" class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">Ｍrゞ紫諾╮</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">2500</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="昭阳江坝·清平寺/소양강댐·청평사" />
-									</div>
-									<div class="per_text">
-										<h3>昭阳江坝·清平寺/소양강댐·청평사</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="Ｍrゞ紫諾╮" class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">Ｍrゞ紫諾╮</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">3500</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="建国大学DIY留学/건국대학교 " />
-									</div>
-									<div class="per_text">
-										<h3>建国大学DIY留学/건국대학교</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="商铺第一家" class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">商铺第一家</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">4750</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-					<div class="item">
-						<ul class="us_ul_list">
-							<li><a href="" target="_blank">
-									<div class="per_pic">
-										<img src="" alt="高丽大学DIY留学/고려대학교 " />
-									</div>
-									<div class="per_text">
-										<h3>高丽大学DIY留学/고려대학교</h3>
-										<dl class="star_user_dl fl">
-											<dt>
-												<img src="" alt="商铺第一家" class="star_user_photo" />
-											</dt>
-											<dd>
-												<div class="star_user_name_s">
-													<h3 class="star_user_name">商铺第一家</h3>
-												</div>
-											</dd>
-										</dl>
-										<div class="fr i_3">5800</div>
-										<div class="clear"></div>
-									</div>
-							</a></li>
-						</ul>
-					</div>
+				
 				</div>
 
 			</div>
@@ -396,7 +181,7 @@
 	<div class="b_box">
 		<!--ad-->
 		<div class="ad_box2">
-			<a href=""><img src="" alt="底部广告 说吧"></a>
+			<a href=""><img src="/Public/images/ad/3.jpg" alt="底部广告 说吧"></a>
 		</div>
 		<!--ad end-->
 		<a href="" class="footer_text">

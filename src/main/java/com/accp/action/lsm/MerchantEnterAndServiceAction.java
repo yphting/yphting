@@ -22,6 +22,7 @@ import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
+import com.accp.pojo.Post;
 import com.accp.pojo.Resouroe;
 import com.accp.pojo.Servicelevel;
 import com.accp.pojo.Servicetype;
@@ -29,6 +30,7 @@ import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
 import com.accp.vo.lsm.EsLevelVO;
+import com.accp.vo.lsm.HomePostVO;
 import com.accp.vo.lsm.SameServiceVO;
 import com.accp.vo.lsm.SerRecommendVO;
 import com.accp.vo.lsm.SerReserveVO;
@@ -328,6 +330,8 @@ public class MerchantEnterAndServiceAction {
 		List<SerRecommendVO> recommendStidByFourList = biz.querySerRecommendVO(4);	//韩语翻译
 		List<SerRecommendVO> recommendStidByFiveList = biz.querySerRecommendVO(5);	//学习资源
 		//韩汀社区论坛热门贴查询
+		List<HomePostVO> homePostVOList = biz.queryHomePostVO();	//最新帖子
+		List<Post> homePostMakeUpList = biz.queryHomePostByMakeup();	//美妆版块帖子
 		model.addAttribute("homeSlideshowList",homeSlideshowList);
 		model.addAttribute("homeMidAdvertingList",homeMidAdvertingList);
 		model.addAttribute("recommendStidByOneList",recommendStidByOneList);
@@ -335,6 +339,8 @@ public class MerchantEnterAndServiceAction {
 		model.addAttribute("recommendStidByThreeList",recommendStidByThreeList);
 		model.addAttribute("recommendStidByFourList",recommendStidByFourList);
 		model.addAttribute("recommendStidByFiveList",recommendStidByFiveList);
+		model.addAttribute("homePostVOList",homePostVOList);
+		model.addAttribute("homePostMakeUpList",homePostMakeUpList);
 		return "fw-sy";
 	}
 }

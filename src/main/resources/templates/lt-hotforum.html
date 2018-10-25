@@ -70,14 +70,14 @@
 				<div class="bbs_left_bar">
 					<h1 class="bbs_left_title">韩汀·论坛</h1>
 					<ul class="bbs_left_list">
-						<li data-pid="">
-							<a th:href="@{/c/sxy/hotPost(pid=${param.pid},page=1,title=${param.title})}"><span class="line"></span>热门话题</a>
+						<li class="cur">
+							<a th:href="@{/c/sxy/hotPost(page=1)}"><span class="line"></span>热门话题</a>
 						</li>
 						<li>
 							<a th:href="@{/c/sxy/myPost(page=1,title=${param.title})}"><span class="line"></span>我的韩汀论坛</a>
 						</li>
 						<!-- 版块列表 -->
-						<li th:data-pid="${temp.fmid}" th:each="temp,item : ${BLIST}">
+						<li th:each="temp,item : ${BLIST}">
 							<a th:href="@{/c/sxy/column(pid=${temp.fmid},page=1,orderId=${param.orderId},essence=0)}"><span class="line"></span><span th:text="${temp.fmname}"></span></a>
 						</li>
 					</ul>
@@ -90,40 +90,18 @@
 						<a href="http://www.yphting.com"><img src="/Uploads/adv/2017-06/20170605022035-73347.jpg" alt="社区广告图" width="880" height="100"></a>
 					</div>
 					<dl class="community_dl ">
-						<dt><span class="bbs_top_title" th:text="${FORUM.fmname}">留学简介</span></dt>
+						<dt><span class="bbs_top_title">热门话题</span></dt>
 						<dd>
-							<form method="get" th:action="@{/c/sxy/column}" id="formfind">
+							<form method="get" th:action="@{/c/sxy/hotPost}" id="formfind">
 								<div class="search_sec">
 									<input type="hidden" name="page" th:value="1"/>
-									<input type="hidden" name="pid" th:value="${param.pid}"/>
-									<input type="hidden" name="essence" th:value="0">
-									<input type="hidden" name="forumId" th:value="${param.forumId}">
 									<input type="text" name="title" placeholder="帖子搜索" class="s_sec_input">
 									<input type="submit" value="" class="s_sec_btn">
 								</div>
 							</form>
 						</dd>
 					</dl>
-					<!-- class="cur"表示按选中条件分类  按条件查询帖子 -->
-					<div class="bbs_tag">
-						<a th:href="@{/c/sxy/column(pid=${param.pid},page=1,forumId=${temp.fmid},orderId=${param.orderId},essence=0)}" th:each="temp,item : ${CLIST}" th:text="${temp.fmname}" th:data-fmid="${temp.fmid}"></a>
-					</div>
-					<div class="bbs_rank">
-						<a th:href="@{/c/sxy/toAddForum(pid=${param.pid},fmid=${param.forumId})}" class="btn_ft">
-							<span class="ft_i"></span>发帖
-						</a>
-						排序:
-						<a th:href="@{/c/sxy/column(pid=${param.pid},page=1,orderId=0,essence=0)}" class="bbs_a bbscura" data-orderid="0" >最新发帖</a>
-						<span class="bbs_line"></span>
-						<a th:href="@{/c/sxy/column(pid=${param.pid},page=1,orderId=1,essence=0)}" class="bbs_a bbscura" data-orderid="1" >最新回复</a>
-						<span class="bbs_sx">
-							筛选：
-							<label>
-								<input id="jin" name="jin" value="1&quot;" type="checkbox" class="checkbox_input" onclick="showJh()">
-								精华帖子
-							</label>
-						</span>
-					</div>
+
 					<!-- list  帖子列表-->
 					<ul class="bbs_list_ul">
 						<li th:each="temp,item : ${PAGE_INFO.list}">
@@ -139,7 +117,7 @@
 								<h3 class="bbs_text_title" >
 									<img th:if="${temp.essence==true}" src="/Public/images/i_jh.png" style="padding-bottom:2px;">
 									<img th:if="${temp.solid==true}" src="/Public/images/i_ding.png" style="padding-bottom:2px;">
-									<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" th:text="${temp.title}"></a>
+									<a href="javascript:;" th:text="${temp.title}"></a>
 								</h3>
 								<p class="bbs_user_i">
 									<a href="javascript:;" th:text="${temp.forum.fmname}">韩国大学简介</a><span class="bbs_dot">·</span>
@@ -156,9 +134,9 @@
 					<div class="page_w">
 						<div class="page">
 							<div class="nav">
-								<a th:if="${PAGE_INFO.isHasPreviousPage()}" class="page_prev prevdisabled" th:href="@{/c/sxy/column(pid=${param.pid},page=${PAGE_INFO.prePage},title=${param.title},orderId=${param.orderId},essence=0)}">上一页</a> 
-								<a th:href="@{/c/sxy/column(pid=${param.pid},page=${item.count},title=${param.title},orderId=${param.orderId},essence=0)}" th:data-page="${item.count}" th:each="temp,item : ${PAGE_INFO.navigatepageNums}" th:text="${item.count}"></a>
-								<a th:if="${PAGE_INFO.isHasNextPage()}" class="page_next nextdisabled" th:href="@{/c/sxy/column(pid=${param.pid},page=${PAGE_INFO.nextPage},title=${param.title},orderId=${param.orderId},essence=0)}">下一页</a>
+								<a th:if="${PAGE_INFO.isHasPreviousPage()}" class="page_prev prevdisabled" th:href="@{/c/sxy/hotPost(page=${PAGE_INFO.prePage},title=${param.title})}">上一页</a> 
+								<a th:href="@{/c/sxy/hotPost(page=${item.count},title=${param.title})}" th:data-page="${item.count}" th:each="temp,item : ${PAGE_INFO.navigatepageNums}" th:text="${item.count}"></a>
+								<a th:if="${PAGE_INFO.isHasNextPage()}" class="page_next nextdisabled" th:href="@{/c/sxy/hotPost(page=${PAGE_INFO.nextPage},title=${param.title})}">下一页</a>
 							</div>
 						</div>
 					</div>
@@ -232,16 +210,7 @@
 	<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 	<script type="text/javascript">
-		$("[data-pid=[[${param.pid}]]]").addClass("cur");
-		$("[data-fmid=[[${param.forumId}]]]").addClass("cur");
 		$("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
 		$("[data-orderid=[[${param.orderId}]]]").removeClass("bbscura");
-		function showJh(){
-			var _url = "/c/sxy/column?pid=[[${param.pid}]]&orderId=[[${param.orderId}]]";
-			if($("[name=jin]").attr('checked')){
-				_url+="&essence=1";
-			}
-			location.href=_url;
-		}
 	</script>
 </html>

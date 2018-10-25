@@ -30,6 +30,8 @@ import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
+import com.accp.vo.zsp.EvaluationserviceToservicesVo;
+import com.accp.vo.zsp.UserToServicesVo;
 import com.accp.vo.zsp.userVo;
 import com.github.pagehelper.PageInfo;
 
@@ -187,7 +189,7 @@ public class GoldnotesAction {
 			userId=user.getUserid();
 		}
 		evaluationService.setUserid(userId);
-		PageInfo<Evaluationservice> pageInfo =biz.getListEvaluationService(p, s, evaluationService);
+		PageInfo<EvaluationserviceToservicesVo> pageInfo =biz.getListEvaluationService(p, s, evaluationService);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "grzx-comments";
 	}
@@ -333,11 +335,16 @@ public class GoldnotesAction {
 		goldnotes.setRecorddate(new Date());
 		/*goldnotes.set
 		biz.addGoldnotes(goldnotes);*/
-		if(users.getUsermoney()<logistics.getPrice()) {
+		if(users.getUsermoney()==null) {
 			return "wu_zhif";
 		}else {
-			return "wl-zf";
+			if(users.getUsermoney()<logistics.getPrice()) {
+				return "wu_zhif";
+			}else {
+				return "wl-zf";
+			}
 		}
+		
 	}
 	/**
 	 * 查询地址
@@ -383,7 +390,7 @@ public class GoldnotesAction {
     	return "jinb-index";
     }
 	/**
-	 * 查询商品收藏
+	 * 查询收藏的服务及商家
 	 * 
 	 * @param model
 	 * @param session
@@ -401,11 +408,13 @@ public class GoldnotesAction {
 			userId=user.getUserid();
 		}
 		PageInfo<userVo>pageInfo= biz.getMerchantCollectionById(p, s, userId);
+		List<UserToServicesVo>list=biz.getUserToServicesVo();
+		model.addAttribute("LIST",list);
 		model.addAttribute("PAGE_INFO",pageInfo);
 		return "sc-sj";
 	}
 	/**
-	 * 查询商家收藏记录
+	 * 查询收藏的服务
 	 * @param model
 	 * @param session
 	 * @return 返回商家收藏页面 sc-sj。html
@@ -422,9 +431,19 @@ public class GoldnotesAction {
 			userId=user.getUserid();
 		}
 		PageInfo<Services>pageInfo= biz.getServicesByUserId(p, s, userId);
+		List<UserToServicesVo>list=biz.getUserToServicesVo();
+		model.addAttribute("LIST",list);
 		model.addAttribute("PAGE_INFO",pageInfo);
 		return "grzx-favs";
     }
+	/**
+	 * 物流支付状态
+	 * @param model
+	 * @param session
+	 * @param logisticsid
+	 * @param userprice
+	 * @return
+	 */
 	@GetMapping("updlogistics")
 	@ResponseBody
 	public Map<String, String> updlogistics(Model model, HttpSession session,Integer logisticsid,Integer userprice) {		
