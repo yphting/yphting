@@ -2,13 +2,38 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
 	<mapper    namespace="com.accp.dao.zg.IMerchantDao">
+			<!-- 自定义：查询所有 -->
+	<sql id="selectAll">
+		select * from
+	</sql>
+	
+	
 		<select   id="queryUserinfo" resultType="com.accp.pojo.User">
-			  select *from user where userName=#{username}
+			  <include refid="selectAll"/> *from user where userName=#{username}
 		</select>
-		
-<resultMap  id="ServicesMap"  type="com.accp.vo.zg.ServicesVo">
+
+	
+	<!-- 查询服务类别（如自驾游、微整形） -->
+	<select id="queryServiceType" resultType="Servicetype">
+		<include refid="selectAll"/>
+		`servicetype`
+		<where>
+			<if test="stpid==null and selectNum==null">
+				`stPid` IS NULL
+			</if>
+			<if test="stpid!=null and selectNum==1">
+				`stPid` = #{stpid}
+			</if>
+			<if test="stpid!=null and selectNum==2">
+				`stPid` = (SELECT `stPid` FROM `servicetype` WHERE `stid` = #{stpid})
+			</if>
+		</where>
+	</select>	
+	<resultMap  id="ServicesMap"  type="com.accp.vo.zg.ServicesVo">
 		<result column="serviceID" property="serviceid" />
+		<result  column="stid" property="stid"/>
 		<result column="stName" property="stname" />
 		<result column="serviceCoverImg" property="servicecoverimg" />
 		<result column="serviceImgUrlOne" property="serviceimgurlone" />
@@ -48,25 +73,50 @@
 	
 		</where>
 		</select>
-		<insert id="addServices">
-			INSERT INTO `services` (`stid`, `userID`, `resourceID`,`serviceTitle`, `serviceFuTitle`,`servicePrice`,
+		
+		<select id="queryService"   resultType="Services">
+				SELECT   *FROM `services`  WHERE  serviceID=#{serviceid}
+		
+		</select>
+		
+	<!-- 查询中韩行政地区 -->
+	<select id="querySharea" resultType="Sharea">
+		<include refid="selectAll"/>
+		`sharea` 
+		<where>
+			<if test="pid==null and flag==false">
+				`level` = 0
+			</if>
+			<if test="pid!=null and flag==false">
+				`pid` = #{pid}
+			</if>
+			<if test="pid!=2 and flag==true">
+				`pid` IN (SELECT `areaID` FROM `sharea` WHERE `pid` = #{pid})
+			</if>
+			<if test="pid==2 and flag==true">
+				`pid` = 2
+			</if>
+		</where>
+	</select>
+		<insert id="addService">
+			INSERT INTO `services` (`stid`, `userID`, `resourceID`,`serviceTitle`, `serviceFuTitle`,`downloadTitle`,`servicePrice`,
 		 `serviceCoverImg`, `serviceImgUrlOne`,`serviceImgUrlTwo`, `serviceImgUrlThree`, `serviceImgUrlFour`,
 		  `serviceCostTypeID`,`serviceIntro`, `serviceCity`,`country`, `serviceCostInclude`, 
 		   `serviceStartDate`,`serviceEndDate`, `schoolRegion`, `schoolNameByCN`,`majoyNameByCN`,
-		   `schoolNameByROK`, `majoyNameByROK`,`goodAtMajoy`,`hospitalName`,`serviceHour`,`uploadtitle` `uploadDataUrl`,`releaseTime`,
+		   `schoolNameByROK`, `majoyNameByROK`,`goodAtMajoy`,`hospitalName`,`serviceHour`, `uploadDataUrl`,`releaseTime`,
 		    `browseNumber`,`weight`,`recommendBool`, `adminOpinion`,`auditStatus`)VALUES 
 		  (#{services.stid},#{services.userid},#{services.resourceid},#{services.servicetitle},#{services.servicefutitle},
-		  #{services.serviceprice},#{services.servicecoverimg},#{services.serviceimgurlone},#{services.serviceImgurltwo},
+		  #{services.downloadtitle},#{services.serviceprice},#{services.servicecoverimg},#{services.serviceimgurlone},#{services.serviceimgurltwo},
 		  #{services.serviceimgurlthree}, #{services.serviceimgurlfour},#{services.servicecosttypeid},#{services.serviceintro},
 		  #{services.servicecity},#{services.country},#{services.servicecostinclude},#{services.servicestartdate},#{services.serviceenddate},
 		  #{services.schoolregion},#{services.schoolnamebycn},#{services.majoynamebycn},#{services.schoolnamebyrok},#{services.majoynamebyrok},#{services.goodatmajoy},
-		  #{services.hospitalname},#{services.servicehour},#{services.uploadtitle},#{services.uploaddataurl},NOW(),#{services.browsenumber},#{services.weight},#{services.recommendbool},#{services.adminopinion},2);
+		  #{services.hospitalname},#{services.servicehour},#{services.uploaddataurl},NOW(),#{services.browsenumber},#{services.weight},#{services.recommendbool},#{services.adminopinion},2);
 		</insert>
 		<delete id="deleteService">
 			delete from services where serviceID=#{serviceID}
 		</delete>
 		
-	<update id="updateServicelx">
+	<update id="updateService">
 		update services
 		<set>
 			<if test="services.stid!=null">
@@ -80,6 +130,9 @@
 			</if>
 			<if test="services.servicefutitle!=null">
 				serviceFuTitle=#{services.servicefutitle},
+			</if>
+			<if test="services.downloadtitle!=null">
+				downloadTitle=#{services.downloadtitle},
 			</if>
 			<if test="services.serviceprice!=null">
 				servicePrice=#{services.serviceprice},
@@ -146,9 +199,6 @@
 			<if test="services.servicehour!=null">
 				serviceHour=#{services.servicehour},
 			</if>
-				<if test="services.uploadtitle!=null">
-				uploadtitle=#{services.uploadtitle},
-			</if>
 				<if test="services.uploaddataurl!=null">
 				uploadDataUrl=#{services.uploaddataurl},
 			</if>
@@ -162,7 +212,7 @@
 				browseNumber=#{services.browsenumber},
 			</if>
 		
-				<if test="services.recommendbool!=null">
+			<if test="services.recommendbool!=null">
 				recommendBool=#{services.recommendbool},
 			</if>
 			<if test="services.adminopinion!=null">
