@@ -31,14 +31,14 @@
 			<ul class="member_nav_ul">
 				<li id="li1"><a href="">商家中心</a><span class="my_nav_i"></span></li>
 				<style type="text/css">
-.layui-layer-btn .layui-layer-btn0 {
-	background: #4c1b98;
-}
-
-.layui-layer-btn .layui-layer-btn0:hover {
-	background: #340d6f;
-}
-</style>
+				.layui-layer-btn .layui-layer-btn0 {
+					background: #4c1b98;
+				}
+				
+				.layui-layer-btn .layui-layer-btn0:hover {
+					background: #340d6f;
+				}
+				</style>
 				<li class="cur" id="li2"><a href="">个人中心</a><span
 					class="my_nav_i"></span></li>
 				<li id="li3"><a href="">账户设置</a><span class="my_nav_i"></span></li>
@@ -56,7 +56,7 @@
 					<a href="#" class="btna_s2 f14">交易须知</a>
 				</div>
 				<a href="">个人中心</a><span class="s_sp_v">-</span><a href="">我的退款</a><span
-					class="s_sp_v">-</span>退款订单号[[${order.orderid}]]
+					class="s_sp_v">-</span>退款编号[[${refund.refundid}]]
 			</div>
 
 			<div class="refund_press">
@@ -86,6 +86,8 @@
 				<dd>
 					<div class="negotiation_records_d">
 						<div class="fr my_tkr">
+							<a th:if="${order.refundstatus==2}" th:href="@{/c/lhy/refund/applyadmin(orderid=${order.orderid})}" class="btna_s2 send_site_email_btna">申请管理员介入</a>
+							<span th:if="${order.refundstatus==2}">|</span>
 							<a href="" class="btna_s2 send_site_email_btna">站内信商家</a>
 						</div>
 						协商记录

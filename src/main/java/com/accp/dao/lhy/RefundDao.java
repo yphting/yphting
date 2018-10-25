@@ -15,11 +15,20 @@ public interface RefundDao {
 	boolean saveRefund(@Param("refund") Refund refund);
 
 	/**
-	 * 获取退款箱单
+	 * 获取退款详单
 	 * 
 	 * @param orderId
 	 *            订单编号
 	 * @return
 	 */
 	Refund queryRefundByOrderId(@Param("orderid") String orderId);
+
+	/**
+	 * 修改退款
+	 * 
+	 * @param refund
+	 *            退款
+	 * @return
+	 */
+	boolean updateRefund(@Param("refund") Refund refund);
 }

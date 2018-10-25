@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.accp.biz.lhy.OrderBiz;
 import com.accp.biz.lhy.RefundBiz;
+import com.accp.vo.lhy.Orders;
+import com.accp.vo.lhy.Refund;
 
 @Controller
 @RequestMapping("/c/lhy")
@@ -30,5 +32,24 @@ public class RefundAction {
 		model.addAttribute("order", orderBiz.queryOrderById(orderid));
 		model.addAttribute("refund", refundBiz.queryRefundByOrderId(orderid));
 		return "grzx-refund-detail";
+	}
+
+	/**
+	 * 申请管理员介入
+	 * 
+	 * @param orderid
+	 *            订单编号
+	 * @return
+	 */
+	@RequestMapping("/refund/applyadmin")
+	public String applyAdmin(@RequestParam(required = true) String orderid) {
+		Orders order = new Orders();
+		order.setOrderid(orderid);
+		order.setRefundstatus(3);
+		Refund refund = new Refund();
+		refund.setOrderid(orderid);
+		refund.setAdminstatus(1);
+		refundBiz.applyAdmin(order, refund);
+		return "redirect:/c/lhy/refund/detail";
 	}
 }
