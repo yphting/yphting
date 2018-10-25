@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class ServicesVo {
 		private int serviceid;
+		private int stid;
 		private String stname;
 		private String servicecoverimg;
 		private String serviceimgurlone;
@@ -30,6 +31,12 @@ public class ServicesVo {
 		}
 		public void setServiceid(int serviceid) {
 			this.serviceid = serviceid;
+		}
+		public int getStid() {
+			return stid;
+		}
+		public void setStid(int stid) {
+			this.stid = stid;
 		}
 		public String getStname() {
 			return stname;
@@ -164,7 +171,7 @@ public class ServicesVo {
 		public ServicesVo() {
 			// TODO Auto-generated constructor stub
 		}
-		public ServicesVo(int serviceid, String stname, String servicecoverimg, String serviceimgurlone,
+		public ServicesVo(int serviceid, int stid, String stname, String servicecoverimg, String serviceimgurlone,
 				String serviceimgurltwo, String serviceimgurlthree, String serviceimgurlfour, String name,
 				String servicecity, String servicecosttypeid, String servicecostinclude, String servicetitle,
 				String servicefutitle, String serviceintro, String uploadtitle, String uploaddataurl,
@@ -172,6 +179,7 @@ public class ServicesVo {
 				Timestamp releasetime, int auditstatus) {
 			super();
 			this.serviceid = serviceid;
+			this.stid = stid;
 			this.stname = stname;
 			this.servicecoverimg = servicecoverimg;
 			this.serviceimgurlone = serviceimgurlone;
@@ -194,6 +202,8 @@ public class ServicesVo {
 			this.releasetime = releasetime;
 			this.auditstatus = auditstatus;
 		}
+
+
 		
 		
 		

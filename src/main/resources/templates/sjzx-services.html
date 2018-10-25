@@ -85,7 +85,7 @@
         <div class="member_right sj_right_box">
 			<div class="member_system_r_top top_nor">
 				<div class="search_right_box">
-					<div class="search_sec"><form method="post" action="/zg/c/getServicesByTitle?pageNum=1&pageSize=2"><input type="text" name="serviceTitle" placeholder="输入服务名称" class="s_sec_input" /><input type="submit" value="" class="s_sec_btn" /><input type="hidden" name="__hash__" value="aecafd74baafde5cba034372c675d0de_99b2b45687447cdb2188e7372f3fbe73" /></form></div>
+					<div class="search_sec"><form method="post" action="zg/c/getServicesByTitle?pageNum=1&pageSize=2"><input type="text" name="serviceTitle" placeholder="输入服务名称" class="s_sec_input" /><input type="submit" value="" class="s_sec_btn" /><input type="hidden" name="__hash__" value="aecafd74baafde5cba034372c675d0de_99b2b45687447cdb2188e7372f3fbe73" /></form></div>
 				</div>
 				<span class="fl">我发布的服务&nbsp;&nbsp;<a href="/sjzx-xzfwlb.html" class="btn_jy_a btn_jy_a3" >发布新服务</a></span>
 							</div>
@@ -107,27 +107,11 @@
             </thead>
             <tbody>
             <tr  th:each="temp,iterState:${PAGE_INFO.list}">
-				<td style="display: none;">
-					<input  type="hidden" th:value="${temp.serviceid}" id="serviceid"> 
-					<input  type="hidden" th:value="${temp.name}" id="name">
-					<input  type="hidden" th:value="${temp.servicecity}" id="servicecity">
-
-					<input  type="hidden" th:value="${temp.serviceimgurlone}" id="xjt1">
-					<input  type="hidden" th:value="${temp.serviceimgurltwo}" id="xjt2">
-					<input  type="hidden" th:value="${temp.serviceimgurlthree}" id="xjt3">
-					<input  type="hidden" th:value="${temp.serviceimgurlfour}" id="xjt4">
-					<input  type="hidden" th:value="${temp.servicecosttypeid}" id="servicecosttypeid">
-					<input  type="hidden" th:value="${temp.serviceintro}" id="serviceintro">
-					<input  type="hidden" th:value="${temp.servicecostinclude}" id="servicecostinclude">
-					<input  type="hidden" th:value="${temp.uploaddataurl}" id="uploaddataurl">
-					<input  type="hidden" th:value="${temp.uploadtitle}" id="uploadtitle">
-					
-				</td>
 				<td>
 					<input   type="hidden"  th:value="${temp.servicecoverimg}"   id="fmt">
 					<img alt="" th:src="${temp.servicecoverimg}">
 					<span th:text="${temp.servicetitle}" id="servicetitle" ></span>
-					<span th:text="${temp.servicefutitle}" id="servicefutile"></span>
+					<!-- <span th:text="${temp.servicefutitle}" id="servicefutile"></span> -->
 				</td>
 				
 				<td >
@@ -149,9 +133,9 @@
 				<!-- 动态url:th:href="@{/c/removeInfo(id=${temp.mid},name=admin)}"  -->
 				<!-- 动态事件绑定 -->
 				<td>
-					<a  href="javascript:void(0)" onclick="update()" >编辑</a>
+					<a  th:href="@{queryServices(serviceid=${temp.serviceid},stid=${temp.stid})}" >编辑</a>
 					<a  href="javascript:void(0)">关闭</a>
-					<a  href="/zg/c/removeServices?serviceID=${temp.serviceid}">删除</a>
+					<a  th:href="@{removeServices(serviceID=${temp.serviceid})}">删除</a>
 				
 				</td>
 			
@@ -159,21 +143,21 @@
 			</tr>
             </tbody> 
 				<tfoot>
-					<tr>
-								<td colspan="7" align="center">
+				<tr>
+						<td colspan="7" align="center">
 							
-								<a href="/zg/c/getServices?pageNum=1&pageSize=${PAGE_INFO.pageSize}">首页</a>
+								<a    th:href="@{getServices(pageNum=1,pageSize=${PAGE_INFO.pageSize})}" >首页</a>
 								&nbsp;&nbsp;
 								
 								<span th:if="${PAGE_INFO.isHasPreviousPage()}" >
-								<a  href="/zg/c/getServices?pageNum=${PAGE_INFO.prePage}&pageSize=${PAGE_INFO.pageSize}">上一页</a>
+								<a   th:href="@{getServices(pageNum=${PAGE_INFO.prePage},pageSize=${PAGE_INFO.pageSize})}">上一页</a>
 								</span>
 									&nbsp;&nbsp;
 								<span th:if="${PAGE_INFO.isHasNextPage()}" >
 								
-									<a  href="/zg/c/getServices?pageNum=${PAGE_INFO.nextPage}&pageSize=${PAGE_INFO.pageSize}">下一页</a>
+									<a th:href="@{getServices(pageNum=${PAGE_INFO.nextPage},pageSize=${PAGE_INFO.pageSize})}">下一页</a>
 								</span>
-								&nbsp;&nbsp; <a  href="/zg/c/getServices?pageNum=${PAGE_INFO.lastPage}&pageSize=${PAGE_INFO.pageSize}">末页</a>							
+								&nbsp;&nbsp; <a th:href="@{getServices(pageNum=${PAGE_INFO.lastPage},pageSize=${PAGE_INFO.pageSize})}">末页</a>							
 								&nbsp;&nbsp; &nbsp;&nbsp;第[[${PAGE_INFO.pageNum}]]页/共[[${PAGE_INFO.lastPage}]]页&nbsp;&nbsp;共[[${PAGE_INFO.total}]]条记录
 							
 						</td>
@@ -283,47 +267,5 @@
 		<div class="clear"></div>
 	</div>
 </div>
-<script  type="text/javascript" src="/Public/js/jquery-1.8.3.min.js">
-
- function update(){
-	 		var serviceid=$("#serviceid").val();
-	 		var servicetitle=$("#servicetitle").html();
-	 		var servicefutitle=$("#servicefutitle").html();
-	 		var serviceprice=$("#serviceprice").val();
-	 		var servicecoverimg=$("#fmt").val();
-	 		var serviceimgurlone=$("#xjt1").val();
-	 		var serviceimgurltwo=$("#xjt2").val();
-	 		var serviceimgurlthree=$("#xjt3").val();
-	 		var serviceimgurlfour=$("#xjt4").val();
-			var servicecosttypeid=$("#servicecosttypeid").val();
-			var name=$("#name").val();
-			var serviceintro=$("#serviceintro").val();
-			var servicecity=$("#servicecity").val();
-			var servicecostinclude=$("#servicecostinclude").val();
-			var uploadtitle=$("#uploadtitle").val();
-			var uploaddataurl=$("#uploaddataurl").val();		
-			//本地缓存
-			window.sessionStorage.setItem("serviceid",serviceid);
-			window.sessionStorage.setItem("servicetitle",servicetitle);
-			window.sessionStorage.setItem("servicefutitle",servicefutitle);
-			window.sessionStorage.setItem("serviceprice",serviceprice);
-			window.sessionStorage.setItem("servicecoverimg",servicecoverimg);
-			window.sessionStorage.setItem("serviceimgurlone",serviceimgurlone);
-			window.sessionStorage.setItem("serviceimgurltwo",serviceimgurltwo);
-			window.sessionStorage.setItem("serviceimgurlthree",serviceimgurlthree);
-			window.sessionStorage.setItem("serviceimgurlfour",serviceimgurlfour);
-			window.sessionStorage.setItem("servicecosttypeid",servicecosttypeid);
-			window.sessionStorage.setItem("name",name);
-			window.sessionStorage.setItem("serviceintro",serviceintro);
-			window.sessionStorage.setItem("servicecity",servicecity);
-			window.sessionStorage.setItem("servicecostinclude",servicecostinclude);
-			window.sessionStorage.setItem("uploadtitle",uploadtitle);
-			window.sessionStorage.setItem("uploaddataurl",uploaddataurl);
-			location.href='sjzx-xglxzj.html';
-			
-		};
-
-
-</script>
 </body>
 </html>
