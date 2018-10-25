@@ -100,7 +100,7 @@ public class OrderBiz {
 	 * @return
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
-	public boolean payOrder(int usermoney, int userid, Orders order) {
+	public boolean payOrder(double usermoney, int userid, Orders order) {
 		User user = userDao.queryUserById(userid);
 		if (user.getUsermoney() < usermoney) {
 			return false;
@@ -133,7 +133,7 @@ public class OrderBiz {
 	 * @return
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
-	public boolean ok(int usermoney, int userid, Orders order) {
+	public boolean ok(double usermoney, int userid, Orders order) {
 		userDao.updateUserMoney(usermoney, userid);
 		return orderDao.updateOrder(order);
 	}

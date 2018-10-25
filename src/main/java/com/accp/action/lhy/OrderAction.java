@@ -47,7 +47,7 @@ public class OrderAction {
 		updateOrder.setOrderid(orderid);
 		updateOrder.setOrderstatus(2);
 		updateOrder.setPaymenttime(new Date());
-		orderBiz.payOrder(Math.round(order.getSmallplan()), userId, updateOrder);
+		orderBiz.payOrder(order.getSmallplan(), userId, updateOrder);
 		return "redirect:/c/lhy/order/query/list";
 	}
 
@@ -93,7 +93,7 @@ public class OrderAction {
 		updateOrder.setOrderid(updateid);
 		updateOrder.setOrderstatus(5);
 		updateOrder.setCompletetime(new Date());
-		orderBiz.ok(Math.round(order.getSmallplan()), order.getService().getUser().getUserid(), updateOrder);
+		orderBiz.ok(order.getSmallplan(), order.getService().getUser().getUserid(), updateOrder);
 		return "redirect:/c/lhy/order/query/list?page=" + page + "&orderid=" + orderid;
 	}
 
