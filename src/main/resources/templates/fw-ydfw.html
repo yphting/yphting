@@ -166,8 +166,9 @@
 
 </body>
 	<script type="text/javascript " th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/sessionHeader.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/headLeftNav.js}"></script>
 	<script>
-		//alert(new Date([[${srVOobj.reserveDate}]]));
 		jQuery(".right_nav li a.rn_tel, a.rn_wx").hover(function(){
 			jQuery(this).next().show(300);
 		},function(){

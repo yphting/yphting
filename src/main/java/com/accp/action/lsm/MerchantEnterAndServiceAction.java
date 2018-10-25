@@ -47,8 +47,20 @@ public class MerchantEnterAndServiceAction {
 	@Autowired
 	private MerchantEnterAndServiceBiz biz;
 	
+	@GetMapping("merchantEnterUrlCheck")
+	public String merchantEnterUrlCheck(HttpSession session) {
+		User user = (User)session.getAttribute("USER");	//登录用户对象
+		Integer auditstatus = user.getAuditstatus();
+		if(auditstatus==1) {
+			return "redirect:/sjrz-shzl.html";
+		}else if(auditstatus==2) {
+			return "redirect:/sjrz-yktsj.html";
+		}else {
+			return "redirect:/sjrz-xz.html";
+		}
+	}
 	/**
-	 * 商家入驻MVC地址
+	 * 商家入驻填写资料地址
 	 * @param model
 	 * @param session
 	 * @return
@@ -56,7 +68,7 @@ public class MerchantEnterAndServiceAction {
 	@GetMapping("merchantEnterUrl")
 	public String merchantEnterUrl(Model model,HttpSession session) {
 		User user = (User)session.getAttribute("USER");	//登录用户对象
-		Integer userMoney = user.getUsermoney();	//用户金币
+		Float userMoney = user.getUsermoney();	//用户金币
 		List<Servicetype> servicetypeList = biz.queryServiceType(null, null);	//获取服务类别
 		List<Languagetype> languagetypeList = biz.queryLanguagetype();	//获取服务语言
 		List<Majortype> majortypeList = biz.queryMajortype();	//获取擅长专业
@@ -77,7 +89,6 @@ public class MerchantEnterAndServiceAction {
 	 */
 	@PostMapping("merchantEnter")
 	public String merchantMove(HttpSession session,User user,String serviceID,MultipartFile shopimgData,MultipartFile identitypositiveimgData,MultipartFile identitynegativeimgData,MultipartFile identityhandimgData) {
-		System.out.println(JSON.toJSONString(user));
 		User loginUser = (User)session.getAttribute("USER");	//登录用户
 		float bond = biz.queryBond();	//入驻缴纳保证金金额要求
 		if(loginUser.getUsermoney()>=bond) {	//如果当前登录用户的金额足够缴纳保证金
@@ -102,7 +113,7 @@ public class MerchantEnterAndServiceAction {
 				e.printStackTrace();
 			}
 			biz.merchantMove(user,bond);	//商家入驻
-			return "sjrz-shzl";
+			return "redirect:/sjrz-shzl.html";
 		}else {
 			System.out.println("金额不足！");
 			return "redirect:/Public/error/500.html";
@@ -130,7 +141,6 @@ public class MerchantEnterAndServiceAction {
 	 */
 	@GetMapping("serviceDetailUrl")
 	public String serviceDetailUrl(Model model,String htmlUrl,Integer sid,Integer uid) {
-		System.out.println("进入方法"+htmlUrl);
 		//查询发布服务的商家信息
 		ServiceMerchantInfo serMerchantObj = biz.queryServiceMerchantInfo(uid,sid);
 		//查询服务信息
@@ -145,7 +155,6 @@ public class MerchantEnterAndServiceAction {
 		//更新浏览数
 		biz.updateServiceBrowseNumber(sid);
 		//广告查询：未完成
-		System.out.println(JSON.toJSONString(complainttypeList));
 		model.addAttribute("serMerchantObj",serMerchantObj);
 		model.addAttribute("serDetailObj",serDetailObj);
 		model.addAttribute("esLObj",esLObj);
@@ -180,7 +189,6 @@ public class MerchantEnterAndServiceAction {
 	@GetMapping("api/queryServices")
 	@ResponseBody
 	public PageInfo queryServices(String objJSON,int num,int size){
-		System.out.println(JSON.toJSONString(objJSON));
 		ServiceSelect obj = JSON.parseObject(objJSON,ServiceSelect.class);
 		//开始时间
 		String startDate= obj.getStartDate();
@@ -223,7 +231,6 @@ public class MerchantEnterAndServiceAction {
 	@ResponseBody
 	public PageInfo queryEvaluationserviceVO(Integer num,Integer size,Integer sid) {
 		//评价查询
-		System.out.println("服务编号"+sid);
 		return biz.queryEvaluationserviceVO(num,size,sid);
 	}
 	/**
@@ -233,12 +240,11 @@ public class MerchantEnterAndServiceAction {
 	 */
 	@PostMapping("api/report")
 	@ResponseBody
-	public Map<String,String> saveServiceReport(HttpSession session,Integer businessID,Integer serviceID,String stName) {
-		System.out.println("进入方法！"+businessID+" "+serviceID+" "+stName);
+	public Map<String,String> saveServiceReport(HttpSession session,Integer businessID,Integer serviceID,Integer ctID) {
 		Map<String,String> message = new HashMap<String,String>();
 		User loginUser = (User)session.getAttribute("USER");	//登录对象：举报人
 		Integer loginUserID = loginUser.getUserid();	//当前举报人用户编号
-		if(biz.saveServiceReport(businessID, serviceID, loginUserID, stName)>0) {
+		if(biz.saveServiceReport(businessID, serviceID, loginUserID, ctID)>0) {
 			message.put("code", "200");
 			message.put("msg", "举报完成，请等待管理员审核");
 		}else {
@@ -270,8 +276,8 @@ public class MerchantEnterAndServiceAction {
 	 */
 	@PostMapping("serReserve")
 	public String submitReserve(HttpSession session,SerReserveVO obj,MultipartFile hyFile) {
-		//User loginUser = (User)session.getAttribute("USER");
-		//Integer loginUserID = loginUser.getUserid();	//当前登录用户编号
+		User loginUser = (User)session.getAttribute("USER");
+		Integer loginUserID = loginUser.getUserid();	//当前登录用户编号
 		//时间戳
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		//订单号
@@ -288,9 +294,9 @@ public class MerchantEnterAndServiceAction {
 			}
 		}
 		obj.setOrderID(orderID);
-		obj.setUserID(19);
+		obj.setUserID(loginUserID);
 		biz.submitReserve(obj);
-		return "test";
+		return "redirect:/test.html";
 	}
 	/**
 	 * 收藏服务
@@ -303,8 +309,7 @@ public class MerchantEnterAndServiceAction {
 	public Map<String,String> serviceCollection(HttpSession session,Integer sid){
 		Map<String,String> message = new HashMap<String,String>();
 		User loginUser = (User)session.getAttribute("USER");
-		//Integer uid = loginUser.getUserid();
-		Integer uid = 19;
+		Integer uid = loginUser.getUserid();
 		if(biz.queryUserSerCollectionCheck(uid, sid)==null) {
 			biz.saveSerCollection(uid, sid);
 			message.put("code", "200");
@@ -316,7 +321,11 @@ public class MerchantEnterAndServiceAction {
 		}
 		return message;
 	}
-	
+	/**
+	 * MVC:首页地址
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("homeUrl")
 	public String homeUrl(Model model) {
 		//首页社区服务轮播图广告位查询

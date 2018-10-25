@@ -178,6 +178,8 @@
 </body>
 	<script type="text/javascript " th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
 	<script type="text/javascript" th:src="@{/Public/js/vue.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/sessionHeader.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/headLeftNav.js}"></script>
 	<script th:inline="javascript">
 		var vm = new Vue({
 			el:"#vmCnt",
@@ -231,6 +233,10 @@
 						obj["orderByPrice"]=2;
 					}
 					obj["authentication"]=jQuery("#authenticationAll").parent().attr("data-id");
+					//如果选中鉴定
+					if(obj["authentication"]=="1"||obj["authentication"]=="2"){
+						obj["transactionValueID"]=stid;
+					}
 					jQuery.getJSON("/c/lsm/api/queryServices",{"objJSON":JSON.stringify(obj),"num":num,"size":1},function(data){
 						vm.pageInfo = data;
 						console.info(data);
@@ -259,6 +265,7 @@
 		})
 		//点击条件
 		jQuery(".sel_box dl dd a").live("click",function(){
+			
 			jQuery(this).attr("class","cur").siblings().removeAttr("class");
 			jQuery(this).parent().attr("data-id",jQuery(this).attr("data-id"));
 			if(jQuery(this).parent().find("a:eq(0)").attr("id")=="levelAll"){

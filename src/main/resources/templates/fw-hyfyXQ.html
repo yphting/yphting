@@ -360,15 +360,16 @@
 						<label><input type="radio" class="radio_input" name="reason" th:value="${temp.ctid}">[[${temp.ctname}]]</label>
 					</li>	
 				</ul>
-				<input type="hidden" name="aid" value="577">
-				<div class="t_c"><a href="javascript:void(0);" class="btn_jba" @click="report()">举报</a></div>
-			<input type="hidden" name="__hash__" value="57de28d08887d10dad7fa46ea60c8e61_a49323e26c9c599b6bce3a64abe06420"></form>
+				<div class="t_c"><a href="javascript:void(0);" class="btn_jba" >举报</a></div>
+			</form>
 		</div>
 	</body>
 	
 	<script type="text/javascript " th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
 	<script type="text/javascript " th:src="@{/Public/js/vue.js}"></script>
 	<script type="text/javascript " th:src="@{/Public/js/serviceCommons.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/sessionHeader.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/headLeftNav.js}"></script>
 	<script th:inline="javascript">
 		var vm = new Vue({
 			el:"#vmCnt",
@@ -405,11 +406,11 @@
 		jQuery(".btn_jba").click(function(){
 			var businessID = [[${serMerchantObj.userID}]];	//商家编号
 			var serviceID = [[${serDetailObj.serviceID}]];	//服务编号
-			var stName = [[${serDetailObj.stName}]];//服务类别名称
+			var ctID = jQuery("[name=reason]:checked").val();	//举报类别ID
 			if(jQuery(".pop_sel_jq li label input[name=reason]:checked").length==0){
 				alert("请选择举报原因！");
 			}else{
-				jQuery.post("/c/lsm/api/report",{"businessID":businessID,"serviceID":serviceID,"stName":stName},function(result){
+				jQuery.post("/c/lsm/api/report",{"businessID":businessID,"serviceID":serviceID,"ctID":ctID},function(result){
 					if(result.code==200){
 						alert(result.msg);
 						jQuery("#pop_bg").hide();

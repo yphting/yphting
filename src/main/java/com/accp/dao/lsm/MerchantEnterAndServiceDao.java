@@ -125,7 +125,7 @@ public interface MerchantEnterAndServiceDao {
 	 * @param obj
 	 * @return
 	 */
-	public int saveServiceReport(@Param("businessID")Integer businessID,@Param("serviceID")Integer serviceID,@Param("loginUserID")Integer loginUserID,@Param("stName")String stName);
+	public int saveServiceReport(@Param("businessID")Integer businessID,@Param("serviceID")Integer serviceID,@Param("loginUserID")Integer loginUserID,@Param("ctID")Integer ctID);
 	/**
 	 * 查询资料类别
 	 * @return
