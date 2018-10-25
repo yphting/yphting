@@ -169,8 +169,8 @@ public class MerchantEnterAndServiceBiz {
 	 * @param obj
 	 * @return
 	 */
-	public int saveServiceReport(Integer businessID,Integer serviceID,Integer loginUserID,String stName) {
-		return dao.saveServiceReport(businessID, serviceID, loginUserID, stName);
+	public int saveServiceReport(Integer businessID,Integer serviceID,Integer loginUserID,Integer ctID) {
+		return dao.saveServiceReport(businessID, serviceID, loginUserID, ctID);
 	}
 	/**
 	 * 查询资料类别

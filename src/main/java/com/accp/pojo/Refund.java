@@ -23,9 +23,17 @@ public class Refund {
 
 	private Integer auditstatus;
 
+	private Date admintime;
+
+	private Integer adminstatus;
+
 	private String refundreason;
 
 	private String refundexplain;
+
+	private String businessremarks;
+
+	private String adminremarks;
 
 	public String getRefundreason() {
 		return refundreason;
@@ -41,6 +49,22 @@ public class Refund {
 
 	public void setRefundexplain(String refundexplain) {
 		this.refundexplain = refundexplain == null ? null : refundexplain.trim();
+	}
+
+	public String getBusinessremarks() {
+		return businessremarks;
+	}
+
+	public void setBusinessremarks(String businessremarks) {
+		this.businessremarks = businessremarks == null ? null : businessremarks.trim();
+	}
+
+	public String getAdminremarks() {
+		return adminremarks;
+	}
+
+	public void setAdminremarks(String adminremarks) {
+		this.adminremarks = adminremarks == null ? null : adminremarks.trim();
 	}
 
 	public Integer getRefundid() {
@@ -121,5 +145,21 @@ public class Refund {
 
 	public void setAuditstatus(Integer auditstatus) {
 		this.auditstatus = auditstatus;
+	}
+
+	public Date getAdmintime() {
+		return admintime;
+	}
+
+	public void setAdmintime(Date admintime) {
+		this.admintime = admintime;
+	}
+
+	public Integer getAdminstatus() {
+		return adminstatus;
+	}
+
+	public void setAdminstatus(Integer adminstatus) {
+		this.adminstatus = adminstatus;
 	}
 }

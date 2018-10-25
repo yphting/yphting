@@ -210,11 +210,11 @@
 			</if>
 			<!-- 韩汀认证 -->
 			<if test="obj.authentication!=null and obj.authentication!='' and obj.authentication==1">
-				AND u.`authentication` = TRUE
+				AND u.userID IN(SELECT `userID` FROM `user` WHERE (`firstServiceID` = #{obj.transactionValueID} AND `authentication` = TRUE) OR (`secondServiceID` = #{obj.transactionValueID} AND `authenticationer` = TRUE))
 			</if>
 			<!-- 商家自营 -->
 			<if test="obj.authentication!=null and obj.authentication!='' and obj.authentication==2">
-				AND u.`authentication` = false
+				AND u.userID IN(SELECT `userID` FROM `user` WHERE (`firstServiceID` = #{obj.transactionValueID} AND `authentication` = FALSE) OR (`secondServiceID` = #{obj.transactionValueID} AND `authenticationer` = FALSE))
 			</if>
 			<!-- 级别 -->
 			<if test="obj.transactionValueID!=null and obj.transactionValueID!='' and obj.transactionValueMin!=null and obj.transactionValueMax!=null">
@@ -328,7 +328,7 @@
 	<!-- 举报商家 -->
 	<insert id="saveServiceReport">
 		INSERT `servicereporting`(`businessID`,`serviceID`,`userID`,`ctID`,`TimeOfComplaint`,`auditStatus`)
-		VALUES(#{businessID},#{serviceID},#{loginUserID},(SELECT `stid` FROM `servicetype` WHERE `stName` = #{stName}),NOW(),1)
+		VALUES(#{businessID},#{serviceID},#{loginUserID},#{ctID},NOW(),1)
 	</insert>
 	<!-- 查询资料类别 -->
 	<select id="queryResouroe" resultType="Resouroe">

@@ -11,23 +11,13 @@ public class Admin {
 
     private String password;
 
-    private Boolean socialmanagement;
-
-    private Boolean ordermanagement;
-
-    private Boolean servicemanagement;
-
-    private Boolean membermanagement;
-
-    private Boolean advertisingmanagement;
-
-    private Boolean systemmanagement;
-
     private Date creationtime;
+
+    private Integer roleid;
 
     private String creationip;
 
-    private String founder;
+    private Integer founder;
 
     private Date recententry;
 
@@ -65,60 +55,20 @@ public class Admin {
         this.password = password == null ? null : password.trim();
     }
 
-    public Boolean getSocialmanagement() {
-        return socialmanagement;
-    }
-
-    public void setSocialmanagement(Boolean socialmanagement) {
-        this.socialmanagement = socialmanagement;
-    }
-
-    public Boolean getOrdermanagement() {
-        return ordermanagement;
-    }
-
-    public void setOrdermanagement(Boolean ordermanagement) {
-        this.ordermanagement = ordermanagement;
-    }
-
-    public Boolean getServicemanagement() {
-        return servicemanagement;
-    }
-
-    public void setServicemanagement(Boolean servicemanagement) {
-        this.servicemanagement = servicemanagement;
-    }
-
-    public Boolean getMembermanagement() {
-        return membermanagement;
-    }
-
-    public void setMembermanagement(Boolean membermanagement) {
-        this.membermanagement = membermanagement;
-    }
-
-    public Boolean getAdvertisingmanagement() {
-        return advertisingmanagement;
-    }
-
-    public void setAdvertisingmanagement(Boolean advertisingmanagement) {
-        this.advertisingmanagement = advertisingmanagement;
-    }
-
-    public Boolean getSystemmanagement() {
-        return systemmanagement;
-    }
-
-    public void setSystemmanagement(Boolean systemmanagement) {
-        this.systemmanagement = systemmanagement;
-    }
-
     public Date getCreationtime() {
         return creationtime;
     }
 
     public void setCreationtime(Date creationtime) {
         this.creationtime = creationtime;
+    }
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
     }
 
     public String getCreationip() {
@@ -129,12 +79,12 @@ public class Admin {
         this.creationip = creationip == null ? null : creationip.trim();
     }
 
-    public String getFounder() {
+    public Integer getFounder() {
         return founder;
     }
 
-    public void setFounder(String founder) {
-        this.founder = founder == null ? null : founder.trim();
+    public void setFounder(Integer founder) {
+        this.founder = founder;
     }
 
     public Date getRecententry() {
