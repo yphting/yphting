@@ -69,6 +69,8 @@ public class Services {
 
     private Boolean recommendbool;
 
+    private Integer shelfstate;
+
     private Integer auditstatus;
 
     private String adminopinion;
@@ -335,6 +337,14 @@ public class Services {
 
     public void setRecommendbool(Boolean recommendbool) {
         this.recommendbool = recommendbool;
+    }
+
+    public Integer getShelfstate() {
+        return shelfstate;
+    }
+
+    public void setShelfstate(Integer shelfstate) {
+        this.shelfstate = shelfstate;
     }
 
     public Integer getAuditstatus() {

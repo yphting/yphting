@@ -3,633 +3,663 @@ package com.accp.pojo;
 import java.util.Date;
 
 public class User {
-    private Integer userid;
+	private Integer userid;
 
-    private String userimgpath;
+	private String userimgpath;
 
-    private String username;
+	private String username;
 
-    private String userrealname;
+	private String userrealname;
 
-    private Integer usersex;
+	private Integer usersex;
 
-    private String userphone;
+	private String userphone;
 
-    private String contactmailbox;
+	private String contactmailbox;
 
-    private Integer usermoney;
+	private Float usermoney;
 
-    private Integer userintegral;
+	private Integer userintegral;
 
-    private Integer country;
+	private Integer country;
 
-    private Integer provincialid;
+	private Integer provincialid;
 
-    private Integer cityid;
+	private Integer cityid;
 
-    private Integer countyid;
+	private Integer countyid;
 
-    private String addetail;
+	private String addetail;
 
-    private Integer merchanttype;
+	private Integer merchanttype;
 
-    private Date merchantregistrationtime;
+	private Date merchantregistrationtime;
 
-    private Integer firstserviceid;
+	private Integer firstserviceid;
 
-    private Integer secondserviceid;
+	private Integer secondserviceid;
 
-    private Float firstservicemoney;
+	private Float firstservicemoney;
 
-    private Float secondservicemoney;
+	private Float secondservicemoney;
 
-    private String hospitalname;
+	private String hospitalname;
 
-    private String shopname;
+	private String shopname;
 
-    private String signature;
+	private String signature;
 
-    private Integer guaranteemoney;
+	private Integer guaranteemoney;
 
-    private String shopimg;
+	private String shopimg;
 
-    private Integer identitytype;
+	private Integer identitytype;
 
-    private String identitynumder;
+	private String identitynumder;
 
-    private String identityrealname;
+	private String identityrealname;
 
-    private String identitypositiveimg;
+	private String identitypositiveimg;
 
-    private String identitynegativeimg;
+	private String identitynegativeimg;
 
-    private String identityhandimg;
+	private String identityhandimg;
 
-    private String languagenametext;
+	private String languagenametext;
 
-    private String majornametext;
+	private String majornametext;
 
-    private Integer livecityid;
+	private Integer livecityid;
 
-    private String merchantemail;
+	private String merchantemail;
 
-    private String merchantphone;
+	private String merchantphone;
 
-    private Float merchantlevel;
+	private Float merchantlevel;
 
-    private Integer merchantexp;
+	private Integer merchantexp;
 
-    private String qq;
+	private String qq;
 
-    private String wechat;
+	private String wechat;
 
-    private String profession;
+	private String profession;
 
-    private Float height;
+	private Float height;
 
-    private String constellation;
+	private String constellation;
 
-    private Integer age;
+	private Integer age;
 
-    private String selfintroduction;
+	private Integer collectcount;
 
-    private Integer collectcount;
+	private Integer ordercount;
 
-    private Integer ordercount;
+	private Integer browsenumber;
 
-    private Integer browsenumber;
+	private Boolean trusteeship;
 
-    private Boolean trusteeship;
+	private Date trusteeshipstarttime;
 
-    private Date trusteeshipstarttime;
+	private Integer trusteeshipmonth;
 
-    private Integer trusteeshipmonth;
+	private Integer businessstate;
 
-    private Integer businessstate;
+	private Integer experience;
 
-    private Integer experience;
+	private Boolean experiencestatus;
 
-    private Integer auditstatus;
+	private Integer auditstatus;
 
-    private Boolean authentication;
+	private Date audittime;
 
-    private Integer creditscore;
+	private Boolean authentication;
 
-    private Boolean stateboolean;
+	private Boolean authenticationer;
 
-    private Boolean mailboxverification;
+	private Integer creditscore;
 
-    private String registerip;
+	private Boolean stateboolean;
 
-    private String lastentry;
+	private Boolean mailboxverification;
 
-    private Date userregistrationtime;
+	private String registerip;
 
-    private Date recententry;
+	private String lastentry;
 
-    private String reason;
+	private Date userregistrationtime;
 
-    public Integer getUserid() {
-        return userid;
-    }
+	private Date recententry;
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	private String selfintroduction;
 
-    public String getUserimgpath() {
-        return userimgpath;
-    }
+	private String reason;
 
-    public void setUserimgpath(String userimgpath) {
-        this.userimgpath = userimgpath == null ? null : userimgpath.trim();
-    }
+	public String getSelfintroduction() {
+		return selfintroduction;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setSelfintroduction(String selfintroduction) {
+		this.selfintroduction = selfintroduction == null ? null : selfintroduction.trim();
+	}
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
+	public String getReason() {
+		return reason;
+	}
 
-    public String getUserrealname() {
-        return userrealname;
-    }
+	public void setReason(String reason) {
+		this.reason = reason == null ? null : reason.trim();
+	}
 
-    public void setUserrealname(String userrealname) {
-        this.userrealname = userrealname == null ? null : userrealname.trim();
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public Integer getUsersex() {
-        return usersex;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public void setUsersex(Integer usersex) {
-        this.usersex = usersex;
-    }
+	public String getUserimgpath() {
+		return userimgpath;
+	}
 
-    public String getUserphone() {
-        return userphone;
-    }
+	public void setUserimgpath(String userimgpath) {
+		this.userimgpath = userimgpath == null ? null : userimgpath.trim();
+	}
 
-    public void setUserphone(String userphone) {
-        this.userphone = userphone == null ? null : userphone.trim();
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getContactmailbox() {
-        return contactmailbox;
-    }
+	public void setUsername(String username) {
+		this.username = username == null ? null : username.trim();
+	}
 
-    public void setContactmailbox(String contactmailbox) {
-        this.contactmailbox = contactmailbox == null ? null : contactmailbox.trim();
-    }
+	public String getUserrealname() {
+		return userrealname;
+	}
 
-    public Integer getUsermoney() {
-        return usermoney;
-    }
+	public void setUserrealname(String userrealname) {
+		this.userrealname = userrealname == null ? null : userrealname.trim();
+	}
 
-    public void setUsermoney(Integer usermoney) {
-        this.usermoney = usermoney;
-    }
+	public Integer getUsersex() {
+		return usersex;
+	}
 
-    public Integer getUserintegral() {
-        return userintegral;
-    }
+	public void setUsersex(Integer usersex) {
+		this.usersex = usersex;
+	}
 
-    public void setUserintegral(Integer userintegral) {
-        this.userintegral = userintegral;
-    }
+	public String getUserphone() {
+		return userphone;
+	}
 
-    public Integer getCountry() {
-        return country;
-    }
+	public void setUserphone(String userphone) {
+		this.userphone = userphone == null ? null : userphone.trim();
+	}
 
-    public void setCountry(Integer country) {
-        this.country = country;
-    }
+	public String getContactmailbox() {
+		return contactmailbox;
+	}
 
-    public Integer getProvincialid() {
-        return provincialid;
-    }
+	public void setContactmailbox(String contactmailbox) {
+		this.contactmailbox = contactmailbox == null ? null : contactmailbox.trim();
+	}
 
-    public void setProvincialid(Integer provincialid) {
-        this.provincialid = provincialid;
-    }
+	public Float getUsermoney() {
+		return usermoney;
+	}
 
-    public Integer getCityid() {
-        return cityid;
-    }
+	public void setUsermoney(Float usermoney) {
+		this.usermoney = usermoney;
+	}
 
-    public void setCityid(Integer cityid) {
-        this.cityid = cityid;
-    }
+	public Integer getUserintegral() {
+		return userintegral;
+	}
 
-    public Integer getCountyid() {
-        return countyid;
-    }
+	public void setUserintegral(Integer userintegral) {
+		this.userintegral = userintegral;
+	}
 
-    public void setCountyid(Integer countyid) {
-        this.countyid = countyid;
-    }
+	public Integer getCountry() {
+		return country;
+	}
 
-    public String getAddetail() {
-        return addetail;
-    }
+	public void setCountry(Integer country) {
+		this.country = country;
+	}
 
-    public void setAddetail(String addetail) {
-        this.addetail = addetail == null ? null : addetail.trim();
-    }
+	public Integer getProvincialid() {
+		return provincialid;
+	}
 
-    public Integer getMerchanttype() {
-        return merchanttype;
-    }
+	public void setProvincialid(Integer provincialid) {
+		this.provincialid = provincialid;
+	}
 
-    public void setMerchanttype(Integer merchanttype) {
-        this.merchanttype = merchanttype;
-    }
+	public Integer getCityid() {
+		return cityid;
+	}
 
-    public Date getMerchantregistrationtime() {
-        return merchantregistrationtime;
-    }
+	public void setCityid(Integer cityid) {
+		this.cityid = cityid;
+	}
 
-    public void setMerchantregistrationtime(Date merchantregistrationtime) {
-        this.merchantregistrationtime = merchantregistrationtime;
-    }
+	public Integer getCountyid() {
+		return countyid;
+	}
 
-    public Integer getFirstserviceid() {
-        return firstserviceid;
-    }
+	public void setCountyid(Integer countyid) {
+		this.countyid = countyid;
+	}
 
-    public void setFirstserviceid(Integer firstserviceid) {
-        this.firstserviceid = firstserviceid;
-    }
+	public String getAddetail() {
+		return addetail;
+	}
 
-    public Integer getSecondserviceid() {
-        return secondserviceid;
-    }
+	public void setAddetail(String addetail) {
+		this.addetail = addetail == null ? null : addetail.trim();
+	}
 
-    public void setSecondserviceid(Integer secondserviceid) {
-        this.secondserviceid = secondserviceid;
-    }
+	public Integer getMerchanttype() {
+		return merchanttype;
+	}
 
-    public Float getFirstservicemoney() {
-        return firstservicemoney;
-    }
+	public void setMerchanttype(Integer merchanttype) {
+		this.merchanttype = merchanttype;
+	}
 
-    public void setFirstservicemoney(Float firstservicemoney) {
-        this.firstservicemoney = firstservicemoney;
-    }
+	public Date getMerchantregistrationtime() {
+		return merchantregistrationtime;
+	}
 
-    public Float getSecondservicemoney() {
-        return secondservicemoney;
-    }
+	public void setMerchantregistrationtime(Date merchantregistrationtime) {
+		this.merchantregistrationtime = merchantregistrationtime;
+	}
 
-    public void setSecondservicemoney(Float secondservicemoney) {
-        this.secondservicemoney = secondservicemoney;
-    }
+	public Integer getFirstserviceid() {
+		return firstserviceid;
+	}
 
-    public String getHospitalname() {
-        return hospitalname;
-    }
+	public void setFirstserviceid(Integer firstserviceid) {
+		this.firstserviceid = firstserviceid;
+	}
 
-    public void setHospitalname(String hospitalname) {
-        this.hospitalname = hospitalname == null ? null : hospitalname.trim();
-    }
+	public Integer getSecondserviceid() {
+		return secondserviceid;
+	}
 
-    public String getShopname() {
-        return shopname;
-    }
+	public void setSecondserviceid(Integer secondserviceid) {
+		this.secondserviceid = secondserviceid;
+	}
 
-    public void setShopname(String shopname) {
-        this.shopname = shopname == null ? null : shopname.trim();
-    }
+	public Float getFirstservicemoney() {
+		return firstservicemoney;
+	}
 
-    public String getSignature() {
-        return signature;
-    }
+	public void setFirstservicemoney(Float firstservicemoney) {
+		this.firstservicemoney = firstservicemoney;
+	}
 
-    public void setSignature(String signature) {
-        this.signature = signature == null ? null : signature.trim();
-    }
+	public Float getSecondservicemoney() {
+		return secondservicemoney;
+	}
 
-    public Integer getGuaranteemoney() {
-        return guaranteemoney;
-    }
+	public void setSecondservicemoney(Float secondservicemoney) {
+		this.secondservicemoney = secondservicemoney;
+	}
 
-    public void setGuaranteemoney(Integer guaranteemoney) {
-        this.guaranteemoney = guaranteemoney;
-    }
+	public String getHospitalname() {
+		return hospitalname;
+	}
 
-    public String getShopimg() {
-        return shopimg;
-    }
+	public void setHospitalname(String hospitalname) {
+		this.hospitalname = hospitalname == null ? null : hospitalname.trim();
+	}
 
-    public void setShopimg(String shopimg) {
-        this.shopimg = shopimg == null ? null : shopimg.trim();
-    }
+	public String getShopname() {
+		return shopname;
+	}
 
-    public Integer getIdentitytype() {
-        return identitytype;
-    }
+	public void setShopname(String shopname) {
+		this.shopname = shopname == null ? null : shopname.trim();
+	}
 
-    public void setIdentitytype(Integer identitytype) {
-        this.identitytype = identitytype;
-    }
+	public String getSignature() {
+		return signature;
+	}
 
-    public String getIdentitynumder() {
-        return identitynumder;
-    }
+	public void setSignature(String signature) {
+		this.signature = signature == null ? null : signature.trim();
+	}
 
-    public void setIdentitynumder(String identitynumder) {
-        this.identitynumder = identitynumder == null ? null : identitynumder.trim();
-    }
+	public Integer getGuaranteemoney() {
+		return guaranteemoney;
+	}
 
-    public String getIdentityrealname() {
-        return identityrealname;
-    }
+	public void setGuaranteemoney(Integer guaranteemoney) {
+		this.guaranteemoney = guaranteemoney;
+	}
 
-    public void setIdentityrealname(String identityrealname) {
-        this.identityrealname = identityrealname == null ? null : identityrealname.trim();
-    }
+	public String getShopimg() {
+		return shopimg;
+	}
 
-    public String getIdentitypositiveimg() {
-        return identitypositiveimg;
-    }
+	public void setShopimg(String shopimg) {
+		this.shopimg = shopimg == null ? null : shopimg.trim();
+	}
 
-    public void setIdentitypositiveimg(String identitypositiveimg) {
-        this.identitypositiveimg = identitypositiveimg == null ? null : identitypositiveimg.trim();
-    }
+	public Integer getIdentitytype() {
+		return identitytype;
+	}
 
-    public String getIdentitynegativeimg() {
-        return identitynegativeimg;
-    }
+	public void setIdentitytype(Integer identitytype) {
+		this.identitytype = identitytype;
+	}
 
-    public void setIdentitynegativeimg(String identitynegativeimg) {
-        this.identitynegativeimg = identitynegativeimg == null ? null : identitynegativeimg.trim();
-    }
+	public String getIdentitynumder() {
+		return identitynumder;
+	}
 
-    public String getIdentityhandimg() {
-        return identityhandimg;
-    }
+	public void setIdentitynumder(String identitynumder) {
+		this.identitynumder = identitynumder == null ? null : identitynumder.trim();
+	}
 
-    public void setIdentityhandimg(String identityhandimg) {
-        this.identityhandimg = identityhandimg == null ? null : identityhandimg.trim();
-    }
+	public String getIdentityrealname() {
+		return identityrealname;
+	}
 
-    public String getLanguagenametext() {
-        return languagenametext;
-    }
+	public void setIdentityrealname(String identityrealname) {
+		this.identityrealname = identityrealname == null ? null : identityrealname.trim();
+	}
 
-    public void setLanguagenametext(String languagenametext) {
-        this.languagenametext = languagenametext == null ? null : languagenametext.trim();
-    }
+	public String getIdentitypositiveimg() {
+		return identitypositiveimg;
+	}
 
-    public String getMajornametext() {
-        return majornametext;
-    }
+	public void setIdentitypositiveimg(String identitypositiveimg) {
+		this.identitypositiveimg = identitypositiveimg == null ? null : identitypositiveimg.trim();
+	}
 
-    public void setMajornametext(String majornametext) {
-        this.majornametext = majornametext == null ? null : majornametext.trim();
-    }
+	public String getIdentitynegativeimg() {
+		return identitynegativeimg;
+	}
 
-    public Integer getLivecityid() {
-        return livecityid;
-    }
+	public void setIdentitynegativeimg(String identitynegativeimg) {
+		this.identitynegativeimg = identitynegativeimg == null ? null : identitynegativeimg.trim();
+	}
 
-    public void setLivecityid(Integer livecityid) {
-        this.livecityid = livecityid;
-    }
+	public String getIdentityhandimg() {
+		return identityhandimg;
+	}
 
-    public String getMerchantemail() {
-        return merchantemail;
-    }
+	public void setIdentityhandimg(String identityhandimg) {
+		this.identityhandimg = identityhandimg == null ? null : identityhandimg.trim();
+	}
 
-    public void setMerchantemail(String merchantemail) {
-        this.merchantemail = merchantemail == null ? null : merchantemail.trim();
-    }
+	public String getLanguagenametext() {
+		return languagenametext;
+	}
 
-    public String getMerchantphone() {
-        return merchantphone;
-    }
+	public void setLanguagenametext(String languagenametext) {
+		this.languagenametext = languagenametext == null ? null : languagenametext.trim();
+	}
 
-    public void setMerchantphone(String merchantphone) {
-        this.merchantphone = merchantphone == null ? null : merchantphone.trim();
-    }
+	public String getMajornametext() {
+		return majornametext;
+	}
 
-    public Float getMerchantlevel() {
-        return merchantlevel;
-    }
+	public void setMajornametext(String majornametext) {
+		this.majornametext = majornametext == null ? null : majornametext.trim();
+	}
 
-    public void setMerchantlevel(Float merchantlevel) {
-        this.merchantlevel = merchantlevel;
-    }
+	public Integer getLivecityid() {
+		return livecityid;
+	}
 
-    public Integer getMerchantexp() {
-        return merchantexp;
-    }
+	public void setLivecityid(Integer livecityid) {
+		this.livecityid = livecityid;
+	}
 
-    public void setMerchantexp(Integer merchantexp) {
-        this.merchantexp = merchantexp;
-    }
+	public String getMerchantemail() {
+		return merchantemail;
+	}
 
-    public String getQq() {
-        return qq;
-    }
+	public void setMerchantemail(String merchantemail) {
+		this.merchantemail = merchantemail == null ? null : merchantemail.trim();
+	}
 
-    public void setQq(String qq) {
-        this.qq = qq == null ? null : qq.trim();
-    }
+	public String getMerchantphone() {
+		return merchantphone;
+	}
 
-    public String getWechat() {
-        return wechat;
-    }
+	public void setMerchantphone(String merchantphone) {
+		this.merchantphone = merchantphone == null ? null : merchantphone.trim();
+	}
 
-    public void setWechat(String wechat) {
-        this.wechat = wechat == null ? null : wechat.trim();
-    }
+	public Float getMerchantlevel() {
+		return merchantlevel;
+	}
 
-    public String getProfession() {
-        return profession;
-    }
+	public void setMerchantlevel(Float merchantlevel) {
+		this.merchantlevel = merchantlevel;
+	}
 
-    public void setProfession(String profession) {
-        this.profession = profession == null ? null : profession.trim();
-    }
+	public Integer getMerchantexp() {
+		return merchantexp;
+	}
 
-    public Float getHeight() {
-        return height;
-    }
+	public void setMerchantexp(Integer merchantexp) {
+		this.merchantexp = merchantexp;
+	}
 
-    public void setHeight(Float height) {
-        this.height = height;
-    }
+	public String getQq() {
+		return qq;
+	}
 
-    public String getConstellation() {
-        return constellation;
-    }
+	public void setQq(String qq) {
+		this.qq = qq == null ? null : qq.trim();
+	}
 
-    public void setConstellation(String constellation) {
-        this.constellation = constellation == null ? null : constellation.trim();
-    }
+	public String getWechat() {
+		return wechat;
+	}
 
-    public Integer getAge() {
-        return age;
-    }
+	public void setWechat(String wechat) {
+		this.wechat = wechat == null ? null : wechat.trim();
+	}
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+	public String getProfession() {
+		return profession;
+	}
 
-    public String getSelfintroduction() {
-        return selfintroduction;
-    }
+	public void setProfession(String profession) {
+		this.profession = profession == null ? null : profession.trim();
+	}
 
-    public void setSelfintroduction(String selfintroduction) {
-        this.selfintroduction = selfintroduction == null ? null : selfintroduction.trim();
-    }
+	public Float getHeight() {
+		return height;
+	}
 
-    public Integer getCollectcount() {
-        return collectcount;
-    }
+	public void setHeight(Float height) {
+		this.height = height;
+	}
 
-    public void setCollectcount(Integer collectcount) {
-        this.collectcount = collectcount;
-    }
+	public String getConstellation() {
+		return constellation;
+	}
 
-    public Integer getOrdercount() {
-        return ordercount;
-    }
+	public void setConstellation(String constellation) {
+		this.constellation = constellation == null ? null : constellation.trim();
+	}
 
-    public void setOrdercount(Integer ordercount) {
-        this.ordercount = ordercount;
-    }
+	public Integer getAge() {
+		return age;
+	}
 
-    public Integer getBrowsenumber() {
-        return browsenumber;
-    }
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 
-    public void setBrowsenumber(Integer browsenumber) {
-        this.browsenumber = browsenumber;
-    }
+	public Integer getCollectcount() {
+		return collectcount;
+	}
 
-    public Boolean getTrusteeship() {
-        return trusteeship;
-    }
+	public void setCollectcount(Integer collectcount) {
+		this.collectcount = collectcount;
+	}
 
-    public void setTrusteeship(Boolean trusteeship) {
-        this.trusteeship = trusteeship;
-    }
+	public Integer getOrdercount() {
+		return ordercount;
+	}
 
-    public Date getTrusteeshipstarttime() {
-        return trusteeshipstarttime;
-    }
+	public void setOrdercount(Integer ordercount) {
+		this.ordercount = ordercount;
+	}
 
-    public void setTrusteeshipstarttime(Date trusteeshipstarttime) {
-        this.trusteeshipstarttime = trusteeshipstarttime;
-    }
+	public Integer getBrowsenumber() {
+		return browsenumber;
+	}
 
-    public Integer getTrusteeshipmonth() {
-        return trusteeshipmonth;
-    }
+	public void setBrowsenumber(Integer browsenumber) {
+		this.browsenumber = browsenumber;
+	}
 
-    public void setTrusteeshipmonth(Integer trusteeshipmonth) {
-        this.trusteeshipmonth = trusteeshipmonth;
-    }
+	public Boolean getTrusteeship() {
+		return trusteeship;
+	}
 
-    public Integer getBusinessstate() {
-        return businessstate;
-    }
+	public void setTrusteeship(Boolean trusteeship) {
+		this.trusteeship = trusteeship;
+	}
 
-    public void setBusinessstate(Integer businessstate) {
-        this.businessstate = businessstate;
-    }
+	public Date getTrusteeshipstarttime() {
+		return trusteeshipstarttime;
+	}
 
-    public Integer getExperience() {
-        return experience;
-    }
+	public void setTrusteeshipstarttime(Date trusteeshipstarttime) {
+		this.trusteeshipstarttime = trusteeshipstarttime;
+	}
 
-    public void setExperience(Integer experience) {
-        this.experience = experience;
-    }
+	public Integer getTrusteeshipmonth() {
+		return trusteeshipmonth;
+	}
 
-    public Integer getAuditstatus() {
-        return auditstatus;
-    }
+	public void setTrusteeshipmonth(Integer trusteeshipmonth) {
+		this.trusteeshipmonth = trusteeshipmonth;
+	}
 
-    public void setAuditstatus(Integer auditstatus) {
-        this.auditstatus = auditstatus;
-    }
+	public Integer getBusinessstate() {
+		return businessstate;
+	}
 
-    public Boolean getAuthentication() {
-        return authentication;
-    }
+	public void setBusinessstate(Integer businessstate) {
+		this.businessstate = businessstate;
+	}
 
-    public void setAuthentication(Boolean authentication) {
-        this.authentication = authentication;
-    }
+	public Integer getExperience() {
+		return experience;
+	}
 
-    public Integer getCreditscore() {
-        return creditscore;
-    }
+	public void setExperience(Integer experience) {
+		this.experience = experience;
+	}
 
-    public void setCreditscore(Integer creditscore) {
-        this.creditscore = creditscore;
-    }
+	public Boolean getExperiencestatus() {
+		return experiencestatus;
+	}
 
-    public Boolean getStateboolean() {
-        return stateboolean;
-    }
+	public void setExperiencestatus(Boolean experiencestatus) {
+		this.experiencestatus = experiencestatus;
+	}
 
-    public void setStateboolean(Boolean stateboolean) {
-        this.stateboolean = stateboolean;
-    }
+	public Integer getAuditstatus() {
+		return auditstatus;
+	}
 
-    public Boolean getMailboxverification() {
-        return mailboxverification;
-    }
+	public void setAuditstatus(Integer auditstatus) {
+		this.auditstatus = auditstatus;
+	}
 
-    public void setMailboxverification(Boolean mailboxverification) {
-        this.mailboxverification = mailboxverification;
-    }
+	public Date getAudittime() {
+		return audittime;
+	}
 
-    public String getRegisterip() {
-        return registerip;
-    }
+	public void setAudittime(Date audittime) {
+		this.audittime = audittime;
+	}
 
-    public void setRegisterip(String registerip) {
-        this.registerip = registerip == null ? null : registerip.trim();
-    }
+	public Boolean getAuthentication() {
+		return authentication;
+	}
 
-    public String getLastentry() {
-        return lastentry;
-    }
+	public void setAuthentication(Boolean authentication) {
+		this.authentication = authentication;
+	}
 
-    public void setLastentry(String lastentry) {
-        this.lastentry = lastentry == null ? null : lastentry.trim();
-    }
+	public Boolean getAuthenticationer() {
+		return authenticationer;
+	}
 
-    public Date getUserregistrationtime() {
-        return userregistrationtime;
-    }
+	public void setAuthenticationer(Boolean authenticationer) {
+		this.authenticationer = authenticationer;
+	}
 
-    public void setUserregistrationtime(Date userregistrationtime) {
-        this.userregistrationtime = userregistrationtime;
-    }
+	public Integer getCreditscore() {
+		return creditscore;
+	}
 
-    public Date getRecententry() {
-        return recententry;
-    }
+	public void setCreditscore(Integer creditscore) {
+		this.creditscore = creditscore;
+	}
 
-    public void setRecententry(Date recententry) {
-        this.recententry = recententry;
-    }
+	public Boolean getStateboolean() {
+		return stateboolean;
+	}
 
-    public String getReason() {
-        return reason;
-    }
+	public void setStateboolean(Boolean stateboolean) {
+		this.stateboolean = stateboolean;
+	}
 
-    public void setReason(String reason) {
-        this.reason = reason == null ? null : reason.trim();
-    }
+	public Boolean getMailboxverification() {
+		return mailboxverification;
+	}
+
+	public void setMailboxverification(Boolean mailboxverification) {
+		this.mailboxverification = mailboxverification;
+	}
+
+	public String getRegisterip() {
+		return registerip;
+	}
+
+	public void setRegisterip(String registerip) {
+		this.registerip = registerip == null ? null : registerip.trim();
+	}
+
+	public String getLastentry() {
+		return lastentry;
+	}
+
+	public void setLastentry(String lastentry) {
+		this.lastentry = lastentry == null ? null : lastentry.trim();
+	}
+
+	public Date getUserregistrationtime() {
+		return userregistrationtime;
+	}
+
+	public void setUserregistrationtime(Date userregistrationtime) {
+		this.userregistrationtime = userregistrationtime;
+	}
+
+	public Date getRecententry() {
+		return recententry;
+	}
+
+	public void setRecententry(Date recententry) {
+		this.recententry = recententry;
+	}
 }
