@@ -159,7 +159,7 @@
 	<!-- 查询我的韩汀论坛中我的收藏 -->
 	<select id="queryMyCollection" resultMap="PostVoMap">
 		SELECT * FROM post
-		WHERE postId IN (SELECT postId FROM postcollection WHERE userId =
+		WHERE postId IN (SELECT postId FROM postfabulous WHERE userId =
 		#{userId})
 		<if test="title!=null">
 			and title like '%${title}%'
