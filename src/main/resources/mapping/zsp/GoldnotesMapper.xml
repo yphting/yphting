@@ -62,9 +62,11 @@ ORDER BY `recordDate` DESC
 	</select>
 	<!-- 查询商品服务评价记录 -->
 	<select id="getListEvaluationService"
-		resultType="evaluationservice">
-		SELECT * FROM EvaluationService WHERE `userID`=#{evaluationservice.userid}
-		ORDER BY `serviceAppraiseDate` DESC
+		resultType="com.accp.vo.zsp.EvaluationserviceToservicesVo">
+		SELECT s.serviceTitle,s.serviceCoverImg,e.serviceAppraiseContent,e.serviceAppraiseDate FROM evaluationservice e JOIN services s ON e.serviceId=s.serviceId 
+WHERE e.userid=#{evaluationservice.userid}
+ORDER BY e.serviceAppraiseDate DESC
+		
 	</select>
 	<!-- 查询银行类别 -->
 	<select id="getListBankType" resultType="banktype">
@@ -126,4 +128,8 @@ WHERE u.userid=#{userId}
 	  UPDATE `logistics` SET auditStatus=#{logistics.auditstatus}
 	     WHERE `logisticsID`=#{logistics.logisticsid}
 	</update> 
+	<select id="getUserToServicesVo" resultType="com.accp.vo.zsp.UserToServicesVo">
+	          SELECT u.userName,u.shopName, u.signature,u.shopImg,s.recommendBool, s.serviceCoverImg,s.serviceFuTitle,s.servicePrice
+              FROM services s LEFT JOIN `user` u ON s.userid=u.userid WHERE s.recommendBool=1
+	</select>
 </mapper>

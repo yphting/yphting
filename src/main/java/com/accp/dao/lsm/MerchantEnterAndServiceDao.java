@@ -8,6 +8,7 @@ import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
 import com.accp.pojo.Majortype;
+import com.accp.pojo.Post;
 import com.accp.pojo.Resouroe;
 import com.accp.pojo.Servicecollection;
 import com.accp.pojo.Servicedes;
@@ -18,6 +19,7 @@ import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.vo.lsm.EsLevelVO;
 import com.accp.vo.lsm.EvaluationserviceVO;
+import com.accp.vo.lsm.HomePostVO;
 import com.accp.vo.lsm.SameServiceVO;
 import com.accp.vo.lsm.SerReserveVO;
 import com.accp.vo.lsm.ServiceDetailInfo;
@@ -168,5 +170,14 @@ public interface MerchantEnterAndServiceDao {
 	 * @return
 	 */
 	public List<SerRecommendVO> querySerRecommendVO(@Param("stid")Integer stid);
-	
+	/**
+	 * 查询首页社区服务最新帖子
+	 * @return
+	 */
+	public List<HomePostVO> queryHomePostVO();
+	/**
+	 * 查询首页社区服务美妆天地板块帖子
+	 * @return
+	 */
+	public List<Post> queryHomePostByMakeup();
 }
