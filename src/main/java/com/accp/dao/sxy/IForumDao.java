@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.accp.pojo.Forummanagement;
 import com.accp.pojo.Post;
+import com.accp.pojo.Postcollection;
+import com.accp.pojo.Postfabulous;
 import com.accp.vo.sxy.PostVo;
 import com.accp.vo.sxy.PostcommentVo;
 
@@ -86,5 +88,63 @@ public interface IForumDao {
 	 */
 	public List<PostVo> queryMyPost(@Param("userId")Integer userId,@Param("title")String title);
 	
+	/**
+	 * 查询我的韩汀论坛中我回复的帖子列表
+	 * @param userId
+	 * @param title
+	 * @return
+	 */
+	public List<PostVo> queryMyComment(@Param("userId")Integer userId,@Param("title")String title);
 	
+	/**
+	 * 查询我的韩汀论坛中我收藏的帖子列表
+	 * @param userId
+	 * @param title
+	 * @return
+	 */
+	public List<PostVo> queryMyCollection(@Param("userId")Integer userId,@Param("title")String title);
+	
+	/**
+	 * 验证用户是否重复收藏
+	 * @param userId
+	 * @return
+	 */
+	public int checkHasCollection(@Param("postId")Integer postId,@Param("userId")Integer userId);
+	
+	/**
+	 * 验证收藏帖是否是自己的帖子
+	 * @param postId
+	 * @param userId
+	 * @return
+	 */
+	public int checkIsSelf(@Param("postId")Integer postId,@Param("userId")Integer userId);
+	
+	/**
+	 * 收藏
+	 * @param collec
+	 */
+	public void saveCollection(@Param("collec")Postcollection collec);
+	
+	/**
+	 * 验证是否重复点赞
+	 * @param postId
+	 * @param userId
+	 * @return
+	 */
+	public int checkHasFabulous(@Param("postId")Integer postId,@Param("userId")Integer userId);
+	
+	/**
+	 * 验证是否点赞自己帖子
+	 * @param postId
+	 * @param userId
+	 * @return
+	 */
+	public int checkIsSelfF(@Param("postId")Integer postId,@Param("userId")Integer userId);
+
+	/**
+	 * 点赞
+	 * @param fabu
+	 */
+	public void saveFabulous(@Param("fabu")Postfabulous fabu);
+
 }

@@ -1,4 +1,4 @@
-package com.accp.util.time;
+package com.accp.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

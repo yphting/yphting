@@ -64,6 +64,9 @@
 			<if test="order.paymenttime!=null">
 				paymenttime=#{order.paymenttime},
 			</if>
+			<if test="order.completetime!=null">
+				completetime=#{order.completetime},
+			</if>
 			<if test="order.commentstatus!=null">
 				commentstatus=#{order.commentstatus},
 			</if>

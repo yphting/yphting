@@ -123,6 +123,12 @@
 							<p class="mt5" th:text="${#dates.format(order.ordertime,'yyyy-MM-dd')}"></p>
 							<p class="c_4 f12" th:if="${order.paymenttime!=null}">付款时间</p>
 							<p class="mt5" th:if="${order.paymenttime!=null}" th:text="${#dates.format(order.paymenttime,'yyyy-MM-dd')}"></p>
+							<p class="c_4 f12" th:if="${order.receipttime!=null}">接单时间</p>
+							<p class="mt5" th:if="${order.receipttime!=null}" th:text="${#dates.format(order.receipttime,'yyyy-MM-dd')}"></p>
+							<p class="c_4 f12" th:if="${order.provideservicestime!=null}">提供服务时间</p>
+							<p class="mt5" th:if="${order.provideservicestime!=null}" th:text="${#dates.format(order.provideservicestime,'yyyy-MM-dd')}"></p>
+							<p class="c_4 f12" th:if="${order.completetime!=null}">完成时间</p>
+							<p class="mt5" th:if="${order.completetime!=null}" th:text="${#dates.format(order.completetime,'yyyy-MM-dd')}"></p>
 							<p class="c_4 f12">商家</p>
 							<p class="mt10">
 								<a target="_blank" href="" th:text="${order.service.user.shopname}"></a>

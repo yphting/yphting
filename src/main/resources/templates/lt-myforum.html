@@ -88,19 +88,20 @@
 						<span class="bbs_top_title">我的韩汀论坛</span>
 					</dt>
 					<dd>
-						<form method="get" th:action="@{/c/sxy/hotPost}" id="formfind">
+						<form method="get" th:action="@{/c/sxy/myPost}" id="formfind">
 							<div class="search_sec">
-								<input type="hidden" name="page" th:value="1" /> <input
-									type="text" name="title" placeholder="帖子搜索" class="s_sec_input">
+								<input type="hidden" name="type" th:value="${param.type}" /> 
+								<input type="hidden" name="page" th:value="1" /> 
+								<input type="text" name="title" placeholder="帖子搜索" class="s_sec_input">
 								<input type="submit" value="" class="s_sec_btn">
 							</div>
 						</form>
 					</dd>
 				</dl>
 				<div class="bbs_tag">
-					<a href="javascript:;" class="cur">我的发贴</a>
-					<a href="javascript:;">我的收藏</a> <a
-						href="javascript:;">我的回复</a>
+					<a th:data-type="1" th:href="@{/c/sxy/myPost(type=1,page=1)}">我的发贴</a>
+					<a th:data-type="2" th:href="@{/c/sxy/myPost(type=2,page=1)}">我的收藏</a> 
+					<a th:data-type="3"	th:href="@{/c/sxy/myPost(type=3,page=1)}">我的回复</a>
 				</div>
 				<ul class="bbs_list_ul">
 					<li th:each="temp,item : ${MYPOST_PAGE.list}">
@@ -111,7 +112,7 @@
 						</p>
 						<div class="bbs_user_text">
 							<h3 class="bbs_text_title">
-								<a href="javascript:;" th:text="${temp.title}">默默</a>
+								<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" th:text="${temp.title}">默默</a>
 							</h3>
 							<p class="bbs_user_i">
 								<a href="javascript:;" th:text="${temp.forum.fmname}">生活情感</a><span
@@ -128,9 +129,9 @@
 				<div class="page_w">
 					<div class="page">
 						<div class="nav">
-							<a class="page_prev prevdisabled" href="javascript:;">上一页</a> <span
-								class="cur">1</span> <a class="page_next nextdisabled"
-								href="javascript:;">下一页</a>
+							<a th:if="${MYPOST_PAGE.isHasPreviousPage()}" class="page_prev prevdisabled" th:href="@{/c/sxy/myPost(type=${param.type},page=${MYPOST_PAGE.prePage},title=${param.title})}">上一页</a> 
+							<a th:href="@{/c/sxy/myPost(type=${param.type},page=${item.count},title=${param.title})}" th:data-page="${item.count}" th:each="temp,item : ${MYPOST_PAGE.navigatepageNums}" th:text="${item.count}">1</a> 
+							<a th:if="${MYPOST_PAGE.isHasNextPage()}" th:href="@{/c/sxy/myPost(type=${param.type},page=${MYPOST_PAGE.nextPage},title=${param.title})}">下一页</a>
 						</div>
 					</div>
 				</div>
@@ -204,7 +205,8 @@
 <script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript">
-	$("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
+	$("[data-type=[[${param.type}]]]").addClass("cur");
+	$("[data-page=[[${MYPOST_PAGE.pageNum}]]]").addClass("cur");
 	$("[data-orderid=[[${param.orderId}]]]").removeClass("bbscura");
 </script>
 </html>

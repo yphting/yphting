@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -14,11 +15,11 @@
 			<div class="b_box">
 				<div class="top_nav">
 					<a href="">首页</a><span class="ht_line"></span><a
-						href="/index.php/Home/Member/seller.html">商家入驻</a><span
-						class="ht_line"></span><a href="/index.php/Home/About/help.html">帮助中心</a><span
-						class="ht_line"></span><a href="/index.php/Home/About/index.html">关于韩汀</a><span
+						href="">商家入驻</a><span
+						class="ht_line"></span><a href="">帮助中心</a><span
+						class="ht_line"></span><a href="">关于韩汀</a><span
 						class="ht_line"></span><a
-						href="/index.php/Home/About/contact.html">联系我们</a>
+						href="">联系我们</a>
 				</div>
 
 				<div class="top_right">
@@ -34,15 +35,6 @@
 			<a class="logo my_logo" href="">御品韩汀</a>
 			<ul class="member_nav_ul">
 				<li id="li1"><a href="">商家中心</a><span class="my_nav_i"></span></li>
-				<style type="text/css">
-.layui-layer-btn .layui-layer-btn0 {
-	background: #4c1b98;
-}
-
-.layui-layer-btn .layui-layer-btn0:hover {
-	background: #340d6f;
-}
-</style>
 				<li class="cur" id="li2"><a href="">个人中心</a><span
 					class="my_nav_i"></span></li>
 				<li id="li3"><a href="">账户设置</a><span class="my_nav_i"></span></li>
@@ -65,14 +57,14 @@
 			<div class="member_left">
 				<h1 class="member_left_title">个人中心</h1>
 				<ul class="member_system_ul">
-					<li><a href="grzx-order.html"><span class="msp2 pre_c1"></span>我预订的服务</a>
+					<li><a href=""><span class="msp2 pre_c1"></span>我预订的服务</a>
 					</li>
 					<li><a href="#"><span
 							class="msp2 pre_c2"></span>我的下载</a></li>
 					<li><a href=""><span class="msp2 community_sp csp7"></span>我的帖子</a>
 					</li>
 
-					<li><a href="grzx-favs.html"><span class="msp2 pre_c3"></span>我的收藏</a>
+					<li><a href=""><span class="msp2 pre_c3"></span>我的收藏</a>
 					</li>
 					<li><a href="/zsp/c/goldnotesQueryAll"><span class="msp2 pre_c4"></span>我的金币</a>
 					</li>
@@ -93,6 +85,14 @@
 			<div class="member_right site_msg_w">
 				<div class="member_system_r_top top_nor2 mt10">我的评价</div>
 				<ul class="my_evaluation_list">
+				       <li  th:each="temp,iterState : ${PAGE_INFO.list}">
+                     <p class="my_evaluation_img"><img th:src="|/images/${temp.serviceCoverImg}|" alt="学习资料"></p>
+                  <p class="date_p fr"> </p>
+                    <div class="my_evaluation_text">
+                        <h3 class="bbs_text_title c_4">评论了<a href="#" th:text="${temp.serviceTitle}"></a></h3>
+                                                <p class="pt_text2" th:text="${temp.serviceAppraiseContent}"></p>
+						                    </div> 
+                </li>	
 				</ul>
 				<!--page-->
 				<div class="page">
@@ -238,6 +238,5 @@
 		</div>
 	</div>
 	<!--联系我们的浮层 end-->
-
 </body>
 </html>

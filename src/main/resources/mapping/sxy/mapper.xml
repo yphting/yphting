@@ -8,112 +8,138 @@
 <mapper namespace="com.accp.dao.sxy.IForumDao">
 	<!-- 动态加载板块 -->
 	<select id="queryBlock" resultType="Forummanagement">
-		SELECT * FROM forummanagement WHERE pid = 0
+		SELECT * FROM forummanagement
+		WHERE pid = 0
 	</select>
 	<select id="queryColumn" resultType="Forummanagement">
-		select * from `forummanagement` where pid = #{pid}
+		select * from
+		`forummanagement` where pid = #{pid}
 	</select>
 	<select id="queryTitleName" resultType="Forummanagement">
-		select * from forummanagement where fmid=#{fmid}
+		select * from
+		forummanagement where fmid=#{fmid}
 	</select>
 	<!-- 动态加载板块结束 -->
-	
+
 	<!-- 显示帖子列表映射map -->
-	<resultMap type="com.accp.vo.sxy.PostcommentVo" id="PostcommentVoMap">
-		<association property="user" column="commentator" select="queryUserById"></association>
+	<resultMap type="com.accp.vo.sxy.PostcommentVo"
+		id="PostcommentVoMap">
+		<association property="user" column="commentator"
+			select="queryUserById"></association>
 	</resultMap>
 	<resultMap type="com.accp.vo.sxy.PostVo" id="PostVoMap">
-		<result property="postid" column="postID"/>
-		<association property="user" column="userid" select="queryUserById"></association>
-		<association property="forum" column="fmid" select="queryForumByFmid"></association>
-		<association property="lastcomment" column="postid" select="queryLastcommentByPostid"></association>
-		<association property="count" column="postid" select="queryCountByPostid"></association>
+		<result property="postid" column="postID" />
+		<association property="user" column="userid"
+			select="queryUserById"></association>
+		<association property="forum" column="fmid"
+			select="queryForumByFmid"></association>
+		<association property="lastcomment" column="postid"
+			select="queryLastcommentByPostid"></association>
+		<association property="count" column="postid"
+			select="queryCountByPostid"></association>
 	</resultMap>
 	<!-- 发帖人 -->
 	<select id="queryUserById" resultType="user">
-		select * from user where userid=#{0}
+		select * from user where
+		userid=#{0}
 	</select>
 	<!-- 栏目所属 -->
 	<select id="queryForumByFmid" resultType="forummanagement">
-		select * from forummanagement where fmid=#{0}
+		select * from
+		forummanagement where fmid=#{0}
 	</select>
 	<!-- 查询最后回复人 -->
-	<select id="queryLastcommentByPostid" resultMap="PostcommentVoMap">
-		select * from postcomment where postid=#{0} order by reviewtime desc limit 0,1
+	<select id="queryLastcommentByPostid"
+		resultMap="PostcommentVoMap">
+		select * from postcomment where postid=#{0} order by
+		reviewtime desc limit 0,1
 	</select>
 	<!-- 查询评论数 -->
 	<select id="queryCountByPostid" resultType="java.lang.Integer">
-		select count(1) from postcomment where postid=#{0}
+		select count(1) from
+		postcomment where postid=#{0}
 	</select>
 	<!-- 查询帖子列表 -->
 	<select id="queryPostList" resultMap="PostVoMap">
-		select *,(select max(reviewtime) from postcomment p where p.postId=po.postId)lasttime
+		select *,(select max(reviewtime) from postcomment p where
+		p.postId=po.postId)lasttime
 		from post po
-		where fmid in (select fmid from forummanagement where pid=#{pid})
+		where fmid in (select fmid from
+		forummanagement where pid=#{pid})
 		<if test="title!=null">
 			and title like '%${title}%'
 		</if>
 		<if test="forumid!=null">
-		    and fmid = #{forumid}
+			and fmid = #{forumid}
 		</if>
 		<if test="essence!=0">
 			and essence = #{essence}
 		</if>
 		<if test="orderId=0">
-		order by solid desc,releasetime desc
+			order by solid desc,releasetime desc
 		</if>
 		<if test="orderId=1">
-		order by solid desc,essence desc,lasttime desc,releasetime desc
+			order by solid desc,essence desc,lasttime desc,releasetime desc
 		</if>
 	</select>
 	<!-- 显示帖子列表结束 -->
-	
+
 	<!-- 显示热门帖子 -->
 	<select id="queryHotPost" resultMap="PostVoMap">
-		SELECT *,(SELECT MAX(reviewtime) FROM postcomment p WHERE p.postId=po.postId)lasttime,(SELECT COUNT(1)FROM postcomment p WHERE p.postId=po.postId GROUP BY postId) cocount
+		SELECT *,(SELECT MAX(reviewtime) FROM postcomment p WHERE
+		p.postId=po.postId)lasttime,(SELECT COUNT(1)FROM postcomment p WHERE
+		p.postId=po.postId GROUP BY postId) cocount
 		FROM post po
 		<if test="title!=null">
 			where title like '%${title}%'
 		</if>
 		ORDER BY solid DESC,essence DESC,cocount DESC
 	</select>
-	
+
 	<!-- 发布帖子 -->
 	<insert id="savePost">
-		insert into post(`userID`,`fmID`,`title`,`content`,`releaseTime`)
+		insert into
+		post(`userID`,`fmID`,`title`,`content`,`releaseTime`)
 		values(#{post.userid},#{post.fmid},#{post.title},#{post.content},#{post.releasetime})
 	</insert>
 	<!-- 每次发帖增加5积分 -->
 	<insert id="updateJIntegral">
 		update user set userIntegral = userIntegral+5
-		where userId = #{userId}
+		where
+		userId = #{userId}
 	</insert>
 	<!-- 查询帖子详情 -->
 	<select id="queryPostDetail" resultMap="PostVoMap">
-		select *,(select max(reviewtime) from postcomment p where p.postId=po.postId)lasttime
+		update post set
+		browsenumber = browsenumber+1 where postId = #{postId};
+		select
+		*,(select max(reviewtime) from postcomment p where
+		p.postId=po.postId)lasttime
 		from post po
 		where postId = #{postId}
 	</select>
-	
+
 	<!-- 查询帖子详情内评论列表 -->
 	<select id="queryComment" resultMap="PostcommentVoMap">
-		select * from postcomment 
+		select * from postcomment
 		where postId = #{postId}
 		order by reviewtime desc
 	</select>
-	
+
 	<!-- 查询帖子详情右侧最新话题 -->
 	<select id="queryNewPost" resultMap="PostVoMap">
 		select *
 		from post po
-		where fmid = #{fmid}
+		where
+		fmid = #{fmid}
 		order by releasetime desc
 		limit 0,3
 	</select>
-	
+
 	<!-- 查询我的韩汀论坛中我的发帖 -->
 	<select id="queryMyPost" resultMap="PostVoMap">
-		SELECT *,(SELECT MAX(reviewtime) FROM postcomment p WHERE p.postId=po.postId)lasttime
+		SELECT *,(SELECT MAX(reviewtime) FROM postcomment p WHERE
+		p.postId=po.postId)lasttime
 		FROM post po
 		WHERE userId = #{userId}
 		<if test="title!=null">
@@ -121,4 +147,56 @@
 		</if>
 		ORDER BY releasetime DESC
 	</select>
+	<!-- 查询我的韩汀论坛中我的回复 -->
+	<select id="queryMyComment" resultMap="PostVoMap">
+		SELECT * FROM post
+		WHERE postId IN (SELECT postId FROM postcomment WHERE commentator =
+		#{userId})
+		<if test="title!=null">
+			and title like '%${title}%'
+		</if>
+	</select>
+	<!-- 查询我的韩汀论坛中我的收藏 -->
+	<select id="queryMyCollection" resultMap="PostVoMap">
+		SELECT * FROM post
+		WHERE postId IN (SELECT postId FROM postfabulous WHERE userId =
+		#{userId})
+		<if test="title!=null">
+			and title like '%${title}%'
+		</if>
+	</select>
+	<!-- 验证是否重复收藏 -->
+	<select id="checkHasCollection" resultType="java.lang.Integer">
+		select count(1) from
+		postcollection
+		where pcId = #{postId} and userId = #{userId}
+	</select>
+	<!-- 验证是否收藏或点赞自己帖子 -->
+	<select id="checkIsSelf" resultType="java.lang.Integer">
+		select count(1) from post
+		where postId = #{postId} and userId = #{userId}
+	</select>
+	<!-- 收藏 -->
+	<insert id="saveCollection">
+		insert into postcollection
+		(`pcID`,`userID`,`collectionTime`)
+		values(#{collec.pcid},#{collec.userid},#{collec.collectiontime});
+		update post set collectionnumber = collectionnumber+1
+		where postId =
+		#{collec.pcid}
+	</insert>
+	<!-- 验证是否重复点赞 -->
+	<select id="checkHasFabulous" resultType="java.lang.Integer">
+		select count(1) from
+		postfabulous
+		where postId = #{postId} and userId = #{userId}
+	</select>
+	<!-- 点赞 -->
+	<select id="saveFabulous">
+		insert into postfabulous(`userID`,`postID`,`fabulousTime`)
+		values(#{fabu.userid},#{fabu.postid},#{fabu.fabuloustime});
+		update post set fabulousNumber = fabulousNumber+1
+		where postId = #{fabu.postid}
+	</select>
+
 </mapper>

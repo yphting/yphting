@@ -81,7 +81,7 @@ public class UserAction {
 			}
 			
 			System.out.println("执行Email新增=========");
-			Email.sendSimpleMail(email, "用户注册", EmailBoard.register(username, "http://127.0.0.1:8080/c/szy/user/emailYanz?email="+email+"&nickName="+username+"&codeId="+codeId));
+			Email.sendSimpleMail(email, "用户注册", EmailBoard.register(username, "http://127.0.0.1/c/szy/user/emailYanz?email="+email+"&nickName="+username+"&codeId="+codeId));
 			System.out.println("====================\n发送成功\n====================\n");
 		} catch (UnsupportedEncodingException | MessagingException e) {
 			e.printStackTrace();

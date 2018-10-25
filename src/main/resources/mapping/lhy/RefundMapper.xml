@@ -6,7 +6,8 @@
 
 <mapper namespace="com.accp.dao.lhy.RefundDao">
 	<resultMap type="com.accp.vo.lhy.Refund" id="refundMap">
-		<association property="user" column="userid" select="com.accp.dao.lhy.UserDao.queryUserById"></association>
+		<association property="user" column="userid"
+			select="com.accp.dao.lhy.UserDao.queryUserById"></association>
 	</resultMap>
 
 	<select id="queryRefundByOrderId" resultMap="refundMap">
@@ -17,7 +18,17 @@
 
 	<insert id="saveRefund">
 		insert
-		refund(point,orderid,userid,refundimg,applyrefundmoney,applicationtime,refundreason,refundexplain)
-		values(#{refund.point},#{refund.orderid},#{refund.userid},#{refund.refundimg},#{refund.applyrefundmoney},#{refund.applicationtime},#{refund.refundreason},#{refund.refundexplain})
+		refund(point,orderid,userid,refundimg,applyrefundmoney,applicationtime,refundreason,refundexplain,auditstatus,adminstatus)
+		values(#{refund.point},#{refund.orderid},#{refund.userid},#{refund.refundimg},#{refund.applyrefundmoney},#{refund.applicationtime},#{refund.refundreason},#{refund.refundexplain},#{refund.auditstatus},#{refund.adminstatus})
 	</insert>
+
+	<update id="updateRefund">
+		update refund
+		<set>
+			<if test="refund.adminstatus!=null">
+				adminstatus=#{refund.adminstatus},
+			</if>
+		</set>
+		where orderid=#{refund.orderid}
+	</update>
 </mapper>

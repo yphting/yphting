@@ -13,7 +13,8 @@ import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
-import com.accp.vo.zsp.ServicesVo;
+import com.accp.vo.zsp.EvaluationserviceToservicesVo;
+import com.accp.vo.zsp.UserToServicesVo;
 import com.accp.vo.zsp.userVo;
 
 
@@ -54,7 +55,7 @@ public interface GoldnotesDao {
      * @param evaluationservice
      * @return
      */
-    public List<Evaluationservice>getListEvaluationService(@Param("evaluationservice")Evaluationservice evaluationservice);
+    public List<EvaluationserviceToservicesVo>getListEvaluationService(@Param("evaluationservice")Evaluationservice evaluationservice);
     /**
      * 查询银行列表
      * @return 
@@ -119,4 +120,9 @@ public interface GoldnotesDao {
       * @return
       */
      public int updatedLogistics(@Param("logistics")Logistics logistics);
+     /**
+      * 查询系统推荐的服务
+      * @return
+      */
+     public List<UserToServicesVo>getUserToServicesVo();
 }

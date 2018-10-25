@@ -142,9 +142,9 @@
 					<script src="/Public/html5v/build/mediaelement-and-player.min.js"></script>
 
 					<div class="tz_detail_btn_a" id="sharediv">
-						<a href="javascript:void(0);" onclick="ding()" class="sc_btn"><span
-							class="sc_ic zan_i"></span>赞&nbsp;<font th:text="${POSTVO.fabulousnumber}">6</font></a> <a
-							href="javascript:void(0);" class="sc_btn"><span class="sc_ic"></span>收藏&nbsp;<font th:text="${POSTVO.collectionnumber}">3</font></a>
+						<a href="javascript:void(0);" name="good"  class="sc_btn"><span
+							class="sc_ic zan_i"></span>赞&nbsp;<font th:text="${POSTVO.fabulousnumber}">6</font></a>
+					 	<a href="javascript:void(0);"name="collec" class="sc_btn"><span class="sc_ic"></span>收藏&nbsp;<font th:text="${POSTVO.collectionnumber}">3</font></a>
 						<div class="shear_show_d">
 							<div class="bdsharebuttonbox bdshare-button-style0-24"
 								data-bd-bind="1539914596776">
@@ -211,8 +211,8 @@
 				<div class="br_part">
 					<h2 class="bbs_r_say_title">
 						韩汀•论坛 -
-						 <a	 href="javascript:void(0);" th:text="${FORUM.fmname}">留学简介</a>
-						- <a href="javascript:void(0);" th:text="${FMNAME}">韩国大学简介</a>
+						 <a	 th:href="@{/c/sxy/column(pid=${param.pfmid},page=1,orderId=0,essence=0)}"  th:text="${FORUM.fmname}">留学简介</a>
+						- <a th:href="@{/c/sxy/column(pid=${param.pfmid},page=1,forumId=${param.fmid},orderId=0,essence=0)}" th:text="${FMNAME}">韩国大学简介</a>
 					</h2>
 					<!-- 版主 
 					<p class="f14 c_4">
@@ -227,7 +227,7 @@
 					<ul class="news_talk_ul_list">
 					<!-- 详情右侧根据版块对应栏目的最新话题列表 -->
 						<li th:each="temp,item : ${NEWLIST}">
-						<a href="javascript:void(0);" class="ntul_atext" th:text="${temp.title}">韩语翻译</a>
+						<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" class="ntul_atext" th:text="${temp.title}">韩语翻译</a>
 							<p class="ntul_infoa">
 								<a href="javascript:void(0);"></a><span
 									class="dot_i3">•</span><a
@@ -245,7 +245,7 @@
 					<h2 class="news_talk_title">热门话题</h2>
 					<ul class="news_talk_ul_list">
 						<li th:each="temp,item : ${HOT.list}">
-						<a href="javascript:void(0);" class="ntul_atext" th:text="${temp.title}"> 韩语越说越地道</a>
+						<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" class="ntul_atext" th:text="${temp.title}"> 韩语越说越地道</a>
 							<p class="ntul_infoa">
 								<a href="javascript:void(0);"></a><span
 									class="dot_i3">•</span><a
@@ -483,5 +483,71 @@
 </body>
 <script type="text/javascript">
 
-$("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");</script>
+$("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
+	
+	
+	$("[name=collec]").click(function(){
+		var obj = new Object();
+		obj["pcid"] = "[[${param.postId}]]";
+	 	var year = new Date().getFullYear();
+	 	var month = new Date().getMonth()+1;
+	 	var day = new Date().getDate();
+	 	var hour = new Date().getHours();
+	 	var minute = new Date().getMinutes();
+	 	var second = new Date().getSeconds();
+	 	obj["collectiontime"] = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+		$.ajax({
+			url:"/c/sxy/saveCollection",
+			data:JSON.stringify(obj),
+			type:"post",
+			dataType:"json",
+			contentType:"application/json",
+			success:function(data){
+				if(data.code=="100"){
+					alert("请先登录！");
+					location.href="/szy-login.html";
+				}else if(data.code=="300"){
+					alert("请不要重复收藏！");
+				}else if(data.code=="400"){
+					alert("不允许对自己的帖子收藏！");
+				}else{
+					alert("收藏成功！");
+					window.location.reload();
+				}
+			}
+		})
+	})
+	
+	$("[name=good]").click(function(){
+		var obj = new Object();
+		obj["postid"] = "[[${param.postId}]]";
+	 	var year = new Date().getFullYear();
+	 	var month = new Date().getMonth()+1;
+	 	var day = new Date().getDate();
+	 	var hour = new Date().getHours();
+	 	var minute = new Date().getMinutes();
+	 	var second = new Date().getSeconds();
+	 	obj["fabuloustime"] = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+		$.ajax({
+			url:"/c/sxy/saveFabulous",
+			data:JSON.stringify(obj),
+			type:"post",
+			dataType:"json",
+			contentType:"application/json",
+			success:function(data){
+				if(data.code=="100"){
+					alert("请先登录！");
+					location.href="/szy-login.html";
+				}else if(data.code=="300"){
+					alert("请不要重复点赞！");
+				}else if(data.code=="400"){
+					alert("不允许对自己的帖子点赞！");
+				}else{
+					alert("点赞成功！");
+					window.location.reload();
+				}
+			}
+		})
+	})
+</script>
 </html>
