@@ -14,7 +14,7 @@ public interface UserDao {
 	 *            编号
 	 * @return
 	 */
-	User queryUserById(@Param("userid") int userid);
+	User queryUserById(int userid);
 
 	/**
 	 * 相对修改用余额
