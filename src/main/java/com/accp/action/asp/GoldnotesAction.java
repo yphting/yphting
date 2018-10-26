@@ -56,13 +56,8 @@ public class GoldnotesAction {
 			p = 1;
 		if (s == null)
 			s = 6;
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		
 		System.out.println("acquisitionMode   "+acquisitionMode);
 		PageInfo<Goldnotes> pageInfo = biz.goldnotesQueryAll(p, s, userId,acquisitionMode);
@@ -85,13 +80,7 @@ public class GoldnotesAction {
 	public String IntegralRecordQueryAll(Model model, HttpSession session, Integer p, Integer s) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		User users=biz.getUser(userId);
 		PageInfo<Integralrecord> pageInfo = biz.IntegralRecordQueryAll(p, s, userId);
 		model.addAttribute("PAGE_INFO", pageInfo);
@@ -109,13 +98,8 @@ public class GoldnotesAction {
 	 */
 	@PostMapping("addPutforWard")
 	public String addGoldnotes(Model model, HttpSession session, Putforward putforward) {
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		putforward.setSubmittime(new Date());
 		putforward.setUserid(userId);
 		biz.addPutforWard(putforward);
@@ -130,13 +114,7 @@ public class GoldnotesAction {
  */
 	@PostMapping("addGoldnotes")
 	public String addGoldnotes(Model model, HttpSession session, Goldnotes goldnotes) {
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		goldnotes.setUserid(userId);
 		goldnotes.setRecorddate(new Date());
 		biz.addGoldnotes(goldnotes);
@@ -156,13 +134,7 @@ public class GoldnotesAction {
 	public String getListLogistics(Model model, HttpSession session,Integer p, Integer s,Logistics logistics) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		logistics.setUserid(userId);
 		PageInfo<Logistics> pageInfo=biz.getListLogistics(p, s, logistics);
 		model.addAttribute("PAGE_INFO", pageInfo);
@@ -181,13 +153,7 @@ public class GoldnotesAction {
 	public String getListEvaluationService(Model model, HttpSession session,Integer p, Integer s,Evaluationservice evaluationService) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		evaluationService.setUserid(userId);
 		PageInfo<EvaluationserviceToservicesVo> pageInfo =biz.getListEvaluationService(p, s, evaluationService);
 		model.addAttribute("PAGE_INFO", pageInfo);
@@ -201,13 +167,7 @@ public class GoldnotesAction {
 	 */
 	@GetMapping("getListBankType")
 	public String getListBankType(Model model, HttpSession session) {
-		Integer userId=null;
-		User users = (User) session.getAttribute("User");
-		if (users == null) {
-			userId=1;
-		} else {
-			userId=users.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		User user = biz.getUser(userId);
 		List<Banktype> list = biz.getListBankType();
 		model.addAttribute("List", list);
@@ -281,13 +241,7 @@ public class GoldnotesAction {
 	 */
 	@GetMapping("getLogistics")
 	public String getLogistics(Model model, HttpSession session,Integer id,Integer auditstatus) {
-	    User user=(User) session.getAttribute("user");
-	    Integer userId=null;
-	    if(user==null) {
-	    	userId=1;
-	    }else {
-	    	userId=user.getUserid();
-	    }
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 	    if(id==null) {
 	    	id=1;
 	    }
@@ -316,13 +270,7 @@ public class GoldnotesAction {
 	 */
 	@GetMapping("getLogisticsByPrice")
 	public String getLogisticsByPrice(Model model, HttpSession session,Integer id) {
-	    User user=(User) session.getAttribute("user");
-	    Integer userId=null;
-	    if(user==null) {
-	    	userId=1;
-	    }else {
-	    	userId=user.getUserid();
-	    }
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 	    if(id==null) {
 	    	id=1;
 	    }
@@ -378,13 +326,7 @@ public class GoldnotesAction {
 	 */
 	@GetMapping("getLogisticsById")
     public String getLogisticsById(Model model, HttpSession session) {
-    	Integer userId=null;
-		User users = (User) session.getAttribute("User");
-		if (users == null) {
-			userId=1;
-		} else {
-			userId=users.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		User user = biz.getUser(userId);
 		model.addAttribute("USER",user);
     	return "jinb-index";
@@ -400,13 +342,7 @@ public class GoldnotesAction {
 	public String getMerchantCollectionById(Model model, HttpSession session,Integer p, Integer s) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		PageInfo<userVo>pageInfo= biz.getMerchantCollectionById(p, s, userId);
 		List<UserToServicesVo>list=biz.getUserToServicesVo();
 		model.addAttribute("LIST",list);
@@ -423,13 +359,7 @@ public class GoldnotesAction {
     public String getServicesByUserId(Model model, HttpSession session,Integer p, Integer s) {
 		if (p == null)p = 1;
 		if (s == null)s = 6;
-		User user=(User)session.getAttribute("USER");
-		Integer userId=null;
-		if(user==null) {
-			userId = 1;
-		}else {
-			userId=user.getUserid();
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		PageInfo<Services>pageInfo= biz.getServicesByUserId(p, s, userId);
 		List<UserToServicesVo>list=biz.getUserToServicesVo();
 		model.addAttribute("LIST",list);
@@ -449,13 +379,7 @@ public class GoldnotesAction {
 	public Map<String, String> updlogistics(Model model, HttpSession session,Integer logisticsid,Integer userprice) {		
 				Map<String, String> message=new HashMap<String,String>();
 				try {
-					User user=(User)session.getAttribute("USER");
-					Integer userId=null;
-					if(user==null) {
-						userId = 1;
-					}else {
-						userId=user.getUserid();
-					}
+					Integer userId=((User)session.getAttribute("USER")).getUserid();
 					biz.updUser(userprice,userId,logisticsid);
 					message.put("code", "200");
 					message.put("msg", "ok");

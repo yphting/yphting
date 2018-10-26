@@ -1,5 +1,5 @@
 var sjzxHref="/sjzx-index.html";
-var grzxHref="/grzx-index.html";
+var grzxHref="/c/lhy/center/home";
 var zhszHref="/c/szy/user/queryGrzxInfo";
 var xxHref="/xx-xtxx.html";
 $.getJSON("/c/szy/user/queryAUser",function(data){
