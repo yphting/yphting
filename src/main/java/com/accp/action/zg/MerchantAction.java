@@ -180,7 +180,6 @@ public class MerchantAction {
 				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
 				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
 				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
 				service.setServiceimgurltwo(xjturl2);
@@ -232,7 +231,7 @@ public class MerchantAction {
 				return "redirect:sjzx-index.html";
 	}
 	@PostMapping("updateServiceszjy")
-	public String  updateServiceszjy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  updateServiceszjy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -261,14 +260,28 @@ public class MerchantAction {
 				for(String val:serviceCostInclude) {
 					baohao+=val+",".substring(0,serviceCostInclude.length-1);
 				}
+				
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 				service.setServiceid(serviceID);
 				service.setStid(stid);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 				service.setServicehour(serviceHour);
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);
@@ -283,7 +296,7 @@ public class MerchantAction {
 	
 	
 	@PostMapping("addServiceswzx")
-	public String  addServiceswzx(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  addServiceswzx(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -312,15 +325,28 @@ public class MerchantAction {
 				for(String val:serviceCostInclude) {
 					baohao+=val+",".substring(0,serviceCostInclude.length-1);
 				}
-			
+				
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 				service.setStid(stid);
 				service.setResourceid(resourceID);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 			
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);
@@ -334,7 +360,7 @@ public class MerchantAction {
 	
 
 	@PostMapping("updateServiceswzx")
-	public String  updateServiceswzx(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  updateServiceswzx(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -363,6 +389,19 @@ public class MerchantAction {
 				for(String val:serviceCostInclude) {
 					baohao+=val+",".substring(0,serviceCostInclude.length-1);
 				}
+				
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				service.setServiceid(serviceID);
 				service.setStid(stid);
 				service.setResourceid(resourceID);
@@ -370,8 +409,8 @@ public class MerchantAction {
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 			
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);

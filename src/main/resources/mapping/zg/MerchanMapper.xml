@@ -67,16 +67,20 @@
 							LEFT JOIN sharea AS ea  ON s.`country`=ea.`areaID`
 
 			<where>
-			<if test="serviceTitle!=null">
-				and serviceTitle like '${serviceTitle}%'
+			<if test="s.userID!=null">
+				and s.userID=#{userid}
+			</if>	
+			<if test="s.serviceTitle!=null">
+				and s.serviceTitle like '${serviceTitle}%'
 			</if>
+			
+					
 	
 		</where>
 		</select>
 		
 		<select id="queryService"   resultType="Services">
 				SELECT   *FROM `services`  WHERE  serviceID=#{serviceid}
-		
 		</select>
 		
 	<!-- 查询中韩行政地区 -->
