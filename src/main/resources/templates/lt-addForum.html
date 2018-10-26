@@ -9,6 +9,7 @@
 		<iframe name="topost" id="topost" style="display:none;"></iframe>
 		<link rel="stylesheet" type="text/css" href="/Public/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="/Public/css/owl.carousel.css" />
+		<link rel="stylesheet" type="text/css" href="/Public/js/layer/skin/layer.css" />
 
 		<!--header-->
 		<div class="header" id="botop">
@@ -90,69 +91,6 @@
 								<div class="ke-container ke-container-default" style="width: 1100px;margin-bottom:30px;">
 									<textarea name="content" id="content" style="width: 1100px; height: 400px; display: none;"></textarea>
 								</div>
-							<div class="ft_part_d sel_part_box upvideo" style="display:none;">
-								<dl class="ft_sec_dl">
-									<dt>上传视频</dt>
-									<input type="hidden" id="upfile" name="upfile" value="">
-									<input type="hidden" id="upfilesize" name="upfilesize" value="">
-									<dd>
-										<a href="javascript:void(0);" class="sel_file_a" id="upvideo">上传文件</a>
-										<span id="videos"></span>
-										<p class="zc_info">支持文件格式: mp4</p>
-									</dd>
-									<dt>视频封面</dt>
-									<input type="hidden" id="main_photo" name="main_photo" value="">
-									<dd>
-										<a href="javascript:void(0);" class="sel_file_a" id="uppic">上传文件</a>
-										<br>
-										<img id="mainpic" width="100">
-									</dd>
-									<dt>视频时间</dt>
-									<dd>
-										<p class="t_r">
-											<a href="#" class="a_c1">发视频遇到问题？</a>
-										</p><input type="text" class="input_c video_tt f2" placeholder="0分0秒" name="times" id="times" value=""></dd>
-								</dl>
-							</div>
-							<div class="ft_part_d sel_part_box upfiles" style="display:none;">
-								<dl class="ft_sec_dl ft_s2">
-									<dt>选择专业类别</dt>
-									<dd>
-										<select class="tag_sel_f" name="typeid" id="typeid">
-											<option value="">选择专业类别</option>
-											<option value="11">视觉设计</option>
-											<option value="49">艺术设计学</option>
-											<option value="48">国际学部</option>
-											<option value="47">生命科学</option>
-											<option value="46">应用科学</option>
-											<option value="45">电子信息学</option>
-											<option value="44">工科</option>
-											<option value="43">理科</option>
-											<option value="42">生活科学</option>
-											<option value="41">酒店观光</option>
-											<option value="40">经济学</option>
-											<option value="39">国语国文</option>
-											<option value="51">其它</option>
-											<option value="38">经营管理</option>
-											<option value="15">旅游学</option>
-											<option value="14">社会学</option>
-											<option value="13">人类学</option>
-											<option value="12">人口学</option>
-											<option value="50">体育学</option>
-										</select>
-									</dd>
-									<dt>上传资源文件</dt>
-									<dd>
-										<a href="javascript:void(0);" class="sel_file_a" id="filebt">上传文件</a>
-										<p class="zc_info">上传文件请勿超过25<span class="zmdx">M</span>。<br> 支持文件格式: gif、jpg、jpeg、png, txt, pdf, word, ppt, excel, hwp, mov，avi，mpeg-4，mov，zip, rar.</p>
-										<div id="pics">
-										</div>
-										<div id="picss"></div>
-
-										<p class="f2">需要<input type="text" value="0" name="point" id="point" class="input_c jf_tt f2 validate[custom[integer],max[100]]">积分才能下载 (请输入积分数字，不能超过100) </p>
-									</dd>
-								</dl>
-							</div>
 							<div class="bbs_btn_bt">
 								<a href="javascript:void(0);" onclick="$('#formmsg').submit()" class="btn_jy_a">发帖</a>
 							</div>
@@ -292,21 +230,34 @@
 				</div>
 			</div>
 			<input type="file" name="imgFile" style="position: absolute; margin: -5px 0px 0px -175px; padding: 0px; width: 220px; height: 30px; font-size: 14px; opacity: 0; cursor: pointer; display: none; z-index: 2147483583;"><input type="file" name="imgFile" style="position: absolute; margin: -5px 0px 0px -175px; padding: 0px; width: 220px; height: 30px; font-size: 14px; opacity: 0; cursor: pointer; display: none; z-index: 2147483583;"><input type="file" name="imgFile" style="position: absolute; margin: -5px 0px 0px -175px; padding: 0px; width: 220px; height: 30px; font-size: 14px; opacity: 0; cursor: pointer; display: none; z-index: 2147483583;">
-			</body>
+			</body>			
 			<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
-			<script type="text/javascript" th:src="@{/Public/js/kindeditor/kindeditor-all-min.js}"></script>
+			<script type="text/javascript" src="/Public/js/common.js"></script>
+			<script src="/Public/js/layer/layer.js"></script>
+			<!-- 导入css,使用默认样式 -->
+			<link rel="stylesheet"	href="/Public/js/kindeditor/themes/default/default.css" />
+			<!-- 导入kindeditor的核心js包 -->
+			<script charset="utf-8" src="/Public/js/kindeditor/kindeditor-all.js"></script>
+			<!-- 导入kindeditor的语言包-->
+			<script charset="utf-8" src="/Public/js/kindeditor/lang/zh_CN.js"></script>
+
+
 			<script>
 			//富文本
-			KindEditor.ready(function(K) {
-				editor = K.create('#content', {
-					afterBlur: function() { this.sync(); },
-					allowFileManager: false,
-					langType: 'zh_CN',
-					allowPreviewEmoticons: false,
-					allowImageUpload: true,
-					height: "300px",
-					width: "100%"
-				});
+			var editor = null;
+			KindEditor.ready(function(k){
+			    editor = k.create('#content',{
+			        resizeType: 0,
+			        cssPath : ['/js/kindeditor/plugins/code/prettify.css'],
+			        filterMode: true,
+			        allowFileManager: true,
+			        uploadJson: '/c/sxy/kindeditor/upload',
+			        fileManagerJson : '/c/sxy/kindeditor/manager',
+			        afterBlur : function() {
+			            this.sync();
+			        }
+			    });
+			    editor.html($("#content").html());
 			});
 
 			</script>
