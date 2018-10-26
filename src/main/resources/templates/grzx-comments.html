@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 
 <title>我的评价_韩汀社区</title>
-
+<script src="/Public/js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/Public/css/common.css" />
 <body>
@@ -86,7 +86,7 @@
 				<div class="member_system_r_top top_nor2 mt10">我的评价</div>
 				<ul class="my_evaluation_list">
 				       <li  th:each="temp,iterState : ${PAGE_INFO.list}">
-                     <p class="my_evaluation_img"><img th:src="|/images/${temp.serviceCoverImg}|" alt="学习资料"></p>
+                     <p class="my_evaluation_img"><img th:src="${temp.serviceCoverImg}" alt="学习资料"></p>
                   <p class="date_p fr"> </p>
                     <div class="my_evaluation_text">
                         <h3 class="bbs_text_title c_4">评论了<a href="#" th:text="${temp.serviceTitle}"></a></h3>
@@ -239,4 +239,6 @@
 	</div>
 	<!--联系我们的浮层 end-->
 </body>
+	<script type="text/javascript" th:src="@{/Public/js/sessionHeader.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/headLeftNav.js}"></script>
 </html>
