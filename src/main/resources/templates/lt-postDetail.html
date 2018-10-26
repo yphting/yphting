@@ -137,10 +137,6 @@
 
 				<div class="tz_con">
 					<div class="bbs_dcontext" th:utext="${POSTVO.content}"></div>
-					<link rel="stylesheet"
-						href="/Public/html5v/build/mediaelementplayer.min.css">
-					<script src="/Public/html5v/build/mediaelement-and-player.min.js"></script>
-
 					<div class="tz_detail_btn_a" id="sharediv">
 						<a href="javascript:void(0);" name="good"  class="sc_btn"><span
 							class="sc_ic zan_i"></span>赞&nbsp;<font th:text="${POSTVO.fabulousnumber}">6</font></a>
@@ -345,7 +341,7 @@
 					<li class="last"><h3 class="contact_us_h3">CONTACT US</h3>联系我们</li>
 				</ul>
 			</div>
-			<div class="pcontact_right">
+			<!--  <div class="pcontact_right">
 				<h2 class="contact_us_title">和我们联系吧</h2>
 				<form method="post" id="formtopcontact"
 					action=""
@@ -396,7 +392,7 @@
 					<input type="hidden" name="__hash__"
 						value="7f7418b74e88ee86446521ffaa06f686_98345e7d9252a993b1514a431135b51a">
 				</form>
-			</div>
+			</div>-->
 			<div class="clear"></div>
 		</div>
 	</div>
@@ -444,41 +440,7 @@
 	</div>
 	<input type="hidden" id="bfid" value="0">
 	
-	<div class="com_pop_box pop_confirm_login" style="display: none;">
-		<a href="javascript:void(0);" class="c_pop_close"></a>
-		<h3 class="com_pop_h3 login_c_t">欢迎来到韩汀社区，请登录</h3>
-		<div class="com_login_box">
-			<form method="post" target="topost" id="formlogin"
-				action="/index.php?m=Home&amp;c=Login&amp;a=login">
-				<ul class="login_ul">
-					<li><input type="email" placeholder="邮箱" name="email"
-						class="input_c validate[required,custom[email]]"></li>
-					<li><input type="password" placeholder="密码" name="password"
-						class="input_c validate[required,minSize[6]]"></li>
-					<li><input type="text" placeholder="验证码" name="code" id="code"
-						class="input_c validate[required]"> <img
-						src="/index.php?m=Home&amp;c=Index&amp;a=verify" height="33"
-						alt="看不清，点击切换" id="chkimg" onclick="changechk()" class="yzm_img">
-					</li>
-					<li><a href="javascript:void(0);" class="login_abtn"
-						onclick="$('#formlogin').submit();">立即登录</a></li>
-					<li class="forget_reg"><a
-						href="/index.php?m=Home&amp;c=Login&amp;a=register&amp;continue=aHR0cDovL3d3dy55cGh0aW5nLmNvbS9pbmRleC5waHA%2AbT1Ib21lJmM9QmJzJmE9ZGV0YWlsJmFpZD0xNDg"
-						class="fr">还没有账号？点击注册»</a><a
-						href="/index.php?m=Home&amp;c=Login&amp;a=findpass&amp;continue=aHR0cDovL3d3dy55cGh0aW5nLmNvbS9pbmRleC5waHA%2AbT1Ib21lJmM9QmJzJmE9ZGV0YWlsJmFpZD0xNDg">忘记密码»</a></li>
-				</ul>
-				<input type="hidden" name="__hash__"
-					value="7f7418b74e88ee86446521ffaa06f686_98345e7d9252a993b1514a431135b51a">
-			</form>
-			<h1 class="login_title_2">使用第三方账号登录</h1>
-			<div class="other_login">
-				<a href="javascript:void(0);" class="zh_sp zh_qq"></a> <a
-					href="javascript:void(0);" class="zh_sp zh_wx"></a> <a
-					href="javascript:void(0);" class="zh_sp zh_wb"></a> <a
-					href="javascript:void(0);" class="zh_sp zh_fb"></a>
-			</div>
-		</div>
-	</div>
+	
 	<!--pop bg end-->
 </body>
 <script type="text/javascript">

@@ -31,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/c/sxy/kindeditor")
 public class KindEditor{
-	// 日志输出对象
     // 文件目录名称
     private String fileDir;
     // 文件后缀名称
@@ -47,7 +46,7 @@ public class KindEditor{
     // 允许上传文件大小MAP数组
     private static final HashMap<String,Long> sizeMap = new HashMap<String, Long>();
     // 上传文件存放根目录
-    private String filePath = "/attached/";    
+    private String filePath = "/upload/";    
     
     static {
         // 初始后缀名称MAP数组
@@ -78,7 +77,7 @@ public class KindEditor{
         Map<String, Object> execute = new HashMap<String, Object>();
         ServletContext context=request.getSession().getServletContext();
         pageCtx = context.getContextPath().concat(filePath);
-        relPath = context.getRealPath(filePath);
+        relPath = "C:\\upload";
         fileDir = dir;
         if (null == dir || dir.isEmpty()) {
             fileDir = "file";
@@ -136,7 +135,6 @@ public class KindEditor{
         // 计算出文件输出路径
         int point = savePath.lastIndexOf("/") - 8;
         StringBuilder url = new StringBuilder(pageCtx);
-        url.append(fileDir).append("/");
         url.append(savePath.substring(point));
         // 返回上传文件的输出路径至前端
         execute.put("error", 0);
@@ -269,7 +267,7 @@ public class KindEditor{
      */
     public void newSavePath() {
         StringBuilder tempPath = new StringBuilder(relPath);
-        tempPath.append("/").append(fileDir).append("/");
+        tempPath.append("/");
         SimpleDateFormat folderNameFormat = new SimpleDateFormat("yyyyMMdd");
         tempPath.append(folderNameFormat.format(new Date()));
         File temp = new File(tempPath.toString());
