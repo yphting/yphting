@@ -19,29 +19,16 @@ public class Upload {
 	public final static String UPLOADED_FOLDER = "C://Upload/";
 
 	/**
-	 * 上传可预览图片
+	 * 上传文件
 	 * 
 	 * @param file
 	 *            文件
-	 * @return 文件访问路径
-	 * @throws IllegalStateException
-	 * @throws IOException
-	 */
-	public static String uploadImg(MultipartFile file) throws IllegalStateException, IOException {
-		return saveFile(file, Reader.IMG_VISIT_SUFFIX);
-	}
-
-	/**
-	 * 上传仅下载文件
-	 * 
-	 * @param file
-	 *            文件
-	 * @return 文件访问路径
+	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
 	public static String uploadFile(MultipartFile file) throws IllegalStateException, IOException {
-		return saveFile(file, Reader.FILE_VISIT_SUFFIX);
+		return saveFile(file, Reader.VISIT_FOLDER);
 	}
 
 	/**
