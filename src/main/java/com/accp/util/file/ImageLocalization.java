@@ -33,7 +33,7 @@ public class ImageLocalization {
 		FileInputStream fileInputStream = new FileInputStream(file);
 		String fileName = file.getName();
 		MultipartFile multipartFile = new MockMultipartFile(fileName, fileName, "", fileInputStream);
-		String url = Upload.uploadImg(multipartFile);
+		String url = Upload.uploadFile(multipartFile);
 		file.delete();
 		return url;
 	}
