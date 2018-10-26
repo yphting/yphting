@@ -32,6 +32,7 @@ public class BeansConfig {
 		pageHelper.setProperties(properties);
 		return pageHelper;
 	}
+
 	@Bean
 	public HttpMessageConverters httpMessageConverters() {
 		FastJsonHttpMessageConverter fjhmc = new FastJsonHttpMessageConverter();
@@ -42,8 +43,7 @@ public class BeansConfig {
 		fjhmc.setFeatures(SerializerFeature.WriteEnumUsingToString, SerializerFeature.WriteMapNullValue,
 				SerializerFeature.QuoteFieldNames, SerializerFeature.PrettyFormat,
 				SerializerFeature.WriteDateUseDateFormat, SerializerFeature.WriteNullNumberAsZero,
-				SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.DisableCircularReferenceDetect);
+				SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.DisableCircularReferenceDetect);
 		return new HttpMessageConverters(fjhmc);
 	}
-	
 }
