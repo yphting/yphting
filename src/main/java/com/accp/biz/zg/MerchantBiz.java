@@ -28,16 +28,21 @@ public class MerchantBiz {
 			return merchantDao.queryUserinfo(username);		
 	}
 	
-	public PageInfo<ServicesVo> queryServicesBytitle(Integer pageNum,Integer pageSize,String serviceTitle){
+	public User queryUserByid(Integer userid) {
+		return merchantDao.queryUserByid(userid);		
+		
+	}
+	
+	public PageInfo<ServicesVo> queryServicesBytitle(Integer pageNum,Integer pageSize,String serviceTitle,Integer userid){
 		PageHelper.startPage(pageNum, pageSize);
-		return new PageInfo<ServicesVo>(merchantDao.queryServiceByTitle(serviceTitle));
+		return new PageInfo<ServicesVo>(merchantDao.queryServiceByTitle(serviceTitle,userid));
 	}
 	
 	
 	
-	public PageInfo<ServicesVo> queryServices(Integer pageNum,Integer pageSize){
+	public PageInfo<ServicesVo> queryServices(Integer pageNum,Integer pageSize,Integer userid){
 		PageHelper.startPage(pageNum, pageSize);
-		return new PageInfo<ServicesVo>(merchantDao.queryServiceByTitle(null));
+		return new PageInfo<ServicesVo>(merchantDao.queryServiceByTitle(null,userid));
 	}
 	
 	public Services queryServices(int serviceid) {

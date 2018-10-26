@@ -14,7 +14,10 @@ public interface IMerchantDao {
 	
 	  public User  queryUserinfo(@Param("username")String username);
 	  
-	  public List<ServicesVo> queryServiceByTitle(@Param("serviceTitle") String serviceTitle);
+	  
+	  public User queryUserByid(@Param("userid")Integer userid);
+	  
+	  public List<ServicesVo> queryServiceByTitle(@Param("serviceTitle") String serviceTitle,@Param("userid")Integer userid);
 	  
 	  public Services  queryService(@Param("serviceid")int serviceid);
 	  
