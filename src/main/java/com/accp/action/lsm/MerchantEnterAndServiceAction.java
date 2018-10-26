@@ -99,10 +99,10 @@ public class MerchantEnterAndServiceAction {
 				user.setFirstserviceid(Integer.parseInt(serviceID));
 			}
 			try {
-				String shopimgDataFName = Upload.uploadImg(shopimgData);
-				String identitypositiveimgDataFName = Upload.uploadImg(identitypositiveimgData);
-				String identitynegativeimgDataFName = Upload.uploadImg(identitynegativeimgData);
-				String identityhandimgDataFName = Upload.uploadImg(identityhandimgData);
+				String shopimgDataFName = Upload.uploadFile(shopimgData);
+				String identitypositiveimgDataFName = Upload.uploadFile(identitypositiveimgData);
+				String identitynegativeimgDataFName = Upload.uploadFile(identitynegativeimgData);
+				String identityhandimgDataFName = Upload.uploadFile(identityhandimgData);
 				user.setShopimg(shopimgDataFName);	//设置数据库存储图片路径
 				user.setIdentitypositiveimg(identitypositiveimgDataFName);
 				user.setIdentitynegativeimg(identitynegativeimgDataFName);
