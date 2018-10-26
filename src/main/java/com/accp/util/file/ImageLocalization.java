@@ -14,6 +14,12 @@ import java.util.UUID;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 图片本地化
+ * 
+ * @author yuno
+ *
+ */
 public class ImageLocalization {
 	/**
 	 * 远程图片本地化

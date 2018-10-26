@@ -1,14 +1,15 @@
 package com.accp.util.third;
 
 public class ThirdInfo {
+	// 用户名
 	private String name;
-
+	// 头像
 	private String img;
-
+	// 性别
 	private int sex;
-
+	// 开放id
 	private String uniq;
-
+	// 第三方类型
 	private String from;
 
 	public String getName() {

@@ -196,7 +196,7 @@ public class GoldnotesAction {
 		try {
 			List<String> imgUrls=new ArrayList<>(0);
 			for (int i = 0; i < imgFile.length; i++) {
-				imgUrls.add(Upload.uploadImg(imgFile[i]));
+				imgUrls.add(Upload.uploadFile(imgFile[i]));
 			}
 			int a=1;
 			for (String url : imgUrls) {
