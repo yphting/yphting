@@ -271,7 +271,7 @@ public class UserAction {
 		if (!file.isEmpty()) {
 			try {
 				Integer userID=((User)session.getAttribute("USER")).getUserid();
-				String url = Upload.uploadImg(file);
+				String url = Upload.uploadFile(file);
 				biz.updateUserImg(url, userID);
 				session.setAttribute("USER", biz.queryUser(userID));
 			} catch (IllegalStateException | IOException e) {
@@ -331,16 +331,16 @@ public class UserAction {
 	public String updateUserDpxx(HttpSession session,User u,@RequestParam("thumb") MultipartFile file1,@RequestParam("idcardpic1") MultipartFile file2,@RequestParam("idcardpic2") MultipartFile file3,@RequestParam("vippic") MultipartFile file4) throws IllegalStateException, IOException {
 		System.out.println("1");
 		if(file1.getSize()!= 0) {
-			u.setShopimg(Upload.uploadImg(file1));
+			u.setShopimg(Upload.uploadFile(file1));
 		}
 		if(file2.getSize()!= 0) {
-			u.setIdentitypositiveimg(Upload.uploadImg(file2));
+			u.setIdentitypositiveimg(Upload.uploadFile(file2));
 		}
 		if(file3.getSize()!= 0) {
-			u.setIdentitynegativeimg(Upload.uploadImg(file3));
+			u.setIdentitynegativeimg(Upload.uploadFile(file3));
 		}
 		if(file4.getSize()!= 0) {
-			u.setIdentityhandimg(Upload.uploadImg(file4));
+			u.setIdentityhandimg(Upload.uploadFile(file4));
 		}
 		Integer userID=((User)session.getAttribute("USER")).getUserid();
 		u.setUserid(userID);
