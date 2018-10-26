@@ -17,6 +17,13 @@ public class CenterAction {
 	@Autowired
 	private OrderBiz orderBiz;
 
+	/**
+	 * 个人中心主页
+	 * 
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/center/home")
 	public String centerHome(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("USER");
