@@ -9,6 +9,7 @@ import com.accp.pojo.Evaluationservice;
 import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
+import com.accp.pojo.News;
 import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
@@ -125,4 +126,10 @@ public interface GoldnotesDao {
       * @return
       */
      public List<UserToServicesVo>getUserToServicesVo();
+     /**
+      * 新增站内信
+      * @param news
+      * @return
+      */
+     public int addNews(@Param("news")News news);
 }

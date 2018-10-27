@@ -15,6 +15,7 @@ import com.accp.pojo.Evaluationservice;
 import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
+import com.accp.pojo.News;
 import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
@@ -64,6 +65,16 @@ public class GoldnotesBiz {
     	Float money=user.getUsermoney()-putforward.getMoney();
     	dao.updUser(money, putforward.getUserid());
 		dao.addPutforWard(putforward);
+		
+		News news=new News();
+    	news.setAddressee(putforward.getUserid());
+    	news.setContent("金币提现");
+    	news.setMessagegroup(2);
+    	news.setNewstype(2);
+    	news.setReadstate(false);
+    	news.setSendingtime(new Date());
+    	news.setThesender(putforward.getUserid());
+    	dao.addNews(news);
 	}
     /**
      * 添加金币充值记录表
@@ -71,7 +82,15 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
-    	
+    	News news=new News();
+    	news.setAddressee(goldnotes.getUserid());
+    	news.setContent("支付充值");
+    	news.setMessagegroup(2);
+    	news.setNewstype(2);
+    	news.setReadstate(false);
+    	news.setSendingtime(new Date());
+    	news.setThesender(goldnotes.getUserid());
+    	dao.addNews(news);
     	dao.addGoldnotes(goldnotes);
 	}
     /**
@@ -189,6 +208,17 @@ public class GoldnotesBiz {
 		goldnotes.setRecorddescribe("物流支付订单号"+logisticss.getLogisticsid());
 		goldnotes.setRecordinandout(-+(float)logisticss.getPrice());
 		goldnotes.setAuditstatus(2);
+		
+		News news=new News();
+    	news.setAddressee(goldnotes.getUserid());
+    	news.setContent("物流支付");
+    	news.setMessagegroup(2);
+    	news.setNewstype(2);
+    	news.setReadstate(false);
+    	news.setSendingtime(new Date());
+    	news.setThesender(logisticss.getUserid());
+    	dao.addNews(news);
+		
 		dao.addGoldnotes(goldnotes);
 	    dao.updatedLogistics(logistics);
 	    dao.updUser(moery, userId);
