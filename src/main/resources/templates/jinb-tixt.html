@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" type="text/css"
-	href="../../Public/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/Public/css/common.css" />
 <title>账户提现_韩汀社区</title>
 
 <style>
@@ -19,22 +18,15 @@
 			<div class="b_box">
 				<div class="top_nav">
 					<a href="/index.php?m=&">首页</a><span class="ht_line"></span><a
-						href="/index.php?m=Home&c=Member&a=seller">商家入驻</a><span
-						class="ht_line"></span><a href="/index.php?m=Home&c=About&a=help">帮助中心</a><span
-						class="ht_line"></span><a href="/index.php?m=Home&c=About&a=index">关于韩汀</a><span
-						class="ht_line"></span><a
-						href="/index.php?m=Home&c=About&a=contact">联系我们</a>
+						href="">商家入驻</a><span class="ht_line"></span><a href="">帮助中心</a><span
+						class="ht_line"></span><a href="">关于韩汀</a><span class="ht_line"></span><a
+						href="">联系我们</a>
 				</div>
 
 				<div class="top_right">
-					<a href="/index.php?m=Home&c=Member&a=index">郑石平</a> <span
-						class="ht_line"></span><a
-						href="/index.php?m=Home&c=Member&a=logout">退出</a> <span
-						class="ht_line"></span><a href="/index.php?m=Home&c=Member&a=sms"><img
+					<a href="">郑石平</a> <span class="ht_line"></span><a href="">退出</a> <span
+						class="ht_line"></span><a href=""><img
 						src="/Public/images/e_i.png" alt="" /></a>
-					<script>
-						$('.top_right').addClass('login_right');
-					</script>
 					<!--
 			<a href="javascript:void(0);" class="i_rover"></a>
 			-->
@@ -43,15 +35,12 @@
 		</div>
 
 		<div class="b_box nav_header community_header">
-			<a class="logo my_logo" href="/index.php?m=Home&c=Member&a=index">御品韩汀</a>
+			<a class="logo my_logo" href="">御品韩汀</a>
 			<ul class="member_nav_ul">
-				<li class="cur" id="li2"><a
-					href="/index.php?m=Home&c=Member&a=index">个人中心</a><span
+				<li class="cur" id="li2"><a href="">个人中心</a><span
 					class="my_nav_i"></span></li>
-				<li id="li3"><a href="/index.php?m=Home&c=Member&a=config">账户设置</a><span
-					class="my_nav_i"></span></li>
-				<li id="li4"><a href="/index.php?m=Home&c=Member&a=sms">消息</a><span
-					class="my_nav_i"></span></li>
+				<li id="li3"><a href="">账户设置</a><span class="my_nav_i"></span></li>
+				<li id="li4"><a href="">消息</a><span class="my_nav_i"></span></li>
 
 			</ul>
 		</div>
@@ -88,13 +77,14 @@
 					<ul class="member_zl_ul">
 						<li><span class="m_zl_sp">金币余额 ：</span>
 							<div class="m_zl_r">
-								<span class="tsfont c_8 f18 num_1">[[${USER.usermoney}]]</span>
+								<span id="usermoney" class="tsfont c_8 f18 num_1">[[${USER.usermoney}]]</span>
 							</div></li>
 						<li><span class="m_zl_sp">银行名称：</span>
 							<div class="m_zl_r">
 								<select class="sel_f sel_f2" name="bankid">
- 								<option th:each="temp,iterState:${List}" th:value="${temp.bankid}">[[${temp.bankname}]]<option>
- 								
+									<option th:each="temp,iterState:${List}"
+										th:value="${temp.bankid}">[[${temp.bankname}]]
+									<option>
 								</select>
 							</div></li>
 						<li><span class="m_zl_sp">开户行：</span>
@@ -123,10 +113,8 @@
 							</div></li>
 					</ul>
 					<div class="rechang_top2">
-						<input type="submit" class="btn_jy_a h40" value="提交提现">
+						<input type="submit" id="submit" class="btn_jy_a h40" value="提交提现">
 					</div>
-					<input type="hidden" name="__hash__"
-						value="3dcc2ad541812799edf51c7a724d8050_a20f4e12763b5788c709655b059242e7" />
 				</form>
 			</div>
 			<!--member right end-->
@@ -146,12 +134,8 @@
 			</dt>
 			<dd>
 				<p class="flink">
-					<a href="/index.php?m=Home&c=Member&a=seller">商家入驻</a>|<a
-						href="/index.php?m=Home&c=About&a=help">帮助中心</a>|<a
-						href="/index.php?m=Home&c=About&a=index&key=jobs">人才招聘</a>|<a
-						href="/index.php?m=Home&c=About&a=contact">联系我们</a>|<a
-						href="/index.php?m=Home&c=About&a=sitemap">网站地图</a>|<a
-						href="/index.php?m=Home&c=About&a=terms">使用条款</a>
+					<a href="">商家入驻</a>|<a href="">帮助中心</a>|<a href="">人才招聘</a>|<a
+						href="">联系我们</a>|<a href="">网站地图</a>|<a href="">使用条款</a>
 				</p>
 				<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江2栋2502号 |网站负责人：夏先生 |
 					邮编：21917</p>
@@ -166,14 +150,12 @@
 	<!--right nav-->
 	<ul class="right_nav">
 		<li><a href="javascript:void(0);" class="rn_tel">客服电话</a>
-		<div class="over_show kf_tel">0731-282802603</div></li>
+			<div class="over_show kf_tel">0731-282802603</div></li>
 		<li><a href="javascript:void(0);" class="rn_wx">官方微信</a>
-		<div class="over_show">
+			<div class="over_show">
 				<img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm" />
 			</div></li>
-		<li><a
-			href="tencent://Message/?Uin=3119683838&websiteName=http://www.yphting.com=&Menu=yes"
-			class="rn_kf">在线客服</a></li>
+		<li><a href="" class="rn_kf">在线客服</a></li>
 		<li><a href="#" class="rn_top">Back top</a></li>
 	</ul>
 	<!--right nav end-->
@@ -186,10 +168,10 @@
 				<a href="/index.php?m=&" class="logo">御品韩汀</a>
 				<ul class="pcontact_ul">
 					<li><div class="wr_linka">
-							<a href="http://www.yphting.com"></a>
+							<a href=""></a>
 						</div>公司官网：http://www.yphting.com</li>
 					<li><div class="wr_linka">
-							<a href="http://weidian.com/?userid=765635894&wfr=c"></a>
+							<a href=""></a>
 						</div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
 				</ul>
 				<ul class="pcontact_ul2">
@@ -202,8 +184,7 @@
 			</div>
 			<div class="pcontact_right">
 				<h2 class="contact_us_title">和我们联系吧</h2>
-				<form method="post" id="formtopcontact"
-					action="/index.php?m=Home&c=About&a=contact" target="topost"
+				<form method="post" id="formtopcontact" action="" target="topost"
 					onsubmit="return chktop()">
 					<ul class="pcontact_ul3">
 						<li><span class="pcspr pcspr1"></span><input id="name"
@@ -249,15 +230,55 @@
 						<li><a class="border_tj" href="javascript:void(0);"
 							onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
 					</ul>
-					<input type="hidden" name="__hash__"
-						value="3dcc2ad541812799edf51c7a724d8050_a20f4e12763b5788c709655b059242e7" />
 				</form>
 			</div>
 			<div class="clear"></div>
 		</div>
 	</div>
 	<!--联系我们的浮层 end-->
+	<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+		var submit = document.getElementById("submit");
+		submit.onclick = function() {
+			if (window.confirm("是否提交?")) {
+				var money = $("[name='money']").val();
+				var usermoney = $("#usermoney").html();
+				var openbankname = $("[name='openbankname']").val();
+				var bankaccount = $("[name='bankaccount']").val();
+				var putname = $("[name='putname']").val();
+				if (openbankname == "") {
+					alert("开户行不能为空")
+					return false;
+				}
+				if (bankaccount == "") {
+					alert("银行账户不能为空")
+					return false;
+				}
 
+				if (putname == "") {
+					alert("收款款人不能为空")
+					return false;
+				}
+				if (money == "") {
+					alert("提现金额不能为空")
+					return false;
+				}
+				if (money>usermoney) {
+					alert("提现金额不能不能大于用户余额")
+					return false;
+				}
+			}else{
+				return false;
+			}
+		}
+		$("[name='money']").on('input propertychange', function() {
+			var money = $("[name='money']").val();
+			if (isNaN(money)) {
+				alert("请填写正确的数字");
+			}
+			$("#rmb").html(money);
+		});
+	</script>
 
 
 </body>

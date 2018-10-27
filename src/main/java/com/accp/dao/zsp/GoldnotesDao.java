@@ -90,7 +90,7 @@ public interface GoldnotesDao {
      * @param user
      * @return
      */
-    public int updUser(@Param("moery")Integer moery ,@Param("userId")Integer userId);
+    public int updUser(@Param("moery")Float moery ,@Param("userId")Integer userId);
     /**
      *查询充值记录是否存在
      * @param logisticsId

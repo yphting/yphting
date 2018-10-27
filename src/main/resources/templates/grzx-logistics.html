@@ -128,14 +128,14 @@
 					</thead>
 					<tbody th:remove="${PAGE_INFO.list.size()==0?'none':'all-but-first'}">
 						<tr th:each="temp,iterState:${PAGE_INFO.list}">
-
 							<th th:text="${temp.orderid}" width="80">订单号</th>
 							<th th:text="${temp.title}" width="80"><br />标题</th>
 							<th th:text="${temp.kg}" width="80"><br />重量</th>
-							<th th:text="${#dates.format(temp.ordertime,'yyyy-MM-dd')}"
+							<th th:text="${#dates.format(temp.ordertime,'yyyy-MM-dd HH:mm:ss')}"
 								width="80">下单日期</th>
 							<th width="80"><span  class="num_1">[[${temp.price}]]</span>金币</th>
-							<th th:text="${temp.describe}" width="80">发货方式</th>
+							<th th:if="${temp.delivery==1}" width="80">自发</th>
+							<th th:if="${temp.delivery==2}" width="80">上门提货</th>
 							<th th:if="${temp.auditstatus==1}" width="80">待审核</th>
 							<th th:if="${temp.auditstatus==2}" width="80">审核通过</th>
 							<th th:if="${temp.auditstatus==3}" width="80">待提供快递单号</th>
@@ -145,14 +145,7 @@
 <!-- 							<span th:if="${temp.mstate==0}" style="color:blue;">未读</span>
  -->							
 							<th  width="80" class="th_c">
-							<!-- <a  th:if="${temp.auditstatus==1}"  th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
-								 class="btna_s2">去支付</a>
-						      <a  th:if="${temp.auditstatus==2}" style="display:none"  th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
-								 class="btna_s2">去支付</a>
-						    <a  th:if="${temp.auditstatus==3}" style="display:none" th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
-								 class="btna_s2">去支付</a>
-								 <a  th:if="${temp.auditstatus==4}" style="display:none" th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
-								 class="btna_s2">去支付</a> -->
+
 								 <a  th:if="${temp.auditstatus==6}" th:href="@{/zsp/c/getLogisticsByPrice(id=${temp.logisticsid})}"
 								 class="btna_s2">去支付</a> 
 							<br />
@@ -217,11 +210,11 @@
 			</dt>
 			<dd>
 				<p class="flink">
-					<a href="">商家入驻</a>|<a href="/index.php/Home/About/help.html">帮助中心</a>|<a
-						href="/index.php/Home/About/index/key/jobs.html">人才招聘</a>|<a
-						href="/index.php/Home/About/contact.html">联系我们</a>|<a
-						href="/index.php/Home/About/sitemap.html">网站地图</a>|<a
-						href="/index.php/Home/About/terms.html">使用条款</a>
+					<a href="">商家入驻</a>|<a href="">帮助中心</a>|<a
+						href="">人才招聘</a>|<a
+						href="">联系我们</a>|<a
+						href="">网站地图</a>|<a
+						href="">使用条款</a>
 				</p>
 				<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 |
 					邮编：412000</p>
@@ -253,7 +246,7 @@
 		<a href="javascript:void(0);" class="close_pop_contact"></a>
 		<div class="w1000">
 			<div class="pcontact_left">
-				<a href="/index.php/" class="logo">御品韩汀</a>
+				<a href="" class="logo">御品韩汀</a>
 				<ul class="pcontact_ul">
 					<li><div class="wr_linka">
 							<a href=""></a>
@@ -313,14 +306,10 @@
 								</span> <span class="sel_work_text">我要咨询整形</span>
 							</div>
 						</li>
-						<!-- 				<input type="hidden" name="act" value="contact" />
- -->
-						<li><a class="border_tj" href="javascript:void(0);"
+				<li><a class="border_tj" href="javascript:void(0);"
 							id="submit-btn">立即提交</a></li>
 					</ul>
-					<input type="hidden" name="__hash__"
-						value="de15fea63f8d94d62e9cfb054420e45f_85945e02c128064bc285564a9a88bce0" />
-				</form>
+			</form>
 			</div>
 			<div class="clear"></div>
 		</div>

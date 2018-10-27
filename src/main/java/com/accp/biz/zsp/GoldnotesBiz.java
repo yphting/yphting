@@ -61,7 +61,7 @@ public class GoldnotesBiz {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addPutforWard(Putforward  putforward) {
     	User user=dao.getUser(putforward.getUserid());
-    	Integer money=(int) (user.getUsermoney()-putforward.getMoney());
+    	Float money=user.getUsermoney()-putforward.getMoney();
     	dao.updUser(money, putforward.getUserid());
 		dao.addPutforWard(putforward);
 	}
@@ -71,9 +71,7 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
-    	User user=dao.getUser(goldnotes.getUserid());
-    	Integer money=(int) (user.getUsermoney()+goldnotes.getRecordinandout());
-    	dao.updUser(money, goldnotes.getUserid());
+    	
     	dao.addGoldnotes(goldnotes);
 	}
     /**
@@ -178,13 +176,22 @@ public class GoldnotesBiz {
    * @param logisticsid
    */
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
-  public void updUser(Integer moery,Integer userId,Integer logisticsid) {
+  public void updUser(Float moery,Integer userId,Integer logisticsid) {
 	  Logistics logistics=new Logistics();
-	  logistics.setAuditstatus(2);
+	  logistics.setAuditstatus(1);
 	  logistics.setOrdertime(new Date());
 	  logistics.setLogisticsid(logisticsid);
-	  dao.updatedLogistics(logistics);
-	  dao.updUser(moery, userId);
+	    Logistics logisticss = dao.getLogistics(userId,logisticsid);
+	    Goldnotes goldnotes=new Goldnotes();
+		goldnotes.setUserid(userId);
+		goldnotes.setAcquisitionmode(2);
+		goldnotes.setRecorddate(new Date());
+		goldnotes.setRecorddescribe("物流支付订单号"+logisticss.getLogisticsid());
+		goldnotes.setRecordinandout(-+(float)logisticss.getPrice());
+		goldnotes.setAuditstatus(2);
+		dao.addGoldnotes(goldnotes);
+	    dao.updatedLogistics(logistics);
+	    dao.updUser(moery, userId);
   }
   /**
    * 修改物流状态
@@ -197,4 +204,19 @@ public class GoldnotesBiz {
   public List<UserToServicesVo>getUserToServicesVo(){
 	  return dao.getUserToServicesVo();
   }
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updateUserToGoldnotes(Float total_amount,String out_trade_no,Integer userId,Integer getAuditstatus) {
+	  User user=dao.getUser(userId);
+  	if(user.getUsermoney()==null) {
+  		user.setUsermoney((float) 0);
+  	}
+  	Float money=user.getUsermoney()+total_amount;
+	  dao.updGoldnotes(Integer.parseInt(out_trade_no),getAuditstatus);
+	  dao.updUser(money,userId);
+  }
 }
+
+
+
+
+
