@@ -132,7 +132,10 @@ WHERE u.userid=#{userId}
 	</resultMap>
 	  <update id="updatedLogistics">
 	  UPDATE `logistics` 
-	      <set>
+	      <set> 
+	            <if test="logistics.collectgoods!=null">collectgoods=#{logistics.collectgoods},</if>
+	            <if test="logistics.collectgoodsphone!=null">collectgoodsphone=#{logistics.collectgoodsphone},</if>
+	            <if test="logistics.collectgoodsaddr!=null">collectgoodsaddr=#{logistics.collectgoodsaddr},</if>
 	            <if test="logistics.auditstatus!=null">auditStatus=#{logistics.auditstatus},</if>
 	            <if test="logistics.number1">number1=#{logistics.number1},</if>
 	            <if test="logistics.number2">number2=#{logistics.number2},</if>
