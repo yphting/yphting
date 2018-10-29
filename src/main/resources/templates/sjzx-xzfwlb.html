@@ -115,7 +115,7 @@ function orderShou(_oid){
         </div>
 		<h2 class="sev_h2_title">选择发布服务类别</h2>
 		
-		<div th:switch="${ZUSER.firstServiceID}" >
+		<div th:switch="${ZUSER.firstserviceid}" >
 			<ul class="sss_ul">
 			<li  th:case="1">
 			<a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a>
@@ -134,7 +134,7 @@ function orderShou(_oid){
 			</li>											
 		</ul>
 		</div>
-		<div th:switch="${ZUSER.secondServiceID}" >
+		<div th:switch="${ZUSER.secondserviceid}"  >
 			<ul class="sss_ul">
 			<li  th:case="1">
 			<a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a>
