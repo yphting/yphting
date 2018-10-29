@@ -416,6 +416,7 @@ public class GoldnotesAction {
 			String shareaid11,String shareaid22,String shareaid33,String shareaid4) {
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
         logistics.setCollectgoodsaddr(shareaid11+shareaid22+shareaid33+shareaid4);
+        System.out.println("    rere         "+shareaid33);
         logistics.setUserid(userId);
 		biz.updatedLogistics(logistics);
 		return "redirect:/zsp/c/getListLogistics";
