@@ -1,13 +1,11 @@
 package com.accp.vo.sxy;
 
-import java.util.List;
-
 import com.accp.pojo.Postcomment;
 import com.accp.pojo.User;
 
 public class PostcommentVo extends Postcomment {
 	private User user;
-	private List<Postcomment> pc;
+	private PostcommentVo pc;
 	public User getUser() {
 		return user;
 	}
@@ -16,13 +14,12 @@ public class PostcommentVo extends Postcomment {
 		this.user = user;
 	}
 
-	public List<Postcomment> getPc() {
+	public PostcommentVo getPc() {
 		return pc;
 	}
 
-	public void setPc(List<Postcomment> pc) {
+	public void setPc(PostcommentVo pc) {
 		this.pc = pc;
 	}
-
 	
 }

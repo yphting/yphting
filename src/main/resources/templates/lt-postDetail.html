@@ -186,8 +186,7 @@
 							</h3>
 							
 							<!--  回复 -->
-							<div th:if="${temp.pid!=0}" class="hf_show"><span th:text="${temp.pc.content}">墨墨</span>　<a href="javascript:;" class="btna_s2" th:text="${temp.pc.user.username}">倾心</a></div>
-							
+							<div th:if="${temp.pc!=null}" class="hf_show"><span th:text="${temp.pc.content}">墨墨</span>　<a href="javascript:;" class="btna_s2" th:text="${temp.pc.user.username}">倾心</a></div>
 							
 							<p class="pt_text2" th:text="${temp.content}">666</p>
 							<p class="f12 t_r mt0">
