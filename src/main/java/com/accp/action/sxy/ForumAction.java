@@ -20,6 +20,7 @@ import com.accp.biz.sxy.ForumBiz;
 import com.accp.pojo.Forummanagement;
 import com.accp.pojo.Post;
 import com.accp.pojo.Postcollection;
+import com.accp.pojo.Postcomment;
 import com.accp.pojo.Postfabulous;
 import com.accp.pojo.User;
 import com.accp.vo.sxy.PostVo;
@@ -142,24 +143,30 @@ public class ForumAction {
 	 * @return
 	 */
 	@GetMapping("postDetail")
-	public String queryPostDetail(@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="2")Integer size,Integer postId,Integer fmid,Integer pfmid,String fmname,Model model) {
-		//帖子详情
-		PostVo pv = biz.queryPostDetail(postId);
-		//详情内评论列表
-		PageInfo<PostcommentVo> pageInfo = biz.queryComment(page, size, postId);
-		//详情右侧最新话题
-		List<PostVo> newList = biz.queryNewPost(fmid);
-		//帖子右侧热门话题
-		PageInfo<PostVo> hotPost = biz.queryHotPost(1, 5, null);
-		//帖子对应版块名
-		Forummanagement forum = biz.queryTitleName(pfmid);
-		model.addAttribute("HOT", hotPost);
-		model.addAttribute("FORUM", forum);
-		model.addAttribute("FMNAME", fmname);
-		model.addAttribute("NEWLIST", newList);
-		model.addAttribute("POSTVO", pv);
-		model.addAttribute("PAGE_INFO", pageInfo);
-		return "lt-postDetail";
+	public String queryPostDetail(@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="2")Integer size,Integer postId,Integer fmid,Integer pfmid,String fmname,Model model,HttpSession session) {
+		User user = (User)session.getAttribute("USER");
+		if(user==null) {
+			return "szy-login";
+		}else {
+			//帖子详情
+			PostVo pv = biz.queryPostDetail(postId);
+			//详情内评论列表
+			PageInfo<PostcommentVo> pageInfo = biz.queryComment(page, size, postId);
+			//详情右侧最新话题
+			List<PostVo> newList = biz.queryNewPost(fmid);
+			//帖子右侧热门话题
+			PageInfo<PostVo> hotPost = biz.queryHotPost(1, 5, null);
+			//帖子对应版块名
+			Forummanagement forum = biz.queryTitleName(pfmid);
+			model.addAttribute("HOT", hotPost);
+			model.addAttribute("FORUM", forum);
+			model.addAttribute("FMNAME", fmname);
+			model.addAttribute("NEWLIST", newList);
+			model.addAttribute("POSTVO", pv);
+			model.addAttribute("PAGE_INFO", pageInfo);
+			model.addAttribute("user", user);
+			return "lt-postDetail";
+		}
 	}
 
 	/**
@@ -193,7 +200,7 @@ public class ForumAction {
 			return "lt-myforum";
 		}
 	}
-	
+
 	/**
 	 * 收藏并验证重复和验证是否自己的帖子
 	 * @param postId
@@ -224,7 +231,7 @@ public class ForumAction {
 		}
 		return map;
 	}
-	
+
 	/**
 	 * 点赞并验证重复和验证是否自己的帖子
 	 * @param fabu
@@ -255,4 +262,20 @@ public class ForumAction {
 		}
 		return map;
 	}
+
+	/**
+	 * 评论
+	 * @param comm
+	 * @return
+	 */
+	@PostMapping("saveComment")
+	@ResponseBody
+	public Map<String,String> saveComment(@RequestBody Postcomment comm){
+		Map<String,String> map=new HashMap<>();
+		biz.saveComment(comm);
+		map.put("code", "200");
+		return map;
+	}
+
+
 }
