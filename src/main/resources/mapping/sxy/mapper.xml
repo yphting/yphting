@@ -102,7 +102,14 @@
 		post(`userID`,`fmID`,`title`,`content`,`releaseTime`)
 		values(#{post.userid},#{post.fmid},#{post.title},#{post.content},#{post.releasetime})
 	</insert>
-	<!-- 每次发帖增加5积分 -->
+	
+	<!-- 验证用户在当天发帖数 -->
+	<select id="checkPostCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM post
+		WHERE TO_DAYS(`releasetime`) = TO_DAYS(NOW())
+		AND userId = #{userId}
+	</select>
+	<!-- 每前3次发帖增加5积分 -->
 	<insert id="updateJIntegral">
 		update user set userIntegral = userIntegral+5
 		where

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.biz.lsm.MerchantEnterAndServiceBiz;
+import com.accp.biz.szy.UserBiz;
 import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
@@ -46,12 +47,13 @@ public class MerchantEnterAndServiceAction {
 	
 	@Autowired
 	private MerchantEnterAndServiceBiz biz;
+	@Autowired
+	private UserBiz szyUserBiz;
 	
 	@GetMapping("merchantEnterUrlCheck")
 	public String merchantEnterUrlCheck(HttpSession session) {
-		//User user = (User)session.getAttribute("USER");	//登录用户对象
-		//Integer auditstatus = user.getAuditstatus();
-		Integer auditstatus = 3;
+		User user = (User)session.getAttribute("USER");	//登录用户对象
+		Integer auditstatus = user.getAuditstatus();
 		if(auditstatus==1) {
 			return "redirect:/sjrz-shzl.html";
 		}else if(auditstatus==2) {
@@ -68,9 +70,8 @@ public class MerchantEnterAndServiceAction {
 	 */
 	@GetMapping("merchantEnterUrl")
 	public String merchantEnterUrl(Model model,HttpSession session) {
-		//User user = (User)session.getAttribute("USER");	//登录用户对象
-		//Float userMoney = user.getUsermoney();	//用户金币
-		Float userMoney = 520f;
+		User user = (User)session.getAttribute("USER");	//登录用户对象
+		Float userMoney = user.getUsermoney();	//用户金币
 		List<Servicetype> servicetypeList = biz.queryServiceType(null, null);	//获取服务类别
 		List<Languagetype> languagetypeList = biz.queryLanguagetype();	//获取服务语言
 		List<Majortype> majortypeList = biz.queryMajortype();	//获取擅长专业
@@ -93,7 +94,7 @@ public class MerchantEnterAndServiceAction {
 	public String merchantMove(HttpSession session,User user,String serviceID,MultipartFile shopimgData,MultipartFile identitypositiveimgData,MultipartFile identitynegativeimgData,MultipartFile identityhandimgData) {
 		User loginUser = (User)session.getAttribute("USER");	//登录用户
 		float bond = biz.queryBond();	//入驻缴纳保证金金额要求
-		if(520>=bond) {	//如果当前登录用户的金额足够缴纳保证金
+		if(loginUser.getUsermoney()>=bond) {	//如果当前登录用户的金额足够缴纳保证金
 			if(serviceID.split(",").length==2) {	//如果用户选择的服务类别为两个
 				user.setFirstserviceid(Integer.parseInt(serviceID.split(",")[0]));
 				user.setSecondserviceid(Integer.parseInt(serviceID.split(",")[1]));	
@@ -109,13 +110,14 @@ public class MerchantEnterAndServiceAction {
 				user.setIdentitypositiveimg(identitypositiveimgDataFName);
 				user.setIdentitynegativeimg(identitynegativeimgDataFName);
 				user.setIdentityhandimg(identityhandimgDataFName);
-				user.setUserid(30);//当前登录用户编号赋给修改对象
+				user.setUserid(loginUser.getUserid());//当前登录用户编号赋给修改对象
 			} catch (IllegalStateException | IOException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
 			if(biz.merchantMove(user,bond)>0) {//商家入驻受影响行数
-				biz.saveGoldNotes(30, 4, "商家入驻缴纳保证金",bond , 2);	//添加金币流向记录
+				biz.saveGoldNotes(loginUser.getUserid(), 4, "商家入驻缴纳保证金",bond , 2);	//添加金币流向记录
+				szyUserBiz.saveXtxx(loginUser.getUserid(), "您好，恭喜您通过韩汀社区的商家入驻审核，你现在已经成为我们的商家，请快到会员中心的商家中心里发布您的第一个服务吧。");
 				return "redirect:/sjrz-shzl.html";
 			}else {
 				return "redirect:/Public/error/500.html";
