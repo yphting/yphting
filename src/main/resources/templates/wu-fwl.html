@@ -30,7 +30,7 @@
     <div class="b_box nav_header community_header">
 		<a class="logo my_logo" href="">御品韩汀</a>
 		<ul class="member_nav_ul">
-        	        	<li class="cur" id="li2"><a href="/index.php?m=Home&c=Member&a=index">个人中心</a><span class="my_nav_i"></span></li>
+        	        	<li class="cur" id="li2"><a href="">个人中心</a><span class="my_nav_i"></span></li>
             <li  id="li3"><a href="">账户设置</a><span class="my_nav_i"></span></li>
             <li  id="li4"><a href="">消息</a><span class="my_nav_i"></span></li>
             
@@ -165,7 +165,6 @@
 			  
       		  $("#weight").html(kg);
       		  $("[name='price']").val(kg*42);
-      		  alert(kg);
       		   if(kg>10 && kg<30){
       			   $("[name='delivery']").val(1);
       			   $("#fah").html("自发");
@@ -275,7 +274,6 @@
 		            	  $("[name='areaid1']").change(function(){
 		            		 var id= $("[name='areaid1']").find("option:selected").val();
 		            		 var areaid1= $("[name='areaid1']").find("option:selected").html();
-		            		 alert(areaid1);
 		            		 $("[name='areaid11']").val(areaid1);
 		            		 $("#areaid2").html("");
 		            		 $.ajax("/zsp/c/getShAreaBy?id="+id,{
@@ -444,7 +442,7 @@
 	</div>
 </div>
 <!--联系我们的浮层 end-->
-<script type="text/javascript" src="../../Public/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="/Public/js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 	//data:base64数据       name:文件名(feng.jpg)
 	var imgObj = {
@@ -475,8 +473,6 @@
 						imgObj.name = file.name;//设置文件名
 						imgObj.data = base64Data.substring(base64Data
 								.indexOf(';base64,') + 8);//设置base64数据字符串
-								alert(imgObj.data );
-
 						$("#preShow").attr("src", base64Data);//显示图片
 						
 					};

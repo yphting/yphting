@@ -29,7 +29,7 @@
 
 				<div class="top_right">
 					<a href="index.html">郑石平</a> <span class="ht_line"></span><a
-						href="/index.php/Home/Member/logout.html">退出</a> <span
+						href="">退出</a> <span
 						class="ht_line"></span><a href=""><img
 						src="/Public/images/e_i.png" alt="" /></a>
 
@@ -114,9 +114,6 @@
 								class="btna_s2 f14">什么是金币？</a>
 						</div>
 					</div>
-					<script>
-						$('.li0').addClass('cur');
-					</script>
 					<table class="point_table" cellpadding="0" cellspacing="0">
 						<thead>
 							<tr style="background-color: #EFEFEF">
@@ -129,7 +126,7 @@
 						<tbody
 							th:remove="${PAGE_INFO.list.size()==0?'none':'all-but-first'}">
 							<tr th:each="temp,iterState:${PAGE_INFO.list}">
- 								<td th:text="${#dates.format(temp.recorddate,'yyyy-MM-dd')}">2000-12-13</td><!--  hh:mm:ss -->
+ 								<td th:text="${#dates.format(temp.recorddate,'yyyy-MM-dd HH:mm:ss')}">2000-12-13</td><!--  hh:mm:ss -->
  								<td th:text="${temp.recorddescribe}"></td>
 								<td th:text="${temp.recordinandout}">记录描述</td>
 								<td th:if="${temp.auditstatus==1}">待审核</td>
@@ -212,7 +209,7 @@
 				<img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm" />
 			</div></li>
 		<li><a
-			href="tencent://Message/?Uin=3119683838&websiteName=http://yphting.zglxkj.com=&Menu=yes"
+			href=""
 			class="rn_kf">在线客服</a></li>
 		<li><a href="#" class="rn_top">Back top</a></li>
 	</ul>
@@ -227,10 +224,10 @@
 				<a href="/index.php/" class="logo">御品韩汀</a>
 				<ul class="pcontact_ul">
 					<li><div class="wr_linka">
-							<a href="http://yphting.zglxkj.com"></a>
+							<a href=""></a>
 						</div>公司官网：http://yphting.zglxkj.com</li>
 					<li><div class="wr_linka">
-							<a href="http://weidian.com/?userid=765635894&wfr=c"></a>
+							<a href=""></a>
 						</div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
 				</ul>
 				<ul class="pcontact_ul2">

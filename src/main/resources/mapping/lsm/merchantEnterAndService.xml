@@ -450,4 +450,9 @@
 		ORDER BY `releaseTime` DESC
 		LIMIT 9
 	</select>
+	<!-- 添加金币流向记录 -->
+	<insert id="saveGoldNotes">
+		INSERT INTO `goldnotes`(`userID`,`acquisitionMode`,`recordDate`,`recordDescribe`,`recordInAndOut`,`auditStatus`)
+		VALUES(#{userID},#{acquisitionMode},NOW(),#{recordDescribe},#{recordInAndOut},#{auditStatus})
+	</insert>
 </mapper>

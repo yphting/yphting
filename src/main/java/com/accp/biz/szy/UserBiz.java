@@ -196,4 +196,13 @@ public class UserBiz {
 	public List<News> queryAllNews(Integer userID){
 		return dao.queryAllNews(userID);
 	}
+	/**
+	 * 新增系统消息
+	 * @param userID 用户ID
+	 * @param content 内容
+	 * @return
+	 */
+	public boolean saveXtxx(Integer userID,String content) {
+		return dao.saveXtxx(userID, content)>0;
+	}
 }

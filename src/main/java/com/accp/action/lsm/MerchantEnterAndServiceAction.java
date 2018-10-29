@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.biz.lsm.MerchantEnterAndServiceBiz;
+import com.accp.biz.szy.UserBiz;
 import com.accp.pojo.Advertisement;
 import com.accp.pojo.Complainttype;
 import com.accp.pojo.Languagetype;
@@ -46,6 +47,8 @@ public class MerchantEnterAndServiceAction {
 	
 	@Autowired
 	private MerchantEnterAndServiceBiz biz;
+	@Autowired
+	private UserBiz szyUserBiz;
 	
 	@GetMapping("merchantEnterUrlCheck")
 	public String merchantEnterUrlCheck(HttpSession session) {
@@ -112,16 +115,17 @@ public class MerchantEnterAndServiceAction {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-			biz.merchantMove(user,bond);	//商家入驻
-			return "redirect:/sjrz-shzl.html";
+			if(biz.merchantMove(user,bond)>0) {//商家入驻受影响行数
+				biz.saveGoldNotes(loginUser.getUserid(), 4, "商家入驻缴纳保证金",bond , 2);	//添加金币流向记录
+				szyUserBiz.saveXtxx(loginUser.getUserid(), "您好，恭喜您通过韩汀社区的商家入驻审核，你现在已经成为我们的商家，请快到会员中心的商家中心里发布您的第一个服务吧。");
+				return "redirect:/sjrz-shzl.html";
+			}else {
+				return "redirect:/Public/error/500.html";
+			}
 		}else {
-			System.out.println("金额不足！");
 			return "redirect:/Public/error/500.html";
 		}
 	}
-	
-
-
 	/**
 	 * 查询地址api
 	 * @param pid

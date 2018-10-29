@@ -197,4 +197,8 @@
 		SELECT * FROM `news`
 		WHERE `addRessee`=#{userid} 
 	</select>
+	<insert id="saveXtxx">
+		INSERT INTO `news`(`addRessee`,`content`,`sendingTime`,`readState`,`newsType`)
+		VALUES(#{userid},#{content},NOW(),0,1)
+	</insert>
 </mapper>

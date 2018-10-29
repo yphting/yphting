@@ -5,9 +5,6 @@
 <mapper namespace="com.accp.dao.zsp.GoldnotesDao">
 	<!-- 查询金币流行 -->
 	<select id="goldnotesQueryAll" resultType="Goldnotes">
-		<!-- SELECT * FROM
-		GoldnoTes WHERE userId=#{userId}
-		ORDER BY `recordDate` DESC -->
 		 SELECT * FROM GoldnoTes 
 		 <where>
 		     <if test="userId!=null">
@@ -22,43 +19,47 @@ ORDER BY `recordDate` DESC
 	</select>
 	<!-- 查询积分流行 -->
 	<select id="IntegralRecordQueryAll" resultType="integralrecord">
-		SELECT * FROM
-		IntegralRecord WHERE userId=#{userId}
+		SELECT * FROM IntegralRecord 
+		<where>
+		    <if test="userId!=null">
+		      and userId=#{userId}
+		    </if>
+		</where>
 	</select>
 	<!-- 添加金币提现记录 -->
 	<insert id="addPutforWard">
 		<!-- 添加金币提现表 -->
-		<!-- INSERT INTO putforWard(userID,money,bankName,auditstatus,submitTime) 
-			value(#{putforWard.userid},#{putforWard.money},#{putforWard.bankname},1,#{putforWard.submittime,jdbcType=DATE}); -->
-		INSERT INTO putforWard(`userID`,`putname`,`bankID`,`bankAccount`,
+	INSERT INTO putforWard(`userID`,`putname`,`bankID`,`bankAccount`,
 		`openBankName`,`submitTime`,`auditTime`,`money`,`auditStatus`)VALUES
 		(#{putforWard.userid},#{putforWard.putname},#{putforWard.bankid},#{putforWard.bankaccount},#{putforWard.openbankname},
-		#{putforWard.submittime,jdbcType=DATE},NULL,#{putforWard.money},1);
+		#{putforWard.submittime,jdbcType=TIMESTAMP},NULL,#{putforWard.money},#{putforWard.auditstatus});
 
 		<!-- 添加金币提现记录表 -->
-	<!-- 	INSERT INTO
-		putforwardRecord(`userID`,`bankName`,`submitTime`,`completeTime`,`money`,`adminOpinion`)
-		VALUES(#{putforWard.userid},#{putforWard.bankname},#{putforWard.submittime,jdbcType=DATE},NULL,#{putforWard.money},NULL);
-		 -->
 		 INSERT INTO putforwardRecord(userID,`bankAccount`,`bankID`,`submitTime`,`completeTime`,`money`,`adminOpinion`)
-	VALUES(#{putforWard.userid},#{putforWard.bankaccount},#{putforWard.bankid},#{putforWard.submittime,jdbcType=DATE},NULL,#{putforWard.money},NULL);
+	VALUES(#{putforWard.userid},#{putforWard.bankaccount},#{putforWard.bankid},#{putforWard.submittime,jdbcType=TIMESTAMP},NULL,#{putforWard.money},NULL);
 	
 		 <!-- 记录金币流向记录 -->
 		INSERT INTO
 		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
-		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=DATE},'金币提现',-#{putforWard.money},4)
+		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=TIMESTAMP},'金币提现',-#{putforWard.money},1)
 	</insert>
 	<!-- 添加金币流向记录表 -->
 	<insert id="addGoldnotes" useGeneratedKeys="true"
 		keyProperty="recordid" parameterType="com.accp.pojo.Goldnotes">
 		INSERT INTO
-		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
-		VALUES(#{userid},#{recorddate,jdbcType=DATE}
-		,#{recorddescribe},#{recordinandout},#{auditstatus})<!-- #{goldnotes.recorddate,jdbcType=DATE} -->
-	</insert>
+		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus,acquisitionmode)
+		VALUES(#{userid},#{recorddate,jdbcType=TIMESTAMP}
+		,#{recorddescribe},#{recordinandout},#{auditstatus},#{acquisitionmode})
+			</insert>
 	<!-- 查询物流记录 -->
 	<select id="getListlogistics" resultType="logistics">
-		SELECT * FROM logistics ORDER BY `orderTime` DESC
+		SELECT * FROM logistics 
+		   <where>
+		       <if test="logistics.userid!=null">
+		             and userId=#{logistics.userid}
+		       </if>
+		   </where>
+		ORDER BY `orderTime` DESC
 	</select>
 	<!-- 查询商品服务评价记录 -->
 	<select id="getListEvaluationService"
@@ -75,11 +76,11 @@ ORDER BY e.serviceAppraiseDate DESC
 
 <insert id="addLogistics">
 INSERT  INTO `logistics`(`userID`,`orderID`,`title`,`describe`,img1,img2,img3,img4,img5,
-kG,delivery,userPhone,userAddr,collectGoods ,collectGoodsPhone,collectGoodsAddr,orderTime,userName,price)
+kG,delivery,userPhone,userAddr,collectGoods ,collectGoodsPhone,collectGoodsAddr,orderTime,userName,price,auditStatus)
 
 values(#{logistics.userid},#{logistics.orderid},#{logistics.title},#{logistics.describe},#{logistics.img1},#{logistics.img2},#{logistics.img3},#{logistics.img4},#{logistics.img5},
 #{logistics.kg},#{logistics.delivery},#{logistics.userphone},#{logistics.useraddr},
-#{logistics.collectgoods},#{logistics.collectgoodsphone},#{logistics.collectgoodsaddr},#{logistics.ordertime,jdbcType=DATE},#{logistics.username},#{logistics.price});
+#{logistics.collectgoods},#{logistics.collectgoodsphone},#{logistics.collectgoodsaddr},#{logistics.ordertime,jdbcType=TIMESTAMP},#{logistics.username},#{logistics.price},#{logistics.auditstatus});
 
 </insert>
 <!-- 查询物流详情 -->
@@ -125,11 +126,26 @@ WHERE u.userid=#{userId}
 		</collection>
 	</resultMap>
 	  <update id="updatedLogistics">
-	  UPDATE `logistics` SET auditStatus=#{logistics.auditstatus}
+	  UPDATE `logistics` 
+	      <set>
+	            <if test="logistics.auditstatus!=null">auditStatus=#{logistics.auditstatus},</if>
+	      </set>
 	     WHERE `logisticsID`=#{logistics.logisticsid}
 	</update> 
 	<select id="getUserToServicesVo" resultType="com.accp.vo.zsp.UserToServicesVo">
 	          SELECT u.userName,u.shopName, u.signature,u.shopImg,s.recommendBool, s.serviceCoverImg,s.serviceFuTitle,s.servicePrice
               FROM services s LEFT JOIN `user` u ON s.userid=u.userid WHERE s.recommendBool=1
 	</select>
+	<insert id="addNews">
+	       INSERT INTO news  
+	       <set>
+	             <if test="news.thesender">theSender=#{news.thesender},</if>
+	             <if test="news.addressee">addRessee=#{news.addressee},</if>
+	             <if test="news.content">content=#{news.content},</if>
+	             <if test="news.sendingtime">sendingTime=#{news.sendingtime,jdbcType=TIMESTAMP},</if>
+	             <if test="news.readstate">readState=#{news.readstate},</if>
+	             <if test="news.newstype">newsType=#{news.newstype},</if>
+	             <if test="news.messagegroup">messageGroup=#{news.messagegroup},</if>
+	       </set>
+	</insert>
 </mapper>
