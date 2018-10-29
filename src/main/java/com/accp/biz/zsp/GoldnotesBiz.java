@@ -63,7 +63,7 @@ public class GoldnotesBiz {
 	public void addPutforWard(Putforward  putforward) {
     	User user=dao.getUser(putforward.getUserid());
     	Float money=user.getUsermoney()-putforward.getMoney();
-    	dao.updUser(money, putforward.getUserid());
+    	dao.updUser(money, null,putforward.getUserid());
 		dao.addPutforWard(putforward);
 		
 		News news=new News();
@@ -197,7 +197,7 @@ public class GoldnotesBiz {
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
   public void updUser(Float moery,Integer userId,Integer logisticsid) {
 	  Logistics logistics=new Logistics();
-	  logistics.setAuditstatus(1);
+	  logistics.setAuditstatus(2);
 	  logistics.setOrdertime(new Date());
 	  logistics.setLogisticsid(logisticsid);
 	    Logistics logisticss = dao.getLogistics(userId,logisticsid);
@@ -221,7 +221,7 @@ public class GoldnotesBiz {
 		
 		dao.addGoldnotes(goldnotes);
 	    dao.updatedLogistics(logistics);
-	    dao.updUser(moery, userId);
+	    dao.updUser(moery,null,userId);
   }
   /**
    * 修改物流状态
@@ -241,8 +241,18 @@ public class GoldnotesBiz {
   		user.setUsermoney((float) 0);
   	}
   	Float money=user.getUsermoney()+total_amount;
+  	  Integer userIntegra2=(int) (total_amount/10);
+	  user.setUserintegral(user.getUserintegral()+userIntegra2);
+  	 // user.setuserIntegra1();
+	  Integralrecord Integralrecord=new Integralrecord();
+	  Integralrecord.setUserid(userId);
+	  Integralrecord.setIrdate(new Date());
+	  Integralrecord.setIrdescribe("充值送积分");
+	  Integralrecord.setAuditstatus(4);
+	  Integralrecord.setRecordinandout(user.getUserintegral());
+      dao.addIntegralRecord(Integralrecord);
 	  dao.updGoldnotes(Integer.parseInt(out_trade_no),getAuditstatus);
-	  dao.updUser(money,userId);
+	  dao.updUser(money, user.getUserintegral(),userId);
   }
 }
 

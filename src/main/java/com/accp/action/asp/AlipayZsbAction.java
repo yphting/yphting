@@ -240,7 +240,6 @@ public class AlipayZsbAction {// response
 			request.setAttribute("out_trade_no", out_trade_no);
 			request.setAttribute("trade_no", trade_no);
 			request.setAttribute("total_amount", total_amount);
-            System.out.println("3223333333333333333333333333");
             Float mount=Float.parseFloat(total_amount);
 			biz.updateUserToGoldnotes(mount,out_trade_no,userId,4);
 		}else {

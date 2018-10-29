@@ -42,123 +42,143 @@
 <a href="" class="zy_box">预定流程指引</a>
 
 <div class="bg_c4 pt1">
-	<div class="b_box">
-		<form method="post" enctype="multipart/form-data" action="/zsp/c/addLogistics" id="formmsg">
-			<div class="sv_path border_c sv_nbor">
-            	<a href="">会员中心</a><span class="s_sp_v">-</span><a href="">我发出的物流</a><span class="s_sp_v">-</span>提交发货申请
-                			</div>
-			<h2 class="sev_h2_title">发货申请</h2>
-			<dl class="info_form_dl">
-				<dt>物品标题</dt>
-				<dd>
-					<input type="text" class="input_c inf_inc validate[required]" name="title" />
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>物品描述</dt>
-				<dd class="mt10">
-					<textarea class="input_c fy_sh2 validate[required]" name="describe"></textarea>
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt class="mopa">上传物品图片</dt>
-				<dd>
-					<p class="c_4 pat1 dx_text letter_s">请上传物品图片, 最多5张<br />格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
-					<div class="sel_file_d"><input  type="file" id="imgFile"  name="imgFile"/>
-					<input  type="file"   name="imgFile"/>
-					<input  type="file"  name="imgFile"/>
-					<input  type="file"  name="imgFile"/>
-					<input  type="file" name="imgFile"/>
-					<!-- <a href="javascript:void(0);" class="sel_file_a" id="uploadimage">上传文件</a> --></div>
-					<div id="pics"><img id="preShow" src="" alt="请选择预览图片" name="img1"/></div>
-					<div id="picss"></div>
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>重量</dt>
-				<dd>
-					<input type="text" name="kg" class="input_c inf_inc4 validate[required,min[10],custom[integer]]" /><span class="dw_sp c_4">kg</span>
-					<p class="c_4 letter_s">请单次发货10kg以上, 即可有韩汀物流韩国EMS空运权限，如果单次30kg起我们物流上门为您发货。<br />保证2天抵达国内机场，5天内送达，最迟不过一周时间，</p>
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt class="mopa">发货方式</dt>
-				<dd id="iddd" class="f14 shiptype">
-				    <span  id="fah">自发</span>
-					<input type="hidden" value="1" name="delivery"/>
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt class="mopa">金币</dt>
-				<dd class="f14">
-					<font id="weight">1</font>kg&nbsp;&nbsp;&nbsp;&nbsp;<span name="333" class="num_2 num_1_s" style="display:none;">42</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="num_2 num_1_s">42</span>
-				    <input type="hidden" name="price"/>
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>发货人</dt>
-				<dd>
-					<input type="text" name="username" class="input_c inf_inc4 validate[required]" />
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>发货人电话</dt>
-				<dd>
-					<input type="text" name="userphone" class="input_c inf_inc4 validate[required]" />
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>发货信息</dt>
-				<dd class="c_4 f14">
-					<select class="sel_f sel_f2 sel_b2"  name="areaid1">
-						<option>请选择</option><option th:each="temp,iterState:${ShArea}" th:value="${temp.areaid}">[[${temp.name}]]</option>					</select>
-				      <input type="hidden" name="areaid11">
-					<select class="sel_f sel_f2 sel_b2" name="areaid2" id="areaid2">
-						<option id="areaid2_option">请选择</option>
-					</select>
-					<input type="hidden" name="areaid22">
-					<select class="sel_f sel_f2 sel_b2 validate[required]" id="areaid3" name="areaid3">
-						<option value="3">请选择</option>
-					</select>
-					<input type="hidden" name="areaid33">
-					<input type="text" name="areaid4" class="input_c inf_inc validate[required]" />
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>收货人</dt>
-				<dd>
-					<input type="text" name="collectgoods" class="input_c inf_inc4 validate[required]" />
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>收货人电话</dt>
-				<dd>
-					<input type="text" name="collectgoodsphone" class="input_c inf_inc4 validate[required]" />
-				</dd>
-			</dl>
-			<dl class="info_form_dl">
-				<dt>国内收货信息</dt>
-				<dd class="c_4 f14">
-					<select class="sel_f sel_f2 sel_b2" name="shareaid1">
-						<option>请选择</option><option th:each="temp,iterState:${ShArea}" th:value="${temp.areaid}">[[${temp.name}]]</option>					</select>
-					 <input type="hidden" name="shareaid11" />
-					<select class="sel_f sel_f2 sel_b2" name="shareaid2" id="shareaid2">
-						<option >请选择</option>
-					</select>
-					 <input type="hidden" name="shareaid22" />
-					<select class="sel_f sel_f2 sel_b2 validate[required]" id="shareaid3" name="shareaid3">
-						<option value="d">请选择</option>
-					</select>
-					<input type="hidden" name="shareaid33" />
-					<input type="text" name="shareaid4" class="input_c inf_inc validate[required]" />				    
-				</dd>
-			</dl>
-			<div class="business_btn_d">
-				<a href="" class="fr btna_s2">取消申请</a>
-				<input type="submit" class="btn_jy_a" id="submit" value="提交发货申请，去支付">
-                				
-			</div>
-			<script type="text/javascript">
+		<div class="b_box">
+			<form method="post" enctype="multipart/form-data"
+				action="/zsp/c/addLogistics" id="formmsg">
+				<div class="sv_path border_c sv_nbor">
+					<a href="">会员中心</a><span class="s_sp_v">-</span><a href="">我发出的物流</a><span
+						class="s_sp_v">-</span>提交发货申请
+				</div>
+				<h2 class="sev_h2_title">发货申请</h2>
+				<dl class="info_form_dl">
+					<dt>物品标题</dt>
+					<dd>
+						<input type="text" class="input_c inf_inc validate[required]"
+							name="title" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>物品描述</dt>
+					<dd class="mt10">
+						<textarea class="input_c fy_sh2 validate[required]"
+							name="describe"></textarea>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt class="mopa">上传物品图片</dt>
+					<dd>
+						<p class="c_4 pat1 dx_text letter_s">
+							请上传物品图片, 最多5张<br />格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。
+						</p>
+						<div class="sel_file_d">
+							<input type="file" id="imgFile" name="imgFile" /> <input
+								type="file" name="imgFile" /> <input type="file" name="imgFile" />
+							<input type="file" name="imgFile" /> <input type="file"
+								name="imgFile" />
+							<!-- <a href="javascript:void(0);" class="sel_file_a" id="uploadimage">上传文件</a> -->
+						</div>
+						<div id="pics">
+							<img id="preShow" src="" alt="请选择预览图片" name="img1" />
+						</div>
+						<div id="picss"></div>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>重量</dt>
+					<dd>
+						<input type="text" name="kg"
+							class="input_c inf_inc4 validate[required,min[10],custom[integer]]" /><span
+							class="dw_sp c_4">kg</span>
+						<p class="c_4 letter_s">
+							请单次发货10kg以上, 即可有韩汀物流韩国EMS空运权限，如果单次30kg起我们物流上门为您发货。<br />保证2天抵达国内机场，5天内送达，最迟不过一周时间，
+						</p>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt class="mopa">发货方式</dt>
+					<dd id="iddd" class="f14 shiptype">
+						<span id="fah">自发</span> <input type="hidden" value="1"
+							name="delivery" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt class="mopa">金币</dt>
+					<dd class="f14">
+						<font id="weight">1</font>kg&nbsp;&nbsp;&nbsp;&nbsp;<span
+							name="333" class="num_2 num_1_s" style="display: none;">42</span>&nbsp;&nbsp;&nbsp;&nbsp;<span
+							class="num_2 num_1_s">42</span> <input type="hidden" name="price" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>发货人</dt>
+					<dd>
+						<input type="text" name="username"
+							class="input_c inf_inc4 validate[required]" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>发货人电话</dt>
+					<dd>
+						<input type="text" name="userphone"
+							class="input_c inf_inc4 validate[required]" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>发货信息</dt>
+					<dd class="c_4 f14">
+						<select class="sel_f sel_f2 sel_b2" name="areaid1">
+							<option>请选择</option>
+							<option th:each="temp,iterState:${ShArea}"
+								th:value="${temp.areaid}">[[${temp.name}]]</option>
+						</select> <input type="hidden" name="areaid11"> <select
+							class="sel_f sel_f2 sel_b2" name="areaid2" id="areaid2">
+							<option id="areaid2_option">请选择</option>
+						</select> <input type="hidden" name="areaid22"> <select
+							class="sel_f sel_f2 sel_b2 validate[required]" id="areaid3"
+							name="areaid3">
+							<option value="3">请选择</option>
+						</select> <input type="hidden" name="areaid33"> <input type="text"
+							name="areaid4" class="input_c inf_inc validate[required]" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>收货人</dt>
+					<dd>
+						<input type="text" name="collectgoods"
+							class="input_c inf_inc4 validate[required]" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>收货人电话</dt>
+					<dd>
+						<input type="text" name="collectgoodsphone"
+							class="input_c inf_inc4 validate[required]" />
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>国内收货信息</dt>
+					<dd class="c_4 f14">
+						<select class="sel_f sel_f2 sel_b2" name="shareaid1">
+							<option>请选择</option>
+							<option th:each="temp,iterState:${ShArea}"
+								th:value="${temp.areaid}">[[${temp.name}]]</option>
+						</select> <input type="hidden" name="shareaid11" /> <select
+							class="sel_f sel_f2 sel_b2" name="shareaid2" id="shareaid2">
+							<option>请选择</option>
+						</select> <input type="hidden" name="shareaid22" /> <select
+							class="sel_f sel_f2 sel_b2 validate[required]" id="shareaid3"
+							name="shareaid3">
+							<option value="d">请选择</option>
+						</select> <input type="hidden" name="shareaid33" /> <input type="text"
+							name="shareaid4" class="input_c inf_inc validate[required]" />
+					</dd>
+				</dl>
+				<div class="business_btn_d">
+					<a href="" class="fr btna_s2">取消申请</a> <input type="submit"
+						class="btn_jy_a" id="submit" value="提交发货申请，去支付">
+
+				</div>
+				<script type="text/javascript">
 			 $("[name='kg']").on('input propertychange',function(){
 				
 			  var kg= $("[name='kg']").val();
@@ -350,8 +370,8 @@
 			            			}); 
 			            	  }); 
 				</script>
+		</div>
 	</div>
-</div>
 
 <!--footer-->
 <div class="footer community_footer_dl">

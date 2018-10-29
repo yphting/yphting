@@ -84,25 +84,15 @@
         	<ul class="my_booking_cont_ul">
 					<li class="cel_1">
 						<p class="c_4 f12">服务订单号</p>
-						<p class="mt5" th:text="${logistics.logisticsid}">15395256239412</p>
+						<p class="mt5" th:text="${logistics.orderid}">15395256239412</p>
 						<p class="c_4 f12">发货方式</p>
-						<p class="mt5" th:text="${logistics.delivery}">自发</p>
+						<p class="mt5" th:if="${logistics.delivery==1}">自发</p>
+						<p class="mt5" th:if="${logistics.delivery==2}">上门提货</p>
 						<p class="c_4 f12">下单时间</p>
 						<p class="mt5"
 							th:text="${#dates.format(logistics.ordertime,'yyyy-MM-dd HH:mm:ss')}">2018-10-14
 							22:00</p>
-							<!-- <p class="c_4 f12">审核通过时间</p>
-                    <p class="mt5">2018-10-22 13:32</p>		 -->			
-                    <p class="c_4 f12">用户发货单号</p>
-                    <p class="mt5">weew ewwew</p>
-					<p class="c_4 f12">单号提交时间</p>
-                    <p class="mt5" th:text="${#dates.format(logistics.ordertime,'yyyy-MM-dd HH:mm:ss')}">2018-10-22 23:12</p>	
-					
-					<p class="c_4 f12">用户发货单号</p>
-                    <p class="mt5"  th:text="${logistics.number1}">weew ewwew</p>
-					<p class="c_4 f12">单号提交时间</p>
-                    <p class="mt5" th:text="${#dates.format(logistics.numbertime1,'yyyy-MM-dd HH:mm:ss')}">2018-10-22 23:12</p>
-					</li>
+						</li>
 					<li class="cel_2">
 						<p class="c_4 f12 mt10">物品信息</p>
 						<p class="c_4 f12">重量</p>

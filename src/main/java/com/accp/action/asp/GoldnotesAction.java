@@ -230,7 +230,7 @@ public class GoldnotesAction {
         logistics.setCollectgoodsaddr(shareaid11+shareaid22+shareaid33+shareaid4);
         logistics.setUseraddr(areaid11+areaid22+areaid33+areaid4);;
 		logistics.setOrdertime(new Date());
-		logistics.setAuditstatus(6);
+		logistics.setAuditstatus(1);
 		String orderid=WlliusUtil.Getnum();
 		logistics.setOrderid(orderid);
 		biz.addLogistics(logistics);
@@ -391,5 +391,14 @@ public class GoldnotesAction {
 					message.put("msg", ex.getMessage());
 				}
 				return message;
+	}
+	@PostMapping("updateLogistics")
+	public String updateLogistics(Model model, HttpSession session,Logistics logistics) {
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
+		logistics.setUserid(userId);
+		logistics.setNumbertime1(new Date());
+		logistics.setAuditstatus(4);
+		biz.updatedLogistics(logistics);
+		return "redirect:/zsp/c/getListLogistics";
 	}
 }

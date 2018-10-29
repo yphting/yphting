@@ -136,12 +136,11 @@
 							<th width="80"><span  class="num_1">[[${temp.price}]]</span>金币</th>
 							<th th:if="${temp.delivery==1}" width="80">自发</th>
 							<th th:if="${temp.delivery==2}" width="80">上门提货</th>
-							<th th:if="${temp.auditstatus==1}" width="80">待审核</th>
-							<th th:if="${temp.auditstatus==2}" width="80">审核通过</th>
-							<th th:if="${temp.auditstatus==3}" width="80">待提供快递单号</th>
-							<th th:if="${temp.auditstatus==4}" width="80">待签收</th>
-							<th th:if="${temp.auditstatus==5}" width="80">待评价</th>
-							<th th:if="${temp.auditstatus==6}" width="80">待付款</th>
+							<th th:if="${temp.auditstatus==1}" width="80">提交发货申请</th>
+							<th th:if="${temp.auditstatus==2}" width="80">待审核</th>
+							<th th:if="${temp.auditstatus==3}" width="80">审核通过</th>
+							<th th:if="${temp.auditstatus==4}" width="80">待提供快递单号</th>
+							<th th:if="${temp.auditstatus==5}" width="80">完成发货</th>
 <!-- 							<span th:if="${temp.mstate==0}" style="color:blue;">未读</span>
  -->							
 							<th  width="80" class="th_c">

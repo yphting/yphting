@@ -95,7 +95,12 @@ values(#{logistics.userid},#{logistics.orderid},#{logistics.title},#{logistics.d
      SELECT * FROM `user`WHERE userId=#{userId};
 </select>
 <update id="updUser">
-     UPDATE `user` SET userMoney=#{moery} WHERE userId=#{userId};
+     UPDATE `user` 
+     <set>
+         <if test="moery!=null">userMoney=#{moery},</if>
+         <if test="userIntegral!=null">userIntegral=#{userIntegral},</if>
+     </set> 
+      WHERE userId=#{userId};
 </update>
 <select id="getGoldnotesById" resultType="logistics">
 SELECT * FROM `goldnoTes` WHERE recordId=#{recordId};
@@ -129,6 +134,9 @@ WHERE u.userid=#{userId}
 	  UPDATE `logistics` 
 	      <set>
 	            <if test="logistics.auditstatus!=null">auditStatus=#{logistics.auditstatus},</if>
+	            <if test="logistics.number1">number1=#{logistics.number1},</if>
+	            <if test="logistics.number2">number2=#{logistics.number2},</if>
+	            <if test="logistics.numbertime1">numbertime1=#{logistics.numbertime1,jdbcType=TIMESTAMP},</if>
 	      </set>
 	     WHERE `logisticsID`=#{logistics.logisticsid}
 	</update> 
@@ -147,5 +155,17 @@ WHERE u.userid=#{userId}
 	             <if test="news.newstype">newsType=#{news.newstype},</if>
 	             <if test="news.messagegroup">messageGroup=#{news.messagegroup},</if>
 	       </set>
+	</insert>
+	<insert id="addIntegralRecord">
+	    INSERT INTO integralRecord 
+	    <set>
+	         <if test="integralRecord.userid">userID=#{integralRecord.userid},</if>
+	         <if test="integralRecord.irdate">IRDate=#{integralRecord.irdate},</if>
+	         <if test="integralRecord.irdescribe">IRDescribe=#{integralRecord.irdescribe},</if>
+	         <if test="integralRecord.recordinandout">recordInAndOut=#{integralRecord.recordinandout},</if>
+	         <if test="integralRecord.integralid">integralID=#{integralRecord.integralid},</if>
+	         <if test="integralRecord.auditstatus">auditStatus=#{integralRecord.auditstatus},</if>
+	    </set>
+	    
 	</insert>
 </mapper>
