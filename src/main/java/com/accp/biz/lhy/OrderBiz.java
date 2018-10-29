@@ -134,7 +134,7 @@ public class OrderBiz {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean ok(double usermoney, int userid, Orders order) {
-		userDao.updateUserMoney(usermoney, userid);
+		userDao.updateUserMoney(usermoney * 0.9, userid);
 		return orderDao.updateOrder(order);
 	}
 

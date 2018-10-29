@@ -20,11 +20,6 @@
 						<a href="">关于韩汀</a><span class="ht_line"></span>
 						<a href="">联系我们</a>
 					</div>
-					<div class="top_right">
-						<a href="#">登录</a>
-						<span class="ht_line"></span>
-						<a href="#">注册</a>
-					</div>
 					<div class="top_right login_right">
 						<a href="">yuno</a> <span class="ht_line"></span>
 						<a href="">退出</a>
@@ -942,7 +937,6 @@
 					var vm = this;
 					var pid = jQuery(e.target).val();
 					var name = jQuery(e.target).attr("name");
-					alert(pid+" "+name);
 					if(pid==0&&name=="country"){
 						vm.provinceList = {};
 						vm.cityList = {};
@@ -1066,6 +1060,11 @@
 		);
 		//表单验证数据完整性方法
 		function formValidate(){
+			var idCardFlag = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+			var hzFlag = /^\d{8}$/;
+			var phoneFlag = /^1[3,4,5,7,8]\d{9}$/;
+			var emailFlag = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+
 			//获取自我介绍内容
 			var selfintroduction = $(".ke-edit-iframe").contents().find(".ke-content").html();
 			//将内容赋值给textarea标签
@@ -1088,10 +1087,22 @@
 			}else if(jQuery("[name=shopimgData]").val()==""){
 				alert("请上传商家店铺图片！");
 				return false;
-			}else if(jQuery("[name=merchanttype]").val()==1&&jQuery("[name=identitynumder]").val()==""){
+			}else if(jQuery("[name=merchanttype]").val()==1&&jQuery("[name=identitytype]").val()==1&&jQuery("[name=identitynumder]").val()==""){
 				alert("请填写身份证号码！");
 				return false;
-			}else if(jQuery("[name=merchanttype]").val()==2&&jQuery("[name=identitynumder]").val()==""){
+			}else if(jQuery("[name=merchanttype]").val()==1&&jQuery("[name=identitytype]").val()==2&&jQuery("[name=identitynumder]").val()==""){
+				alert("请填写护照号码！");
+				return false;
+			}
+			else if(jQuery("[name=merchanttype]").val()==1&&jQuery("[name=identitytype]").val()==1&&!idCardFlag.test(jQuery("[name=identitynumder]").val())){
+				alert("请填写正确的身份证号，为18位！");
+				return false;
+			}
+			else if(jQuery("[name=merchanttype]").val()==1&&jQuery("[name=identitytype]").val()==2&&!hzFlag.test(jQuery("[name=identitynumder]").val())){
+				alert("请填写正确的护照号码，为8位！");
+				return false;
+			}
+			else if(jQuery("[name=merchanttype]").val()==2&&jQuery("[name=identitynumder]").val()==""){
 				alert("请填写外国登入证号码！");
 				return false;
 			}else if(jQuery("[name=merchanttype]").val()==2&&jQuery("[name=identityrealname]").val()==""){
@@ -1112,8 +1123,14 @@
 			}else if(jQuery("#languagenametext dd .mrsp_10 input:checked").length==0){
 				alert("请选择服务语言！");
 				return false;
+			}else if(jQuery("[name=merchantemail]").val()!=''&&!emailFlag.test(jQuery("[name=merchantemail]").val())){
+				alert("请输入正确的邮箱！");
+				return false;
 			}else if(jQuery("[name=merchantphone]").val()==""){
 				alert("请填写联系电话！");
+				return false;
+			}else if(!phoneFlag.test(jQuery("[name=merchantphone]").val())){
+				alert("请填写正确的中国电信、联通、移动的手机号码！");
 				return false;
 			}else if(jQuery("[name=selfintroduction]").text()==""){
 				alert("请填写自我介绍！");

@@ -27,10 +27,10 @@ public class AlipayConfig {
     public static String alipay_public_key ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxau6Frn57TIWW0nbRll8K3rQQTtNI+YaEunyfEq8uhLPVMXHpAXSc48WKnagLD5luUKZwt0IZe3qE2pZi033uX2xfOoTAdUa9q/uuDXHkIKJ9xwEnXICOHXd1zzmTCmFI9jbVz2Oxcs9XuWPfbEWMR/xide9sysbG3qUlis68yLRozTixCHGrtXeLZ6TRhMO8Ob1VxpLd5f1cVEgX/+Ih7wY+Gzi+tpwMxUXvL4uSsy17sTCa4YYkVuPQm+8O7QeNdTOrtibXhP7TQcnJXdb5qLfDRU1tUwJtdlJbqOccnPLO4Uvn2PsCU/ustKRdp6dvhYpREFDDYDY8CrfSzrz8QIDAQAB";
 
 	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = "http://127.0.0.1:8080/alipay.trade.page.pay-JAVA-UTF-8/notify_url.jsp";
+	public static String notify_url = "http://127.0.0.1/zfb/c/notify_url";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String return_url = "http://127.0.0.1:8080/zsp/c/goldnotesQueryAll";
+	public static String return_url = "http://127.0.0.1/zfb/c/return_url";
 
 	// 签名方式
 	public static String sign_type = "RSA2";

@@ -10,14 +10,19 @@
 	href="/Public/css/owl.carousel.css" />
 <link rel="stylesheet" type="text/css"
 	href="/Public/css/common.css" />
-<script src="Public/js/jquery-1.8.3.min.js"></script>
-<script src="Public/js/common.js"></script>
+<script src="/Public/js/jquery-1.8.3.min.js"></script>
+<script src="/Public/js/common.js"></script>
+<<<<<<< HEAD
+<script src="/Public/js/layer/layer.js"></script>
+<script type="text/javascript" src="/Public/js/jquery.raty.js"></script>
+=======
 <script src="../../Public/js/layer/layer.js"></script>
 <script type="text/javascript" src="../../Public/js/jquery.raty.js"></script>
+>>>>>>> branch 'master' of https://github.com/yphting/yphting.git
 </head>
 <iframe name="topost" id="topost" style="display: none;"></iframe>
 
-<script src="../../Public/js/jquery.raty.min.js"></script>
+<script src="/Public/js/jquery.raty.min.js"></script>
 
 
 <body>
@@ -27,15 +32,15 @@
 			<div class="b_box">
 				<div class="top_nav">
 					<a href="">首页</a><span class="ht_line"></span><a href="">商家入驻</a><span
-						class="ht_line"></span><a href="/index.php/Home/About/help.html">帮助中心</a><span
-						class="ht_line"></span><a href="/index.php/Home/About/index.html">关于韩汀</a><span
+						class="ht_line"></span><a href="">帮助中心</a><span
+						class="ht_line"></span><a href="">关于韩汀</a><span
 						class="ht_line"></span><a href="">联系我们</a>
 				</div>
 
 				<div class="top_right">
 					<a href="index.html">郑石平</a> <span class="ht_line"></span><a
 						href="">退出</a> <span class="ht_line"></span><a
-						href="/index.php/Home/Member/sms.html"><img
+						href=""><img
 						src="/Public/images/e_i.png" alt="" /></a>
 
 					<!--
@@ -46,7 +51,7 @@
 		</div>
 
 		<div class="b_box nav_header community_header">
-			<a class="logo my_logo" href="/index.php/Home/Index/index.html">御品韩汀</a>
+			<a class="logo my_logo" href="">御品韩汀</a>
 			<ul class="member_nav_ul">
 				<li class="cur" id="li2"><a href="">个人中心</a><span
 					class="my_nav_i"></span></li>
@@ -76,7 +81,7 @@
 					<li><a href=""><span class="msp2 community_sp csp7"></span>我的帖子</a>
 					</li>
 
-					<li><a href="grzx-favs.html"><span class="msp2 pre_c3"></span>我的收藏</a>
+					<li><a href=""><span class="msp2 pre_c3"></span>我的收藏</a>
 					</li>
 					<li><a href="/zsp/c/goldnotesQueryAll"><span class="msp2 pre_c4"></span>我的金币</a>
 					</li>
@@ -119,24 +124,9 @@
 					<tbody
 						th:remove="${PAGE_INFO.list.size()==0?'none':'all-but-first'}">
 						<tr th:each="temp,iterState:${PAGE_INFO.list}">
-							<td th:text="${#dates.format(temp.irdate,'yyyy-MM-dd')}">2000-12-13</td>
+							<td th:text="${#dates.format(temp.irdate,'yyyy-MM-dd HH:mm:ss')}">2000-12-13</td>
 							<td th:text="${temp.recordinandout}">+</td>
 							<td th:text="${temp.irdescribe}">记录描述</td>
-						</tr>
-						<tr>
-							<th>2017-05-05</th>
-							<th>+</th>
-							<th>描述</th>
-						</tr>
-						<tr>
-							<th>2017-05-05</th>
-							<th>+</th>
-							<th>描述</th>
-						</tr>
-						<tr>
-							<th>2017-05-05</th>
-							<th>+</th>
-							<th>描述</th>
 						</tr>
 					</tbody>
 				</table>
@@ -169,12 +159,12 @@
 			</dt>
 			<dd>
 				<p class="flink">
-					<a href="/index.php/Home/Member/seller.html">商家入驻</a>|<a
-						href="/index.php/Home/About/help.html">帮助中心</a>|<a
-						href="/index.php/Home/About/index/key/jobs.html">人才招聘</a>|<a
-						href="/index.php/Home/About/contact.html">联系我们</a>|<a
-						href="/index.php/Home/About/sitemap.html">网站地图</a>|<a
-						href="/index.php/Home/About/terms.html">使用条款</a>
+					<a href="">商家入驻</a>|<a
+						href="">帮助中心</a>|<a
+						href="">人才招聘</a>|<a
+						href="">联系我们</a>|<a
+						href="">网站地图</a>|<a
+						href="">使用条款</a>
 				</p>
 				<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 |
 					邮编：412000</p>
@@ -197,7 +187,7 @@
 				<img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm" />
 			</div></li>
 		<li><a
-			href="tencent://Message/?Uin=3119683838&websiteName=http://yphting.zglxkj.com=&Menu=yes"
+			href=""
 			class="rn_kf">在线客服</a></li>
 		<li><a href="#" class="rn_top">Back top</a></li>
 	</ul>
@@ -211,10 +201,10 @@
 				<a href="/index.php/" class="logo">御品韩汀</a>
 				<ul class="pcontact_ul">
 					<li><div class="wr_linka">
-							<a href="http://yphting.zglxkj.com"></a>
+							<a href=""></a>
 						</div>公司官网：http://yphting.zglxkj.com</li>
 					<li><div class="wr_linka">
-							<a href="http://weidian.com/?userid=765635894&wfr=c"></a>
+							<a href=""></a>
 						</div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
 				</ul>
 				<ul class="pcontact_ul2">

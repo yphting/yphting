@@ -29,6 +29,7 @@ import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
+import com.accp.util.WlliusUtil;
 import com.accp.util.file.Upload;
 import com.accp.vo.zsp.EvaluationserviceToservicesVo;
 import com.accp.vo.zsp.UserToServicesVo;
@@ -56,12 +57,12 @@ public class GoldnotesAction {
 			p = 1;
 		if (s == null)
 			s = 6;
-		
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
-		
-		System.out.println("acquisitionMode   "+acquisitionMode);
 		PageInfo<Goldnotes> pageInfo = biz.goldnotesQueryAll(p, s, userId,acquisitionMode);
 		User users = biz.getUser(userId);
+		if(users.getUsermoney()==null) {
+			users.setUsermoney((float) 0);
+		}
 		model.addAttribute("PAGE_INFO", pageInfo);
 		model.addAttribute("USER", users);
 		return "grzx-moneys";
@@ -98,7 +99,6 @@ public class GoldnotesAction {
 	 */
 	@PostMapping("addPutforWard")
 	public String addGoldnotes(Model model, HttpSession session, Putforward putforward) {
-		
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		putforward.setSubmittime(new Date());
 		putforward.setUserid(userId);
@@ -136,6 +136,7 @@ public class GoldnotesAction {
 		if (s == null)s = 6;
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		logistics.setUserid(userId);
+		
 		PageInfo<Logistics> pageInfo=biz.getListLogistics(p, s, logistics);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "grzx-logistics";
@@ -169,6 +170,9 @@ public class GoldnotesAction {
 	public String getListBankType(Model model, HttpSession session) {
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		User user = biz.getUser(userId);
+		if(user.getUsermoney()==null) {
+			user.setUsermoney((float) 0);
+		}
 		List<Banktype> list = biz.getListBankType();
 		model.addAttribute("List", list);
 		model.addAttribute("USER",user);
@@ -187,16 +191,13 @@ public class GoldnotesAction {
 	public String addLogistics(Model model, HttpSession session,Logistics logistics,MultipartFile[] imgFile,
 			String areaid11,String areaid22,String areaid33,String areaid4,
 			String shareaid11,String shareaid22,String shareaid33,String shareaid4) {
-		User users = (User) session.getAttribute("User");
-		if (users == null) {
-			logistics.setUserid(1);
-		} else {
-			logistics.setUserid(users.getUserid());
-		}
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
+		logistics.setUserid(userId);
+		
 		try {
 			List<String> imgUrls=new ArrayList<>(0);
 			for (int i = 0; i < imgFile.length; i++) {
-				imgUrls.add(Upload.uploadImg(imgFile[i]));
+				imgUrls.add(Upload.uploadFile(imgFile[i]));
 			}
 			int a=1;
 			for (String url : imgUrls) {
@@ -223,12 +224,15 @@ public class GoldnotesAction {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TOD O Auto-generated catch block
 			e.printStackTrace();
 		} 
         logistics.setCollectgoodsaddr(shareaid11+shareaid22+shareaid33+shareaid4);
         logistics.setUseraddr(areaid11+areaid22+areaid33+areaid4);;
 		logistics.setOrdertime(new Date());
+		logistics.setAuditstatus(6);
+		String orderid=WlliusUtil.Getnum();
+		logistics.setOrderid(orderid);
 		biz.addLogistics(logistics);
 		return "redirect:/zsp/c/getListLogistics";
 	}
@@ -248,17 +252,15 @@ public class GoldnotesAction {
 		Logistics logistics=biz.getLogistics(userId,id);
 		model.addAttribute("logistics",logistics);
 		if(auditstatus==1) {
-			return "待审核";
-		}else if(auditstatus==2){
-			return "wl-shz";//审核通过
-		}else if(auditstatus==3) {
-			return "wl-sh";//已发国际EMS
-		}else if(auditstatus==4) {
-			return "";//待收货
-		}else if(auditstatus==5) {
-			return "";//待评价
-		}else {
 			return "wl-xianq";//待支付
+		}else if(auditstatus==2){
+			return "wl-shz";//审核中
+		}else if(auditstatus==3) {
+			return "wl-sh";//审核通过 
+		}else  if(auditstatus==4)  {
+			return "wl-EMS";//已发国际EMS
+		}else{
+			return "wl-wcsh";//完成收货
 		}
 	}
 	/**
@@ -275,14 +277,12 @@ public class GoldnotesAction {
 	    	id=1;
 	    }
 	    User users=biz.getUser(userId);
+	    if(users.getUsermoney()==null) {
+	    	users.setUsermoney((float) 0);
+	    }
 		Logistics logistics = biz.getLogistics(userId, id);
 		model.addAttribute("Logistics",logistics);
 		model.addAttribute("USER",users);
-		Goldnotes goldnotes=new Goldnotes();
-		goldnotes.setUserid(userId);
-		goldnotes.setRecorddate(new Date());
-		/*goldnotes.set
-		biz.addGoldnotes(goldnotes);*/
 		if(users.getUsermoney()==null) {
 			return "wu_zhif";
 		}else {
@@ -328,6 +328,9 @@ public class GoldnotesAction {
     public String getLogisticsById(Model model, HttpSession session) {
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		User user = biz.getUser(userId);
+		if(user.getUsermoney()==null) {
+			user.setUsermoney((float) 0.0);
+		}
 		model.addAttribute("USER",user);
     	return "jinb-index";
     }
@@ -376,7 +379,7 @@ public class GoldnotesAction {
 	 */
 	@GetMapping("updlogistics")
 	@ResponseBody
-	public Map<String, String> updlogistics(Model model, HttpSession session,Integer logisticsid,Integer userprice) {		
+	public Map<String, String> updlogistics(Model model, HttpSession session,Integer logisticsid,Float userprice) {		
 				Map<String, String> message=new HashMap<String,String>();
 				try {
 					Integer userId=((User)session.getAttribute("USER")).getUserid();

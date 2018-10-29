@@ -185,7 +185,6 @@ _weburl = 'http://yphting.zglxkj.com';
         	 var logisticsid=[[${Logistics.logisticsid}]];
         	 var usermoney=[[${USER.usermoney}]];
         	 var userprice=usermoney-price
-        	 alert(userprice);
         	 $.ajax("/zsp/c/updlogistics?logisticsid="+logisticsid+"&userprice="+userprice,{
     				type:"get",
     				dataType:"json",
@@ -203,7 +202,8 @@ _weburl = 'http://yphting.zglxkj.com';
     			}); 
     	 }
     	
-     }
+     }
+
 </script>
 
 </body>

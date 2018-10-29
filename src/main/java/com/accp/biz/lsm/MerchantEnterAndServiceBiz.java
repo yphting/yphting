@@ -243,4 +243,16 @@ public class MerchantEnterAndServiceBiz {
 	public List<Post> queryHomePostByMakeup(){
 		return dao.queryHomePostByMakeup();
 	}
+	/**
+	 * 新增金币流向记录
+	 * @param userID 用户编号
+	 * @param acquisitionMode 流向类别
+	 * @param recordDescribe 记录描述
+	 * @param recordInAndOut 收入支出
+	 * @param auditStatus 记录状态
+	 * @return
+	 */
+	public int saveGoldNotes(Integer userID,Integer acquisitionMode,String recordDescribe,float recordInAndOut,Integer auditStatus) {
+		return dao.saveGoldNotes(userID, acquisitionMode, recordDescribe, recordInAndOut, auditStatus);
+	}
 }

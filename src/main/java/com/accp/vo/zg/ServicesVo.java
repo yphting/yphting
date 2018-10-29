@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class ServicesVo {
 		private int serviceid;
 		private int stid;
+		private int userid;
 		private String stname;
 		private String servicecoverimg;
 		private String serviceimgurlone;
@@ -168,18 +169,26 @@ public class ServicesVo {
 		public void setServiceintro(String serviceintro) {
 			this.serviceintro = serviceintro;
 		}
+		
+		public int getUserid() {
+			return userid;
+		}
+		public void setUserid(int userid) {
+			this.userid = userid;
+		}
 		public ServicesVo() {
 			// TODO Auto-generated constructor stub
 		}
-		public ServicesVo(int serviceid, int stid, String stname, String servicecoverimg, String serviceimgurlone,
-				String serviceimgurltwo, String serviceimgurlthree, String serviceimgurlfour, String name,
-				String servicecity, String servicecosttypeid, String servicecostinclude, String servicetitle,
-				String servicefutitle, String serviceintro, String uploadtitle, String uploaddataurl,
-				Timestamp servicestartdate, Timestamp serviceenddate, int serviceprice, int number,
-				Timestamp releasetime, int auditstatus) {
+		public ServicesVo(int serviceid, int stid, int userid, String stname, String servicecoverimg,
+				String serviceimgurlone, String serviceimgurltwo, String serviceimgurlthree, String serviceimgurlfour,
+				String name, String servicecity, String servicecosttypeid, String servicecostinclude,
+				String servicetitle, String servicefutitle, String serviceintro, String uploadtitle,
+				String uploaddataurl, Timestamp servicestartdate, Timestamp serviceenddate, int serviceprice,
+				int number, Timestamp releasetime, int auditstatus) {
 			super();
 			this.serviceid = serviceid;
 			this.stid = stid;
+			this.userid = userid;
 			this.stname = stname;
 			this.servicecoverimg = servicecoverimg;
 			this.serviceimgurlone = serviceimgurlone;
@@ -202,7 +211,8 @@ public class ServicesVo {
 			this.releasetime = releasetime;
 			this.auditstatus = auditstatus;
 		}
-
+		
+		
 
 		
 		

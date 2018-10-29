@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +25,6 @@ import com.accp.pojo.User;
 import com.accp.util.file.Upload;
 
 import com.accp.vo.zg.ServicesVo;
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -44,26 +45,35 @@ public class MerchantAction {
 		}	
 	}
 	
-
+	@GetMapping("queryUser")
+	public String queryUser(HttpSession session, Model model) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		User user=merchantBiz.queryUserByid(userID);
+		model.addAttribute("ZUSER",user);
+		return "sjzx-xzfwlb";
+		
+	}
 	
 	
 	@GetMapping("getServices")
-	public String  queryService(Model model,Integer pageNum,Integer pageSize) {
-		System.out.println(pageNum);
-		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServices(pageNum, pageSize);
+	public String  queryService(HttpSession session,Model model,Integer pageNum,Integer pageSize) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServices(pageNum, pageSize,userID);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "sjzx-services";
 	}
 	
 	@GetMapping("getServicesByTitle")
-	public String  queryServiceByTitle(Model model,Integer pageNum,Integer pageSize,String serviceTitle) {
-		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServicesBytitle(pageNum, pageSize, serviceTitle);
+	public String  queryServiceByTitle(HttpSession session,Model model,Integer pageNum,Integer pageSize,String serviceTitle) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServicesBytitle(pageNum, pageSize, serviceTitle,userID);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "sjzx-services";
 	}
 	
 	@GetMapping("queryServices")
 	public String queryServices(Model model,int serviceid,int stid) {
+		
 			Services service=merchantBiz.queryServices(serviceid);
 			model.addAttribute("Services",service);
 			if(stid==1) {
@@ -81,13 +91,14 @@ public class MerchantAction {
 		}
 	@PostMapping("addServiceslxzj")
 	public String  addServiceslxzj(HttpSession session,Model model,int stid,int resourceID,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids,int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();	
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
 				service.setServiceimgurltwo(xjturl2);
@@ -110,6 +121,7 @@ public class MerchantAction {
 				}
 				
 				service.setStid(stid);
+				service.setUserid(userID);
 				service.setResourceid(resourceID);
 				service.setServicetitle(servicetitle);
 				service.setServicefutitle(servicefutitle);
@@ -122,18 +134,18 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploaddataurl);
 				merchantBiz.addService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 	@PostMapping("updateServiceslxzj")
 	public String  updateServiceslxzj(HttpSession session,Model model,int serviceID,int stid,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids,int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
 				service.setServiceimgurltwo(xjturl2);
@@ -167,20 +179,18 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploaddataurl);
 				merchantBiz.modifyService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 	@PostMapping("addServiceszjy")
-	public String  addServiceszjy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  addServiceszjy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
-				System.out.println(JSON.toJSON(service));
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
-				System.out.println(fmturl);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
 				service.setServiceimgurltwo(xjturl2);
@@ -199,17 +209,28 @@ public class MerchantAction {
 				}
 				String baohao="";
 				for(String val:serviceCostInclude) {
-					baohao+=val+",".substring(0,serviceCostInclude.length-1);
+					baohao+=val+",";
 				}
-			
 				service.setStid(stid);
 				service.setResourceid(resourceID);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 				service.setServicehour(serviceHour);
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+			    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);
@@ -218,17 +239,17 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.addService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	@PostMapping("updateServiceszjy")
-	public String  updateServiceszjy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  updateServiceszjy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -250,14 +271,28 @@ public class MerchantAction {
 				for(String val:serviceCostInclude) {
 					baohao+=val+",".substring(0,serviceCostInclude.length-1);
 				}
+				
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 				service.setServiceid(serviceID);
 				service.setStid(stid);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 				service.setServicehour(serviceHour);
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);
@@ -266,20 +301,20 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 	
 	
 	@PostMapping("addServiceswzx")
-	public String  addServiceswzx(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  addServiceswzx(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -301,15 +336,28 @@ public class MerchantAction {
 				for(String val:serviceCostInclude) {
 					baohao+=val+",".substring(0,serviceCostInclude.length-1);
 				}
-			
+				
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 				service.setStid(stid);
 				service.setResourceid(resourceID);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 			
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);
@@ -318,19 +366,19 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.addService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 
 	@PostMapping("updateServiceswzx")
-	public String  updateServiceswzx(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,Date serviceStartDate,Date serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+	public String  updateServiceswzx(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -352,6 +400,19 @@ public class MerchantAction {
 				for(String val:serviceCostInclude) {
 					baohao+=val+",".substring(0,serviceCostInclude.length-1);
 				}
+				
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    Date servicestartdate=null;
+			    Date serviceenddate=null;
+			    
+			  try {
+				servicestartdate=dateFormat.parse(serviceStartDate);
+				serviceenddate=dateFormat.parse(serviceEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				service.setServiceid(serviceID);
 				service.setStid(stid);
 				service.setResourceid(resourceID);
@@ -359,8 +420,8 @@ public class MerchantAction {
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
 			
-				service.setServicestartdate(serviceStartDate);
-				service.setServiceenddate(serviceEndDate);
+				service.setServicestartdate(servicestartdate);
+				service.setServiceenddate(serviceenddate);
 				service.setServicecostinclude(baohao);
 				service.setDownloadtitle(downloadTitle);
 				service.setServiceprice(servicePrice);
@@ -369,7 +430,7 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 	
@@ -377,11 +438,11 @@ public class MerchantAction {
 	public String  addServicesxxzy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -411,17 +472,17 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.addService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	@PostMapping("updateServicesxxzy")
 	public String  updateServicesxxzy(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -450,17 +511,17 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	@PostMapping("addServiceshyfy")
 	public String  addServiceshyfy(HttpSession session,Model model,int stid,String serviceTitle,String [] typeid,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceIntro,String[] serviceCostInclude,String serviceCostTypeID) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -493,18 +554,18 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 		
 				merchantBiz.addService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 	@PostMapping("updateServiceshyfy")
 	public String  updateServiceshyfy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String [] typeid,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceIntro,String[] serviceCostInclude,String serviceCostTypeID) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadImg(serviceCoverImg);
-				String	xjturl1=Upload.uploadImg(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadImg(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadImg(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadImg(serviceImgUrlFour);
+				String	fmturl=Upload.uploadFile(serviceCoverImg);
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
 				service.setServiceimgurlone(xjturl1);
@@ -537,7 +598,7 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 		
 				merchantBiz.modifyService(service);
-				return "redirect:getServices?pageNum=1&pageSize=3";
+				return "redirect:sjzx-index.html";
 	}
 	
 	@GetMapping("removeServices")

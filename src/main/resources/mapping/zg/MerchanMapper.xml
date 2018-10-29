@@ -13,8 +13,10 @@
 		<select   id="queryUserinfo" resultType="com.accp.pojo.User">
 			  <include refid="selectAll"/> *from user where userName=#{username}
 		</select>
-
-	
+			<select   id="queryUserByid" resultType="com.accp.pojo.User">
+			  <include refid="selectAll"/>  *FROM USER WHERE userID=#{userid}
+		</select>
+		
 	<!-- 查询服务类别（如自驾游、微整形） -->
 	<select id="queryServiceType" resultType="Servicetype">
 		<include refid="selectAll"/>
@@ -34,6 +36,7 @@
 	<resultMap  id="ServicesMap"  type="com.accp.vo.zg.ServicesVo">
 		<result column="serviceID" property="serviceid" />
 		<result  column="stid" property="stid"/>
+		<result column="userID" property="userid" />
 		<result column="stName" property="stname" />
 		<result column="serviceCoverImg" property="servicecoverimg" />
 		<result column="serviceImgUrlOne" property="serviceimgurlone" />
@@ -66,17 +69,18 @@
 							ON s.`serviceID`=o.`serviceID`
 							LEFT JOIN sharea AS ea  ON s.`country`=ea.`areaID`
 
-			<where>
+			<where>	
+			<if test="userID!=null">
+				and userID=#{userid}
+			</if>
 			<if test="serviceTitle!=null">
 				and serviceTitle like '${serviceTitle}%'
 			</if>
-	
 		</where>
 		</select>
 		
 		<select id="queryService"   resultType="Services">
 				SELECT   *FROM `services`  WHERE  serviceID=#{serviceid}
-		
 		</select>
 		
 	<!-- 查询中韩行政地区 -->

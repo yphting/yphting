@@ -15,6 +15,7 @@ import com.accp.pojo.Evaluationservice;
 import com.accp.pojo.Goldnotes;
 import com.accp.pojo.Integralrecord;
 import com.accp.pojo.Logistics;
+import com.accp.pojo.News;
 import com.accp.pojo.Putforward;
 import com.accp.pojo.Services;
 import com.accp.pojo.Sharea;
@@ -61,9 +62,19 @@ public class GoldnotesBiz {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addPutforWard(Putforward  putforward) {
     	User user=dao.getUser(putforward.getUserid());
-    	Integer money=(int) (user.getUsermoney()-putforward.getMoney());
+    	Float money=user.getUsermoney()-putforward.getMoney();
     	dao.updUser(money, putforward.getUserid());
 		dao.addPutforWard(putforward);
+		
+		News news=new News();
+    	news.setAddressee(putforward.getUserid());
+    	news.setContent("金币提现");
+    	news.setMessagegroup(2);
+    	news.setNewstype(2);
+    	news.setReadstate(false);
+    	news.setSendingtime(new Date());
+    	news.setThesender(putforward.getUserid());
+    	dao.addNews(news);
 	}
     /**
      * 添加金币充值记录表
@@ -71,9 +82,15 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
-    	User user=dao.getUser(goldnotes.getUserid());
-    	Integer money=(int) (user.getUsermoney()+goldnotes.getRecordinandout());
-    	dao.updUser(money, goldnotes.getUserid());
+    	News news=new News();
+    	news.setAddressee(goldnotes.getUserid());
+    	news.setContent("支付充值");
+    	news.setMessagegroup(2);
+    	news.setNewstype(2);
+    	news.setReadstate(false);
+    	news.setSendingtime(new Date());
+    	news.setThesender(goldnotes.getUserid());
+    	dao.addNews(news);
     	dao.addGoldnotes(goldnotes);
 	}
     /**
@@ -178,13 +195,33 @@ public class GoldnotesBiz {
    * @param logisticsid
    */
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
-  public void updUser(Integer moery,Integer userId,Integer logisticsid) {
+  public void updUser(Float moery,Integer userId,Integer logisticsid) {
 	  Logistics logistics=new Logistics();
-	  logistics.setAuditstatus(2);
+	  logistics.setAuditstatus(1);
 	  logistics.setOrdertime(new Date());
 	  logistics.setLogisticsid(logisticsid);
-	  dao.updatedLogistics(logistics);
-	  dao.updUser(moery, userId);
+	    Logistics logisticss = dao.getLogistics(userId,logisticsid);
+	    Goldnotes goldnotes=new Goldnotes();
+		goldnotes.setUserid(userId);
+		goldnotes.setAcquisitionmode(2);
+		goldnotes.setRecorddate(new Date());
+		goldnotes.setRecorddescribe("物流支付订单号"+logisticss.getLogisticsid());
+		goldnotes.setRecordinandout(-+(float)logisticss.getPrice());
+		goldnotes.setAuditstatus(2);
+		
+		News news=new News();
+    	news.setAddressee(goldnotes.getUserid());
+    	news.setContent("物流支付");
+    	news.setMessagegroup(2);
+    	news.setNewstype(2);
+    	news.setReadstate(false);
+    	news.setSendingtime(new Date());
+    	news.setThesender(logisticss.getUserid());
+    	dao.addNews(news);
+		
+		dao.addGoldnotes(goldnotes);
+	    dao.updatedLogistics(logistics);
+	    dao.updUser(moery, userId);
   }
   /**
    * 修改物流状态
@@ -197,4 +234,19 @@ public class GoldnotesBiz {
   public List<UserToServicesVo>getUserToServicesVo(){
 	  return dao.getUserToServicesVo();
   }
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+  public void updateUserToGoldnotes(Float total_amount,String out_trade_no,Integer userId,Integer getAuditstatus) {
+	  User user=dao.getUser(userId);
+  	if(user.getUsermoney()==null) {
+  		user.setUsermoney((float) 0);
+  	}
+  	Float money=user.getUsermoney()+total_amount;
+	  dao.updGoldnotes(Integer.parseInt(out_trade_no),getAuditstatus);
+	  dao.updUser(money,userId);
+  }
 }
+
+
+
+
+
