@@ -419,9 +419,13 @@ public class UserAction {
 	@ResponseBody
 	public User queryAUser(HttpSession session) {
 		Integer userID=((User)session.getAttribute("USER")).getUserid();
-		User u=biz.queryUser(userID);
-		session.setAttribute("USER", u);
-		return u;
+		if(userID==null) {
+			return null;
+		}else {
+			User u=biz.queryUser(userID);
+			session.setAttribute("USER", u);
+			return u;
+		}
 	}
 	/**
 	 * 查询用户站内信
