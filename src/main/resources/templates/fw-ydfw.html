@@ -169,6 +169,7 @@
 	<script type="text/javascript" th:src="@{/Public/js/sessionHeader.js}"></script>
 	<script type="text/javascript" th:src="@{/Public/js/headLeftNav.js}"></script>
 	<script>
+		
 		jQuery(".right_nav li a.rn_tel, a.rn_wx").hover(function(){
 			jQuery(this).next().show(300);
 		},function(){
@@ -218,19 +219,31 @@
 				};
 			}
 		);
-		
+		//提交预定
 		function submitCheck(){
-			if([[${srVOobj.serviceTypeID}]]==4){
-				if(jQuery("select[name=resouroeID]").val()==0){
-					alert("请选择上传资料类别！");
-				}else if(jQuery("[name=hyFile]").val()==""){
-					alert("请上传你要翻译的文件！");
-				}else{
-					jQuery("#formbook").submit();
+			jQuery.getJSON("/c/szy/user/queryAUser",function(data){
+				if(data){	//如果已登录
+					var serUserID = [[${serDetailObj.userID}]];
+					var loginUserID = data.userid;
+					if(serUserID==loginUserID){	//如果是自己的服务
+						location.href="/fw-selfSerHint.html";
+					}else{	//可以预定
+						if([[${srVOobj.serviceTypeID}]]==4){
+							if(jQuery("select[name=resouroeID]").val()==0){
+								alert("请选择上传资料类别！");
+							}else if(jQuery("[name=hyFile]").val()==""){
+								alert("请上传你要翻译的文件！");
+							}else{
+								jQuery("#formbook").submit();
+							}
+						}else{
+							jQuery("#formbook").submit();
+						}
+					}
+				}else{	//如果没登录
+					location.href="/fw-loginHint.html";
 				}
-			}else{
-				jQuery("#formbook").submit();
-			}
+			});
 		}
 	</script>
 	

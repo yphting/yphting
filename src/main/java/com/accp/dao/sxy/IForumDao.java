@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.accp.pojo.Forummanagement;
 import com.accp.pojo.Post;
 import com.accp.pojo.Postcollection;
+import com.accp.pojo.Postcomment;
 import com.accp.pojo.Postfabulous;
 import com.accp.vo.sxy.PostVo;
 import com.accp.vo.sxy.PostcommentVo;
@@ -153,5 +154,11 @@ public interface IForumDao {
 	 * @param fabu
 	 */
 	public void saveFabulous(@Param("fabu")Postfabulous fabu);
+	
+	/**
+	 * 评论
+	 * @param comm
+	 */
+	public void saveComment(@Param("comm")Postcomment comm);
 
 }

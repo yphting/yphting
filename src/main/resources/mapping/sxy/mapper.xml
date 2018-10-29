@@ -23,9 +23,16 @@
 
 	<!-- 显示帖子列表映射map -->
 	<resultMap type="com.accp.vo.sxy.PostcommentVo"
+		id="SimplePostcommentVoMap">
+		<association property="user" column="commentator"
+			select="queryUserById"></association>
+	</resultMap>
+	<resultMap type="com.accp.vo.sxy.PostcommentVo"
 		id="PostcommentVoMap">
 		<association property="user" column="commentator"
 			select="queryUserById"></association>
+		<association property="pc" column="pid"
+			select="queryCommentPid"></association>
 	</resultMap>
 	<resultMap type="com.accp.vo.sxy.PostVo" id="PostVoMap">
 		<result property="postid" column="postID" />
@@ -54,6 +61,14 @@
 		select * from postcomment where postid=#{0} order by
 		reviewtime desc limit 0,1
 	</select>
+	
+	
+	<!-- 查询评论帖子 -->
+	<select id="queryCommentPid" resultMap="SimplePostcommentVoMap">
+		select * from postcomment where pcid=#{0}
+	</select>
+	
+	
 	<!-- 查询评论数 -->
 	<select id="queryCountByPostid" resultType="java.lang.Integer">
 		select count(1) from
@@ -79,7 +94,8 @@
 			order by solid desc,releasetime desc
 		</if>
 		<if test="orderId=1">
-			order by solid desc,essence desc,lasttime desc,releasetime desc
+			order by solid desc,essence desc,lasttime desc,releasetime
+			desc
 		</if>
 	</select>
 	<!-- 显示帖子列表结束 -->
@@ -102,7 +118,7 @@
 		post(`userID`,`fmID`,`title`,`content`,`releaseTime`)
 		values(#{post.userid},#{post.fmid},#{post.title},#{post.content},#{post.releasetime})
 	</insert>
-	
+
 	<!-- 验证用户在当天发帖数 -->
 	<select id="checkPostCount" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM post
@@ -157,7 +173,8 @@
 	<!-- 查询我的韩汀论坛中我的回复 -->
 	<select id="queryMyComment" resultMap="PostVoMap">
 		SELECT * FROM post
-		WHERE postId IN (SELECT postId FROM postcomment WHERE commentator =
+		WHERE postId IN (SELECT postId FROM postcomment
+		WHERE commentator =
 		#{userId})
 		<if test="title!=null">
 			and title like '%${title}%'
@@ -166,7 +183,8 @@
 	<!-- 查询我的韩汀论坛中我的收藏 -->
 	<select id="queryMyCollection" resultMap="PostVoMap">
 		SELECT * FROM post
-		WHERE postId IN (SELECT postId FROM postfabulous WHERE userId =
+		WHERE postId IN (SELECT postId FROM postfabulous
+		WHERE userId =
 		#{userId})
 		<if test="title!=null">
 			and title like '%${title}%'
@@ -200,10 +218,18 @@
 	</select>
 	<!-- 点赞 -->
 	<select id="saveFabulous">
-		insert into postfabulous(`userID`,`postID`,`fabulousTime`)
+		insert into
+		postfabulous(`userID`,`postID`,`fabulousTime`)
 		values(#{fabu.userid},#{fabu.postid},#{fabu.fabuloustime});
-		update post set fabulousNumber = fabulousNumber+1
+		update post
+		set fabulousNumber = fabulousNumber+1
 		where postId = #{fabu.postid}
 	</select>
+
+	<insert id="saveComment">
+		insert into
+		postcomment(`postID`,`commentator`,`pid`,`content`,`reviewTime`)
+		values(#{comm.postid},#{comm.commentator},#{comm.pid},#{comm.content},#{comm.reviewtime})
+	</insert>
 
 </mapper>
