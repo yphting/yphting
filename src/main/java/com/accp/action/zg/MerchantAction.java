@@ -45,26 +45,35 @@ public class MerchantAction {
 		}	
 	}
 	
-
+	@GetMapping("queryUser")
+	public String queryUser(HttpSession session, Model model) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		User user=merchantBiz.queryUserByid(userID);
+		model.addAttribute("ZUSER",user);
+		return "sjzx-xzfwlb";
+		
+	}
 	
 	
 	@GetMapping("getServices")
-	public String  queryService(Model model,Integer pageNum,Integer pageSize) {
-		System.out.println(pageNum);
-		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServices(pageNum, pageSize);
+	public String  queryService(HttpSession session,Model model,Integer pageNum,Integer pageSize) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServices(pageNum, pageSize,userID);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "sjzx-services";
 	}
 	
 	@GetMapping("getServicesByTitle")
-	public String  queryServiceByTitle(Model model,Integer pageNum,Integer pageSize,String serviceTitle) {
-		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServicesBytitle(pageNum, pageSize, serviceTitle);
+	public String  queryServiceByTitle(HttpSession session,Model model,Integer pageNum,Integer pageSize,String serviceTitle) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServicesBytitle(pageNum, pageSize, serviceTitle,userID);
 		model.addAttribute("PAGE_INFO", pageInfo);
 		return "sjzx-services";
 	}
 	
 	@GetMapping("queryServices")
 	public String queryServices(Model model,int serviceid,int stid) {
+		
 			Services service=merchantBiz.queryServices(serviceid);
 			model.addAttribute("Services",service);
 			if(stid==1) {
@@ -82,6 +91,7 @@ public class MerchantAction {
 		}
 	@PostMapping("addServiceslxzj")
 	public String  addServiceslxzj(HttpSession session,Model model,int stid,int resourceID,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids,int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();	
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -111,6 +121,7 @@ public class MerchantAction {
 				}
 				
 				service.setStid(stid);
+				service.setUserid(userID);
 				service.setResourceid(resourceID);
 				service.setServicetitle(servicetitle);
 				service.setServicefutitle(servicefutitle);
