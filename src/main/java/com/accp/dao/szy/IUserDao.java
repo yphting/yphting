@@ -125,4 +125,11 @@ public interface IUserDao {
 	 * @return
 	 */
 	public List<News> queryAllNews(@Param("userid")Integer userID);
+	/**
+	 * 新增系统信息
+	 * @param userID
+	 * @param content
+	 * @return
+	 */
+	public int saveXtxx(@Param("userid")Integer userID,@Param("content")String content);
 }

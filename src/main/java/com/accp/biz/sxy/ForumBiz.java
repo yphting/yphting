@@ -82,8 +82,24 @@ public class ForumBiz {
 	 * @return
 	 */
 	public int savePost(Post post) {
-		dao.updateJIntegral(post.getUserid());
 		return dao.savePost(post);
+	}
+	
+	/**
+	 * 查询用户当天发帖数
+	 * @param userId
+	 * @return
+	 */
+	public int checkPostCount(Integer userId) {
+		return dao.checkPostCount(userId);
+	}
+	
+	/**
+	 * 发帖加积分
+	 * @param userId
+	 */
+	public void updateJIntegral(Integer userId) {
+		dao.updateJIntegral(userId);
 	}
 	
 	/**
