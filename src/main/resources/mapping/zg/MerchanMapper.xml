@@ -68,13 +68,12 @@
 							LEFT JOIN orders AS o
 							ON s.`serviceID`=o.`serviceID`
 							LEFT JOIN sharea AS ea  ON s.`country`=ea.`areaID`
-
 			<where>	
-			<if test="userID!=null">
-				and userID=#{userid}
+			<if test="userid!=null">
+				and s.userID=#{userid}
 			</if>
 			<if test="serviceTitle!=null">
-				and serviceTitle like '${serviceTitle}%'
+				and s.serviceTitle like '${serviceTitle}%'
 			</if>
 		</where>
 		</select>

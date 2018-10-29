@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -114,10 +114,45 @@ function orderShou(_oid){
             <a href="/index.php/Home/Seller/index.html">商家中心</a><span class="s_sp_v">-</span><a href="/index.php/Home/Seller/services.html">我发布的服务</a><span class="s_sp_v">-</span>发布服务
         </div>
 		<h2 class="sev_h2_title">选择发布服务类别</h2>
-		<ul class="sss_ul">
 		
-			<li ><a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a></li><li ><a href="/sjzx-fbfw.html" rel="5"><span class="sel_style_sev sss5"></span>留学中介</a></li>		</ul>
-		
+		<div th:switch="${ZUSER.firstServiceID}" >
+			<ul class="sss_ul">
+			<li  th:case="1">
+			<a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a>
+			</li>
+			<li  th:case="2">
+			<a href="/sjzx-wzxfb.html"><span class="sel_style_sev sss5"></span>微整形</a>
+			</li>
+			<li  th:case="3">
+			<a href="/sjzx-fbfw.html" ><span class="sel_style_sev sss3"></span>留学中介</a>
+			</li>
+			<li th:case="4" >
+			<a href="/sjzx-hwfyfb.html"><span class="sel_style_sev sss5"></span>韩语翻译</a>
+			</li>		
+			<li  th:case="5">
+			<a href="/sjzx-xxzyfb.html" ><span class="sel_style_sev sss3"></span>学习资源</a>
+			</li>											
+		</ul>
+		</div>
+		<div th:switch="${ZUSER.secondServiceID}" >
+			<ul class="sss_ul">
+			<li  th:case="1">
+			<a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a>
+			</li>
+			<li  th:case="2">
+			<a href="/sjzx-wzxfb.html"><span class="sel_style_sev sss5"></span>微整形</a>
+			</li>
+			<li  th:case="3">
+			<a href="/sjzx-fbfw.html" ><span class="sel_style_sev sss3"></span>留学中介</a>
+			</li>
+			<li th:case="4" >
+			<a href="/sjzx-hwfyfb.html"><span class="sel_style_sev sss5"></span>韩语翻译</a>
+			</li>		
+			<li  th:case="5">
+			<a href="/sjzx-xxzyfb.html" ><span class="sel_style_sev sss3"></span>学习资源</a>
+			</li>											
+		</ul>
+		</div>
 		<input type="hidden" id="catid" value="3" />
         <div class="business_btn_d business_btn_d2">
 			<a href="javascript:void(0);" class="btn_jy_a btn_jy_a2" onclick="toadd()">选好了，去填写服务内容</a>
