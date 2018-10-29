@@ -115,11 +115,24 @@ public class ForumAction {
 	 */
 	@PostMapping("savePost")
 	@ResponseBody
-	public int savePost(@RequestBody Post post,HttpSession session) {
+	public Map<String,String> savePost(@RequestBody Post post,HttpSession session) {
 		Integer userId = ((User)session.getAttribute("USER")).getUserid();
+		Map<String,String> map=new HashMap<>();
 		post.setUserid(userId);
 		int result = biz.savePost(post);
-		return result;
+		int postCount = biz.checkPostCount(userId);
+		if(result>0) {
+			if(postCount>3) {
+				map.put("code", "200");
+			}else {
+				//新增积分
+				biz.updateJIntegral(userId);
+				map.put("code", "300");
+			}
+		}else {
+			map.put("code", "400");
+		}
+		return map;
 	}
 
 	/**

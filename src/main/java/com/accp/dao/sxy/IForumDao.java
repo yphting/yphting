@@ -61,6 +61,13 @@ public interface IForumDao {
 	public int savePost(@Param("post")Post post);
 	
 	/**
+	 * 查询当天发帖次数
+	 * @param userId
+	 * @return
+	 */
+	public int checkPostCount(@Param("userId")Integer userId);
+	
+	/**
 	 * 查询帖子详情
 	 * @param postId
 	 * @return
