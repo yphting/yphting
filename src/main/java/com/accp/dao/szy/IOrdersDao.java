@@ -35,4 +35,9 @@ public interface IOrdersDao {
 	 * @return
 	 */
 	public List<Orders> queryCountOrder(@Param("userid")Integer userID);
+	/**
+	 * 查询单个订单
+	 * @return
+	 */
+	public OrderInfoVo queryAOrder(@Param("orderID")String orderID);
 }
