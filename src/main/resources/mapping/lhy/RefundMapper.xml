@@ -8,8 +8,15 @@
 	<resultMap type="com.accp.vo.lhy.Refund" id="refundMap">
 		<association property="user" column="userid"
 			select="com.accp.dao.lhy.UserDao.queryUserById"></association>
+		<association property="order" column="orderid"
+			select="com.accp.dao.lhy.OrderDao.queryOrderById"></association>
 	</resultMap>
 
+	<select id="queryRefundList" resultMap="refundMap">
+		select * from refund
+		where orderid in(select orderid from orders where serviceid in(select
+		serviceid from services where userid=#{userid}))
+	</select>
 	<select id="queryRefundByOrderId" resultMap="refundMap">
 		select * from
 		refund

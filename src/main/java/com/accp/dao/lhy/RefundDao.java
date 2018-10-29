@@ -1,5 +1,7 @@
 package com.accp.dao.lhy;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.accp.vo.lhy.Refund;
@@ -31,4 +33,13 @@ public interface RefundDao {
 	 * @return
 	 */
 	boolean updateRefund(@Param("refund") Refund refund);
+
+	/**
+	 * 查询收到的退款列表
+	 * 
+	 * @param userid
+	 *            用户编号
+	 * @return
+	 */
+	List<Refund> queryRefundList(@Param("userid") Integer userid);
 }

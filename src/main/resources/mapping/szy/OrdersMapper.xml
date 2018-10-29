@@ -17,6 +17,7 @@
 			<if test='orderID!=null and orderID!=""'>
 				and orderID like '%${orderID}%'
 			</if>
+			ORDER BY  `orderTime` DESC
 	</select>
 	<select id="selectUser" resultType="com.accp.pojo.User">
 		SELECT * FROM `user`
@@ -65,11 +66,21 @@
 	
 	<update id="updateOrders">
 	UPDATE `orders`
-	SET `orderStatus`=#{orderStatus}
+	SET `orderStatus`=#{orderStatus} 
+	<if test="orderStatus==3">
+		,receiptTime=NOW()
+	</if>
+	<if test="orderStatus==4">
+		,provideServicesTime=NOW()
+	</if>
 	WHERE `orderID`=#{orderID}
 	</update>
 	<select id="queryCountOrder" resultType="com.accp.pojo.Orders">
 		SELECT * FROM orders
 		WHERE serviceID IN(SELECT `serviceID` FROM services WHERE `userID`=#{userid})
+	</select>
+	<select id="queryAOrder" resultMap="queryOrders">
+		SELECT * FROM orders
+		WHERE `orderID`=#{orderID}
 	</select>
 </mapper>

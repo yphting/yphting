@@ -30,7 +30,6 @@ public class MerchantBiz {
 	
 	public User queryUserByid(Integer userid) {
 		return merchantDao.queryUserByid(userid);		
-		
 	}
 	
 	public PageInfo<ServicesVo> queryServicesBytitle(Integer pageNum,Integer pageSize,String serviceTitle,Integer userid){
