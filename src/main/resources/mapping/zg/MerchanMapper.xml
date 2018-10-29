@@ -11,10 +11,10 @@
 	
 	
 		<select   id="queryUserinfo" resultType="com.accp.pojo.User">
-			  <include refid="selectAll"/> *from user where userName=#{username}
+			  <include refid="selectAll"/> user where userName=#{username}
 		</select>
 			<select   id="queryUserByid" resultType="com.accp.pojo.User">
-			  <include refid="selectAll"/>  *FROM USER WHERE userID=#{userid}
+			  <include refid="selectAll"/>  USER WHERE userID=#{userid}
 		</select>
 		
 	<!-- 查询服务类别（如自驾游、微整形） -->
@@ -62,12 +62,10 @@
 		</resultMap>
 		
 		<select  id="queryServiceByTitle" resultMap="ServicesMap"  >
-							SELECT * FROM services AS s
-							LEFT JOIN servicetype AS t
-							ON s.`stid`=t.`stid`
-							LEFT JOIN orders AS o
-							ON s.`serviceID`=o.`serviceID`
-							LEFT JOIN sharea AS ea  ON s.`country`=ea.`areaID`
+						SELECT * ,(SELECT COUNT(*) FROM orders AS o WHERE s.`serviceID`=o.`serviceID` ) AS `count` FROM `services` AS s 
+					LEFT JOIN sharea AS ea  
+					ON s.`country`=ea.`areaID`
+
 			<where>	
 			<if test="userid!=null">
 				and s.userID=#{userid}

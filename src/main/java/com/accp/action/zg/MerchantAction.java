@@ -25,6 +25,7 @@ import com.accp.pojo.User;
 import com.accp.util.file.Upload;
 
 import com.accp.vo.zg.ServicesVo;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -60,7 +61,7 @@ public class MerchantAction {
 		Integer userID=((User)session.getAttribute("USER")).getUserid();
 		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServices(pageNum, pageSize,userID);
 		model.addAttribute("PAGE_INFO", pageInfo);
-		return "sjzx-services";
+		return "/sjzx-services.html";
 	}
 	
 	@GetMapping("getServicesByTitle")
@@ -90,20 +91,33 @@ public class MerchantAction {
 			return null;
 		}
 	@PostMapping("addServiceslxzj")
-	public String  addServiceslxzj(HttpSession session,Model model,int stid,int resourceID,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids,int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
-				Integer userID=((User)session.getAttribute("USER")).getUserid();	
+	public String  addServiceslxzj(HttpSession session,Model model,int stid,int resourceID,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids, int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
+		
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -113,11 +127,11 @@ public class MerchantAction {
 				}
 				String cs="";
 				for(String i:areaids) {
-					cs+=i+",".substring(0,areaids.length-1);
+					cs+=i+",";
 				}
 				String baohao="";
 				for(String val:servicecostinclude) {
-					baohao+=val+",".substring(0,servicecostinclude.length-1);
+					baohao+=val+",";
 				}
 				
 				service.setStid(stid);
@@ -134,23 +148,35 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploaddataurl);
 				merchantBiz.addService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 	@PostMapping("updateServiceslxzj")
 	public String  updateServiceslxzj(HttpSession session,Model model,int serviceID,int stid,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids,int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -179,7 +205,7 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploaddataurl);
 				merchantBiz.modifyService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 	@PostMapping("addServiceszjy")
@@ -187,16 +213,28 @@ public class MerchantAction {
 				Services service=new Services();
 				Integer userID=((User)session.getAttribute("USER")).getUserid();	
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -206,7 +244,7 @@ public class MerchantAction {
 				}
 				String cs="";
 				for(String i:areaids) {
-					cs+=i+",".substring(0,areaids.length-1);
+					cs+=i+",";
 				}
 				String baohao="";
 				for(String val:serviceCostInclude) {
@@ -241,23 +279,34 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.addService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	@PostMapping("updateServiceszjy")
 	public String  updateServiceszjy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -303,7 +352,7 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 	
@@ -312,18 +361,30 @@ public class MerchantAction {
 	public String  addServiceswzx(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Integer userID=((User)session.getAttribute("USER")).getUserid();
 				Services service=new Services();
-				try {
+		try {
+			if(!serviceCoverImg.isEmpty()) {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
 				service.setServicecoverimg(fmturl);
+			}
+			if(!serviceImgUrlOne.isEmpty()) {
+				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
 				service.setServiceimgurlone(xjturl1);
+			}
+			if(!serviceImgUrlTwo.isEmpty()) {
+				
+				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
 				service.setServiceimgurltwo(xjturl2);
+			}
+			if(!serviceImgUrlThree.isEmpty()) {
+				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
 				service.setServiceimgurlthree(xjturl3);
+			}
+			
+			if(!serviceImgUrlFour.isEmpty()) {
+				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 				service.setServiceimgurlfour(xjturl4);
+			}
+		
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -333,11 +394,11 @@ public class MerchantAction {
 				}
 				String cs="";
 				for(String i:areaids) {
-					cs+=i+",".substring(0,areaids.length-1);
+					cs+=i+",";
 				}
 				String baohao="";
 				for(String val:serviceCostInclude) {
-					baohao+=val+",".substring(0,serviceCostInclude.length-1);
+					baohao+=val+",";
 				}
 				
 		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -371,7 +432,7 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.addService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 
@@ -379,17 +440,28 @@ public class MerchantAction {
 	public String  updateServiceswzx(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -399,11 +471,11 @@ public class MerchantAction {
 				}
 				String cs="";
 				for(String i:areaids) {
-					cs+=i+",".substring(0,areaids.length-1);
+					cs+=i+",";
 				}
 				String baohao="";
 				for(String val:serviceCostInclude) {
-					baohao+=val+",".substring(0,serviceCostInclude.length-1);
+					baohao+=val+",";
 				}
 				
 		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -435,7 +507,7 @@ public class MerchantAction {
 				service.setCountry(countryid);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 	
@@ -445,17 +517,28 @@ public class MerchantAction {
 
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -480,23 +563,34 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.addService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	@PostMapping("updateServicesxxzy")
 	public String  updateServicesxxzy(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -519,25 +613,36 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	@PostMapping("addServiceshyfy")
-	public String  addServiceshyfy(HttpSession session,Model model,int stid,String serviceTitle,String [] typeid,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceIntro,String[] serviceCostInclude,String serviceCostTypeID) {
+	public String  addServiceshyfy(HttpSession session,Model model,int stid,String serviceTitle,String[] typeid,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceIntro,String[] serviceCostInclude,String serviceCostTypeID) {
 		Integer userID=((User)session.getAttribute("USER")).getUserid();	
-				
+				System.out.println(JSON.toJSONString(typeid));
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -546,12 +651,12 @@ public class MerchantAction {
 					e1.printStackTrace();
 				}
 				String zy="";
-				for(String i:typeid) {
-					zy+=i+",".substring(0,typeid.length-1);
+				for(String type:typeid) {
+					zy+=type+",";
 				}
 				String baohao="";
 				for(String val:serviceCostInclude) {
-					baohao+=val+",".substring(0,serviceCostInclude.length-1);
+					baohao+=val+",";
 				}
 			
 				service.setStid(stid);
@@ -565,24 +670,35 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 		
 				merchantBiz.addService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 	@PostMapping("updateServiceshyfy")
 	public String  updateServiceshyfy(HttpSession session,Model model,int serviceID,int stid,String serviceTitle,String [] typeid,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceIntro,String[] serviceCostInclude,String serviceCostTypeID) {
 				Services service=new Services();
 				try {
-				String	fmturl=Upload.uploadFile(serviceCoverImg);
-				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
-				String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
-				String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
-				String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
-				System.out.println(fmturl);
-				service.setServicecoverimg(fmturl);
-				service.setServiceimgurlone(xjturl1);
-				service.setServiceimgurltwo(xjturl2);
-				service.setServiceimgurlthree(xjturl3);
-				service.setServiceimgurlfour(xjturl4);
+					if(!serviceCoverImg.isEmpty()) {
+						String	fmturl=Upload.uploadFile(serviceCoverImg);
+						service.setServicecoverimg(fmturl);
+					}
+					if(!serviceImgUrlOne.isEmpty()) {
+						String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
+						service.setServiceimgurlone(xjturl1);
+					}
+					if(!serviceImgUrlTwo.isEmpty()) {
+						
+						String	xjturl2=Upload.uploadFile(serviceImgUrlTwo);
+						service.setServiceimgurltwo(xjturl2);
+					}
+					if(!serviceImgUrlThree.isEmpty()) {
+						String	xjturl3=Upload.uploadFile(serviceImgUrlThree);
+						service.setServiceimgurlthree(xjturl3);
+					}
+					
+					if(!serviceImgUrlFour.isEmpty()) {
+						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
+						service.setServiceimgurlfour(xjturl4);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -592,11 +708,11 @@ public class MerchantAction {
 				}
 				String zy="";
 				for(String i:typeid) {
-					zy+=i+",".substring(0,typeid.length-1);
+					zy+=i+",";
 				}
 				String baohao="";
 				for(String val:serviceCostInclude) {
-					baohao+=val+",".substring(0,serviceCostInclude.length-1);
+					baohao+=val+",";
 				}
 				service.setServiceid(serviceID);
 				service.setStid(stid);
@@ -609,7 +725,7 @@ public class MerchantAction {
 				service.setServiceintro(serviceIntro);
 		
 				merchantBiz.modifyService(service);
-				return "redirect:sjzx-index.html";
+				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	
 	@GetMapping("removeServices")
