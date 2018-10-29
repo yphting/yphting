@@ -418,9 +418,14 @@ public class UserAction {
 	@RequestMapping(value="/user/queryAUser")
 	@ResponseBody
 	public User queryAUser(HttpSession session) {
-		User u=new User();
-		u=(User)session.getAttribute("USER");
-		return u;
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		if(userID==null) {
+			return null;
+		}else {
+			User u=biz.queryUser(userID);
+			session.setAttribute("USER", u);
+			return u;
+		}
 	}
 	/**
 	 * 查询用户站内信

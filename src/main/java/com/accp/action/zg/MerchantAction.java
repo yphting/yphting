@@ -185,6 +185,7 @@ public class MerchantAction {
 	@PostMapping("addServiceszjy")
 	public String  addServiceszjy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,int serviceHour,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
 				Services service=new Services();
+				Integer userID=((User)session.getAttribute("USER")).getUserid();	
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
 				String	xjturl1=Upload.uploadFile(serviceImgUrlOne);
@@ -212,6 +213,7 @@ public class MerchantAction {
 					baohao+=val+",";
 				}
 				service.setStid(stid);
+				service.setUserid(userID);
 				service.setResourceid(resourceID);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
@@ -308,6 +310,7 @@ public class MerchantAction {
 	
 	@PostMapping("addServiceswzx")
 	public String  addServiceswzx(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String hospitalName,String serviceFuTitle,String downloadTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceStartDate,String serviceEndDate,String serviceIntro,String[] areaids,int countryid,String[] serviceCostInclude,String serviceCostTypeID,String uploadDataUrl) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -351,7 +354,9 @@ public class MerchantAction {
 			}
 				
 				service.setStid(stid);
+				service.setUserid(userID);
 				service.setResourceid(resourceID);
+				
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecity(cs);
@@ -436,6 +441,8 @@ public class MerchantAction {
 	
 	@PostMapping("addServicesxxzy")
 	public String  addServicesxxzy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,String uploadDataUrl) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();	
+
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -459,6 +466,7 @@ public class MerchantAction {
 			
 			
 				service.setStid(stid);
+				service.setUserid(userID);
 				service.setResourceid(resourceID);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
@@ -515,6 +523,8 @@ public class MerchantAction {
 	}
 	@PostMapping("addServiceshyfy")
 	public String  addServiceshyfy(HttpSession session,Model model,int stid,String serviceTitle,String [] typeid,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceIntro,String[] serviceCostInclude,String serviceCostTypeID) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();	
+				
 				Services service=new Services();
 				try {
 				String	fmturl=Upload.uploadFile(serviceCoverImg);
@@ -545,6 +555,7 @@ public class MerchantAction {
 				}
 			
 				service.setStid(stid);
+				service.setUserid(userID);
 				service.setServicetitle(serviceTitle);
 				service.setServicefutitle(serviceFuTitle);
 				service.setServicecostinclude(baohao);

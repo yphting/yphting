@@ -55,4 +55,12 @@ public class OrdersBiz {
 	public List<Orders> queryCountOrder(Integer userID) {
 		return dao.queryCountOrder(userID);
 	}
+	/**
+	 * 查询单个订单详情
+	 * @param orderID 订单ID
+	 * @return
+	 */
+	public OrderInfoVo queryAOrder(String orderID) {
+		return dao.queryAOrder(orderID);
+	}
 }

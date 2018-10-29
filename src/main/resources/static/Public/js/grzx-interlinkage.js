@@ -7,7 +7,7 @@ $.getJSON("/c/szy/user/queryAUser",function(data){
 	$("#li2 a").attr("href",grzxHref);
 	$("#li3 a").attr("href",zhszHref);
 	$("#li4 a").attr("href",xxHref);
-	if(data.merchanttype==0){
+	if(data.merchanttype==0&&data.auditstatus!=2){
 		$("#li1").remove();
 	}
 })

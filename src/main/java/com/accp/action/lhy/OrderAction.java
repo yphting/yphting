@@ -184,7 +184,7 @@ public class OrderAction {
 		order.setOrderid(orderid);
 		order.setOrderstatus(status);
 		order.setCommentstatus(commentstatus);
-		PageInfo<Orders> pageInfo = orderBiz.queryOrderList(order, page, 2);
+		PageInfo<Orders> pageInfo = orderBiz.queryOrderList(order, page, 10);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("orderInfo", orderBiz.queryOrderInfo(userId));
 		return "grzx-order";
