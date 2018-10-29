@@ -259,7 +259,7 @@
 	</select>
 	<!-- 查询服务详情 -->
 	<select id="queryServiceDetailInfo" resultType="com.accp.vo.lsm.ServiceDetailInfo">
-		SELECT ser.`serviceID`,ser.`serviceTitle`,st.`stName`,ser.`serviceFuTitle`,ser.`servicePrice`,ser.`serviceHour`,ser.`serviceCostInclude`,ser.`serviceStartDate`,ser.`serviceEndDate`,ser.`serviceIntro`,ser.`serviceCity`,u.`height`,u.`age`,u.`constellation`,u.`profession`,ser.`serviceCostTypeID`,ser.`schoolRegion`,ser.`schoolNameByCN`,ser.`schoolNameByROK`,ser.`majoyNameByCN`,ser.`majoyNameByROK`,ser.`serviceCoverImg`,ser.`serviceImgUrlOne`,ser.`serviceImgUrlTwo`,ser.`serviceImgUrlThree`,ser.`serviceImgUrlFour`
+		SELECT u.`userID`,ser.`serviceID`,ser.`serviceTitle`,st.`stName`,ser.`serviceFuTitle`,ser.`servicePrice`,ser.`serviceHour`,ser.`serviceCostInclude`,ser.`serviceStartDate`,ser.`serviceEndDate`,ser.`serviceIntro`,ser.`serviceCity`,u.`height`,u.`age`,u.`constellation`,u.`profession`,ser.`serviceCostTypeID`,ser.`schoolRegion`,ser.`schoolNameByCN`,ser.`schoolNameByROK`,ser.`majoyNameByCN`,ser.`majoyNameByROK`,ser.`serviceCoverImg`,ser.`serviceImgUrlOne`,ser.`serviceImgUrlTwo`,ser.`serviceImgUrlThree`,ser.`serviceImgUrlFour`
 		FROM `services` AS ser
 		INNER JOIN `user` AS u
 		ON u.`userID` = ser.`userID`

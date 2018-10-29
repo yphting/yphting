@@ -155,13 +155,23 @@
 
 				</div>
 				<!--登录后需要隐藏的-->
-				<div class="hy_box member_bt_btm2 hy_box2">
+				<div th:if="${user.userid==null}" class="hy_box member_bt_btm2 hy_box2">
 					<a
 						href="javascript:void(0);"
 						class="btna_acancel">登录后评论</a> <a
 						href="javascript:void(0);">新用户注册</a>
 				</div>
 				<!--登录后需要隐藏的 end-->
+				
+				
+				<!-- 登录后显示的评论框 -->
+				<div th:if="${user.userid!=null}" class="login_after_pl_box" id="response_box" style="display:block">
+				<input type="hidden" name="mid" id="mid" value="0">
+				<textarea class="login_after_pl_textarea" placeholder="回应" name="msg" id="msg" rel="201"></textarea>
+				<div class="member_bt_btm2" name="commentmain"><a href="javascript:void(0);">切换评论</a></div>
+				<div class="member_bt_btm2 tosubmit"><a href="javascript:void(0);">发布</a></div>
+				</div>
+				<!-- 登录后显示的评论框  end-->
 
 				<h2 class="news_hy_h2">最新回应</h2>
 				<ul  class="my_evaluation_list business_comment_list news_hy_list" id="comment">
@@ -174,13 +184,15 @@
 							<h3 class="bbs_text_title">
 								<a href="javascript:void(0);" class="name_a_2" th:text="${temp.user.username}">许超雄</a>
 							</h3>
+							
+							<!--  回复 -->
+							<div th:if="${temp.pc!=null}" class="hf_show"><span th:text="${temp.pc.content}">墨墨</span>　<a href="javascript:;" class="btna_s2" th:text="${temp.pc.user.username}">倾心</a></div>
+							
 							<p class="pt_text2" th:text="${temp.content}">666</p>
 							<p class="f12 t_r mt0">
-								<a href="javascript:void(0);"
-									onclick="$('#mid').val(144);$('#msg').attr('placeholder','回应许超雄');"
-									class="c_4 response_btn">回应</a>
+								<a th:if="${user.userid==temp.user.userid}" href="javascript:;" class="c_4 response_btn">删除</a>&nbsp;&nbsp;&nbsp;
+								<a href="javascript:void(0);" th:data-pcid="${temp.pcid}" class="c_4 response_btn backcomment">回应</a>
 							</p>
-						</div>
 					</li>
 					<span th:if="${PAGE_INFO.list.size()==0}" style="font-size:20px;margin-left:350px;color:gray;">暂无任何评论</span>
 				</ul>
@@ -447,7 +459,6 @@
 
 $("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
 	
-	
 	$("[name=collec]").click(function(){
 		var obj = new Object();
 		obj["pcid"] = "[[${param.postId}]]";
@@ -480,6 +491,7 @@ $("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
 		})
 	})
 	
+	//点赞
 	$("[name=good]").click(function(){
 		var obj = new Object();
 		obj["postid"] = "[[${param.postId}]]";
@@ -510,6 +522,55 @@ $("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
 				}
 			}
 		})
+	})
+	
+		//评论发布事件
+		$(".tosubmit").click(function(){
+			var obj = new Object();
+			obj["postid"] = "[[${POSTVO.postid}]]";
+			obj["commentator"] = "[[${user.userid}]]";
+			obj["pid"] = $("[name=mid]").val();
+			obj["content"] = $("[name=msg]").val();
+		 	var year = new Date().getFullYear();
+		 	var month = new Date().getMonth()+1;
+		 	var day = new Date().getDate();
+		 	var hour = new Date().getHours();
+		 	var minute = new Date().getMinutes();
+		 	var second = new Date().getSeconds();
+		 	obj["reviewtime"] = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+			if($("[name=msg]").val()==""){
+				alert("请填写评论内容。");
+			}else{
+				savecomment(obj);
+			}
+		})
+		
+	 	//新增评论
+		function savecomment(obj){
+	 	$.ajax({
+	 		url:"/c/sxy/saveComment",
+	 		type:"post",
+	 		data:JSON.stringify(obj),
+	 		dataType:"json",
+	 		contentType:"application/json",
+	 		success:function(data){
+	 			if(data.code=="200"){
+	 				alert("评论成功。");
+					window.location.reload();
+	 			}
+	 		}
+	 	})
+	}
+	
+	$(".backcomment").click(function(){
+		var backuser = $(this).parent().prev().prev().find("a").html();
+		$("[name=mid]").val($(this).attr("data-pcid")).val();
+		$("[name=msg]").attr("placeholder","回应"+backuser);
+	})
+	$("[name=commentmain]").click(function(){
+		alert(1);
+		$("[name=mid]").val(0);
+		$("[name=msg]").attr("placeholder","回应");
 	})
 </script>
 </html>

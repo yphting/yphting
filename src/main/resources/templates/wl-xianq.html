@@ -77,9 +77,10 @@
 				<ul class="my_booking_cont_ul">
 					<li class="cel_1">
 						<p class="c_4 f12">服务订单号</p>
-						<p class="mt5" th:text="${logistics.logisticsid}">15395256239412</p>
+						<p class="mt5" th:text="${logistics.orderid}">15395256239412</p>
 						<p class="c_4 f12">发货方式</p>
-						<p class="mt5" th:text="${logistics.delivery}">自发</p>
+						<p class="mt5" th:if="${logistics.delivery==1}">自发</p>
+						<p class="mt5" th:if="${logistics.delivery==2}">上门提货</p>
 						<p class="c_4 f12">下单时间</p>
 						<p class="mt5"
 							th:text="${#dates.format(logistics.ordertime,'yyyy-MM-dd HH:mm:ss')}">2018-10-14
@@ -104,7 +105,7 @@
 						<p class="mt5" th:text="${logistics.useraddr}">
 							中国 湖北 天门市 111 <br>1 1
 						</p>
-						<p class="c_4 f12">您的收货信息</p>
+						<p class="c_4 f12">您的收货信息        <a th:href="@{/zsp/c/xiugai(id=${logistics.logisticsid})}" class="c_4 f12">修改</a></p>
 						<p class="mt5" th:text="${logistics.collectgoodsaddr}">
 							中国 湖南 怀化市 1111 <br>111 11
 						</p>

@@ -14,6 +14,7 @@ import com.accp.dao.sxy.IForumDao;
 import com.accp.pojo.Forummanagement;
 import com.accp.pojo.Post;
 import com.accp.pojo.Postcollection;
+import com.accp.pojo.Postcomment;
 import com.accp.pojo.Postfabulous;
 import com.accp.vo.sxy.PostVo;
 import com.accp.vo.sxy.PostcommentVo;
@@ -213,6 +214,14 @@ public class ForumBiz {
 	 */
 	public void saveFabulous(Postfabulous fabu) {
 		dao.saveFabulous(fabu);
+	}
+	
+	/**
+	 * 评论
+	 * @param comm
+	 */
+	public void saveComment(Postcomment comm) {
+		dao.saveComment(comm);
 	}
 	
 } 

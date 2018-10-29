@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <title>我收到的预定_韩汀社区</title>
@@ -66,7 +66,23 @@
         <div class="business_order_box">
 			<p class="f14 mt10">
 				<span class="c_4">预定服务状态</span>
-				<span class="big_font d_ff">待付款</span>
+				<span th:if="${order.orderstatus==1}"  class="big_font d_ff">待付款</span>
+				<span th:if="${order.orderstatus==2}"  class="big_font d_ff">待接单</span>
+				<span th:if="${order.orderstatus==3}"  class="big_font d_ff">待提供服务</span>
+				<span th:if="${order.orderstatus==4}"  class="big_font d_ff">已提供服务</span>
+				<span th:if="${order.orderstatus==5 and  order.commentstatus==1 and order.refundstatus==0}"  class="big_font d_ff">待评价</span>
+				<span th:if="${order.orderstatus==5 and  order.commentstatus==2 and order.refundstatus==0}"  class="big_font d_ff">已评价</span>
+				<span th:if="${order.orderstatus==5 and  order.commentstatus==3 and order.refundstatus==0}"  class="big_font d_ff">双方已评</span>
+				<span th:if="${order.orderstatus==5 and  order.refundstatus==1}"  class="big_font d_ff">退款申请中</span>
+				<span th:if="${order.orderstatus==5 and  order.refundstatus==2}"  class="big_font d_ff">不同意</span>
+				<span th:if="${order.orderstatus==5 and  order.refundstatus==3}"  class="big_font d_ff">管理员介入</span>
+				<span th:if="${order.orderstatus==5 and  order.refundstatus==4}"  class="big_font d_ff">管理员拒绝</span>
+				<span th:if="${order.orderstatus==5 and  order.refundstatus==5}"  class="big_font d_ff">退款完成</span>
+				<span th:if="${order.orderstatus==5 and  order.refundstatus==5}"  class="big_font d_ff">退款取消</span>
+				<span th:if="${order.orderstatus==6}"  class="big_font d_ff">服务取消</span>
+				<span th:if="${order.orderstatus==7}"  class="big_font d_ff">未接单</span>
+				<span th:if="${order.orderstatus==8}"  class="big_font d_ff">已退款</span>
+
 			</p>
 			
 																				
@@ -76,9 +92,17 @@
         	<ul class="my_booking_cont_ul">
             	<li>
                     <p class="c_4 f12">订单编号</p>
-                    <p class="mt5">15405168087435</p>
+                    <p class="mt5" th:text="${order.orderid}">15405168087435</p>
 					<p class="c_4 f12">下单时间</p>
-                    <p class="mt5">2018-10-26 09:20</p>
+                    <p class="mt5" th:if="${order.ordertime}!=null">[[${#dates.format(order.ordertime,'yyyy-MM-dd hh:mm')}]]</p>
+                    <p class="c_4 f12">付款时间</p>
+                    <p class="mt5" th:if="${order.paymenttime}!=null">[[${#dates.format(order.paymenttime,'yyyy-MM-dd hh:mm')}]]</p>
+                    <p class="c_4 f12">接单时间</p>
+                    <p class="mt5" th:if="${order.receipttime}!=null">[[${#dates.format(order.receipttime,'yyyy-MM-dd hh:mm')}]]</p>
+                    <p class="c_4 f12">提供服务时间</p>
+                    <p class="mt5" th:if="${order.provideservicestime}!=null">[[${#dates.format(order.provideservicestime,'yyyy-MM-dd hh:mm')}]]</p>
+                    <p class="c_4 f12">完成服务时间</p>
+                    <p class="mt5" th:if="${order.completetime}!=null">[[${#dates.format(order.completetime,'yyyy-MM-dd hh:mm')}]]</p>
 					<p class="c_4 f12">预定用户</p>
                     <p class="mt5"><a target="_blank" href="javascript:void(0)">.... </a></p>
                     <p class="c_4 f12">总金币</p>
@@ -157,4 +181,5 @@
 </body>
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript" src="/Public/js/headLeftNav.js"></script>
+<script type="text/javascript" src="/Public/js/grzx-interlinkage.js"></script>
 </html>

@@ -43,118 +43,27 @@
 
 <div class="bg_c4 pt1">
 		<div class="b_box">
-			<form method="post" enctype="multipart/form-data"
-				action="/zsp/c/addLogistics" id="formmsg">
+			<form method="post" enctype="multipart/form-data"action="/zsp/c/updat" id="formmsg">
 				<div class="sv_path border_c sv_nbor">
 					<a href="">会员中心</a><span class="s_sp_v">-</span><a href="">我发出的物流</a><span
 						class="s_sp_v">-</span>提交发货申请
 				</div>
-				<h2 class="sev_h2_title">发货申请</h2>
-				<dl class="info_form_dl">
-					<dt>物品标题</dt>
-					<dd>
-						<input type="text" class="input_c inf_inc validate[required]"
-							name="title" />
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt>物品描述</dt>
-					<dd class="mt10">
-						<textarea class="input_c fy_sh2 validate[required]"
-							name="describe"></textarea>
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt class="mopa">上传物品图片</dt>
-					<dd>
-						<p class="c_4 pat1 dx_text letter_s">
-							请上传物品图片, 最多5张<br />格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。
-						</p>
-						<div class="sel_file_d">
-							<input type="file" id="imgFile" name="imgFile" /> <input
-								type="file" name="imgFile" /> <input type="file" name="imgFile" />
-							<input type="file" name="imgFile" /> <input type="file"
-								name="imgFile" />
-							<!-- <a href="javascript:void(0);" class="sel_file_a" id="uploadimage">上传文件</a> -->
-						</div>
-						<div id="pics">
-							<img id="preShow" src="" alt="请选择预览图片" name="img1" />
-						</div>
-						<div id="picss"></div>
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt>重量</dt>
-					<dd>
-						<input type="text" name="kg"
-							class="input_c inf_inc4 validate[required,min[10],custom[integer]]" /><span
-							class="dw_sp c_4">kg</span>
-						<p class="c_4 letter_s">
-							请单次发货10kg以上, 即可有韩汀物流韩国EMS空运权限，如果单次30kg起我们物流上门为您发货。<br />保证2天抵达国内机场，5天内送达，最迟不过一周时间，
-						</p>
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt class="mopa">发货方式</dt>
-					<dd id="iddd" class="f14 shiptype">
-						<span id="fah">自发</span> <input type="hidden" value="1"
-							name="delivery" />
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt class="mopa">金币</dt>
-					<dd class="f14">
-						<font id="weight">1</font>kg&nbsp;&nbsp;&nbsp;&nbsp;<span
-							name="333" class="num_2 num_1_s" style="display: none;">42</span>&nbsp;&nbsp;&nbsp;&nbsp;<span
-							class="num_2 num_1_s">42</span> <input type="hidden" name="price" />
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt>发货人</dt>
-					<dd>
-						<input type="text" name="username"
-							class="input_c inf_inc4 validate[required]" />
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt>发货人电话</dt>
-					<dd>
-						<input type="text" name="userphone"
-							class="input_c inf_inc4 validate[required]" />
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
-					<dt>发货信息</dt>
-					<dd class="c_4 f14">
-						<select class="sel_f sel_f2 sel_b2" name="areaid1">
-							<option>请选择</option>
-							<option th:each="temp,iterState:${ShArea}"
-								th:value="${temp.areaid}">[[${temp.name}]]</option>
-						</select> <input type="hidden" name="areaid11"> <select
-							class="sel_f sel_f2 sel_b2" name="areaid2" id="areaid2">
-							<option id="areaid2_option">请选择</option>
-						</select> <input type="hidden" name="areaid22"> <select
-							class="sel_f sel_f2 sel_b2 validate[required]" id="areaid3"
-							name="areaid3">
-							<option value="3">请选择</option>
-						</select> <input type="hidden" name="areaid33"> <input type="text"
-							name="areaid4" class="input_c inf_inc validate[required]" />
-					</dd>
-				</dl>
-				<dl class="info_form_dl">
+				<input type="hidden" name="logisticsid" th:value="${l.logisticsid}">
+				<h2 class="sev_h2_title">修改收货地址</h2>	
+			 	<dl class="info_form_dl">
 					<dt>收货人</dt>
 					<dd>
-						<input type="text" name="collectgoods"
+						<input type="text" th:value="${l.collectgoods}" name="collectgoods"
 							class="input_c inf_inc4 validate[required]" />
 					</dd>
 				</dl>
 				<dl class="info_form_dl">
 					<dt>收货人电话</dt>
 					<dd>
-						<input type="text" name="collectgoodsphone"
+						<input type="text"  th:value="${l.collectgoodsphone}" name="collectgoodsphone"
 							class="input_c inf_inc4 validate[required]" />
 					</dd>
-				</dl>
+				</dl> 
 				<dl class="info_form_dl">
 					<dt>国内收货信息</dt>
 					<dd class="c_4 f14">
@@ -162,7 +71,8 @@
 							<option>请选择</option>
 							<option th:each="temp,iterState:${ShArea}"
 								th:value="${temp.areaid}">[[${temp.name}]]</option>
-						</select> <input type="hidden" name="shareaid11" /> <select
+						</select> 
+						<input type="hidden" name="shareaid11" /> <select
 							class="sel_f sel_f2 sel_b2" name="shareaid2" id="shareaid2">
 							<option>请选择</option>
 						</select> <input type="hidden" name="shareaid22" /> <select
@@ -175,165 +85,11 @@
 				</dl>
 				<div class="business_btn_d">
 					<a href="" class="fr btna_s2">取消申请</a> <input type="submit"
-						class="btn_jy_a" id="submit" value="提交发货申请，去支付">
+						class="btn_jy_a" id="submit" value="修改">
 
 				</div>
 				<script type="text/javascript">
-			 $("[name='kg']").on('input propertychange',function(){
-				
-			  var kg= $("[name='kg']").val();
-			  
-      		  $("#weight").html(kg);
-      		  $("[name='price']").val(kg*42);
-      		   if(kg>10 && kg<30){
-      			   $("[name='delivery']").val(1);
-      			   $("#fah").html("自发");
-      		  }else if(kg>30){
-      			 $("[name='delivery']").val(2);
-      			 $("#fah").html("上门提货");
-      		  }
-      		  
-      	    });
-		            	  var submit=document.getElementById("submit");
-		            	  submit.onclick=function(){
-		     			      var title=$("[name='title']").val();
-		     			      if(title==''){
-		            			  alert("标题不能为空");
-		     			    	  return false;
-		            		  }
-		     			     var describe=$("[name='describe']").val();
-		     			      if(describe==''){
-		            			  alert("描述不能为空");
-		     			    	  return false;
-		            		  }name="kg"
-		     			     var kg=$("[name='kg']").val();
-		     			      if(kg==''){
-		            			  alert("重量不能为空");
-		     			    	  return false;
-		            		  }
-		     			     var userPhone=$("[name='userPhone']").val();
-		     			      if(userPhone==''){
-		            			  alert("发货人不能为空");
-		     			    	  return false;
-		            		  }
-		     			      var collectGoods=$("[name='collectGoods']").val();
-		     			      if(collectGoods==''){
-		            			  alert("发货人电话不能为空");
-		     			    	  return false;
-		            		  }
-		     			      var address=$("[name='address']").find("option:selected").val();
-		     			      if(address==''){
-		            			  alert("请选择发货所在国");
-		     			    	  return false;
-		            		  }
-		     			      
-		     			     var areaid2=$("[name='areaid2']").val();
-		     			      if(areaid2==''){
-		            			  alert("请选择发货区域");
-		     			    	  return false;
-		            		  }
-		     			     var areaid3=$("[name='areaid3']").val();
-		     			      if(areaid3 ==''){
-		            			  alert("请选择地址");
-		     			    	  return false;
-		            		  }
-		     			     var address=$("[name='address']").val();
-		     			      if(address ==''){
-		            			  alert("请输入发货详细地址");
-		     			    	  return false;
-		            		  }
-		     			      
-		     			     var collectGoods=$("[name='collectGoods']").val();
-		     			      if(collectGoods ==''){
-		            			  alert("请输入收货人姓名");
-		     			    	  return false;
-		            		  }
-		     			      
-		     			     var collectGoodsPhone=$("[name='collectGoodsPhone']").val();
-		     			      if(collectGoodsPhone ==''){
-		            			  alert("请输入发货人电话");
-		     			    	  return false;
-		            		  }
-		     			      
-		     			     var shareaid1=$("[name='shareaid1']").val();
-		     			      if(shareaid1 ==''){
-		            			  alert("请选择收货所在国");
-		     			    	  return false;
-		            		  }
-		     			      
-		     			     var shareaid2=$("[name='shareaid2']").val();
-		     			      if(shareaid2==''){
-		            			  alert("请选择收货区域");
-		     			    	  return false;
-		            		  }
-		     			     var shareaid3=$("[name='shareaid3']").val();
-		     			      if(shareaid3==''){
-		            			  alert("请选择收货地址");
-		     			    	  return false;
-		            		  }
-		     			     var shaddress=$("[name='shaddress']").val();
-		     			      if(shaddress==''){
-		            			  alert("请输入收货详细地址");
-		     			    	  return false;
-		            		  }
-		            	  } 	
-		            	  $("[name='kg']").on('input propertychange',function(){
-		            		   var kg=$("[name='kg']").val();
-
-				                  if(isNaN(kg)){
-				                	  $("[name='kg']").val("");
-		            			  alert("请填写正确的数字");
-			            	      } 
-				                  if(num<=0){
-			            			  alert("重量不能小于0")
-			            			  return false;
-			            		  }
-
-		            	  });
-		            	  //发货人地址 
-		            	  $("[name='areaid1']").change(function(){
-		            		 var id= $("[name='areaid1']").find("option:selected").val();
-		            		 var areaid1= $("[name='areaid1']").find("option:selected").html();
-		            		 $("[name='areaid11']").val(areaid1);
-		            		 $("#areaid2").html("");
-		            		 $.ajax("/zsp/c/getShAreaBy?id="+id,{
-		            				type:"get",
-		            				dataType:"json",
-		            				timeout:5000,
-		            				success:function(data){
-		            				   $.each(data,function(i,obj){
-		            					  var opt=$("<option></option>").val(obj.areaid).text(obj.name);
-		            					  $("#areaid2").append(opt);
-		            				   }); 
-		            			    }
-		            			});
-		            	  });
-		            	   $("[name='areaid2']").change(function(){
-			            		 var id= $("[name='areaid2']").find("option:selected").val();
-			            		 $("#areaid3").html("");
-			            		 var areaid2= $("[name='areaid2']").find("option:selected").html();
-			            		 $("[name='areaid22']").val(areaid2);
-			            		 $.ajax("/zsp/c/getShAreaBy?id="+id,{
-			            				type:"get",
-			            				dataType:"json",
-			            				timeout:5000,
-			            				success:function(data){
-			            				   $.each(data,function(i,obj){
-			            					   var opt=$("<option></option>").val(obj.areaid).text(obj.name);
-				            					  $("#areaid3").append(opt);
-			            				   }); 
-			            			    }
-			            			});
-			            	  });
-		            	   $("[name='areaid3']").change(function(){
-			            		 var areaid3= $("[name='areaid3']").find("option:selected").html();
-			            		 $("[name='areaid33']").val(areaid3);
-			            	  });
-		            	   $("[name='shareaid3']").change(function(){
-			            		 var areaid3= $("[name='areaid3']").find("option:selected").html();
-			            		 $("[name='shareaid33']").val(areaid3);
-			            	  });
-		            	   
+			
 		            	  //收货人地址 
 		            	  $("[name='shareaid1']").change(function(){
 			            		 var id= $("[name='shareaid1']").find("option:selected").val();
@@ -453,7 +209,6 @@
 						<span class="sel_work_text">我要咨询整形</span>
 					</div>
 				</li>
-				<input type="hidden" name="act" value="contact" />
 				<li><a class="border_tj" href="javascript:void(0);" onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
 			</ul>
 			<input type="hidden" name="__hash__" value="81dab7171ebc014860a76d01c1cf3eb6_fac29780ce842f13adbd831672482a02" /></form>
@@ -463,7 +218,7 @@
 </div>
 <!--联系我们的浮层 end-->
 <script type="text/javascript" src="/Public/js/jquery-1.12.4.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	//data:base64数据       name:文件名(feng.jpg)
 	var imgObj = {
 		"data" : "",
@@ -498,7 +253,7 @@
 					};
 				});
 	});
-</script>
+</script> -->
 
 </body>
 </html>

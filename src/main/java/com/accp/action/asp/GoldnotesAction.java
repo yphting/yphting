@@ -230,7 +230,7 @@ public class GoldnotesAction {
         logistics.setCollectgoodsaddr(shareaid11+shareaid22+shareaid33+shareaid4);
         logistics.setUseraddr(areaid11+areaid22+areaid33+areaid4);;
 		logistics.setOrdertime(new Date());
-		logistics.setAuditstatus(6);
+		logistics.setAuditstatus(1);
 		String orderid=WlliusUtil.Getnum();
 		logistics.setOrderid(orderid);
 		biz.addLogistics(logistics);
@@ -391,5 +391,33 @@ public class GoldnotesAction {
 					message.put("msg", ex.getMessage());
 				}
 				return message;
+	}
+	@PostMapping("updateLogistics")
+	public String updateLogistics(Model model, HttpSession session,Logistics logistics) {
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
+		logistics.setUserid(userId);
+		logistics.setNumbertime1(new Date());
+		logistics.setAuditstatus(4);
+		biz.updatedLogistics(logistics);
+		return "redirect:/zsp/c/getListLogistics";
+	}
+	@GetMapping("xiugai")
+	public String xiugai(Model model, HttpSession session,Integer id) {
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
+		Logistics logistics = biz.getLogistics(userId, id);
+		
+		List<Sharea>Sharea=biz.getShAreaById(0);
+		model.addAttribute("l",logistics);
+		model.addAttribute("ShArea",Sharea);
+		return "diz";
+	}
+	@PostMapping("updat")
+	public String updat(Model model, HttpSession session,Logistics logistics,
+			String shareaid11,String shareaid22,String shareaid33,String shareaid4) {
+		Integer userId=((User)session.getAttribute("USER")).getUserid();
+        logistics.setCollectgoodsaddr(shareaid11+shareaid22+shareaid33+shareaid4);
+        logistics.setUserid(userId);
+		biz.updatedLogistics(logistics);
+		return "redirect:/zsp/c/getListLogistics";
 	}
 }

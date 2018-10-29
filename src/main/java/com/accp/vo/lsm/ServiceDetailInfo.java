@@ -9,6 +9,7 @@ import com.accp.pojo.Servicedes;
 
 public class ServiceDetailInfo {
 	private Integer serviceID;	//服务编号
+	private Integer userID;	//用户编号
 	private String serviceTitle;	//服务标题
 	private String serviceFuTitle;	//服务副标题
 	private String stName;	//服务类别名称
@@ -199,5 +200,11 @@ public class ServiceDetailInfo {
 	}
 	public void setSerDesList(List<Servicedes> serDesList) {
 		this.serDesList = serDesList;
+	}
+	public Integer getUserID() {
+		return userID;
+	}
+	public void setUserID(Integer userID) {
+		this.userID = userID;
 	}
 }
