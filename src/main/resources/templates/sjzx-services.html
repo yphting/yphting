@@ -109,13 +109,13 @@
             <tr  th:each="temp,iterState:${PAGE_INFO.list}">
 				<td>
 					<input   type="hidden"  th:value="${temp.servicecoverimg}"   id="fmt">
-					<img alt="" th:src="${temp.servicecoverimg}">
+					<img alt="" th:src="${temp.servicecoverimg}" style="width: 50px;height: 50px;">
 					<span th:text="${temp.servicetitle}" id="servicetitle" ></span>
 					<!-- <span th:text="${temp.servicefutitle}" id="servicefutile"></span> -->
 				</td>
 				
 				<td >
-						<span  th:text="${temp.servicestartdate}"></span>
+						<span  th:text="${temp.servicestartdate}"></span>至
 						<span th:text="${temp.serviceenddate}" ></span>
 				</td>
 				<td th:text="${temp.serviceprice}" id="serviceprice"></td>	
@@ -123,9 +123,9 @@
 				<td>
 		
 					 <div th:switch="${temp.auditstatus}">
-						<span th:case="1" style="color:blue;">待审批</span>
-						<span th:case="2" style="color:red;">审批通过</span>
-						<span th:case="3" style="color:yellow;">未通过</span>
+						<span th:case="1" >待审批</span>
+						<span th:case="2" >审批通过</span>
+						<span th:case="3" >未通过</span>
 					</div>
 				
 				</td>
