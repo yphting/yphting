@@ -292,19 +292,6 @@
 					}
 				})
 			}
-				
-			function getChild(cid){
-				if(cid==5){
-					$(".upfiles").show();
-				}else{
-					$(".upfiles").hide();
-				}
-				if(cid==28){
-					$(".upvideo").show();
-				}else{
-					$(".upvideo").hide();
-				}
-			}
 			
 			$(".btn_jy_a").click(function(){
 				if($("[name=catid]").val()==""||$("[name=subject]").val()==""||$("[name=content]").val()==""){
@@ -332,13 +319,20 @@
 			 		data:JSON.stringify(obj),
 					contentType:"application/json",
 					success:function(data){
-						if(data>0){
+						if(data.code=="300"){
 							alert("发布成功,增加5积分。");
-							location.href="/c/sxy/column?pid=1&orderId=1&essence=1";
 							$("[name=subject]").val("");
 							$("[name=content]").val("");
+							location.href="/c/sxy/column?pid=1&orderId=1&essence=1";
+						}else if(data.code=="200"){
+							alert("发布成功。");
+							$("[name=subject]").val("");
+							$("[name=content]").val("");
+							location.href="/c/sxy/column?pid=1&orderId=1&essence=1";
 						}else{
-							alert("发布失败！");
+							alert("发布失败。");
+							$("[name=subject]").val("");
+							$("[name=content]").val("");
 						}
 					},
 					error:function(){
