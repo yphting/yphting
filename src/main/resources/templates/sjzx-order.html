@@ -109,11 +109,11 @@ span  .time2 {
 				</div>
 				<ul class="pre_about_info yd_list_2 yd_list_3" id="typeul">
 					<li class="cur"><a href="javascript:void(0)" id="0">全部</a></li>
-					<li><a href="javascript:void(0)" id="2">待接单<span class="pre_asp">0</span></a></li>
-					<li><a href="javascript:void(0)" id="3">待服务<span class="pre_asp">0</span></a></li>
-					<li><a href="javascript:void(0)" id="4">待完成<span class="pre_asp">0</span></a></li>
-					<li><a href="javascript:void(0)" id="9">退款中<span class="pre_asp">0</span></a></li>
-					<li class="last "><a href="javascript:void(0)" id="5">完成交易<span class="pre_asp">0</span></a></li>
+					<li><a href="javascript:void(0)" id="2">待接单<span class="pre_asp" name="jiedan">0</span></a></li>
+					<li><a href="javascript:void(0)" id="3">待服务<span class="pre_asp" name="fuwu">0</span></a></li>
+					<li><a href="javascript:void(0)" id="4">待完成<span class="pre_asp" name="dwc">0</span></a></li>
+					<li><a href="javascript:void(0)" id="9">退款中<span class="pre_asp" name="tuikan">0</span></a></li>
+					<li class="last "><a href="javascript:void(0)" id="5">完成交易<span class="pre_asp" name="wancheng">0</span></a></li>
 				</ul>
 				<div class="business_title_box">
 					<ul class="book_bt_ul">
@@ -387,6 +387,27 @@ span  .time2 {
 			p.html(data.stname);
 		})
 	})
+	$.getJSON("/c/szy/order/queryCountOrder",function(data){
+		var jiedan=0;var fuwu=0;var dwc=0;var tuikan=0;var wancheng=0;
+		$.each(data,function(i,obj){
+			if(obj.orderstatus==2){
+				jiedan=jiedan+1;
+			}else if(obj.orderstatus==3){
+				fuwu=fuwu+1;
+			}else if(obj.orderstatus==4){
+				dwc=dwc+1;
+			}else if(obj.orderstatus==5&&obj.refundstatus==0){
+				wancheng=wancheng+1;
+			}else if(obj.orderstatus==5&&obj.refundstatus>0){
+				tuikan=tuikan+1;
+			}
+		})
+		$("[name=jiedan]").html(jiedan);
+		$("[name=fuwu]").html(fuwu);
+		$("[name=dwc]").html(dwc);
+		$("[name=tuikan]").html(tuikan);
+		$("[name=wancheng]").html(wancheng);
+	})
 	$("[name=caozuo]").click(function(){
 		var type=$(this).html();
 		var orderStatus=0;
@@ -421,5 +442,6 @@ span  .time2 {
 		}
 		location.href="/c/szy/order/queryAllOrder?orderStatus=0&refundstatus=-1&pageNum=1&pageSize=5&orderID="+orderID;
 	})
+	
 </script>
 </html>
