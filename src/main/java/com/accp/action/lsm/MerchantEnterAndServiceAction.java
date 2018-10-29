@@ -300,7 +300,7 @@ public class MerchantEnterAndServiceAction {
 		obj.setOrderID(orderID);
 		obj.setUserID(loginUserID);
 		biz.submitReserve(obj);
-		return "redirect:/test.html";
+		return "redirect:/c/lhy/order/query/list";
 	}
 	/**
 	 * 收藏服务

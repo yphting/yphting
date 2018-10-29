@@ -154,7 +154,7 @@
 									<dd th:text="${serDetailObj.serviceCostInclude}"></dd>
 								</dl>
 							</div>					
-							<form id="formbook" method="post"  action="/c/lsm/serReserveUrl">
+							<form id="formbook" method="post"  action="/c/lsm/serReserveUrl" >
 								<dl class="online_dl">
 									<dt class="wall">
 										<p class="c_4 p_tti">需要翻译份数<input type="text" id="num" onchange="count()" name="quantity" class="input_c fynum"></p>
@@ -496,9 +496,14 @@
 		});
 		//预约服务前封装数据
 		function reserveCheck(){
-			var subtotal = jQuery("a.online_sq_btn span:eq(2)").text();
-			jQuery("[name=subtotal]").val(subtotal);
-			jQuery("#formbook").submit();
+			if(jQuery("[name=quantity]").val()==""){
+				alert("请填写需要翻译的份数！");
+				return;
+			}else{
+				var subtotal = jQuery("a.online_sq_btn span:eq(2)").text();
+				jQuery("[name=subtotal]").val(subtotal);
+				jQuery("#formbook").submit();
+			}
 		}
 		//改变值时
 		function count(){
