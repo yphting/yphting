@@ -95,34 +95,39 @@
                     <p class="mt5" th:text="${order.orderid}">15405168087435</p>
 					<p class="c_4 f12">下单时间</p>
                     <p class="mt5" th:if="${order.ordertime}!=null">[[${#dates.format(order.ordertime,'yyyy-MM-dd hh:mm')}]]</p>
-                    <p class="c_4 f12">付款时间</p>
+                    <p class="c_4 f12" th:if="${order.paymenttime}!=null">付款时间</p>
                     <p class="mt5" th:if="${order.paymenttime}!=null">[[${#dates.format(order.paymenttime,'yyyy-MM-dd hh:mm')}]]</p>
-                    <p class="c_4 f12">接单时间</p>
+                    <p class="c_4 f12" th:if="${order.receipttime}!=null">接单时间</p>
                     <p class="mt5" th:if="${order.receipttime}!=null">[[${#dates.format(order.receipttime,'yyyy-MM-dd hh:mm')}]]</p>
-                    <p class="c_4 f12">提供服务时间</p>
+                    <p class="c_4 f12" th:if="${order.provideservicestime}!=null">提供服务时间</p>
                     <p class="mt5" th:if="${order.provideservicestime}!=null">[[${#dates.format(order.provideservicestime,'yyyy-MM-dd hh:mm')}]]</p>
-                    <p class="c_4 f12">完成服务时间</p>
+                    <p class="c_4 f12" th:if="${order.completetime}!=null">完成服务时间</p>
                     <p class="mt5" th:if="${order.completetime}!=null">[[${#dates.format(order.completetime,'yyyy-MM-dd hh:mm')}]]</p>
 					<p class="c_4 f12">预定用户</p>
-                    <p class="mt5"><a target="_blank" href="javascript:void(0)">.... </a></p>
+                    <p class="mt5"><a target="_blank" href="javascript:void(0)">[[${order.u.username}]]</a></p>
                     <p class="c_4 f12">总金币</p>
-                    <div class="num_1 f16 mt5">599.0</div>
+                    <div class="num_1 f16 mt5">[[${order.smallplan}]]</div>
 					<p class="c_4 f12">实收到金币(扣除服务费10%）</p>
-                    <div class="num_1 f16">539.1</div>
+                    <div class="num_1 f16">[[${order.smallplan*0.9}]]</div>
                 </li>
                 <li>
                 	<p class="c_4 f12">类别</p>
-                    <p class="mt5">脸部轮廓整形</p>
-                                        <p class="c_4 f12">数量</p>
-                    <p class="mt5">1</p>					                </li>
+                    <p class="mt5" name="ser">[[${order.ser.stid}]]</p>
+                    <p  th:if="${order.number>0}" class="c_4 f12">数量</p>
+                  	<span th:if="${order.number>0}" class="mt5">[[${order.number}]]</span>
+                  	 <p  th:if="${order.number}==null" class="c_4 f12">预定日期</p>
+					<span th:if="${order.number}==null" class="mt5">[[${#dates.format(order.scheduledstarttime,'yyyy-MM-dd')}]]-
+						[[${#dates.format(order.scheduledendtime,'yyyy-MM-dd')}]]
+					</span>				                
+                </li>
                 <li>
                 	<p class="c_4 f12">所预定服务</p>
                     <dl class="my_booking_img_text">
-                    	<dt><img src="" alt="微整形测试标题" width="135" /></dt>
+                    	<dt><img  th:src="${order.ser.servicecoverimg}"  width="135" /></dt>
                         <dd>
-                        	<p><a href="" target="_blank">微整形测试标题</a></p>
+                        	<p><a href="javascript:void(0)" target="_blank">[[${order.ser.servicetitle}]]</a></p>
                             <p></p>
-                            <div class="num_1 num_2_s f14">599</div>
+                            <div class="num_1 num_2_s f14">[[${order.ser.serviceprice}]]</div>
                         </dd>
                     </dl>
                 </li>
@@ -182,4 +187,10 @@
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript" src="/Public/js/headLeftNav.js"></script>
 <script type="text/javascript" src="/Public/js/grzx-interlinkage.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var stid=[[${order.ser.stid}]];
+$.getJSON("/c/szy/order/querySerType",{"stid":stid},function(data){
+	$("[name=ser]").html(data.stname);
+})
+</script>
 </html>

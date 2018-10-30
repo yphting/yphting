@@ -38,10 +38,6 @@ _weburl = 'http://yphting.zglxkj.com';
 <iframe name="topost" id="topost" style="display:none;"></iframe>
 
 <link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
-<script src="/Public/js/valid/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
-<script src="/Public/js/valid/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="/Public/js/Jcrop/css/jquery.Jcrop.css" type="text/css"/>
-<script src="/Public/js/Jcrop/js/jquery.Jcrop.min.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
 function chkform()
@@ -265,26 +261,6 @@ p.upload_img_name{
 </div>
 <!--header end-->
 
-<script language="javascript">
-function ordercancel(_oid){
-    location.href = "/index.php?m=Home&c=Member&a=setzt&oid="+_oid+'&act=cancel&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTQ';
-}
-function ordersuccess(_oid){
-    location.href = "/index.php?m=Home&c=Member&a=setzt&oid="+_oid+'&act=success&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTQ';
-}
-function orderaccept(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=accept&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTQ';
-}
-function ordercancelSeller(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=cancel&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTQ';
-}
-function orderservice(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=submit&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTQ';
-}
-function orderShou(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=Shou&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTQ';
-}
-</script>
 
 <a href="/index.php/Home/About/help.html" class="zy_box">预定流程指引</a>
 <script language="javascript">
@@ -567,7 +543,6 @@ function showcitys(countryid){
 </ul>
 <!--right nav end-->
 
-<link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
 <script src="/Public/js/valid/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8">
 </script>
 <script src="/Public/js/valid/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
@@ -654,7 +629,7 @@ function chktop(){
 						<span class="sel_work_text">我要咨询整形</span>
 					</div>
 				</li>
-				<input type="hidden" name="act" value="contact" />
+		
 				<li><a class="border_tj" href="javascript:void(0);" onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
 			</ul>
 			<input type="hidden" name="__hash__" value="44464afe2ff30102f21a94aa0bb11e8c_03d8c5b8e3be2cf7d9214a1d039cc15e" /></form>

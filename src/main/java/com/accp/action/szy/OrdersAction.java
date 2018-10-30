@@ -74,7 +74,7 @@ public class OrdersAction {
 			break;
 		}
 		userBiz.saveXtxx(userID, content);
-		return "redirect:/c/szy/order/queryAllOrder?orderStatus=0&refundstatus=0&pageNum=1&pageSize=5&orderID=";
+		return "redirect:/c/szy/order/queryAllOrder?orderStatus=0&refundstatus=-1&pageNum=1&pageSize=5&orderID=";
 	}
 	/**
 	 * 查询所有订单信息

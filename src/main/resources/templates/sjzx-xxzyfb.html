@@ -23,49 +23,16 @@
 <link href="/Public/css/owl.carousel.css" rel="stylesheet" />
 <link href="/Public/css/common.css" rel="stylesheet" />
 <script src="/Public/js/jquery-1.8.3.min.js"></script>
-<script src="/Public/js/common.js"></script>
-<script src="/Public/js/layer/layer.js"></script>
-<script type="text/javascript" src="/Public/js/jcarousellite.min.js"></script>
-
-<script type="text/javascript" src="/Public/js/swiper-3.4.2.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/Public/css/swiper-3.4.2.min.css">
 
-<script>
-_weburl = 'http://yphting.zglxkj.com';
-</script>
+
 <meta property="wb:webmaster" content="1a0bb5a2cb580b9f" />
 <meta name="__hash__" content="c68a4d2f6194ad9fd800b809b07561f3_1ccf6de8f187d17135dc34240a27cb97" /></head>
 <iframe name="topost" id="topost" style="display:none;"></iframe>
 
-<link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
-<script src="/Public/js/valid/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
-<script src="/Public/js/valid/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="/Public/js/Jcrop/css/jquery.Jcrop.css" type="text/css"/>
-<script src="/Public/js/Jcrop/js/jquery.Jcrop.min.js" type="text/javascript" charset="utf-8"></script>
-
 <script>
-function chkform()
-{
-	showloading();
-}
-function beforeCall(form, status){
-	showloading();
-}
-function ajaxValidationCallback(d, form, json, options){
-	closetip();
-	console.log(json);
-	showtip(json.msg);
-	if(json.state === 1){
-		setTimeout("location.href='/index.php/Home/Seller/services.html'",2000);
-	}
-};
 
-jQuery(document).ready(function(){
-	// binds form submission and fields to the validation engine
-	jQuery("#formpost").validationEngine({autoHidePrompt:true,autoHideDelay:2000,binded:false
-		,ajaxFormValidation: false,ajaxFormValidationMethod: 'post',onBeforeAjaxFormValidation: beforeCall,onAjaxFormComplete: ajaxValidationCallback
-	});
-});
+
 $(function(){
 	//click button
 	$("#areaids").click(function(){
@@ -225,7 +192,7 @@ p.upload_img_name{
 			<div class="top_nav"><a href="/index.php/">首页</a><span class="ht_line"></span><a href="/index.php/Home/Member/seller.html">商家入驻</a><span class="ht_line"></span><a href="/index.php/Home/About/help.html">帮助中心</a><span class="ht_line"></span><a href="/index.php/Home/About/index.html">关于韩汀</a><span class="ht_line"></span><a href="/index.php/Home/About/contact.html">联系我们</a></div>
 			
 			<div class="top_right">
-									<a href="/index.php/Home/Seller/index.html">黑夜</a>			<span class="ht_line"></span><a href="/index.php/Home/Member/logout.html">退出</a>
+									<a href="/index.php/Home/Seller/index.html"></a>			<span class="ht_line"></span><a href="/index.php/Home/Member/logout.html">退出</a>
             <span class="ht_line"></span><a href="/index.php/Home/Member/sms.html"><img src="/Public/images/e_i.png" alt="" /><span class="e_if"></span></a>
             <script>$('.top_right').addClass('login_right');</script>
 					<!-- 	<span style="font-size:14px;"> &nbsp;&nbsp;| 切换到：<select  id="lang" onchange="changelang();"><option value="" >请选择</option><option value="zh-cn" >简体中文</option> <option value="en-us" >English</option> </select> -->
@@ -263,28 +230,7 @@ p.upload_img_name{
         </ul>
 	</div>
 </div>
-<!--header end-->
 
-<script language="javascript">
-function ordercancel(_oid){
-    location.href = "/index.php?m=Home&c=Member&a=setzt&oid="+_oid+'&act=cancel&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTc';
-}
-function ordersuccess(_oid){
-    location.href = "/index.php?m=Home&c=Member&a=setzt&oid="+_oid+'&act=success&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTc';
-}
-function orderaccept(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=accept&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTc';
-}
-function ordercancelSeller(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=cancel&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTc';
-}
-function orderservice(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=submit&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTc';
-}
-function orderShou(_oid){
-    location.href = "/index.php?m=Home&c=Seller&a=orderzt&oid="+_oid+'&act=Shou&continue=aHR0cDovL3lwaHRpbmcuemdseGtqLmNvbS9pbmRleC5waHA*bT1Ib21lJmM9U2VsbGVyJmE9ZWRpdHN2JmNhdGlkPTc';
-}
-</script>
 
 <a href="/index.php/Home/About/help.html" class="zy_box">预定流程指引</a>
 <script language="javascript">

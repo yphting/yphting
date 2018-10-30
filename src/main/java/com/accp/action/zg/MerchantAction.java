@@ -61,7 +61,7 @@ public class MerchantAction {
 		Integer userID=((User)session.getAttribute("USER")).getUserid();
 		PageInfo<ServicesVo> pageInfo=merchantBiz.queryServices(pageNum, pageSize,userID);
 		model.addAttribute("PAGE_INFO", pageInfo);
-		return "/sjzx-services.html";
+		return "sjzx-services";
 	}
 	
 	@GetMapping("getServicesByTitle")
@@ -512,7 +512,7 @@ public class MerchantAction {
 	
 	
 	@PostMapping("addServicesxxzy")
-	public String  addServicesxxzy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,String uploadDataUrl) {
+	public String  addServicesxxzy(HttpSession session,Model model,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID, MultipartFile uploadDataUrl) {
 		Integer userID=((User)session.getAttribute("USER")).getUserid();	
 
 				Services service=new Services();
@@ -539,6 +539,13 @@ public class MerchantAction {
 						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 						service.setServiceimgurlfour(xjturl4);
 					}
+					
+					if(!uploadDataUrl.isEmpty()) {
+						String	filesc=Upload.uploadFile(uploadDataUrl);
+
+						service.setUploaddataurl(filesc);
+					}
+					
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -561,12 +568,12 @@ public class MerchantAction {
 				service.setServiceprice(servicePrice);
 				service.setServicecosttypeid(serviceCostTypeID);
 				service.setServiceintro(serviceIntro);
-				service.setUploaddataurl(uploadDataUrl);
+			
 				merchantBiz.addService(service);
 				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
 	@PostMapping("updateServicesxxzy")
-	public String  updateServicesxxzy(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,String uploadDataUrl) {
+	public String  updateServicesxxzy(HttpSession session,Model model,int serviceID,int stid,int resourceID,String serviceTitle,String serviceFuTitle,int servicePrice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String schoolRegion,String schoolNameByCN,String majoyNameByCN,String schoolNameByROK,String majoyNameByROK,String serviceIntro,String serviceCostTypeID,MultipartFile uploadDataUrl) {
 				Services service=new Services();
 				try {
 					if(!serviceCoverImg.isEmpty()) {
@@ -591,6 +598,12 @@ public class MerchantAction {
 						String	xjturl4=Upload.uploadFile(serviceImgUrlFour);
 						service.setServiceimgurlfour(xjturl4);
 					}
+					
+					if(!uploadDataUrl.isEmpty()) {
+						String	filesc=Upload.uploadFile(uploadDataUrl);
+
+						service.setUploaddataurl(filesc);
+					}
 				} catch (IllegalStateException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -611,7 +624,6 @@ public class MerchantAction {
 				service.setServiceprice(servicePrice);
 				service.setServicecosttypeid(serviceCostTypeID);
 				service.setServiceintro(serviceIntro);
-				service.setUploaddataurl(uploadDataUrl);
 				merchantBiz.modifyService(service);
 				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
