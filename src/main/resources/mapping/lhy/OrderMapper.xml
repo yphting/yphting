@@ -14,7 +14,7 @@
 		<association property="service" column="serviceid" select="queryServiceById"></association>
 	</resultMap>
 
-	<select id="queryUserById" resultType="user">
+	<select id="queryUserById" resultType="com.accp.vo.lhy.User">
 		select *
 		from user
 		where
