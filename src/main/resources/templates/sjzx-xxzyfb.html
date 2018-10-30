@@ -412,7 +412,7 @@ function showcitys(countryid){
 				<dd class="c_4 f14">
 				<select class="sel_f sel_f2 sel_b2" id="shengid" onChange="setarea(this.value, 'cityid')">
 						<option value="400" >韩国</option>					</select>
-					<select class="sel_f sel_f2 sel_b2" id="cityid" name="schoolRegion" onChange="setarea(this.value, 'areaid1')">
+					<select class="sel_f sel_f2 sel_b2" id="cityid" name="schoolRegion">
 						<option value="">请选择</option>
 						<option value="首尔特别市" >首尔特别市</option><option value="首尔特别市" >釜山广域市</option><option value="大邱广域市" >大邱广域市</option><option value="仁川广域市" >仁川广域市</option><option value="光州广域市" >光州广域市</option><option value="大田广域市" >大田广域市</option><option value="蔚山广域市" >蔚山广域市</option><option value="济州特别自治道" >济州特别自治道</option><option value="江原道" >江原道</option><option value="庆尚北道" >庆尚北道</option><option value="庆尚南道" >庆尚南道</option><option value="忠清北道" >忠清北道</option><option value="忠清南道" >忠清南道</option><option value="全罗北道" >全罗北道</option><option value="全罗南道" >全罗南道</option><option value="京畿道" >京畿道</option><option value="世宗特别自治市" >世宗特别自治市</option>					</select>
 				
@@ -454,10 +454,13 @@ function showcitys(countryid){
 						<dl class="info_form_dl">
 				<dt class="mopa">上传资料</dt>
 				<dd>
-					<p class="c_4 pat1 dx_text">请上传相关资料，最大文件请勿超过25<span class="zmdx">M</span>。如超过25<span class="zmdx">M</span>,建议上传到云盘，添加URL做成超链接，以密码方式下载。<br/>
-					支持文件格式: gif、jpg、jpeg、png, txt, pdf, word, ppt, excel, hwp, mov, avi, mpeg-4, zip, rar.</p>
-					<input type="file" style="display: none"  name="uploadDataUrl"  id="uploadDataUrl" value="" />
-					<div class="sel_file_d"><a href="javascript:void(0);" class="sel_file_a"  onclick="uploadDataUrl.click();">上传文件</a></div>
+					<p class="c_4 pat1 dx_text">请上传相关资料，最大图片请勿超过25<span class="zmdx">M</span>。如超过25<span class="zmdx">M</span>,建议上传到云盘<br/>
+					支持文件格式: gif、jpg、jpeg、png</p>
+						<input name="uploadDataUrl" type="file" id="uploadDataUrl" style="display: none">
+						<img src=""  >
+						<div class="sel_file_d">
+							<a href="javascript:void(0);"   style="margin-left:180px;" class="sel_file_a"  onclick="uploadDataUrl.click();">上传图片</a>
+						</div>
 					<p class="c_4 pat1 dx_text upfiletxt"> 　</p>
 				</dd>
 			</dl>			<dl class="info_form_dl tk_sel_dl">
@@ -469,7 +472,7 @@ function showcitys(countryid){
 			<div class="business_btn_d">
 				<input type="hidden" name="articleid" id="articleid" value="0" />
 				<a href="/index.php/Home/Seller/services.html" class="fr btna_s2">取消发布</a>
-				<a href="javascript:void(0);" onClick="$('#formpost').submit()" class="btn_jy_a btn_jy_a2">发布服务</a>
+				<a href="javascript:void(0);" onClick="$('#formpost').submit()" >发布服务</a>
 			</div>
 		<input type="hidden" name="__hash__" value="c68a4d2f6194ad9fd800b809b07561f3_1ccf6de8f187d17135dc34240a27cb97" /></form>
 	</div>
@@ -502,102 +505,11 @@ function showcitys(countryid){
 </ul>
 <!--right nav end-->
 
-<link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
 <script src="/Public/js/valid/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8">
 </script>
 <script src="/Public/js/valid/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
 </script>
-<script>
-function beforeCall2(form, status){
-	showloading();
-}
-function ajaxValidationCallback2(d, form, json, options){
-	console.log(json);
-	showtip(json.msg);
-	if(json.state === 1){
-		setTimeout("location.reload()",2000);
-	}
-};
 
-jQuery(document).ready(function(){
-	// binds form submission and fields to the validation engine
-	jQuery("#formtopcontact").validationEngine({autoHidePrompt:true,autoHideDelay:1000,binded:false,promptPosition:'topLeft'
-		,ajaxFormValidation: false,ajaxFormValidationMethod: 'post',onBeforeAjaxFormValidation: beforeCall2,onAjaxFormComplete: ajaxValidationCallback2
-	});
-});
-
-function chktop(){
-	_len = $('.chk_1:checked').length;
-	if(!_len){
-		showtip('请选择加盟方式');
-		return false;
-	}
-}
-</script>
-
-<!--联系我们的浮层-->
-<div class="pop_contact">
-	<a href="javascript:void(0);" class="close_pop_contact"></a>
-	<div class="w1000">
-		<div class="pcontact_left">
-			<a href="/index.php/" class="logo">御品韩汀</a>
-			<ul class="pcontact_ul">
-				<li><div class="wr_linka"><a href="http://yphting.zglxkj.com"></a></div>公司官网：http://yphting.zglxkj.com</li>
-				<li><div class="wr_linka"><a href="http://weidian.com/?userid=765635894&wfr=c"></a></div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
-			</ul>
-			<ul class="pcontact_ul2">
-				<li><span class="pcu pcu1"></span>联系方式：18773382506</li>
-				<li><span class="pcu pcu2"></span>客服电话：0731-2286-7673</li>
-				<li><span class="pcu pcu3"></span>住所：경기도 수원시 영통구 영통동 1021-4 청명타운텔 609호</li>
-				<li class="last"><h3 class="contact_us_h3">CONTACT US</h3>联系我们</li>
-			</ul>
-		</div>
-		<div class="pcontact_right">
-			<h2 class="contact_us_title">和我们联系吧</h2>
-			<form method="post" id="formtopcontact" action="/index.php/Home/About/contact.html" target="topost" onsubmit="return chktop()">
-			<ul class="pcontact_ul3">
-				<li><span class="pcspr pcspr1"></span><input id="name" name="name" class="pop_cus_input validate[required]" placeholder="姓名" type="text"></li>
-				<li><span class="pcspr pcspr2"></span><input name="tel" id="tel" class="pop_cus_input validate[required,custom[phone]]" placeholder="电话" type="text"></li>
-				<li><span class="pcspr pcspr3"></span><input name="email" id="email" class="pop_cus_input validate[required,custom[email]]" placeholder="邮箱" type="text"></li>
-				<li><span class="pcspr pcspr4"></span><input name="content" id="content" class="pop_cus_input validate[required]" placeholder="具体需求" type="text"></li>
-				<li class="sel_work">
-					<div class="sel_work_box">
-						<span class="input-group-addon">
-							<span class="hz_icon_top">
-								<input id="title1" name="title[]" value="我要兼职" class="chk_1" type="checkbox">
-								<label for="title1"></label>
-							</span>
-						</span>
-						<span class="sel_work_text">我要兼职</span>
-					</div>
-					<div class="sel_work_box">
-						<span class="input-group-addon">
-							<span class="hz_icon_top">
-								<input id="title2" name="title[]" value="我要成为代理" class="chk_1" type="checkbox">
-								<label for="title2"></label> 
-							</span>
-						</span>
-						<span class="sel_work_text">我要成为代理</span>
-					</div>
-					<div class="sel_work_box">
-						<span class="input-group-addon">
-							<span class="hz_icon_top">
-								<input id="title3" name="title[]" value="我要咨询整形" class="chk_1" type="checkbox">
-								<label for="title3"></label> 
-							</span>
-						</span>
-						<span class="sel_work_text">我要咨询整形</span>
-					</div>
-				</li>
-				<input type="hidden" name="act" value="contact" />
-				<li><a class="border_tj" href="javascript:void(0);" onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
-			</ul>
-			<input type="hidden" name="__hash__" value="c68a4d2f6194ad9fd800b809b07561f3_1ccf6de8f187d17135dc34240a27cb97" /></form>
-		</div>
-		<div class="clear"></div>
-	</div>
-</div>
-<!--联系我们的浮层 end-->
 
 <script src="/Public/js/jquery.scrollto.js"></script>
 
@@ -639,58 +551,7 @@ $(function(){
 });
 
 
-var editor;
-function deldesc(obj){
-	if($('.del_i').length > 1){
-		_aid = $(obj).attr('rel');
-		if(_aid){
-			$.ajax({
-				data: {aid:_aid},
-				type: "post",
-				url: "/index.php/Home/Seller/deldesc.html"
-			})
-		}
-		$(obj).parent().remove();
-	}
-}
-KindEditor.ready(function(K) {
-	editor = K.create('#content', {
-		afterBlur: function () { this.sync(); },
-		uploadJson : '/index.php/Home/Kindeditor/upload/type/desc.html',
-		allowFileManager : false,
-		langType: 'zh_CN',
-		allowPreviewEmoticons : false,
-		allowImageUpload : true
-		//,items : _items
-	});
-});
-var imgUploadBtn0 = document.getElementById("filebt");
-new AjaxUpload(imgUploadBtn0,{
-	action:'/index.php/Home/Kindeditor/upload/dir/file/size/25.html',
-	name:"imgFile",
-	onSubmit:function(file,ext){
-		if(ext && /^(jpg|jpeg|png|gif|txt|pdf|doc|docx|ppt|pptx|xls|xlsx|zip|rar|mp4|avi|ov|hwp|mov)$/.test(ext)){
-			showloading();
-			imgUploadBtn0.innerHTML = "正在上传";
-		}else{
-			showtip('文件格式错误');
-			return false;
-		}
-	},
-	onComplete:function(file,response){
-		imgUploadBtn0.innerHTML = "重新上传";
-		console.log(response);
-		var obj = jQuery.parseJSON(response);
-		console.log(obj);
-		if(obj.error == 0){
-			closetip();
-			$('.upfiletxt').html(obj.file_name+' 　<a href="javascript:;" onclick="removefile(this)" rel="0">删除</a>');
-			$('#upfile').val(obj.url);
-			$('#upfilename').val(obj.file_name);
-		}else
-			showtip(obj.message);
-	}
-});
+
 
 </script>
 
