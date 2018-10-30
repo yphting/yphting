@@ -260,5 +260,10 @@
 		DELETE FROM postcomment WHERE pid = #{pcid}
 	</delete>
 	
+	<select id="queryCommentAtor" resultType="java.lang.Integer">
+		select userId from post 
+		where postId = #{postId}
+	</select>
+	
 	
 </mapper>

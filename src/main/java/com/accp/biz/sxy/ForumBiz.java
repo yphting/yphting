@@ -258,4 +258,12 @@ public class ForumBiz {
 		dao.removeComment(pcid);
 	}
 	
+	/**
+	 * 查询发帖人
+	 * @param postId
+	 * @return
+	 */
+	public Integer queryCommentAtor(Integer postId) {
+		return dao.queryCommentAtor(postId);
+	}
 } 

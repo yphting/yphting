@@ -279,8 +279,9 @@ public class ForumAction {
 	public Map<String,String> saveComment(@RequestBody Postcomment comm){
 		Map<String,String> map=new HashMap<>();
 		int result = biz.queryCommentCount(comm.getCommentator());
+		int commuser = biz.queryCommentAtor(comm.getPostid());
 		biz.saveComment(comm);
-		if(result>10) {
+		if(result>10||commuser==comm.getCommentator()) {
 			map.put("code", "200");
 		}else {
 			map.put("code", "300");
