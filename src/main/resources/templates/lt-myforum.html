@@ -115,10 +115,10 @@
 								<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" th:text="${temp.title}">默默</a>
 							</h3>
 							<p class="bbs_user_i">
-								<a href="javascript:;" th:text="${temp.forum.fmname}">生活情感</a><span
+								<a th:href="@{/c/sxy/column(pid=${temp.forum.pid},page=1,forumId=${temp.forum.fmid},orderId=0,essence=0)}" th:text="${temp.forum.fmname}">生活情感</a><span
 									class="bbs_dot">·</span><span th:text="${temp.user.username}">倾心</span></a><span
 									class="bbs_dot">·</span><a
-									href="javascript:;"><span th:text="${temp.count}">0</span>条回复</a><span
+									th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.count}">0</span>条回复</a><span
 									class="bbs_dot">·</span>
 									<span th:if="${temp.count!=0}">最后回复									
 									<a href="javascript:;" class="lst_nem" th:text="${temp.lastcomment.user.username}">chaki</a></span>
