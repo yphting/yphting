@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class AlipayConfig {
 	
-//↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 	// 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
 	public static String app_id = "2016092200569070";
@@ -45,7 +44,6 @@ public class AlipayConfig {
 	public static String log_path = "C:\\";
 
 
-//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
     /** 
      * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
