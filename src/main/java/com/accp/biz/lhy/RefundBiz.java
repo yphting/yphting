@@ -91,8 +91,7 @@ public class RefundBiz {
 		Integer buyer = orderInfo.getUserid();
 		Integer seller = orderInfo.getService().getUser().getUserid();
 		Float money = orderInfo.getSmallplan();
-		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getService().getUser().getUserid(),
-				"卖家同意退款，订单：" + order.getOrderid());
+		iuserDao.saveXtxx(buyer, "卖家同意退款，订单：" + order.getOrderid());
 		Goldnotes goldnotes = new Goldnotes();
 		goldnotes.setUserid(buyer);
 		goldnotes.setAcquisitionmode(4);
