@@ -160,5 +160,38 @@ public interface IForumDao {
 	 * @param comm
 	 */
 	public void saveComment(@Param("comm")Postcomment comm);
+	
+	/**
+	 * 查询用户最新评论
+	 * @param userId
+	 * @return
+	 */
+	public Postcomment queryLastComment(@Param("userId")Integer userId);
+	
+	/**
+	 * 查询当天评论次数
+	 * @param userId
+	 * @return
+	 */
+	public int queryCommentCount(@Param("userId")Integer userId);
+	
+	/**
+	 * 回帖加积分
+	 * @param comm
+	 */
+	public void updateCommentJIntegral(@Param("comm")Postcomment comm);
+	
+	/**
+	 * 删除评论
+	 * @param pcid
+	 */
+	public void removeComment(@Param("pcid")Integer pcid);
+	
+	/**
+	 * 查询发帖人
+	 * @param postId
+	 * @return
+	 */
+	public Integer queryCommentAtor(@Param("postId")Integer postId);
 
 }
