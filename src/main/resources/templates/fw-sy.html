@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>登陆_韩汀社区</title>
+		<title>首页_韩汀社区</title>
 		<link rel="stylesheet" th:href="@{/Public/css/common.css}" />
 		<link rel="stylesheet" th:href="@{/Public/css/owl.carousel.css}" />
 	</head>
@@ -56,8 +56,8 @@
 		<!--banner-->
 		<div id="index_banner" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
 			<div class="owl-wrapper-outer">
-				<div class="owl-wrapper" style="width: 7200px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-					<div class="owl-item" th:each="temp,iter : ${homeSlideshowList}" >
+				<div class="owl-wrapper" style=" left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
+					<div class="owl-item" th:each="temp,iter : ${homeSlideshowList}" style="width:1920px;" >
 						<div class="item">
 							<a th:href="${temp.apcurl}"><img th:src="${temp.aimgpath}" th:alt="${temp.atitle}" class="w100"></a>
 						</div>
