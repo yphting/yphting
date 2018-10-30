@@ -143,7 +143,7 @@ public class ForumAction {
 	 * @return
 	 */
 	@GetMapping("postDetail")
-	public String queryPostDetail(@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="2")Integer size,Integer postId,Integer fmid,Integer pfmid,String fmname,Model model,HttpSession session) {
+	public String queryPostDetail(@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="5")Integer size,Integer postId,Integer fmid,Integer pfmid,String fmname,Model model,HttpSession session) {
 		User user = (User)session.getAttribute("USER");
 		if(user==null) {
 			return "szy-login";
@@ -262,6 +262,12 @@ public class ForumAction {
 		}
 		return map;
 	}
+	
+	@GetMapping("queryLastcomment")
+	@ResponseBody
+	public Postcomment queryLastComment(Integer userId) {
+		return biz.queryLastComment(userId);
+	}
 
 	/**
 	 * 评论
@@ -272,10 +278,30 @@ public class ForumAction {
 	@ResponseBody
 	public Map<String,String> saveComment(@RequestBody Postcomment comm){
 		Map<String,String> map=new HashMap<>();
+		int result = biz.queryCommentCount(comm.getCommentator());
 		biz.saveComment(comm);
+		if(result>10) {
+			map.put("code", "200");
+		}else {
+			map.put("code", "300");
+			biz.updateCommentJIntegral(comm);
+		}
+		return map;
+	}
+	
+	/**
+	 * 删除评论回复
+	 * @param pcid
+	 * @return
+	 */
+	@PostMapping("removeComment")
+	@ResponseBody
+	public Map<String,String> removeComment(Integer pcid){
+		Map<String,String> map=new HashMap<>();
+		biz.removeComment(pcid);
 		map.put("code", "200");
 		return map;
 	}
-
+		
 
 }

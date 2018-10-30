@@ -224,4 +224,38 @@ public class ForumBiz {
 		dao.saveComment(comm);
 	}
 	
+	/**
+	 * 查询用户最新评论
+	 * @param userId
+	 * @return
+	 */
+	public Postcomment queryLastComment(Integer userId) {
+		return dao.queryLastComment(userId);
+	}
+	
+	/**
+	 * 查询当天 评论次数
+	 * @param userId
+	 * @return
+	 */
+	public int queryCommentCount(Integer userId) {
+		return dao.queryCommentCount(userId);
+	}
+	
+	/**
+	 * 回复评论加积分
+	 * @param comm
+	 */
+	public void updateCommentJIntegral(Postcomment comm) {
+		dao.updateCommentJIntegral(comm);
+	}
+	
+	/**
+	 * 删除评论
+	 * @param pcid
+	 */
+	public void removeComment(Integer pcid) {
+		dao.removeComment(pcid);
+	}
+	
 } 

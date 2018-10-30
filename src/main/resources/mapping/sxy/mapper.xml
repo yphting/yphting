@@ -126,11 +126,11 @@
 		AND userId = #{userId}
 	</select>
 	<!-- 每前3次发帖增加5积分 -->
-	<insert id="updateJIntegral">
+	<update id="updateJIntegral">
 		update user set userIntegral = userIntegral+5
 		where
 		userId = #{userId}
-	</insert>
+	</update>
 	<!-- 查询帖子详情 -->
 	<select id="queryPostDetail" resultMap="PostVoMap">
 		update post set
@@ -225,11 +225,40 @@
 		set fabulousNumber = fabulousNumber+1
 		where postId = #{fabu.postid}
 	</select>
-
+	<!-- 发布评论 -->
 	<insert id="saveComment">
 		insert into
 		postcomment(`postID`,`commentator`,`pid`,`content`,`reviewTime`)
 		values(#{comm.postid},#{comm.commentator},#{comm.pid},#{comm.content},#{comm.reviewtime})
 	</insert>
-
+	<!-- 查询最早发帖时间 -->
+	<select id="queryLastComment" resultType="postcomment">
+		select * from postcomment
+		where commentator = #{userId}
+		order by reviewtime desc
+		limit 0,1
+	</select>
+	
+	<!-- 查询当天评论次数 -->
+	<select id="queryCommentCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM postcomment
+		WHERE TO_DAYS(`reviewtime`) = TO_DAYS(NOW())
+		AND commentator = #{userId}
+	</select>
+	
+	<!-- 评论回帖加积分 -->
+	<update id="updateCommentJIntegral">
+		update user set userIntegral = userIntegral+3
+		where userId = #{comm.commentator};
+		update user set userIntegral = userIntegral+1
+		where userId = (select userId from post where postId = #{comm.postid})
+	</update>
+	
+	<!-- 删除评论 -->
+	<delete id="removeComment">
+		DELETE FROM postcomment WHERE pcid = #{pcid};
+		DELETE FROM postcomment WHERE pid = #{pcid}
+	</delete>
+	
+	
 </mapper>
