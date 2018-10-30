@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.biz.zg.MerchantBiz;
 import com.accp.pojo.Services;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
-
+import com.accp.vo.zg.EvaluationVo;
 import com.accp.vo.zg.ServicesVo;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
@@ -54,6 +54,15 @@ public class MerchantAction {
 		return "sjzx-xzfwlb";
 		
 	}
+	
+	@GetMapping("queryEvaluation")
+	public String  queryEvaluation(HttpSession session,Model model,Integer pageNum,Integer pageSize) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		PageInfo<EvaluationVo> pageInfo=merchantBiz.queryEvaluation(pageNum, pageSize, userID);
+		model.addAttribute("PAGE_INFO", pageInfo);
+		return "sjzx-comment";
+	}
+	
 	
 	
 	@GetMapping("getServices")
@@ -150,7 +159,7 @@ public class MerchantAction {
 				merchantBiz.addService(service);
 				return "redirect:/zg/c/getServices?pageNum=1&pageSize=3";
 	}
-	
+
 	@PostMapping("updateServiceslxzj")
 	public String  updateServiceslxzj(HttpSession session,Model model,int serviceID,int stid,String servicetitle,String servicefutitle,String downloadtitle,int serviceprice, MultipartFile serviceCoverImg,MultipartFile serviceImgUrlOne,MultipartFile serviceImgUrlTwo,MultipartFile serviceImgUrlThree,MultipartFile serviceImgUrlFour,String serviceintro,String[] areaids,int countryid,String[] servicecostinclude,String servicecosttypeid,String uploaddataurl) {
 				Services service=new Services();

@@ -186,5 +186,12 @@ public interface IForumDao {
 	 * @param pcid
 	 */
 	public void removeComment(@Param("pcid")Integer pcid);
+	
+	/**
+	 * 查询发帖人
+	 * @param postId
+	 * @return
+	 */
+	public Integer queryCommentAtor(@Param("postId")Integer postId);
 
 }
