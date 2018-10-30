@@ -2,24 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<meta http-equiv="cleartype" content="on">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta content="telephone=no" name="format-detection" />-->	    
-<title>发布服务_我发布的服务_韩汀社区</title>
-<link rel="shortcut icon" href="/Public/images/favicon.ico" type="image/x-icon" />
-<meta name="keywords" content="御品韩汀，韩汀社区，韩汀，湖南韩汀电子商务有限公司" />
-<meta name="description" content="湖南韩汀电子商务有限公司主要服务范围有海外自驾游，微整形，留学中介，翻译，学习资源，国际物流等项目，主要以大陆国人和海外同胞为服务对象。商家可入驻社区开店，用户可在平台内快速的找到自己需要的服务项目。海外商家对国内用户以及海外同胞开放服务，双方各持所需，互利互惠，是一款海外华人生活，兼职向导平台。 
-
-韩汀宗旨:“崇尚以人为本、客户第一的服务宗旨。热诚为广大客户提供良好的售后服务和技术支持, 保障客户的投资得到良好的回报。”
-
-企业口号：“韩汀—带给你看得到的未来,说不出的精彩!”。
-
-企业理念：”诚信为本,惠于顾客,奉于社会”
-
-企业目标：”建设海外一流社区平台，与广大合作伙伴与时俱进,互利互惠!”。" />
 <link href="/Public/css/owl.carousel.css" rel="stylesheet" />
 <link href="/Public/css/common.css" rel="stylesheet" />
 <script src="/Public/js/jquery-1.8.3.min.js"></script>
@@ -114,45 +96,23 @@ function orderShou(_oid){
             <a href="/index.php/Home/Seller/index.html">商家中心</a><span class="s_sp_v">-</span><a href="/index.php/Home/Seller/services.html">我发布的服务</a><span class="s_sp_v">-</span>发布服务
         </div>
 		<h2 class="sev_h2_title">选择发布服务类别</h2>
+		<ul class="sss_ul" >
+			<li th:switch="${ZUSER.firstserviceid}" class="cur">
+				<a href="/sjzx-zjyfbfw.html" th:case="1" rel="4"><span class="sel_style_sev sss4"></span>自驾游</a>
+				<a href="/sjzx-wzxfb.html" th:case="2" rel="4"><span class="sel_style_sev sss4"></span>微整形</a>
+				<a href="/sjzx-fbfw.html" th:case="3" rel="4"><span class="sel_style_sev sss4"></span>留学中介</a>
+				<a href="/sjzx-hwfyfb.html" th:case="4" rel="4"><span class="sel_style_sev sss4"></span>韩语翻译</a>
+				<a href="/sjzx-xxzyfb.html" th:case="5" rel="4"><span class="sel_style_sev sss4"></span>学习资源</a>
+			</li>
+			<li th:switch="${ZUSER.secondserviceid}">
+				<a href="/sjzx-zjyfbfw.html" th:case="1" rel="4"><span class="sel_style_sev sss4"></span>自驾游</a>
+				<a href="/sjzx-wzxfb.html" th:case="2" rel="4"><span class="sel_style_sev sss4"></span>微整形</a>
+				<a href="/sjzx-fbfw.html" th:case="3" rel="4"><span class="sel_style_sev sss4"></span>留学中介</a>
+				<a href="/sjzx-hwfyfb.html" th:case="4" rel="4"><span class="sel_style_sev sss4"></span>韩语翻译</a>
+				<a href="/sjzx-xxzyfb.html" th:case="5" rel="4"><span class="sel_style_sev sss4"></span>学习资源</a>
+			</li>	
+		</ul>
 		
-		<div th:switch="${ZUSER.firstserviceid}" >
-			<ul class="sss_ul">
-			<li  th:case="1">
-			<a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a>
-			</li>
-			<li  th:case="2">
-			<a href="/sjzx-wzxfb.html"><span class="sel_style_sev sss5"></span>微整形</a>
-			</li>
-			<li  th:case="3">
-			<a href="/sjzx-fbfw.html" ><span class="sel_style_sev sss3"></span>留学中介</a>
-			</li>
-			<li th:case="4" >
-			<a href="/sjzx-hwfyfb.html"><span class="sel_style_sev sss5"></span>韩语翻译</a>
-			</li>		
-			<li  th:case="5">
-			<a href="/sjzx-xxzyfb.html" ><span class="sel_style_sev sss3"></span>学习资源</a>
-			</li>											
-		</ul>
-		</div>
-		<div th:switch="${ZUSER.secondserviceid}"  >
-			<ul class="sss_ul">
-			<li  th:case="1">
-			<a href="/sjzx-zjyfbfw.html" ><span class="sel_style_sev sss3"></span>自驾游</a>
-			</li>
-			<li  th:case="2">
-			<a href="/sjzx-wzxfb.html"><span class="sel_style_sev sss5"></span>微整形</a>
-			</li>
-			<li  th:case="3">
-			<a href="/sjzx-fbfw.html" ><span class="sel_style_sev sss3"></span>留学中介</a>
-			</li>
-			<li th:case="4" >
-			<a href="/sjzx-hwfyfb.html"><span class="sel_style_sev sss5"></span>韩语翻译</a>
-			</li>		
-			<li  th:case="5">
-			<a href="/sjzx-xxzyfb.html" ><span class="sel_style_sev sss3"></span>学习资源</a>
-			</li>											
-		</ul>
-		</div>
 		<input type="hidden" id="catid" value="3" />
         <div class="business_btn_d business_btn_d2">
 			<a href="javascript:void(0);" class="btn_jy_a btn_jy_a2" onclick="toadd()">选好了，去填写服务内容</a>
@@ -245,69 +205,7 @@ function chktop(){
 }
 </script>
 
-<!--联系我们的浮层-->
-<div class="pop_contact">
-	<a href="javascript:void(0);" class="close_pop_contact"></a>
-	<div class="w1000">
-		<div class="pcontact_left">
-			<a href="/index.php/" class="logo">御品韩汀</a>
-			<ul class="pcontact_ul">
-				<li><div class="wr_linka"><a href="http://yphting.zglxkj.com"></a></div>公司官网：http://yphting.zglxkj.com</li>
-				<li><div class="wr_linka"><a href="http://weidian.com/?userid=765635894&wfr=c"></a></div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
-			</ul>
-			<ul class="pcontact_ul2">
-				<li><span class="pcu pcu1"></span>联系方式：18773382506</li>
-				<li><span class="pcu pcu2"></span>客服电话：0731-2286-7673</li>
-				<li><span class="pcu pcu3"></span>住所：경기도 수원시 영통구 영통동 1021-4 청명타운텔 609호</li>
-				<li class="last"><h3 class="contact_us_h3">CONTACT US</h3>联系我们</li>
-			</ul>
-		</div>
-		<div class="pcontact_right">
-			<h2 class="contact_us_title">和我们联系吧</h2>
-			<form method="post" id="formtopcontact" action="/index.php/Home/About/contact.html" target="topost" onsubmit="return chktop()">
-			<ul class="pcontact_ul3">
-				<li><span class="pcspr pcspr1"></span><input id="name" name="name" class="pop_cus_input validate[required]" placeholder="姓名" type="text"></li>
-				<li><span class="pcspr pcspr2"></span><input name="tel" id="tel" class="pop_cus_input validate[required,custom[phone]]" placeholder="电话" type="text"></li>
-				<li><span class="pcspr pcspr3"></span><input name="email" id="email" class="pop_cus_input validate[required,custom[email]]" placeholder="邮箱" type="text"></li>
-				<li><span class="pcspr pcspr4"></span><input name="content" id="content" class="pop_cus_input validate[required]" placeholder="具体需求" type="text"></li>
-				<li class="sel_work">
-					<div class="sel_work_box">
-						<span class="input-group-addon">
-							<span class="hz_icon_top">
-								<input id="title1" name="title[]" value="我要兼职" class="chk_1" type="checkbox">
-								<label for="title1"></label>
-							</span>
-						</span>
-						<span class="sel_work_text">我要兼职</span>
-					</div>
-					<div class="sel_work_box">
-						<span class="input-group-addon">
-							<span class="hz_icon_top">
-								<input id="title2" name="title[]" value="我要成为代理" class="chk_1" type="checkbox">
-								<label for="title2"></label> 
-							</span>
-						</span>
-						<span class="sel_work_text">我要成为代理</span>
-					</div>
-					<div class="sel_work_box">
-						<span class="input-group-addon">
-							<span class="hz_icon_top">
-								<input id="title3" name="title[]" value="我要咨询整形" class="chk_1" type="checkbox">
-								<label for="title3"></label> 
-							</span>
-						</span>
-						<span class="sel_work_text">我要咨询整形</span>
-					</div>
-				</li>
-				<input type="hidden" name="act" value="contact" />
-				<li><a class="border_tj" href="javascript:void(0);" onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
-			</ul>
-			<input type="hidden" name="__hash__" value="1fe6e46a42984d214068a45891db5d1a_1f1635428f35c66f0c5ad1226bab022d" /></form>
-		</div>
-		<div class="clear"></div>
-	</div>
-</div>
-<!--联系我们的浮层 end-->
+
 
 <script src="/Public/js/jquery.scrollto.js"></script>
 

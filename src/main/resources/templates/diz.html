@@ -125,6 +125,11 @@
 			            			    }
 			            			}); 
 			            	  }); 
+		            	  	  $("[name='shareaid3']").change(function(){
+				            		 var areaid3= $("[name='shareaid3']").find("option:selected").html();
+				            		 $("[name='shareaid33']").val(areaid3);
+				            		 alert(areaid3);
+				            	  });
 				</script>
 		</div>
 	</div>

@@ -418,10 +418,10 @@ public class UserAction {
 	@RequestMapping(value="/user/queryAUser")
 	@ResponseBody
 	public User queryAUser(HttpSession session) {
-		Integer userID=((User)session.getAttribute("USER")).getUserid();
-		if(userID==null) {
+		if(session.getAttribute("USER")==null) {
 			return null;
 		}else {
+			Integer userID=((User)session.getAttribute("USER")).getUserid();
 			User u=biz.queryUser(userID);
 			session.setAttribute("USER", u);
 			return u;
