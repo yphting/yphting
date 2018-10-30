@@ -238,9 +238,9 @@
 						<li th:each="temp,item : ${NEWLIST}">
 						<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" class="ntul_atext" th:text="${temp.title}">韩语翻译</a>
 							<p class="ntul_infoa">
-								<a href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"></a><span
+								<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"></a><span
 									class="dot_i3">•</span><a
-									href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.commentnumber}">0</span>&nbsp;回复</a>
+									th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.commentnumber}">0</span>&nbsp;回复</a>
 							</p></li>
 					</ul>
 				</div>
@@ -256,9 +256,9 @@
 						<li th:each="temp,item : ${HOT.list}">
 						<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" class="ntul_atext" th:text="${temp.title}"> 韩语越说越地道</a>
 							<p class="ntul_infoa">
-								<a href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"></a><span
+								<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"></a><span
 									class="dot_i3">•</span><a
-									href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.commentnumber}">4</span>&nbsp;回复</a>
+									th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.commentnumber}">4</span>&nbsp;回复</a>
 							</p></li>
 					</ul>
 				</div>

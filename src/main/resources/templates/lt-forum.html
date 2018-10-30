@@ -142,9 +142,9 @@
 									<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" th:text="${temp.title}"></a>
 								</h3>
 								<p class="bbs_user_i">
-									<a href="javascript:;" th:text="${temp.forum.fmname}">韩国大学简介</a><span class="bbs_dot">·</span>
+									<a th:href="@{/c/sxy/column(pid=${temp.forum.pid},page=1,forumId=${temp.forum.fmid},orderId=0,essence=0)}" th:text="${temp.forum.fmname}">韩国大学简介</a><span class="bbs_dot">·</span>
 									<a href="javascript:;" th:text="${temp.user.username}">坏坏带点乖.</a><span class="bbs_dot">·</span>
-									<a href="javascript:;"><span th:text="${temp.count}">2</span>条回复</a><span class="bbs_dot">·</span><span th:text="${#dates.format(temp.releasetime, 'yyyy-MM-dd HH:mm')}">16</span><span class="bbs_dot"></span>
+									<a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.count}">2</span>条回复</a><span class="bbs_dot">·</span><span th:text="${#dates.format(temp.releasetime, 'yyyy-MM-dd HH:mm')}">16</span><span class="bbs_dot"></span>
 									<span th:if="${temp.count!=0}"><span>·&nbsp;&nbsp;&nbsp;&nbsp;</span>最后回复									
 									<a href="javascript:;" class="lst_nem" th:text="${temp.lastcomment.user.username}">chaki</a></span>
 								</p>
