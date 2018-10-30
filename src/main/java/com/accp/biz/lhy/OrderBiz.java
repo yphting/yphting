@@ -1,5 +1,7 @@
 package com.accp.biz.lhy;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -10,7 +12,10 @@ import com.accp.dao.lhy.EvaluateDao;
 import com.accp.dao.lhy.OrderDao;
 import com.accp.dao.lhy.RefundDao;
 import com.accp.dao.lhy.UserDao;
-import com.accp.vo.lhy.User;
+import com.accp.dao.szy.IUserDao;
+import com.accp.dao.zsp.GoldnotesDao;
+import com.accp.pojo.Goldnotes;
+import com.accp.pojo.User;
 import com.accp.vo.lhy.Evaluate;
 import com.accp.vo.lhy.OrderInfo;
 import com.accp.vo.lhy.Orders;
@@ -29,6 +34,10 @@ public class OrderBiz {
 	private EvaluateDao evaluateDao;
 	@Autowired
 	private RefundDao refundDao;
+	@Autowired
+	private IUserDao iuserDao;
+	@Autowired
+	private GoldnotesDao goldnotesDao;
 
 	/**
 	 * 分页查询订单列表
@@ -105,19 +114,31 @@ public class OrderBiz {
 		if (user.getUsermoney() < usermoney) {
 			return false;
 		}
+		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getService().getUser().getUserid(),
+				"用户已支付订单：" + order.getOrderid());
+		Goldnotes goldnotes = new Goldnotes();
+		goldnotes.setUserid(user.getUserid());
+		goldnotes.setAcquisitionmode(1);
+		goldnotes.setRecorddate(new Date());
+		goldnotes.setRecorddescribe("支付订单：" + order.getOrderid());
+		goldnotes.setRecordinandout((float) -usermoney);
+		goldnotes.setAuditstatus(2);
+		goldnotesDao.addGoldnotes(goldnotes);
 		userDao.updateUserMoney(-usermoney, userid);
 		return orderDao.updateOrder(order);
 	}
 
 	/**
-	 * 修改订单
+	 * 取消订单
 	 * 
 	 * @param order
 	 *            订单
 	 * @return
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
-	public boolean updateOrder(Orders order) {
+	public boolean cancelOrder(Orders order) {
+		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getService().getUser().getUserid(),
+				"用户已取消订单：" + order.getOrderid());
 		return orderDao.updateOrder(order);
 	}
 
@@ -134,6 +155,16 @@ public class OrderBiz {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean ok(double usermoney, int userid, Orders order) {
+		User user = orderDao.queryOrderById(order.getOrderid()).getService().getUser();
+		iuserDao.saveXtxx(user.getUserid(), "用户已确认完成订单：" + order.getOrderid());
+		Goldnotes goldnotes = new Goldnotes();
+		goldnotes.setUserid(user.getUserid());
+		goldnotes.setAcquisitionmode(2);
+		goldnotes.setRecorddate(new Date());
+		goldnotes.setRecorddescribe("订单收益：" + order.getOrderid());
+		goldnotes.setRecordinandout((float) (usermoney * 0.9));
+		goldnotes.setAuditstatus(2);
+		goldnotesDao.addGoldnotes(goldnotes);
 		userDao.updateUserMoney(usermoney * 0.9, userid);
 		return orderDao.updateOrder(order);
 	}
@@ -149,6 +180,8 @@ public class OrderBiz {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean evaluateOk(Evaluate evaluate, Orders order) {
+		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getService().getUser().getUserid(),
+				"用户已评价订单：" + order.getOrderid());
 		evaluateDao.saveEvaluate(evaluate);
 		return orderDao.updateOrder(order);
 	}
@@ -164,6 +197,8 @@ public class OrderBiz {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean refundok(Refund refund, Orders order) {
+		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getService().getUser().getUserid(),
+				"用户申请退款，订单：" + order.getOrderid());
 		refundDao.saveRefund(refund);
 		return orderDao.updateOrder(order);
 	}

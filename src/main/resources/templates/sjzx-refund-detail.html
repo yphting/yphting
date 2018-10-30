@@ -88,7 +88,7 @@
 						<div class="fr my_tkr">
 							<a th:if="${order.refundstatus==1}" th:href="|javascript:refundOk('${order.orderid}');|" class="btna_s2 send_site_email_btna">同意</a>
 							<span th:if="${order.refundstatus==1}">|</span>
-							<a th:if="${order.refundstatus==1}" href="" class="btna_s2 send_site_email_btna">不同意</a>
+							<a th:if="${order.refundstatus==1}"th:href="@{/c/lhy/refund/why(orderid=${order.orderid})}" class="btna_s2 send_site_email_btna">不同意</a>
 							<span th:if="${order.refundstatus==1}">|</span>
 							<a href="" class="btna_s2 send_site_email_btna">站内信买家</a>
 						</div>
