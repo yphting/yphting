@@ -3,6 +3,8 @@ package com.accp.biz.zg;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -14,6 +16,7 @@ import com.accp.dao.zg.IMerchantDao;
 import com.accp.pojo.Services;
 
 import com.accp.pojo.User;
+import com.accp.vo.zg.EvaluationVo;
 import com.accp.vo.zg.ServicesVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -68,8 +71,9 @@ public class MerchantBiz {
 		merchantDao.updateService(service);
 	}
 	
-	
-	
-	
+	public PageInfo<EvaluationVo> queryEvaluation(Integer pageNum,Integer pageSize,Integer userid){
+		PageHelper.startPage(pageNum, pageSize);
+		return new PageInfo<EvaluationVo>(merchantDao.queryEvaluation(userid));
+	}
 	
 }

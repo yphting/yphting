@@ -227,15 +227,42 @@
 		where serviceID=#{services.serviceid}
 		</update>
 		
-		<insert id="">
-				INSERT INTO `appraisalapply`( `userID `, ` stid `,` name `, `sex`, ` height `, ` constellation `, ` age `, 
-				` visaType `, ` documentType `, ` certificates `, ` experience `, ` vehicle `, ` guideCard `, ` inKorea `, ` phone `, 
-				` email `, ` country `, ` provincialID `, ` cityID `, ` detailed `, ` hospitalLicense `, ` cooperativeHospital `, 
-				` cooperativeHospitalURL `, ` hospitalPhone `, ` translateType `, ` translate `, ` office `, ` officeCountry `, ` officeProvince `, 
-				` officeCity `, ` officeDetailed `, ` koreaLicense `, ` translateWebsite `, ` studyMajor `, ` schoolReport `, 
-				` officialNetworkURL `, ` submitTime `, ` auditTime `, ` adminOpinion `, ` auditStatus `
-				)VALUES();
-		
+		<insert id="addAppraisalapply">
+				INSERT INTO `appraisalapply`( `userID`, `stid`,`name`, `sex`, `height`, `constellation`, `age`, 
+				`visaType`, `documentType`, `certificates`, `experience`, `vehicle`, `guideCard`, `inKorea`, `phone`, 
+				` email`, `country`, `provincialID`, `cityID`, `detailed`, `hospitalLicense`, `cooperativeHospital`, 
+				`cooperativeHospitalURL`, `hospitalPhone`, `translateType`, `translate`, `office`, `officeCountry`, `officeProvince`, 
+				`officeCity`, `officeDetailed`, `koreaLicense`, `translateWebsite`, `studyMajor`, `schoolReport`, 
+				`officialNetworkURL`, `submitTime`, `auditTime`, `adminOpinion`, `auditStatus`)
+				VALUES(#{pojo.userid},#{pojo.stid},#{pojo.name},#{pojo.sex},#{pojo.height},#{pojo.constellation},
+				#{pojo.age},#{pojo.visatype},#{pojo.documenttype},#{pojo.certificates},#{pojo.experience},#{pojo.vehicle},#{pojo.guidecard},
+				#{pojo.inkorea},#{pojo.phone},#{pojo.email},#{pojo.country},#{pojo.provincialid},#{pojo.cityid},#{pojo.detailed},#{pojo.hospitalLicense},
+				#{pojo.cooperativeHospital},#{pojo.cooperativeHospitalurl},#{pojo.hospitalphone},#{pojo.translatetype},#{pojo.translate},#{pojo.office},
+				#{pojo.officecountry},#{pojo.officeprovince},#{pojo.officecity},#{pojo.officedetailed},#{pojo.korealicense},#{pojo.translatewebsite},
+				#{pojo.studymajor},#{pojo.schoolreport},#{pojo.officialnetworkurl},#{pojo.submittime},#{pojo.audittime},#{pojo.adminopinion},#{pojo.auditstatus});
 		</insert>
+		<resultMap type="com.accp.vo.zg.EvaluationVo" id="EvaluationMap">
+						<result column="userID" property="userid" />
+						<result column="userImgPath" property="userimgpath" />
+						<result  column="userName" property="username"/>
+						<result column="serviceTitle" property="servicetitle" />
+						<result column="serviceAppraiseContent" property="serviceappraisecontent" />
+						<result column="serviceAppraiseDate" property="serviceappraisedate" />
+						<result column="serviceAppraiseLevel" property="serviceappraiselevel" />
+		</resultMap>
+		
+		<select id="queryEvaluation"  resultMap="EvaluationMap">
+					SELECT *FROM evaluationservice AS e
+					LEFT JOIN USER AS u ON e.`userID`=u.`userID`
+					LEFT JOIN services AS s  ON e.`serviceID`=s.`serviceID`
+		<where>	
+					<if test="userid!=null">
+						and e.userID=#{userid}
+					</if>
+		</where>
+		</select>
+		
+		
+		
 		
 </mapper>    

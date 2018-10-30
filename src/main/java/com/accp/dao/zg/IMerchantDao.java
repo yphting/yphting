@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import com.accp.pojo.Appraisalapply;
 import com.accp.pojo.Services;
 import com.accp.pojo.User;
+import com.accp.vo.zg.EvaluationVo;
 import com.accp.vo.zg.ServicesVo;
 public interface IMerchantDao {
 	
@@ -28,9 +29,9 @@ public interface IMerchantDao {
 	  public int updateService(@Param("services")Services service);
 	  
 	  public int deleteService(@Param("serviceID")int serviceID);
-	  
-	  public List<Appraisalapply>  queryAppraisalapplyByUserId(@Param("userid") int  userid);
-	  	
+	   	
 	  public int addAppraisalapply(@Param("pojo") Appraisalapply pojo);
+	  
+	  public List<EvaluationVo>  queryEvaluation(@Param("userid") int userid);
 	  
 }
