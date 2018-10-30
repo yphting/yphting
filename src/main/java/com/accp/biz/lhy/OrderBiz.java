@@ -10,7 +10,7 @@ import com.accp.dao.lhy.EvaluateDao;
 import com.accp.dao.lhy.OrderDao;
 import com.accp.dao.lhy.RefundDao;
 import com.accp.dao.lhy.UserDao;
-import com.accp.pojo.User;
+import com.accp.vo.lhy.User;
 import com.accp.vo.lhy.Evaluate;
 import com.accp.vo.lhy.OrderInfo;
 import com.accp.vo.lhy.Orders;

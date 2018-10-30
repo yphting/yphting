@@ -113,7 +113,7 @@
 							<td nowrap="" th:if="${temp.order.refundstatus==5}">退款完成</td>
 							<td nowrap="" th:if="${temp.order.refundstatus==6}">退款取消</td>
 							<td nowrap="" align="center"><a
-								th:if="${temp.order.refundstatus==1}" href="" class="btna_s2">同意</a>
+								th:if="${temp.order.refundstatus==1}" th:href="|javascript:refundOk('${temp.order.orderid}');|" class="btna_s2">同意</a>
 								<br th:if="${temp.order.refundstatus==1}"> <a
 								th:if="${temp.order.refundstatus==1}" href="" class="btna_s2">不同意</a>
 								<br th:if="${temp.order.refundstatus==1}"> <a th:href="@{/c/lhy/refund/sjdetail(orderid=${temp.order.orderid})}"
@@ -212,5 +212,27 @@
 		<li><a href="" class="rn_kf">在线客服</a></li>
 		<li><a href="" class="rn_top">Back top</a></li>
 	</ul>
+
+	<script type="text/javascript">
+		function refundOk(orderid) {
+			alert(orderid)
+			$.ajax({
+				url : "/c/lhy/refund/ok",
+				data : {
+					orderid : orderid
+				},
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					if (data) {
+						alert("同意退款成功");
+					} else {
+						alert("同意退款失败");
+					}
+					location.reload();
+				}
+			})
+		}
+	</script>
 </body>
 </html>

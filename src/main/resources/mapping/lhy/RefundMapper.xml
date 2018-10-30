@@ -32,8 +32,26 @@
 	<update id="updateRefund">
 		update refund
 		<set>
+			<if test="refund.actualrefundmoney!=null">
+				actualrefundmoney=#{refund.actualrefundmoney},
+			</if>
+			<if test="refund.audittime!=null">
+				audittime=#{refund.audittime},
+			</if>
+			<if test="refund.auditstatus!=null">
+				auditstatus=#{refund.auditstatus},
+			</if>
+			<if test="refund.admintime!=null">
+				admintime=#{refund.admintime},
+			</if>
 			<if test="refund.adminstatus!=null">
 				adminstatus=#{refund.adminstatus},
+			</if>
+			<if test="refund.businessremarks!=null">
+				businessremarks=#{refund.businessremarks},
+			</if>
+			<if test="refund.adminremarks!=null">
+				adminremarks=#{refund.adminremarks},
 			</if>
 		</set>
 		where orderid=#{refund.orderid}
