@@ -3,12 +3,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<meta http-equiv="cleartype" content="on">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta content="telephone=no" name="format-detection" />-->
+
 <title>我发出的物流_韩汀社区</title>
 <link rel="shortcut icon" href="/Public/images/favicon.ico"
 	type="image/x-icon" />
@@ -170,12 +165,12 @@
 				</dt>
 				<dd>
 					<p class="flink">
-						<a href="/index.php/Home/Member/seller.html">商家入驻</a>|<a
-							href="/index.php/Home/About/help.html">帮助中心</a>|<a
-							href="/index.php/Home/About/index/key/jobs.html">人才招聘</a>|<a
-							href="/index.php/Home/About/contact.html">联系我们</a>|<a
-							href="/index.php/Home/About/sitemap.html">网站地图</a>|<a
-							href="/index.php/Home/About/terms.html">使用条款</a>
+						<a href="">商家入驻</a>|<a
+							href="">帮助中心</a>|<a
+							href="">人才招聘</a>|<a
+							href="">联系我们</a>|<a
+							href="">网站地图</a>|<a
+							href="">使用条款</a>
 					</p>
 					<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 |
 						邮编：412000</p>
@@ -198,15 +193,13 @@
 					<img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm" />
 				</div></li>
 			<li><a
-				href="tencent://Message/?Uin=3119683838&websiteName=http://yphting.zglxkj.com=&Menu=yes"
+				href=""
 				class="rn_kf">在线客服</a></li>
 			<li><a href="#" class="rn_top">Back top</a></li>
 		</ul>
 		<!--right nav end-->
 
-		<link rel="stylesheet"
-			href="/Public/js/valid/css/validationEngine.jquery.css"
-			type="text/css" />
+		<link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css" />
 		<script
 			src="/Public/js/valid/languages/jquery.validationEngine-zh_CN.js"
 			type="text/javascript" charset="utf-8">
@@ -216,53 +209,20 @@
 			type="text/javascript" charset="utf-8">
 			
 		</script>
-		<script>
-			function beforeCall2(form, status) {
-				showloading();
-			}
-			function ajaxValidationCallback2(d, form, json, options) {
-				console.log(json);
-				showtip(json.msg);
-				if (json.state === 1) {
-					setTimeout("location.reload()", 2000);
-				}
-			};
-
-			jQuery(document).ready(function() {
-				// binds form submission and fields to the validation engine
-				jQuery("#formtopcontact").validationEngine({
-					autoHidePrompt : true,
-					autoHideDelay : 1000,
-					binded : false,
-					promptPosition : 'topLeft',
-					ajaxFormValidation : false,
-					ajaxFormValidationMethod : 'post',
-					onBeforeAjaxFormValidation : beforeCall2,
-					onAjaxFormComplete : ajaxValidationCallback2
-				});
-			});
-
-			function chktop() {
-				_len = $('.chk_1:checked').length;
-				if (!_len) {
-					showtip('请选择加盟方式');
-					return false;
-				}
-			}
-		</script>
+	
 
 		<!--联系我们的浮层-->
 		<div class="pop_contact">
 			<a href="javascript:void(0);" class="close_pop_contact"></a>
 			<div class="w1000">
 				<div class="pcontact_left">
-					<a href="/index.php/" class="logo">御品韩汀</a>
+					<a href="" class="logo">御品韩汀</a>
 					<ul class="pcontact_ul">
 						<li><div class="wr_linka">
-								<a href="http://yphting.zglxkj.com"></a>
+								<a href=""></a>
 							</div>公司官网：http://yphting.zglxkj.com</li>
 						<li><div class="wr_linka">
-								<a href="http://weidian.com/?userid=765635894&wfr=c"></a>
+								<a href=""></a>
 							</div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
 					</ul>
 					<ul class="pcontact_ul2">
@@ -276,7 +236,7 @@
 				<div class="pcontact_right">
 					<h2 class="contact_us_title">和我们联系吧</h2>
 					<form method="post" id="formtopcontact"
-						action="/index.php/Home/About/contact.html" target="topost"
+						action="" target="topost"
 						onsubmit="return chktop()">
 						<ul class="pcontact_ul3">
 							<li><span class="pcspr pcspr1"></span><input id="name"
@@ -318,12 +278,9 @@
 									</span> <span class="sel_work_text">我要咨询整形</span>
 								</div>
 							</li>
-							<input type="hidden" name="act" value="contact" />
 							<li><a class="border_tj" href="javascript:void(0);"
-								onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
+								 id="submit-btn">立即提交</a></li>
 						</ul>
-						<input type="hidden" name="__hash__"
-							value="3e47a3cd779a9eecc2aa9d31f43e8f77_82a1231b37e33a593f1ab29879655292" />
 					</form>
 				</div>
 				<div class="clear"></div>

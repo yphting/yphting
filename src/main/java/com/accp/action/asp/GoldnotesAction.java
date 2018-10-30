@@ -53,10 +53,9 @@ public class GoldnotesAction {
 	 */
 	@GetMapping("goldnotesQueryAll")
 	public String goldnotesQueryAll(Model model, HttpSession session, Integer p, Integer s,Integer acquisitionMode) {
-		if (p == null)
-			p = 1;
-		if (s == null)
-			s = 6;
+		if (p == null)p = 1;
+		if (s == null)s = 6;
+		
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		PageInfo<Goldnotes> pageInfo = biz.goldnotesQueryAll(p, s, userId,acquisitionMode);
 		User users = biz.getUser(userId);

@@ -1,5 +1,7 @@
 package com.accp.action.lhy;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.biz.lhy.OrderBiz;
 import com.accp.biz.lhy.RefundBiz;
@@ -87,15 +90,29 @@ public class RefundAction {
 		return "sjzx-refund-detail";
 	}
 
+	/**
+	 * 同意退款
+	 * 
+	 * @param orderid
+	 * @return
+	 */
 	@RequestMapping("/refund/ok")
-	public String refundOk(@RequestParam(required = true) String orderid) {
-		Orders order = new Orders();
-		order.setOrderid(orderid);
-		order.setRefundstatus(5);
-		Refund refund = new Refund();
-		refund.setOrderid(orderid);
-		refund.setAuditstatus(2);
-		refundBiz.updateRefund(order, refund);
-		return "redirect:/c/lhy/refund/detail?orderid=" + orderid;
+	@ResponseBody
+	public boolean refundOk(@RequestParam(required = true) String orderid) {
+		try {
+			Orders orderInfo = orderBiz.queryOrderById(orderid);
+			Orders order = new Orders();
+			order.setOrderid(orderid);
+			order.setRefundstatus(5);
+			Refund refund = new Refund();
+			refund.setOrderid(orderid);
+			refund.setAuditstatus(2);
+			refund.setAudittime(new Date());
+			refundBiz.refundOk(orderInfo, order, refund);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

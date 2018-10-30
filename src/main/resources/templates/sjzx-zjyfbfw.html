@@ -532,33 +532,7 @@ function showcitys(countryid){
 </script>
 <script src="/Public/js/valid/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
 </script>
-<script>
-function beforeCall2(form, status){
-	showloading();
-}
-function ajaxValidationCallback2(d, form, json, options){
-	console.log(json);
-	showtip(json.msg);
-	if(json.state === 1){
-		setTimeout("location.reload()",2000);
-	}
-};
 
-jQuery(document).ready(function(){
-	// binds form submission and fields to the validation engine
-	jQuery("#formtopcontact").validationEngine({autoHidePrompt:true,autoHideDelay:1000,binded:false,promptPosition:'topLeft'
-		,ajaxFormValidation: false,ajaxFormValidationMethod: 'post',onBeforeAjaxFormValidation: beforeCall2,onAjaxFormComplete: ajaxValidationCallback2
-	});
-});
-
-function chktop(){
-	_len = $('.chk_1:checked').length;
-	if(!_len){
-		showtip('请选择加盟方式');
-		return false;
-	}
-}
-</script>
 
 
 
