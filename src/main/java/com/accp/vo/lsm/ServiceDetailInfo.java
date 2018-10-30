@@ -3,8 +3,6 @@ package com.accp.vo.lsm;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.accp.pojo.Servicedes;
 
 public class ServiceDetailInfo {

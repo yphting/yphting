@@ -278,7 +278,7 @@
 					if(obj["authentication"]=="1"||obj["authentication"]=="2"){
 						obj["transactionValueID"]=stid;
 					}
-					jQuery.getJSON("/c/lsm/api/queryServices",{"objJSON":JSON.stringify(obj),"num":num,"size":1},function(data){
+					jQuery.getJSON("/c/lsm/api/queryServices",{"objJSON":JSON.stringify(obj),"num":num,"size":6},function(data){
 						vm.pageInfo = data;
 						console.info(data);
 					})

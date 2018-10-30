@@ -53,13 +53,17 @@ public class MerchantEnterAndServiceAction {
 	@GetMapping("merchantEnterUrlCheck")
 	public String merchantEnterUrlCheck(HttpSession session) {
 		User user = (User)session.getAttribute("USER");	//登录用户对象
-		Integer auditstatus = user.getAuditstatus();
-		if(auditstatus==1) {
-			return "redirect:/sjrz-shzl.html";
-		}else if(auditstatus==2) {
-			return "redirect:/sjrz-yktsj.html";
+		if(user!=null) {
+			Integer auditstatus = user.getAuditstatus();
+			if(auditstatus==1) {
+				return "redirect:/sjrz-shzl.html";
+			}else if(auditstatus==2) {
+				return "redirect:/sjrz-yktsj.html";
+			}else {
+				return "redirect:/sjrz-xz.html";
+			}
 		}else {
-			return "redirect:/sjrz-xz.html";
+			return "redirect:/fw-loginHint.html";
 		}
 	}
 	/**
@@ -199,7 +203,7 @@ public class MerchantEnterAndServiceAction {
 		startDate = startDate!=null&&startDate!=""?startDate+" 00:00:00":null;
 		//结束时间
 		String endDate= obj.getEndDate();
-		endDate = endDate!=null&&endDate!=""?endDate+" 23:59:59":null;
+		endDate = endDate!=null&&endDate!=""?endDate+" 00:00:00":null;
 		obj.setStartDate(startDate);
 		obj.setEndDate(endDate);
 		return biz.queryServices(obj, num, size);
