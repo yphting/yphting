@@ -147,42 +147,15 @@
 <ul class="right_nav">
 	<li><a href="javascript:void(0);" class="rn_tel">客服电话</a><div class="over_show kf_tel">0731-2286-7673</div></li>
 	<li><a href="javascript:void(0);" class="rn_wx">官方微信</a><div class="over_show"><img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm" /></div></li>
-	<li><a href="tencent://Message/?Uin=3119683838&websiteName=http://yphting.zglxkj.com=&Menu=yes" class="rn_kf">在线客服</a></li>
+	<li><a href="" class="rn_kf">在线客服</a></li>
 	<li><a href="#" class="rn_top">Back top</a></li>
 </ul>
 <!--right nav end-->
 
-<link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
+<link rel="stylesheet" href="" type="text/css"/>
 <script src="/Public/js/valid/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8">
 </script>
 <script src="/Public/js/valid/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
-</script>
-<script>
-function beforeCall2(form, status){
-	showloading();
-}
-function ajaxValidationCallback2(d, form, json, options){
-	console.log(json);
-	showtip(json.msg);
-	if(json.state === 1){
-		setTimeout("location.reload()",2000);
-	}
-};
-
-jQuery(document).ready(function(){
-	// binds form submission and fields to the validation engine
-	jQuery("#formtopcontact").validationEngine({autoHidePrompt:true,autoHideDelay:1000,binded:false,promptPosition:'topLeft'
-		,ajaxFormValidation: false,ajaxFormValidationMethod: 'post',onBeforeAjaxFormValidation: beforeCall2,onAjaxFormComplete: ajaxValidationCallback2
-	});
-});
-
-function chktop(){
-	_len = $('.chk_1:checked').length;
-	if(!_len){
-		showtip('请选择加盟方式');
-		return false;
-	}
-}
 </script>
 
 <!--联系我们的浮层-->
@@ -190,10 +163,10 @@ function chktop(){
 	<a href="javascript:void(0);" class="close_pop_contact"></a>
 	<div class="w1000">
 		<div class="pcontact_left">
-			<a href="/index.php/" class="logo">御品韩汀</a>
+			<a href="" class="logo">御品韩汀</a>
 			<ul class="pcontact_ul">
-				<li><div class="wr_linka"><a href="http://yphting.zglxkj.com"></a></div>公司官网：http://yphting.zglxkj.com</li>
-				<li><div class="wr_linka"><a href="http://weidian.com/?userid=765635894&wfr=c"></a></div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
+				<li><div class="wr_linka"><a href=""></a></div>公司官网：http://yphting.zglxkj.com</li>
+				<li><div class="wr_linka"><a href=""></a></div>公司微店：http://weidian.com/?userid=765635894&wfr=c</li>
 			</ul>
 			<ul class="pcontact_ul2">
 				<li><span class="pcu pcu1"></span>联系方式：18773382506</li>
@@ -204,7 +177,7 @@ function chktop(){
 		</div>
 		<div class="pcontact_right">
 			<h2 class="contact_us_title">和我们联系吧</h2>
-			<form method="post" id="formtopcontact" action="/index.php/Home/About/contact.html" target="topost" onsubmit="return chktop()">
+			<form method="post" id="formtopcontact" action="" target="topost" onsubmit="return chktop()">
 			<ul class="pcontact_ul3">
 				<li><span class="pcspr pcspr1"></span><input id="name" name="name" class="pop_cus_input validate[required]" placeholder="姓名" type="text"></li>
 				<li><span class="pcspr pcspr2"></span><input name="tel" id="tel" class="pop_cus_input validate[required,custom[phone]]" placeholder="电话" type="text"></li>
@@ -239,10 +212,8 @@ function chktop(){
 						<span class="sel_work_text">我要咨询整形</span>
 					</div>
 				</li>
-				<input type="hidden" name="act" value="contact" />
 				<li><a class="border_tj" href="javascript:void(0);" onclick="$('#formtopcontact').submit()" id="submit-btn">立即提交</a></li>
 			</ul>
-			<input type="hidden" name="__hash__" value="d449f4c3e85fc5b78b6018b9d077c699_761542ed77b7b93f25241f46b6589a35" /></form>
 		</div>
 		<div class="clear"></div>
 	</div>
