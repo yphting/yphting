@@ -31,6 +31,6 @@ public interface IMerchantDao {
 	  
 	  public List<Appraisalapply>  queryAppraisalapplyByUserId(@Param("userid") int  userid);
 	  	
-	  public int updateAppraisalapply(@Param("app") Appraisalapply app);
+	  public int addAppraisalapply(@Param("pojo") Appraisalapply pojo);
 	  
 }

@@ -227,4 +227,15 @@
 		where serviceID=#{services.serviceid}
 		</update>
 		
+		<insert id="">
+				INSERT INTO `appraisalapply`( `userID `, ` stid `,` name `, `sex`, ` height `, ` constellation `, ` age `, 
+				` visaType `, ` documentType `, ` certificates `, ` experience `, ` vehicle `, ` guideCard `, ` inKorea `, ` phone `, 
+				` email `, ` country `, ` provincialID `, ` cityID `, ` detailed `, ` hospitalLicense `, ` cooperativeHospital `, 
+				` cooperativeHospitalURL `, ` hospitalPhone `, ` translateType `, ` translate `, ` office `, ` officeCountry `, ` officeProvince `, 
+				` officeCity `, ` officeDetailed `, ` koreaLicense `, ` translateWebsite `, ` studyMajor `, ` schoolReport `, 
+				` officialNetworkURL `, ` submitTime `, ` auditTime `, ` adminOpinion `, ` auditStatus `
+				)VALUES();
+		
+		</insert>
+		
 </mapper>    
