@@ -3,28 +3,15 @@
 <!-- 1.命名空间 -->
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<meta http-equiv="cleartype" content="on">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta content="telephone=no" name="format-detection" />-->	    
+  
 <title>我发布的服务_韩汀社区</title>
 <link rel="shortcut icon" href="/Public/images/favicon.ico" type="image/x-icon" />
-<meta name="keywords" content="御品韩汀，韩汀社区，韩汀，湖南韩汀电子商务有限公司" />
-<meta name="description" content="湖南韩汀电子商务有限公司主要服务范围有海外自驾游，微整形，留学中介，翻译，学习资源，国际物流等项目，主要以大陆国人和海外同胞为服务对象。商家可入驻社区开店，用户可在平台内快速的找到自己需要的服务项目。海外商家对国内用户以及海外同胞开放服务，双方各持所需，互利互惠，是一款海外华人生活，兼职向导平台。 
 
-韩汀宗旨:“崇尚以人为本、客户第一的服务宗旨。热诚为广大客户提供良好的售后服务和技术支持, 保障客户的投资得到良好的回报。”
-
-企业口号：“韩汀—带给你看得到的未来,说不出的精彩!”。
-
-企业理念：”诚信为本,惠于顾客,奉于社会”
-
-企业目标：”建设海外一流社区平台，与广大合作伙伴与时俱进,互利互惠!”。" />
 <link href="/Public/css/owl.carousel.css" rel="stylesheet" />
 <link href="/Public/css/common.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/Public/css/swiper-3.4.2.min.css">
 
+<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>	
 
 <meta property="wb:webmaster" content="1a0bb5a2cb580b9f" />
 <meta name="__hash__" content="aecafd74baafde5cba034372c675d0de_99b2b45687447cdb2188e7372f3fbe73" /></head>
@@ -79,7 +66,7 @@
                 <li ><a href="#"><span class="msp2 pre_c3"></span>我的服务类别</a></li>
                 <li ><a href="#"><span class="msp2 pre_c3"></span>我提交的托管</a></li>
             </ul>
-
+		</div>
 		
         <!--member right-->
         <div class="member_right sj_right_box">
@@ -129,7 +116,7 @@
 					</div>
 				
 				</td>
-				<td  th:text="${temp.releasetime}"></td>
+				<td  th:text="${#dates.format(temp.releasetime,'yyyy-MM-dd')}"></td>
 				<!-- 动态url:th:href="@{/c/removeInfo(id=${temp.mid},name=admin)}"  -->
 				<!-- 动态事件绑定 -->
 				<td>
@@ -172,8 +159,6 @@
 		<!--member right end-->
         <div class="clear"></div>
         
-        <!--ad-->
-        <div class="ad_box2"><a href=""><img src="Uploads/adv/2017-01/20170120051911-54044.jpg" alt="" /></a></div>		<!--ad end-->
 	</div>
 </div>
 
@@ -267,4 +252,8 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
+<script type="text/javascript" src="/Public/js/headLeftNav.js"></script>
+<script type="text/javascript" src="/Public/js/sjzx-href.js"></script>
+<script type="text/javascript" src="/Public/js/grzx-interlinkage.js"></script>
 </html>
