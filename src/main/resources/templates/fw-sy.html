@@ -57,7 +57,7 @@
 		<div id="index_banner" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
 			<div class="owl-wrapper-outer">
 				<div class="owl-wrapper" style=" left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-					<div class="owl-item" th:each="temp,iter : ${homeSlideshowList}" style="width:1920px;" >
+					<div class="owl-item" th:each="temp,iter : ${homeSlideshowList}" th:style="|width:${temp.whObj.width}px; height:${temp.whObj.height}px;|" >
 						<div class="item">
 							<a th:href="${temp.apcurl}"><img th:src="${temp.aimgpath}" th:alt="${temp.atitle}" class="w100"></a>
 						</div>
@@ -82,7 +82,7 @@
 			<h2 class="index_h2_title">社区服务 开启您韩国生活的第一步 中文</h2>
 			<div class="community_service_box">
 				<ul class="community_service_ul">
-					<li th:each="temp,iter : ${homeMidAdvertingList}">
+					<li th:each="temp,iter : ${homeMidAdvertingList}" th:style="|width:${temp.whObj.width}px; height:${temp.whObj.height}px;|">
 						<a th:href="${temp.apcurl}">
 							<img th:src="${temp.aimgpath}" th:alt="${temp.atitle}">
 							<div class="sv_over_show">
@@ -280,17 +280,11 @@
 			<!--ad-->
 			<div class="ad_box">
 				<div class="fl ad_left">
-					<a href=""><img src="/Public/images/ad/1.jpg" alt="首页社区上方广告1"> </a>
+					<a href=""><img th:src="${homeTopAdvertingList[0].aimgpath}" th:alt="${homeTopAdvertingList[0].atitle}"  th:style="|width:${homeTopAdvertingList[0].whObj.width}px; height:${homeTopAdvertingList[0].whObj.height}px;|"> </a>
 				</div>
-				<a href="">
-				</a>
 				<div class="fr ad_right">
-					<a href="">
-					</a>
-					<a href=""><img src="/Public/images/ad/2.jpg" alt="首页社区上方广告2"> </a>
+					<a href=""><img th:src="${homeTopAdvertingList[1].aimgpath}" th:alt="${homeTopAdvertingList[1].atitle}"  th:style="|width:${homeTopAdvertingList[1].whObj.width}px; height:${homeTopAdvertingList[1].whObj.height}px;|"> </a>
 				</div>
-				<a href="">
-				</a>
 			</div>
 			<a href="">
 				<!--ad end-->
@@ -507,7 +501,7 @@
 		<div class="b_box">
 			<!--ad-->
 			<div class="ad_box2">
-				<a href=""><img src="/Uploads/adv/2018-04/20180414123932-28064.jpg" alt="底部广告 说吧"></a>
+				<a href=""><img th:src="${homeBottomAdvertingList[0].aimgpath}" th:alt="${homeBottomAdvertingList[0].atitle}"  th:style="|width:${homeBottomAdvertingList[0].whObj.width}px; height:${homeBottomAdvertingList[0].whObj.height}px;|"></a>
 			</div>
 			<!--ad end-->
 			<a href="/index.php/Home/Member/seller.html" class="footer_text">

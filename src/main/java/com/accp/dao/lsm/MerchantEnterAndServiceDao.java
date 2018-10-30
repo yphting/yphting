@@ -17,6 +17,7 @@ import com.accp.pojo.Services;
 import com.accp.pojo.Servicetype;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
+import com.accp.vo.lsm.AdvertisementVO;
 import com.accp.vo.lsm.EsLevelVO;
 import com.accp.vo.lsm.EvaluationserviceVO;
 import com.accp.vo.lsm.HomePostVO;
@@ -163,7 +164,7 @@ public interface MerchantEnterAndServiceDao {
 	 * @param flag
 	 * @return
 	 */
-	public List<Advertisement> queryHomeAdvertising(@Param("flag")Integer flag);
+	public List<AdvertisementVO> queryHomeAdvertising(@Param("flag")Integer flag);
 	/**
 	 * 首页社区服务星级服务推荐商家
 	 * @param stid

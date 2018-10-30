@@ -22,6 +22,7 @@ import com.accp.pojo.Servicelevel;
 import com.accp.pojo.Servicetype;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
+import com.accp.vo.lsm.AdvertisementVO;
 import com.accp.vo.lsm.EsLevelVO;
 import com.accp.vo.lsm.HomePostVO;
 import com.accp.vo.lsm.SameServiceVO;
@@ -218,7 +219,7 @@ public class MerchantEnterAndServiceBiz {
 	 * @param flag
 	 * @return
 	 */
-	public List<Advertisement> queryHomeAdvertising(Integer flag) {
+	public List<AdvertisementVO> queryHomeAdvertising(Integer flag) {
 		return dao.queryHomeAdvertising(flag);
 	}
 	/**

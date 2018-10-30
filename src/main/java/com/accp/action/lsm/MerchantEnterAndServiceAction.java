@@ -30,6 +30,7 @@ import com.accp.pojo.Servicetype;
 import com.accp.pojo.Sharea;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
+import com.accp.vo.lsm.AdvertisementVO;
 import com.accp.vo.lsm.EsLevelVO;
 import com.accp.vo.lsm.HomePostVO;
 import com.accp.vo.lsm.SameServiceVO;
@@ -337,9 +338,13 @@ public class MerchantEnterAndServiceAction {
 	@GetMapping("homeUrl")
 	public String homeUrl(Model model) {
 		//首页社区服务轮播图广告位查询
-		List<Advertisement> homeSlideshowList = biz.queryHomeAdvertising(1);
+		List<AdvertisementVO> homeSlideshowList = biz.queryHomeAdvertising(1);
 		//首页社区服务中间广告位查询
-		List<Advertisement> homeMidAdvertingList = biz.queryHomeAdvertising(2);
+		List<AdvertisementVO> homeMidAdvertingList = biz.queryHomeAdvertising(2);
+		//首页社区上方左右广告位查询
+		List<AdvertisementVO> homeTopAdvertingList = biz.queryHomeAdvertising(3);
+		//首页社区下方广告位查询
+		List<AdvertisementVO> homeBottomAdvertingList = biz.queryHomeAdvertising(4);
 		//五大星级服务商家查询
 		List<SerRecommendVO> recommendStidByOneList = biz.querySerRecommendVO(1);	//自驾游
 		List<SerRecommendVO> recommendStidByTwoList = biz.querySerRecommendVO(2);	//微整形
@@ -358,6 +363,8 @@ public class MerchantEnterAndServiceAction {
 		model.addAttribute("recommendStidByFiveList",recommendStidByFiveList);
 		model.addAttribute("homePostVOList",homePostVOList);
 		model.addAttribute("homePostMakeUpList",homePostMakeUpList);
+		model.addAttribute("homeTopAdvertingList",homeTopAdvertingList);
+		model.addAttribute("homeBottomAdvertingList",homeBottomAdvertingList);
 		return "fw-sy";
 	}
 }

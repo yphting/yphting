@@ -200,16 +200,12 @@
 			<if test="obj.firstStid==null and obj.stid==null and obj.stidChild!=null and obj.stidChild!=''">
 				AND ser.`stid` = #{obj.stidChild}
 			</if>
-			<!-- 开始时间和结束时间 -->
-			<if test="obj.startDate!=null and obj.startDate!='' and obj.endDate!=null and obj.endDate!=''">
-				AND ser.`serviceStartDate` &lt;= #{obj.startDate} AND ser.`serviceEndDate` &gt;= #{obj.endDate}
-			</if>
-			<!-- 只有开始时间 -->
-			<if test="obj.startDate!=null and obj.startDate!='' and obj.endDate==null or obj.endDate==''">
+			<!-- 开始时间 -->
+			<if test="obj.startDate!=null and obj.startDate!=''">
 				AND ser.`serviceStartDate` &gt;= #{obj.startDate}
 			</if>
-			<!-- 只有结束时间 -->
-			<if test="obj.endDate!=null and obj.endDate!='' and obj.startDate==null or obj.startDate==''">
+			<!-- 结束时间 -->
+			<if test="obj.endDate!=null and obj.endDate!=''">
 				AND ser.`serviceEndDate` &lt;= #{obj.endDate}
 			</if>
 			<!-- 韩汀认证 -->
@@ -408,8 +404,30 @@
 		INSERT INTO`servicecollection`(`serviceID`,`userID`,`collectionTime`)
 		VALUES(#{sid},#{uid},NOW())
 	</insert>
+	<!-- 根据广告版块类别编号查询图片宽高 -->
+	<select id="queryImgWidthAndHeightVO" resultType="com.accp.vo.lsm.ImageWidthAndHeightVO">
+		SELECT SUBSTRING_INDEX(`atpx`,'*',1) AS `width`,SUBSTRING_INDEX(`atpx`,'*',-1) AS `height`
+		FROM `advertisementtype`
+		WHERE `atid` = #{0}
+	</select>
+	<!-- Map：查询首页广告位 -->
+	<resultMap type="com.accp.vo.lsm.AdvertisementVO" id="AdvertisementVOMap">
+		<id column="aid" property="aid"/>
+		<result column="atid" property="atid"/>
+		<result column="atitle" property="atitle"/>
+		<result column="aorder" property="aorder"/>
+		<result column="aimgPath" property="aimgpath"/>
+		<result column="apcUrl" property="apcurl"/>
+		<result column="aappUrl" property="aappurl"/>
+		<result column="state" property="state"/>
+		<result column="startTime" property="starttime"/>
+		<result column="rentaMonth" property="rentamonth"/>
+		<result column="price" property="price"/>
+		<result column="adescribe" property="adescribe"/>
+		<association property="whObj" column="atid" select="queryImgWidthAndHeightVO"></association>
+	</resultMap>
 	<!-- 首页社区服务广告位查询 -->
-	<select id="queryHomeAdvertising" resultType="Advertisement">
+	<select id="queryHomeAdvertising" resultMap="AdvertisementVOMap">
 		<include refid="selectAll"/>
 		`advertisement`
 		<where>
@@ -418,6 +436,12 @@
 			</if>
 			<if test="flag==2">
 				`atid` IN(4,5,6,7)
+			</if>
+			<if test="flag==3">
+				`atid` = 2
+			</if>
+			<if test="flag==4">
+				`atid` = 3
 			</if>
 		</where>
 		<if test="flag==1">
