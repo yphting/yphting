@@ -90,7 +90,7 @@ public class RefundBiz {
 	public boolean refundOk(Orders orderInfo, Orders order, Refund refund) {
 		Integer buyer = orderInfo.getUserid();
 		Integer seller = orderInfo.getService().getUser().getUserid();
-		Float money = orderInfo.getSmallplan();
+		Float money = refundDao.queryRefundByOrderId(order.getOrderid()).getApplyrefundmoney();
 		iuserDao.saveXtxx(buyer, "卖家同意退款，订单：" + order.getOrderid());
 		Goldnotes goldnotes = new Goldnotes();
 		goldnotes.setUserid(buyer);
@@ -110,7 +110,7 @@ public class RefundBiz {
 		goldnotesDao.addGoldnotes(goldnotes1);
 		refund.setActualrefundmoney(money);
 		userDao.updateUserMoney(money, buyer);
-		userDao.updateUserMoney(-money * 0.9, seller);
+		userDao.updateUserMoney((float) (-money * 0.9), seller);
 		orderDao.updateOrder(order);
 		return refundDao.updateRefund(refund);
 	}
@@ -124,8 +124,7 @@ public class RefundBiz {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public boolean refundNo(Orders order, Refund refund) {
-		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getService().getUser().getUserid(),
-				"卖家同意退款，订单：" + order.getOrderid());
+		iuserDao.saveXtxx(orderDao.queryOrderById(order.getOrderid()).getUserid(), "卖家拒绝退款，订单：" + order.getOrderid());
 		orderDao.updateOrder(order);
 		return refundDao.updateRefund(refund);
 	}

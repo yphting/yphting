@@ -25,5 +25,5 @@ public interface UserDao {
 	 *            用户编号
 	 * @return
 	 */
-	boolean updateUserMoney(@Param("usermoney") double usermoney, @Param("userid") int userid);
+	boolean updateUserMoney(@Param("usermoney") Float usermoney, @Param("userid") int userid);
 }

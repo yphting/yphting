@@ -49,7 +49,7 @@
 				<div class="fa_xz">
 					<div class="fa_zf_r">
 						<a th:if="${user.usermoney>=order.smallplan}" th:href="@{/c/lhy/order/pay/ok(orderid=${order.orderid})}" class="btn_jy_a f22" id="payment_btn">支付金币</a>
-						<a th:if="${user.usermoney<order.smallplan}" href="" class="btn_jy_a f22" id="payment_btn">充值</a>
+						<a th:if="${user.usermoney<order.smallplan}" href="/zsp/c/getLogisticsById" class="btn_jy_a f22" id="payment_btn">充值</a>
 					</div>
 				</div>
 			</div>

@@ -124,7 +124,7 @@ public class OrderBiz {
 		goldnotes.setRecordinandout((float) -usermoney);
 		goldnotes.setAuditstatus(2);
 		goldnotesDao.addGoldnotes(goldnotes);
-		userDao.updateUserMoney(-usermoney, userid);
+		userDao.updateUserMoney((float) -usermoney, userid);
 		return orderDao.updateOrder(order);
 	}
 
@@ -165,7 +165,7 @@ public class OrderBiz {
 		goldnotes.setRecordinandout((float) (usermoney * 0.9));
 		goldnotes.setAuditstatus(2);
 		goldnotesDao.addGoldnotes(goldnotes);
-		userDao.updateUserMoney(usermoney * 0.9, userid);
+		userDao.updateUserMoney((float) (usermoney * 0.9), userid);
 		return orderDao.updateOrder(order);
 	}
 

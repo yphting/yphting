@@ -16,6 +16,7 @@
 		select * from refund
 		where orderid in(select orderid from orders where serviceid in(select
 		serviceid from services where userid=#{userid}))
+		order by refundid desc
 	</select>
 	<select id="queryRefundByOrderId" resultMap="refundMap">
 		select * from
@@ -24,6 +25,7 @@
 	</select>
 	<select id="queryMyRefundList" resultMap="refundMap">
 		select * from refund where userid=#{userid}
+		order by refundid desc
 	</select>
 
 	<insert id="saveRefund">
