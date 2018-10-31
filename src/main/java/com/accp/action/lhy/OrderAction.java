@@ -68,7 +68,7 @@ public class OrderAction {
 		Orders order = new Orders();
 		order.setOrderid(updateid);
 		order.setOrderstatus(6);
-		orderBiz.updateOrder(order);
+		orderBiz.cancelOrder(order);
 		return "redirect:/c/lhy/order/query/list?page=" + page + "&orderid=" + orderid;
 	}
 

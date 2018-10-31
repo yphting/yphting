@@ -42,4 +42,12 @@ public interface RefundDao {
 	 * @return
 	 */
 	List<Refund> queryRefundList(@Param("userid") Integer userid);
+
+	/**
+	 * 查询我的退款列表
+	 * 
+	 * @param userid
+	 * @return
+	 */
+	List<Refund> queryMyRefundList(@Param("userid") Integer userid);
 }

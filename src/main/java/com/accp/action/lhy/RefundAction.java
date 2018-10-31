@@ -55,7 +55,7 @@ public class RefundAction {
 		Refund refund = new Refund();
 		refund.setOrderid(orderid);
 		refund.setAdminstatus(1);
-		refundBiz.updateRefund(order, refund);
+		refundBiz.applyAdmin(order, refund);
 		return "redirect:/c/lhy/refund/detail?orderid=" + orderid;
 	}
 
@@ -71,7 +71,7 @@ public class RefundAction {
 	@RequestMapping("/refund/list")
 	public String refundList(@RequestParam(defaultValue = "1") Integer page, Model model, HttpSession session) {
 		Integer userid = ((User) session.getAttribute("USER")).getUserid();
-		model.addAttribute("pageInfo", refundBiz.queryRefundList(userid, page, 1));
+		model.addAttribute("pageInfo", refundBiz.queryRefundList(userid, page, 10));
 		return "sjzx-refund";
 	}
 
@@ -114,5 +114,54 @@ public class RefundAction {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	/**
+	 * 拒绝退款理由填写
+	 * 
+	 * @param orderid
+	 *            订单编号
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/refund/why")
+	public String refundWhy(@RequestParam(required = true) String orderid, Model model) {
+		model.addAttribute("orderid", orderid);
+		return "sjzx-refund-why";
+	}
+
+	/**
+	 * 拒绝退款
+	 * 
+	 * @param refund
+	 *            退款
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/refund/no")
+	public String refundNo(Refund refund, Model model) {
+		Orders order = new Orders();
+		order.setOrderid(refund.getOrderid());
+		order.setRefundstatus(2);
+		refund.setAudittime(new Date());
+		refund.setAuditstatus(3);
+		refundBiz.refundNo(order, refund);
+		return "redirect:/c/lhy/refund/list";
+	}
+
+	/**
+	 * 查询我的退款列表
+	 * 
+	 * @param page
+	 *            页
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/refund/mjlist")
+	public String refundMJList(@RequestParam(defaultValue = "1") Integer page, Model model, HttpSession session) {
+		Integer userid = ((User) session.getAttribute("USER")).getUserid();
+		model.addAttribute("pageInfo", refundBiz.queryMyRefundList(userid, page, 10));
+		return "grzx-refund";
 	}
 }

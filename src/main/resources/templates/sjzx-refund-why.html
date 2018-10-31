@@ -81,65 +81,22 @@
 
 			<!--member right-->
 			<div class="member_right sj_right_box">
-				<div class="member_system_r_top top_nor">
-					<span class="fl">我收到的退款</span>
-				</div>
-				<table class="point_table business_table business_table2"
-					cellpadding="0" cellspacing="0">
-					<tbody>
-						<tr>
-							<th width="120">退款编号</th>
-							<th width="140">预订服务编号</th>
-							<th width="80" class="th_c">用户</th>
-							<th width="80">申请金币</th>
-							<th width="80">退款金币</th>
-							<th width="150">申请时间</th>
-							<th width="110">状态</th>
-							<th width="70" class="th_c">操作</th>
-						</tr>
-						<tr th:each="temp:${pageInfo.list}">
-							<td>[[${temp.refundid}]]</td>
-							<td>[[${temp.order.orderid}]]<br> <a href=""
-								class="btna_s2 line_2o">[[${temp.order.service.servicetitle}]]</a></td>
-							<td align="center" class="shopname"><a href="">[[${temp.order.service.user.username}]]</a><br>
-								<a href="" rel="318" class="btna_s2 send_site_email_btna">站内信</a></td>
-							<td>[[${temp.applyrefundmoney}]]</td>
-							<td>[[${temp.actualrefundmoney}]]</td>
-							<td>[[${#dates.format(temp.applicationtime,'yyyy-MM-dd')}]]</td>
-							<td nowrap="" th:if="${temp.order.refundstatus==1}">退款申请中</td>
-							<td nowrap="" th:if="${temp.order.refundstatus==2}">不同意</td>
-							<td nowrap="" th:if="${temp.order.refundstatus==3}">申请管理员介入</td>
-							<td nowrap="" th:if="${temp.order.refundstatus==4}">管理员拒绝</td>
-							<td nowrap="" th:if="${temp.order.refundstatus==5}">退款完成</td>
-							<td nowrap="" th:if="${temp.order.refundstatus==6}">退款取消</td>
-							<td nowrap="" align="center"><a
-								th:if="${temp.order.refundstatus==1}" th:href="|javascript:refundOk('${temp.order.orderid}');|" class="btna_s2">同意</a>
-								<br th:if="${temp.order.refundstatus==1}"> <a
-								th:if="${temp.order.refundstatus==1}" th:href="@{/c/lhy/refund/why(orderid=${temp.order.orderid})}" class="btna_s2">不同意</a>
-								<br th:if="${temp.order.refundstatus==1}"> <a th:href="@{/c/lhy/refund/sjdetail(orderid=${temp.order.orderid})}"
-								class="btna_s2">查看详细</a></td>
-						</tr>
-					</tbody>
-				</table>
-				<!--page-->
-				<div class="page">
-					<div class="nav">
-						<a class="page_next" th:if="${pageInfo.hasPreviousPage}"
-							th:href="@{/c/lhy/refund/list(page=${pageInfo.prePage})}">上一页</a>
-						<a class="page_next nextdisabled"
-							th:if="${!pageInfo.hasPreviousPage}" href="javascript:;">上一页</a>
-
-						<a th:each="temp:${pageInfo.navigatepageNums}"
-							th:class="${temp==pageInfo.pageNum?'cur':'num'}"
-							th:text="${temp}" th:href="@{/c/lhy/refund/list(page=${temp})}"></a>
-
-						<a class="page_next" th:if="${pageInfo.hasNextPage}"
-							th:href="@{/c/lhy/refund/list(page=${pageInfo.nextPage})}">下一页</a>
-						<a class="page_next nextdisabled" th:if="${!pageInfo.hasNextPage}"
-							href="javascript:;">下一页</a>
+				<div class="member_system_r_top mt10">您不同意退款申请</div>
+				<form method="post" id="formpost" action="/c/lhy/refund/no">
+					<input type="hidden" name="orderid" th:value="${orderid}">
+					<ul class="member_zl_ul noagree_ul">
+						<li><span class="m_zl_sp">不同意的原因</span>
+							<div class="m_zl_r">
+								<textarea class="input_c in_ms validate[required]"
+									name="businessremarks"></textarea>
+							</div></li>
+					</ul>
+					<div class="rechang_top2">
+						<a href="javascript:;" onclick="$('#formpost').submit()"
+							class="btn_jy_a btn_jy_a2 h40 w120">提交</a> <a
+							href="javascript:history.back();" class="btna_s2 f14 btna_cancel">取消</a>
 					</div>
-				</div>
-				<!--page end-->
+				</form>
 			</div>
 			<!--member right end-->
 
