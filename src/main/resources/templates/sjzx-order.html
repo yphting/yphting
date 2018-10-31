@@ -192,7 +192,7 @@ span  .time2 {
 							</span>
 							<span th:if="${temp.orderstatus==4}">-</span>
 							<span th:if="${temp.orderstatus==5}">
-									<a href="javascript:void(0)" th:if="${temp.refundstatus!=0}" class="btna_s2">查看退款详情<br /></a>
+									<a th:href="@{/c/lhy/refund/sjdetail(orderid=${temp.orderid})}" th:if="${temp.refundstatus!=0}" class="btna_s2">查看退款详情<br /></a>
 									<span class="c_4" th:if="${temp.commentstatus==1}">待评价</span>
 									<span class="c_4" th:if="${temp.commentstatus==2}">已评价</span>
 									<span class="c_4" th:if="${temp.commentstatus==3}">双方已评</span>
