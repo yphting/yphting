@@ -5,7 +5,7 @@
  jbHref="/zsp/c/goldnotesQueryAll";
  jfHref="/zsp/c/QueryAll";
  pjHref="/zsp/c/EvaluationService";
- tkHref="javascript:void(0)";
+ tkHref="/c/lhy/refund/mjlist";
  wlHref="/zsp/c/getListLogistics";
  bzHref="javascript:void(0)";
  $(".member_system_ul li:eq(0) a").attr("href",ydfwHref);
