@@ -230,8 +230,8 @@ public class ForumBiz {
 	 * @param userId
 	 * @return
 	 */
-	public Postcomment queryLastComment(Integer userId) {
-		return dao.queryLastComment(userId);
+	public Postcomment queryLastComment(Integer userId,Integer postId) {
+		return dao.queryLastComment(userId,postId);
 	}
 	
 	/**

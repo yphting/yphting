@@ -71,7 +71,7 @@
 				<ul class="bbs_left_list">
 					<li><a th:href="@{/c/sxy/hotPost(page=1)}"><span
 							class="line"></span>热门话题</a></li>
-					<li class="cur"><a th:href="@{/c/sxy/myPost(page=1,title=${param.title})}"><span class="line"></span>我的韩汀论坛</a>
+					<li class="cur"><a th:href="@{/c/sxy/myPost(type=1,page=1,title=${param.title})}"><span class="line"></span>我的韩汀论坛</a>
 					</li>
 					<!-- 版块列表 -->
 						<li th:each="temp,item : ${BLIST}">

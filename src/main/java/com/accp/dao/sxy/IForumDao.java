@@ -167,7 +167,7 @@ public interface IForumDao {
 	 * @param userId
 	 * @return
 	 */
-	public Postcomment queryLastComment(@Param("userId")Integer userId);
+	public Postcomment queryLastComment(@Param("userId")Integer userId,@Param("postId")Integer postId);
 	
 	/**
 	 * 查询当天评论次数
