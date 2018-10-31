@@ -211,7 +211,7 @@
 		</div>
 		
 		<div class="b_box" id="vmCnt">	
-			<div class="business_dtail_bottom_box">
+			<div th:if="${esLObj!=null}" class="business_dtail_bottom_box">
 				<h2 class="c_4 pl_title"><span th:text="${esLObj.level1+esLObj.level2+esLObj.level3+esLObj.level4+esLObj.level5}">0</span>条评价</h2>
 				<dl class="business_dtail_bottom_dl">
 					<dt>

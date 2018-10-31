@@ -452,7 +452,7 @@
 	<select id="querySerRecommendVO" resultType="com.accp.vo.lsm.SerRecommendVO">
 		SELECT u.`userID`,u.`userName`,u.`userImgPath`,u.`shopImg`,u.`selfIntroduction`,u.`merchantLevel`
 		FROM `user` AS u
-		WHERE u.`firstServiceID` = #{stid} OR `secondServiceID` = #{stid} AND u.`auditStatus` = 2
+		WHERE (u.`firstServiceID` = #{stid} OR `secondServiceID` = #{stid}) AND u.`auditStatus` = 2
 		ORDER BY `merchantLevel` DESC,`orderCount` DESC
 		LIMIT 9
 	</select>

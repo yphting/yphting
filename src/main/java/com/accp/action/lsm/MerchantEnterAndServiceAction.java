@@ -122,7 +122,7 @@ public class MerchantEnterAndServiceAction {
 			}
 			if(biz.merchantMove(user,bond)>0) {//商家入驻受影响行数
 				biz.saveGoldNotes(loginUser.getUserid(), 4, "商家入驻缴纳保证金",bond , 2);	//添加金币流向记录
-				szyUserBiz.saveXtxx(loginUser.getUserid(), "您好，恭喜您通过韩汀社区的商家入驻审核，你现在已经成为我们的商家，请快到会员中心的商家中心里发布您的第一个服务吧。");
+				szyUserBiz.saveXtxx(loginUser.getUserid(), "您好，您已成功提交商家入驻的申请，请等待管理员审核。");
 				return "redirect:/sjrz-shzl.html";
 			}else {
 				return "redirect:/Public/error/500.html";
