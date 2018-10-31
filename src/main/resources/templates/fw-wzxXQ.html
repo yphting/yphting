@@ -430,24 +430,30 @@
 			jQuery("#pop_bg").show();
 			jQuery(".pop_con").show();
 		})
-		//提交举报
+				//提交举报
 		jQuery(".btn_jba").click(function(){
-			var businessID = [[${serMerchantObj.userID}]];	//商家编号
-			var serviceID = [[${serDetailObj.serviceID}]];	//服务编号
-			var ctID = jQuery("[name=reason]:checked").val();	//举报类别ID
-			if(jQuery(".pop_sel_jq li label input[name=reason]:checked").length==0){
-				alert("请选择举报原因！");
-			}else{
-				jQuery.post("/c/lsm/api/report",{"businessID":businessID,"serviceID":serviceID,"ctID":ctID},function(result){
-					if(result.code==200){
-						alert(result.msg);
-						jQuery("#pop_bg").hide();
-						jQuery(".pop_con").hide();
+			jQuery.getJSON("/c/szy/user/queryAUser",function(data){
+				if(data!=null){
+					var businessID = [[${serMerchantObj.userID}]];	//商家编号
+					var serviceID = [[${serDetailObj.serviceID}]];	//服务编号
+					var ctID = jQuery("[name=reason]:checked").val();	//举报类别ID
+					if(jQuery(".pop_sel_jq li label input[name=reason]:checked").length==0){
+						alert("请选择举报原因！");
 					}else{
-						alert("由于未知原因，举报失败");
+						jQuery.post("/c/lsm/api/report",{"businessID":businessID,"serviceID":serviceID,"ctID":ctID},function(result){
+							if(result.code==200){
+								alert(result.msg);
+								jQuery("#pop_bg").hide();
+								jQuery(".pop_con").hide();
+							}else{
+								alert("由于未知原因，举报失败");
+							}
+						},"json")
 					}
-				},"json")
-			}
+				}else{
+					location.href="/fw-loginHint.html";
+				}
+			});
 		})
 		//点击举报页面关闭
 		jQuery(".close_pop").click(function(){
