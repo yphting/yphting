@@ -134,7 +134,7 @@ span  .time2 {
 						</ul>
 					</div>
 					<div class="book_bt business_bt">
-						<ul class="book_bt_ul">
+						<ul class="book_bt_ul" th:id="${temp.userid}">
 							<li class="cel_l1"><img
 								th:src="${temp.ser.servicecoverimg}" alt="留学中介测试标题" /></li>
 							<li class="cel_l2">
@@ -174,7 +174,7 @@ span  .time2 {
 								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==3}">管理员介入</span>
 								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==4}">管理员拒绝</span>
 								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==5}">退款完成</span>
-								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==5}">退款取消</span>
+								<span th:if="${temp.orderstatus==5 and  temp.refundstatus==6}">退款取消</span>
 								<span th:if="${temp.orderstatus==6}">服务取消</span>
 								<span th:if="${temp.orderstatus==7}">未接单</span>
 								<span th:if="${temp.orderstatus==8}">已退款</span>
@@ -210,12 +210,12 @@ span  .time2 {
 				<!--page-->
 					<div class="page" th:if="${pageInfo.total>0}">
 						<div class='nav'>
-							<a class="page_next" th:if="${pageInfo.hasPreviousPage}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${pageInfo.prePage},pageSize=5,orderID=)}">上一页</a>
+							<a class="page_next" th:if="${pageInfo.hasPreviousPage}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${pageInfo.prePage},pageSize=5,orderID='')}">上一页</a>
 							<a class="page_next nextdisabled" th:if="${!pageInfo.hasPreviousPage}" href="javascript:;">上一页</a>
 
-							<a th:each="temp:${pageInfo.navigatepageNums}" th:class="${temp==pageInfo.pageNum?'cur':'num'}" th:text="${temp}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${temp},pageSize=5,orderID=)}"></a>
+							<a th:each="temp:${pageInfo.navigatepageNums}" th:class="${temp==pageInfo.pageNum?'cur':'num'}" th:text="${temp}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${temp},pageSize=5,orderID='')}"></a>
 
-							<a class="page_next" th:if="${pageInfo.hasNextPage}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${pageInfo.nextPage},pageSize=5,orderID=)}">下一页</a>
+							<a class="page_next" th:if="${pageInfo.hasNextPage}" th:href="@{/c/szy/order/queryAllOrder(orderStatus=0,refundstatus=-1,pageNum=${pageInfo.nextPage},pageSize=5,orderID='')}">下一页</a>
 							<a class="page_next nextdisabled" th:if="${!pageInfo.hasNextPage}" href="javascript:;">下一页</a>
 						</div>
 					</div>
@@ -342,7 +342,8 @@ span  .time2 {
 			orderStatus=4;
 		}
 		var orderID=$(this).parents("div").prev().find("ul li:eq(1) span:eq(1)").html();
-		location.href="/c/szy/order/updateOrders?orderStatus="+orderStatus+"&orderID="+orderID;
+		var userID=$(this).parents("ul").attr("id");
+		location.href="/c/szy/order/updateOrders?orderStatus="+orderStatus+"&orderID="+orderID+"&userID="+userID;
 	})
 	$("#typeul li a").click(function(){
 		var orderStatus=$(this).attr("id");
