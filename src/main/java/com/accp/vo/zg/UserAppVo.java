@@ -3,42 +3,42 @@ package com.accp.vo.zg;
 import java.util.Date;
 
 public class UserAppVo {
-		private int firstServiceID;
-		private int secondServiceID;
-		private Date submitTime;
-		private Date auditTime;
-		private int auditStatus;
-		public int getFirstServiceID() {
-			return firstServiceID;
+		private int stid;
+		private  String   stname;
+		private Date submittime;
+		private Date audittime;
+		private int auditstatus;
+		public int getStid() {
+			return stid;
 		}
-		public void setFirstServiceID(int firstServiceID) {
-			this.firstServiceID = firstServiceID;
+		public void setStid(int stid) {
+			this.stid = stid;
 		}
-		public int getSecondServiceID() {
-			return secondServiceID;
+		public String getStname() {
+			return stname;
 		}
-		public void setSecondServiceID(int secondServiceID) {
-			this.secondServiceID = secondServiceID;
+		public void setStname(String stname) {
+			this.stname = stname;
 		}
-		public Date getSubmitTime() {
-			return submitTime;
+		public Date getSubmittime() {
+			return submittime;
 		}
-		public void setSubmitTime(Date submitTime) {
-			this.submitTime = submitTime;
+		public void setSubmittime(Date submittime) {
+			this.submittime = submittime;
 		}
-		public Date getAuditTime() {
-			return auditTime;
+		public Date getAudittime() {
+			return audittime;
 		}
-		public void setAuditTime(Date auditTime) {
-			this.auditTime = auditTime;
+		public void setAudittime(Date audittime) {
+			this.audittime = audittime;
 		}
-		public int getAuditStatus() {
-			return auditStatus;
+		public int getAuditstatus() {
+			return auditstatus;
 		}
-		public void setAuditStatus(int auditStatus) {
-			this.auditStatus = auditStatus;
+		public void setAuditstatus(int auditstatus) {
+			this.auditstatus = auditstatus;
 		}
-		
+	
 		
 		
 }
