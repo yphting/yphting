@@ -32,7 +32,7 @@ ORDER BY `recordDate` DESC
 	INSERT INTO putforWard(`userID`,`putname`,`bankID`,`bankAccount`,
 		`openBankName`,`submitTime`,`auditTime`,`money`,`auditStatus`)VALUES
 		(#{putforWard.userid},#{putforWard.putname},#{putforWard.bankid},#{putforWard.bankaccount},#{putforWard.openbankname},
-		#{putforWard.submittime,jdbcType=TIMESTAMP},NULL,#{putforWard.money},#{putforWard.auditstatus});
+		#{putforWard.submittime,jdbcType=TIMESTAMP},NULL,#{putforWard.money},1);
 
 		<!-- 添加金币提现记录表 -->
 		 INSERT INTO putforwardRecord(userID,`bankAccount`,`bankID`,`submitTime`,`completeTime`,`money`,`adminOpinion`)
@@ -150,12 +150,10 @@ WHERE u.userid=#{userId}
 	<insert id="addNews">
 	       INSERT INTO news  
 	       <set>
-	       theSender=1,
-<!-- 	             <if test="news.thesender"></if>
- -->	             <if test="news.addressee">addRessee=#{news.addressee},</if>
+	       	readState=false,
+	             <if test="news.addressee">addRessee=#{news.addressee},</if>
 	             <if test="news.content">content=#{news.content},</if>
 	             <if test="news.sendingtime">sendingTime=#{news.sendingtime,jdbcType=TIMESTAMP},</if>
-	             <if test="news.readstate">readState=#{news.readstate},</if>
 	             <if test="news.newstype">newsType=#{news.newstype},</if>
 	             <if test="news.messagegroup">messageGroup=#{news.messagegroup},</if>
 	       </set>
