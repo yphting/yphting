@@ -265,8 +265,8 @@ public class ForumAction {
 	
 	@GetMapping("queryLastcomment")
 	@ResponseBody
-	public Postcomment queryLastComment(Integer userId) {
-		return biz.queryLastComment(userId);
+	public Postcomment queryLastComment(Integer userId,Integer postId) {
+		return biz.queryLastComment(userId,postId);
 	}
 
 	/**

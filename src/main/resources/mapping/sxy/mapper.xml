@@ -233,11 +233,11 @@
 		postcomment(`postID`,`commentator`,`pid`,`content`,`reviewTime`)
 		values(#{comm.postid},#{comm.commentator},#{comm.pid},#{comm.content},#{comm.reviewtime})
 	</insert>
-	<!-- 查询最早发帖时间 -->
+	<!-- 查询最新发帖时间 -->
 	<select id="queryLastComment" resultType="postcomment">
 		select * from
 		postcomment
-		where commentator = #{userId}
+		where commentator = #{userId} and postId = #{postId}
 		order by reviewtime desc
 		limit
 		0,1
