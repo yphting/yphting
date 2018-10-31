@@ -22,6 +22,9 @@
 		refund
 		where orderid=#{orderid}
 	</select>
+	<select id="queryMyRefundList" resultMap="refundMap">
+		select * from refund where userid=#{userid}
+	</select>
 
 	<insert id="saveRefund">
 		insert
