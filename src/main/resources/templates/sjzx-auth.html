@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,11 +20,11 @@
 企业理念：”诚信为本,惠于顾客,奉于社会”
 
 企业目标：”建设海外一流社区平台，与广大合作伙伴与时俱进,互利互惠!”。" />
-<link href="Public/css/owl.carousel.css" rel="stylesheet" />
-<link href="Public/css/common.css" rel="stylesheet" />
+<link href="/Public/css/owl.carousel.css" rel="stylesheet" />
+<link href="/Public/css/common.css" rel="stylesheet" />
 
-<link rel="stylesheet" type="text/css" href="Public/css/swiper-3.4.2.min.css">
-
+<link rel="stylesheet" type="text/css" href="/Public/css/swiper-3.4.2.min.css">
+<script type="text/javascript" src="/Public/js/jquery-1.8.3.min.js"></script>	
 <meta property="wb:webmaster" content="1a0bb5a2cb580b9f" />
 <meta name="__hash__" content="3a1d3932c55ab06fc30b89e76e999a98_afd972668be246a9631e835aa0012a03" /></head>
 <iframe name="topost" id="topost" style="display:none;"></iframe>
@@ -38,7 +38,7 @@
 			
 			<div class="top_right">
 									<a href="#">.2304</a>			<span class="ht_line"></span><a href="#">退出</a>
-            <span class="ht_line"></span><a href="#"><img src="Public/images/e_i.png" alt="" /></a>
+            <span class="ht_line"></span><a href="#"><img src="/Public/images/e_i.png" alt="" /></a>
            
 			</div>
 		</div>
@@ -78,7 +78,7 @@
                 <li ><a href="#"><span class="msp2 pre_c3"></span>我的服务类别</a></li>
                 <li ><a href="#"><span class="msp2 pre_c3"></span>我提交的托管</a></li>
             </ul>
-			<div class="ad_left_1"><a href="#"><img src="Uploads/adv/2018-04/20180430101403-42917.gif" alt="商家图片-0224" /></a></div>        </div>
+			<div class="ad_left_1"></div>        </div>
   
         <!--member right-->
         <div class="member_right sj_right_box">
@@ -94,15 +94,45 @@
                     <th width="80">状态</th>
                     <th width="100" class="th_c">操作</th>
                 </tr>
-				<tr>
-                	<td>留学中介</td>
-                    <td>-</td>
-                    <td>-</td>
+				<tr th:each="temp,iterState:${LIST}" >
+				
+             	    <td th:text="${temp.stname}"></td>
+                    <td th:text="${#dates.format(temp.submittime,'yyyy-MM-dd HH:mm:ss')}" >-</td>
+                    <td th:text="${#dates.format(temp.audittime,'yyyy-MM-dd HH:mm:ss')}">-</td>
                     <td>
-					未提交
-										</td>
+                    	
+                    <div>
+                    	<span th:if="${temp.auditstatus}==0">未提交</span>
+                    	<span th:if="${temp.auditstatus}!=0"  th:switch="${temp.auditstatus}">
+							<span 	th:case="1">待审核</span>
+							<span  	th:case="2">鉴定完毕</span>
+							<span  	th:case="3">未通过</span>
+                    	</span>
+					</div>
+					</td>
                     <td align="center">
-					<a href="#" class="btna_s2">提交</a>															</td>
+                      <div th:if="${temp.auditstatus}==0">
+                 
+                      	<span th:switch="${temp.stid}">
+						 	 <span  th:case="1"><a href="/sjzx-zjyjd.html" class="btna_s2">提交</a></span>
+						 	 <span  th:case="2"><a href="/sjzx-wzxjd.html" class="btna_s2">提交</a></span>
+							 <span  th:case="3"><a href="/sjzx-lxzjjd.html" class="btna_s2">提交</a></span>
+							 <span  th:case="4"><a href="/sjzx-hyfyjd.html" class="btna_s2">提交</a></span>
+						 	 <span  th:case="5"><a href="/sjzx-xxzyjd.html" class="btna_s2">提交</a></span>
+						</span>
+                    
+                      </div>
+                      <div  th:if="${temp.auditstatus}!=0">
+                          <sapn  th:switch="${temp.auditstatus}">
+                      		<span th:case="1">审核中</span>
+							<span th:case="2">审核成功</span>
+							<span th:case="3" >未通过</span>
+                      	   </sapn>
+                      </div>	
+                  
+				
+					           	
+					</td>
                 </tr>				
 			</table>
 		</div>
@@ -110,7 +140,7 @@
         <div class="clear"></div>
         
         <!--ad-->
-        <div class="ad_box2"><a href=""><img src="Uploads/adv/2017-01/20170120051911-54044.jpg" alt="" /></a></div><!--ad end-->
+        <div class="ad_box2"><a href=""><img src="/Uploads/adv/2017-01/20170120051911-54044.jpg" alt="" /></a></div><!--ad end-->
 	</div>
 </div>
 
@@ -118,7 +148,7 @@
 <div class="footer community_footer_dl">
 	<dl class="footer_dl">
 		<dt>
-		<div class="footer_ewm_box"><img src="Public/images/footer_ewm.png" alt="" /></div>
+		<div class="footer_ewm_box"><img src="/Public/images/footer_ewm.png" alt="" /></div>
 			<span class="ft_ewm_name">御品韩汀</span>
 		</dt>
 		<dd>
@@ -141,7 +171,7 @@
 </ul>
 <!--right nav end-->
 
-<link rel="stylesheet" href="Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
+<link rel="stylesheet" href="/Public/js/valid/css/validationEngine.jquery.css" type="text/css"/>
 
 <!--联系我们的浮层-->
 <div class="pop_contact">
@@ -208,8 +238,11 @@
 
 
 </body>
+<script type="text/javascript"></script>
 <script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript" src="/Public/js/headLeftNav.js"></script>
 <script type="text/javascript" src="/Public/js/sjzx-href.js"></script>
 <script type="text/javascript" src="/Public/js/grzx-interlinkage.js"></script>
+<script type="text/javascript">
+</script>
 </html>

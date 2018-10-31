@@ -1,8 +1,6 @@
 package com.accp.biz.zg;
 
-
-
-
+import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +10,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.dao.zg.IMerchantDao;
-
+import com.accp.pojo.Appraisalapply;
 import com.accp.pojo.Services;
 
 import com.accp.pojo.User;
 import com.accp.vo.zg.EvaluationVo;
 import com.accp.vo.zg.ServicesVo;
+import com.accp.vo.zg.UserAppVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -33,6 +32,17 @@ public class MerchantBiz {
 	
 	public User queryUserByid(Integer userid) {
 		return merchantDao.queryUserByid(userid);		
+	}
+	
+	public List<UserAppVo>  queryAppraisalapply(int userid,int oneid,int twoid){
+		return merchantDao.queryAppraisalapply(userid, oneid, twoid);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
+	public void addAppraisalapply(Appraisalapply app) {
+		
+		merchantDao.addAppraisalapply(app);
+		
 	}
 	
 	public PageInfo<ServicesVo> queryServicesBytitle(Integer pageNum,Integer pageSize,String serviceTitle,Integer userid){
@@ -75,5 +85,7 @@ public class MerchantBiz {
 		PageHelper.startPage(pageNum, pageSize);
 		return new PageInfo<EvaluationVo>(merchantDao.queryEvaluation(userid));
 	}
+	
+	
 	
 }
