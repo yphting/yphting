@@ -121,7 +121,7 @@ public class MerchantEnterAndServiceAction {
 				e.printStackTrace();
 			}
 			if(biz.merchantMove(user,bond)>0) {//商家入驻受影响行数
-				biz.saveGoldNotes(loginUser.getUserid(), 4, "商家入驻缴纳保证金",bond , 2);	//添加金币流向记录
+				biz.saveGoldNotes(loginUser.getUserid(), 4, "商家入驻缴纳保证金",-bond , 2);	//添加金币流向记录
 				szyUserBiz.saveXtxx(loginUser.getUserid(), "您好，您已成功提交商家入驻的申请，请等待管理员审核。");
 				return "redirect:/sjrz-shzl.html";
 			}else {
