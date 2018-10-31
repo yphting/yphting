@@ -61,10 +61,10 @@
 					<dl class="sel_dl_box">
 						<dt><span class="sel_sp ss1"></span>时间</dt>
 						<dd>
-							<form method="post" action="/index.php/Home/Service/driving.html" onsubmit="return chkdriving()">
+							<form method="post" action="#" onsubmit="return chkdriving()">
 								<input name="startDate" type="date" /><span class="z_span">至</span><input name="endDate" type="date"/>
-								<input type="button" value="搜索" class="submit_c" @click="queryServices(1)">
-							<input type="hidden" name="__hash__" value="c306d668f5470ce4e83adf1167ab5ec7_cc18de89e6d50fd7aedd77928225a667"></form>
+								<input type="button" value="搜索" class="submit_c" name="timeSel">
+							</form>
 						</dd>
 					</dl>
 					<dl class="sel_dl_box" style="display:block;" th:if="${countryList.size()>0}">
@@ -369,6 +369,18 @@
 				scrollTop: 0
 			}, 500);
 		});
+		//点击时间搜索
+		jQuery("[name=timeSel]").click(function(){
+			if(jQuery("[name=startDate]").val()==""){
+				alert("请选择开始时间");
+			}else if(jQuery("[name=endDate]").val()==""){
+				alert("请选择结束时间");
+			}else if(Date.parse(jQuery("[name=startDate]").val())>Date.parse(jQuery("[name=endDate]").val())){
+				alert("结束时间不能小于开始时间");
+			}else{
+				vm.queryServices(1);
+			}
+		})
 	</script>
 
 </html>

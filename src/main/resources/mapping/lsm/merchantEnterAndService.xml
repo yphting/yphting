@@ -200,13 +200,9 @@
 			<if test="obj.firstStid==null and obj.stid==null and obj.stidChild!=null and obj.stidChild!=''">
 				AND ser.`stid` = #{obj.stidChild}
 			</if>
-			<!-- 开始时间 -->
-			<if test="obj.startDate!=null and obj.startDate!=''">
-				AND ser.`serviceStartDate` &gt;= #{obj.startDate}
-			</if>
-			<!-- 结束时间 -->
-			<if test="obj.endDate!=null and obj.endDate!=''">
-				AND ser.`serviceEndDate` &lt;= #{obj.endDate}
+			<!-- 开始时间和结束时间 -->
+			<if test="obj.startDate!=null and obj.startDate!='' and obj.endDate!=null and obj.endDate!=''">
+				AND ((ser.`serviceStartDate` &lt;= #{obj.startDate} AND ser.`serviceEndDate` &gt;= #{obj.startDate}) OR (ser.`serviceStartDate` &gt;= #{obj.startDate} AND ser.`serviceStartDate` &lt;= #{obj.endDate}))
 			</if>
 			<!-- 韩汀认证 -->
 			<if test="obj.authentication!=null and obj.authentication!='' and obj.authentication==1">
