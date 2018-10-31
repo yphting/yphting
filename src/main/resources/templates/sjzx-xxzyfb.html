@@ -254,7 +254,7 @@ function showcitys(countryid){
     	<div class="sv_path border_c sv_nbor">
             <a href="/index.php/Home/Seller/index.html">商家中心</a><span class="s_sp_v">-</span><a href="/index.php/Home/Seller/services.html">我发布的服务</a><span class="s_sp_v">-</span>发布学习资源        </div>
 		<h2 class="sev_h2_title">发布学习资源服务</h2>
-		<form method="post" target="topost" id="formpost" onSubmit="return chkServ();" action="zg/c/addServicesxxzy" enctype="multipart/form-data">
+		<form method="post" id="formpost" onSubmit="return chkServ();" action="zg/c/addServicesxxzy" enctype="multipart/form-data">
 			<input type="hidden"  name="stid" value="5">
 			<dl class="info_form_dl">
 				<dt>服务类别</dt>
@@ -472,7 +472,7 @@ function showcitys(countryid){
 			<div class="business_btn_d">
 				<input type="hidden" name="articleid" id="articleid" value="0" />
 				<a href="/index.php/Home/Seller/services.html" class="fr btna_s2">取消发布</a>
-				<a href="javascript:void(0);" onClick="$('#formpost').submit()" >发布服务</a>
+				<a href="javascript:void(0);" onClick="$('#formpost').submit()" class="btn_jy_a btn_jy_a2">发布服务</a>
 			</div>
 		<input type="hidden" name="__hash__" value="c68a4d2f6194ad9fd800b809b07561f3_1ccf6de8f187d17135dc34240a27cb97" /></form>
 	</div>

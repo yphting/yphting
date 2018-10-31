@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.biz.szy.OrdersBiz;
 import com.accp.biz.szy.UserBiz;
 import com.accp.pojo.News;
 import com.accp.pojo.Sharea;
@@ -41,6 +42,8 @@ public class UserAction {
 	
 	@Autowired
 	private UserBiz biz;
+	@Autowired
+	private OrdersBiz orderBiz;
 	/**
 	 * 验证账号
 	 * @param email
@@ -449,9 +452,9 @@ public class UserAction {
 	@ResponseBody
 	public Map<String,String> updateZnxNews(String groupID) {
 		Map<String,String> m=new HashMap<>();
-		System.out.println(groupID);
+		
 		groupID=groupID.substring(1, groupID.length());
-		System.out.println(groupID);
+	
 		String[] Ids=groupID.split(",");
 		try {
 			for (String id : Ids) {
@@ -531,5 +534,18 @@ public class UserAction {
 	public List<News> queryAllNews(HttpSession session){
 		Integer userID=((User)session.getAttribute("USER")).getUserid();
 		return biz.queryAllNews(userID);
+	}
+	/**
+	 * 查询信息  商家首页
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/user/getUserBySjzx",method=RequestMethod.GET)
+	public String getUserBySjzx(HttpSession session,Model model) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		model.addAttribute("orders", orderBiz.queryUserOrder(userID, 0, -1, "", 1, 3));
+		model.addAttribute("user", this.queryAUser(session));
+		return "/sjzx-index.html";
 	}
 }

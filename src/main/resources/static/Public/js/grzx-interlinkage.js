@@ -1,4 +1,4 @@
-var sjzxHref="/sjzx-index.html";
+var sjzxHref="/c/szy/user/getUserBySjzx";
 var grzxHref="/c/lhy/center/home";
 var zhszHref="/c/szy/user/queryGrzxInfo";
 var xxHref="/xx-xtxx.html";

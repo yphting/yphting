@@ -55,19 +55,18 @@ public class OrdersAction {
 	 * @return
 	 */
 	@RequestMapping(value="/order/updateOrders",method=RequestMethod.GET)
-	public String updateOrders(HttpSession session,Integer orderStatus,String orderID) {
+	public String updateOrders(HttpSession session,Integer orderStatus,String orderID,Integer userID) {
 		biz.updateOrders(orderStatus, orderID);
-		Integer userID=((User)session.getAttribute("USER")).getUserid();
 		String content="";
 		switch (orderStatus) {
 		case 3:
-			content="您的订单\"+orderID+\",商家已接单,请进入个人中心查看";
+			content="您的订单"+orderID+",商家已接单,请进入个人中心查看";
 			break;
 		case 4:
-			content="您的订单\"+orderID+\",商家已提供服务,请进入个人中心查看";
+			content="您的订单"+orderID+",商家已提供服务,请进入个人中心查看";
 			break;
 		case 7:
-			content="您的订单\"+orderID+\",商家已取消,请进入个人中心查看";
+			content="您的订单"+orderID+",商家已取消,请进入个人中心查看";
 			break;
 		default:
 			System.out.println("多余状态");

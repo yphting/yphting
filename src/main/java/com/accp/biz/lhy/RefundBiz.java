@@ -129,4 +129,20 @@ public class RefundBiz {
 		orderDao.updateOrder(order);
 		return refundDao.updateRefund(refund);
 	}
+
+	/**
+	 * 查询我的退款列表
+	 * 
+	 * @param userid
+	 *            用户编号
+	 * @param page
+	 *            页
+	 * @param size
+	 *            行
+	 * @return
+	 */
+	public PageInfo<Refund> queryMyRefundList(Integer userid, int page, int size) {
+		PageHelper.startPage(page, size);
+		return new PageInfo<Refund>(refundDao.queryMyRefundList(userid));
+	}
 }

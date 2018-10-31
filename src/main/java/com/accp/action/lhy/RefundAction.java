@@ -148,4 +148,20 @@ public class RefundAction {
 		refundBiz.refundNo(order, refund);
 		return "redirect:/c/lhy/refund/list";
 	}
+
+	/**
+	 * 查询我的退款列表
+	 * 
+	 * @param page
+	 *            页
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/refund/mjlist")
+	public String refundMJList(@RequestParam(defaultValue = "1") Integer page, Model model, HttpSession session) {
+		Integer userid = ((User) session.getAttribute("USER")).getUserid();
+		model.addAttribute("pageInfo", refundBiz.queryMyRefundList(userid, page, 10));
+		return "grzx-refund";
+	}
 }
