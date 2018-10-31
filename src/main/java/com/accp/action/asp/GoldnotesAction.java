@@ -101,6 +101,7 @@ public class GoldnotesAction {
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		putforward.setSubmittime(new Date());
 		putforward.setUserid(userId);
+		
 		biz.addPutforWard(putforward);
 		return "redirect:/zsp/c/goldnotesQueryAll";
 	}
@@ -116,6 +117,7 @@ public class GoldnotesAction {
 		Integer userId=((User)session.getAttribute("USER")).getUserid();
 		goldnotes.setUserid(userId);
 		goldnotes.setRecorddate(new Date());
+		goldnotes.setAcquisitionmode(5);
 		biz.addGoldnotes(goldnotes);
 		return "redirect:/zsp/c/goldnotesQueryAll";
 	}
