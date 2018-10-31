@@ -139,9 +139,9 @@
 				<div class="pt_per_tab">
 					<ul class="pt_per_tab_ul">
 						<li th:data-type="1"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=1,page=1)}">最新动态</a></li>
-						<li th:data-type="2"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=2,page=1)}">发布的帖子</a></li>
-						<li th:data-type="3"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=3,page=1)}">回复的帖子</a></li>
-						<li th:data-type="4"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=4,page=1)}">收藏的帖子</a></li>
+						<li th:data-type="2"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=2,page=1,size=${user_center.total})}">发布的帖子</a></li>
+						<li th:data-type="3"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=3,page=1,size=${user_center.total})}">回复的帖子</a></li>
+						<li th:data-type="4"><a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=4,page=1,size=${user_center.total})}">收藏的帖子</a></li>
 					</ul>
 				</div>
 				<!--1-->
@@ -150,7 +150,7 @@
 				<!-- 全部动态 -->
 				<div th:if="${type==1}" class="pt_tab_show" style="display: block;">
 					<h3 class="pt_h3">
-						<a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=2,page=1)}" class="fr btna_s3">全部</a>发布的帖子 ( <span
+						<a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=2,page=1,size=${user_center.total})}" class="fr btna_s3">全部</a>发布的帖子 ( <span
 							class="c_01" th:text="${postList.total}">1</span> )
 					</h3>
 					<ul class="bbs_list_ul pt_user_ul_list">
@@ -164,7 +164,7 @@
 						</li>
 					</ul>
 					<h3 class="pt_h3">
-						<a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=4,page=1)}" class="fr btna_s3">全部</a>回复的帖子 ( <span
+						<a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=3,page=1,size=${user_center.total})}" class="fr btna_s3">全部</a>回复的帖子 ( <span
 							class="c_01" th:text="${postComment.total}">0</span> )
 					</h3>
 					<ul class="bbs_list_ul pt_user_ul_list">
@@ -185,7 +185,7 @@
 						</li>
 					</ul>
 					<h3 class="pt_h3">
-						<a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=3,page=1)}" class="fr btna_s3">全部</a>收藏的帖子 ( <span
+						<a th:href="@{/c/sxy/toCenter(userId=${param.userId},type=4,page=1,size=${user_center.total})}" class="fr btna_s3">全部</a>收藏的帖子 ( <span
 							class="c_01" th:text="${postCollection.total}">0</span> )
 					</h3>
 					<ul class="bbs_list_ul pt_user_ul_list">
@@ -218,7 +218,7 @@
                             <span th:if="${type==4}">收藏</span>
                             <span th:if="${type==3}">回复</span>
                             	了
-                            <a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" target="_blank" class="pt_a2">东京大学</a>贴子</h3>
+                            <a th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" target="_blank" class="pt_a2" th:text=${temp.title}>东京大学</a>贴子</h3>
                             <p class="date_p" th:if="${param.type==3}" th:text="${#dates.format(temp.lastcomment.reviewtime, 'yyyy-MM-dd HH:mm')}"> 2017-03-30 21:55:26</p>
                              <p class="date_p" th:text="${#dates.format(temp.releasetime, 'yyyy-MM-dd HH:mm')}"> 2017-03-30 21:55:26</p>
                         </div>

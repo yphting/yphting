@@ -144,7 +144,7 @@
 									<a href="javascript:;" th:if="${temp.order.refundstatus==5}">退款完成</a>
 									<a href="javascript:;" th:if="${temp.order.refundstatus==6}">退款取消</a>
 								</td>
-								<td><a th:href="@{/c/lhy/refund/sjdetail(orderid=${temp.order.orderid})}" class="btna_s2">查看</a></td>
+								<td><a th:href="@{/c/lhy/refund/detail(orderid=${temp.order.orderid})}" class="btna_s2">查看</a></td>
 							</tr>
 						</tbody>
 					</table>

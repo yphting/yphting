@@ -47,6 +47,7 @@
 		<if test="order.commentstatus!=null">
 			and commentstatus=#{order.commentstatus}
 		</if>
+		order by orderid desc
 	</select>
 	<select id="queryOrderById" resultMap="OrderMap">
 		select *

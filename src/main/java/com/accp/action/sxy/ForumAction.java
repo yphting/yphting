@@ -332,23 +332,24 @@ public class ForumAction {
 	}
 	
 	@GetMapping("toCenter")
-	public String toCenter(Integer userId,Integer type,@RequestParam(defaultValue="1")Integer page,@RequestParam(required=false)String title,Model model) {
+	public String toCenter(Integer userId,Integer type,@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="3")Integer size,@RequestParam(required=false)String title,Model model) {
 		PageInfo<PostVo> userPostList = null;
 		User user = biz.queryUserInfo(userId);
+		userPostList = biz.queryMyForum(page, size, userId,title);
 		//显示最新动态
 		if(type==1) {
-			model.addAttribute("postList",biz.queryMyForum(page, 3, userId,title));
-			model.addAttribute("postCollection",biz.queryMyCollection(page, 3, userId, title));
-			model.addAttribute("postComment",biz.queryMyComment(page, 3, userId, title));
+			model.addAttribute("postList",biz.queryMyForum(page, size, userId,title));
+			model.addAttribute("postCollection",biz.queryMyCollection(page, size, userId, title));
+			model.addAttribute("postComment",biz.queryMyComment(page, size, userId, title));
 		}else if(type==2) {
 			//显示用户的发帖
-			userPostList = biz.queryMyForum(page, 3, userId,title);
-		}else if(type==3) {
+			userPostList = biz.queryMyForum(page, size, userId,title);
+		}else if(type==4) {
 			//显示用户的收藏
-			userPostList = biz.queryMyCollection(page, 3, userId, title);
-		}else if(type==4){
+			userPostList = biz.queryMyCollection(page, size, userId, title);
+		}else if(type==3){
 			//显示用户的回复
-			userPostList = biz.queryMyComment(page, 3, userId, title);
+			userPostList = biz.queryMyComment(page, size, userId, title);
 		}
 		model.addAttribute("type", type);
 		model.addAttribute("user", user);

@@ -134,8 +134,12 @@
 	</update>
 	<!-- 查询帖子详情 -->
 	<select id="queryPostDetail" resultMap="PostVoMap">
-		update post set
-		browsenumber = browsenumber+1 where postId = #{postId};
+		update post set 
+		commentNumber = (select count(*) FROM postcomment where postID = #{postId}),
+		fabulousNumber = (select count(*) FROM postfabulous where postID = #{postId}),
+		collectionNumber = (select count(*) FROM postcollection where pcID = #{postId}),
+		browsenumber = browsenumber+1
+		where postId = #{postId};
 		select
 		*,(select max(reviewtime) from postcomment p where
 		p.postId=po.postId)lasttime
