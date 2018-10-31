@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.biz.zg.MerchantBiz;
+import com.accp.pojo.Appraisalapply;
 import com.accp.pojo.Services;
 import com.accp.pojo.User;
 import com.accp.util.file.Upload;
 import com.accp.vo.zg.EvaluationVo;
 import com.accp.vo.zg.ServicesVo;
+import com.accp.vo.zg.UserAppVo;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 
@@ -52,7 +55,249 @@ public class MerchantAction {
 		User user=merchantBiz.queryUserByid(userID);
 		model.addAttribute("ZUSER",user);
 		return "sjzx-xzfwlb";
+	}
+	
+	@GetMapping("queryAppraisalapply")
+	public String queryAppraisalapply(HttpSession session, Model model) {
+		Integer userID=((User)session.getAttribute("USER")).getUserid();
+		Integer oneid=((User)session.getAttribute("USER")).getFirstserviceid();
+		Integer twoid=((User)session.getAttribute("USER")).getSecondserviceid();
+		List<UserAppVo> list=merchantBiz.queryAppraisalapply(userID, oneid, twoid);
+		System.out.println(JSON.toJSONString(list));
+		model.addAttribute("LIST",list);
+		return "sjzx-auth";
+	}
+	
+	@PostMapping("addzjyjd")
+	public String  addzjyjd(HttpSession session,Model model,int stid,String name,int sex,int height,String constellation,int age,String visatype,int documentType,String certificates,String experience,boolean vehicle,boolean guideCard,String inKorea,String phone,String email,String country,String provincialID,String cityID,String detailed,MultipartFile schoolReport) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
 		
+				Appraisalapply app=new Appraisalapply();
+				try {
+					if(!schoolReport.isEmpty()) {
+						String	filesc=Upload.uploadFile(schoolReport);
+						app.setSchoolreport(filesc);
+					}
+					
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				app.setUserid(userID);
+				app.setStid(stid);
+				app.setName(name);
+				app.setSex(sex);
+				app.setHeight(height);
+				app.setConstellation(constellation);
+				app.setAge(age);
+				app.setVisatype(visatype);
+				app.setDocumenttype(documentType);
+				app.setCertificates(certificates);
+				app.setExperience(experience);
+				app.setVehicle(vehicle);
+				app.setGuidecard(guideCard);
+				app.setInkorea(inKorea);
+				app.setPhone(phone);
+				app.setEmail(email);
+				app.setCountry(country);
+				app.setProvincialid(provincialID);
+				app.setCityid(cityID);
+				app.setDetailed(detailed);
+			
+				app.setSubmittime(new Date());
+				app.setAuditstatus(1);
+				merchantBiz.addAppraisalapply(app);
+				return "redirect:/zg/c/queryAppraisalapply";
+	}
+	
+	@PostMapping("addwzxjd")
+	public String  addwzxjd(HttpSession session,Model model,int stid,String name,int sex,String visatype,int documentType,String certificates,String experience,boolean vehicle,MultipartFile hospitalLicense,String cooperativeHospital,String cooperativeHospitalURL,String hospitalPhone,String inKorea,String phone,String email,String country,String provincialID,String cityID,String detailed,MultipartFile schoolReport) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
+		
+				Appraisalapply app=new Appraisalapply();
+				try {
+					if(!hospitalLicense.isEmpty()) {
+						String	yyfile=Upload.uploadFile(hospitalLicense);
+						app.setHospitallicense(yyfile);
+					}
+					if(!schoolReport.isEmpty()) {
+						String	filesc=Upload.uploadFile(schoolReport);
+						app.setSchoolreport(filesc);
+					}
+					
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				app.setUserid(userID);
+				app.setStid(stid);
+				app.setName(name);
+				app.setSex(sex);		
+				app.setVisatype(visatype);
+				app.setDocumenttype(documentType);
+				app.setCertificates(certificates);
+				app.setExperience(experience);
+				app.setVehicle(vehicle);
+				app.setInkorea(inKorea);
+				app.setCooperativehospital(cooperativeHospital);
+				app.setCooperativehospitalurl(cooperativeHospitalURL);
+				app.setHospitalphone(hospitalPhone);
+				app.setPhone(phone);
+				app.setEmail(email);
+				app.setCountry(country);
+				app.setProvincialid(provincialID);
+				app.setCityid(cityID);
+				app.setDetailed(detailed);
+				app.setSubmittime(new Date());
+				app.setAuditstatus(1);
+				merchantBiz.addAppraisalapply(app);
+				return "redirect:/zg/c/queryAppraisalapply";
+	}
+	
+	@PostMapping("addlxzjjd")
+	public String  addlxzjjd(HttpSession session,Model model,int stid,String name,int sex,String visatype,int documentType,String certificates,String experience,boolean office,String officeCountry,String officeProvince,String officeCity,String officeDetailed,MultipartFile koreaLicense,String officialNetworkURL,String inKorea,String phone,String email,String country,String provincialID,String cityID,String detailed,MultipartFile schoolReport) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
+		
+				Appraisalapply app=new Appraisalapply();
+				try {
+					if(!koreaLicense.isEmpty()) {
+						String	file1=Upload.uploadFile(koreaLicense);
+						app.setKorealicense(file1);
+					}
+					if(!schoolReport.isEmpty()) {
+						String	filesc=Upload.uploadFile(schoolReport);
+						app.setSchoolreport(filesc);
+					}
+					
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				app.setUserid(userID);
+				app.setStid(stid);
+				app.setName(name);
+				app.setSex(sex);		
+				app.setVisatype(visatype);
+				app.setDocumenttype(documentType);
+				app.setCertificates(certificates);
+				app.setExperience(experience);
+				app.setOffice(office);
+				app.setOfficecountry(officeCountry);
+				app.setOfficeprovince(officeProvince);
+				app.setOfficecity(officeCity);
+				app.setOfficedetailed(officeDetailed);
+				app.setOfficialnetworkurl(officialNetworkURL);
+				app.setInkorea(inKorea);
+		
+				app.setPhone(phone);
+				app.setEmail(email);
+				app.setCountry(country);
+				app.setProvincialid(provincialID);
+				app.setCityid(cityID);
+				app.setDetailed(detailed);
+				app.setSubmittime(new Date());
+				app.setAuditstatus(1);
+				merchantBiz.addAppraisalapply(app);
+				return "redirect:/zg/c/queryAppraisalapply";
+	}
+	
+	@PostMapping("addhyfyjd")
+	public String  addhyfyjd(HttpSession session,Model model,int stid,String name,int sex,String visatype,int documentType,String certificates,String experience,boolean office,int translateType,MultipartFile translate,String officeCountry,String officeProvince,String officeCity,String officeDetailed,MultipartFile koreaLicense,String translateWebsite,String inKorea,String phone,String email,String country,String provincialID,String cityID,String detailed,MultipartFile schoolReport) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
+		
+				Appraisalapply app=new Appraisalapply();
+				try {
+					if(!translate.isEmpty()) {
+						String	filetranslate=Upload.uploadFile(translate);
+						app.setKorealicense(filetranslate);
+					}
+					
+					
+					if(!koreaLicense.isEmpty()) {
+						String	file1=Upload.uploadFile(koreaLicense);
+						app.setKorealicense(file1);
+					}
+					if(!schoolReport.isEmpty()) {
+						String	filesc=Upload.uploadFile(schoolReport);
+						app.setSchoolreport(filesc);
+					}
+					
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				app.setUserid(userID);
+				app.setStid(stid);
+				app.setName(name);
+				app.setSex(sex);		
+				app.setVisatype(visatype);
+				app.setDocumenttype(documentType);
+				app.setCertificates(certificates);
+				app.setExperience(experience);
+				app.setOffice(office);
+				app.setTranslatewebsite(translateWebsite);
+				app.setInkorea(inKorea);
+				app.setTranslatetype(translateType);
+				app.setOfficecountry(officeCountry);
+				app.setOfficeprovince(officeProvince);
+				app.setOfficecity(officeCity);
+				app.setOfficedetailed(officeDetailed);
+				app.setPhone(phone);
+				app.setEmail(email);
+				app.setCountry(country);
+				app.setProvincialid(provincialID);
+				app.setCityid(cityID);
+				app.setDetailed(detailed);
+				app.setSubmittime(new Date());
+				app.setAuditstatus(1);
+				merchantBiz.addAppraisalapply(app);
+				return "redirect:/zg/c/queryAppraisalapply";
+	}
+	
+	
+	@PostMapping("addxxzyjd")
+	public String  addxxzyjd(HttpSession session,Model model,int stid,String name,int sex,String visatype,int documentType,String certificates,String studyMajor,MultipartFile schoolReport) {
+				Integer userID=((User)session.getAttribute("USER")).getUserid();
+		
+				Appraisalapply app=new Appraisalapply();
+				try {
+				
+					if(!schoolReport.isEmpty()) {
+						String	filesc=Upload.uploadFile(schoolReport);
+						app.setSchoolreport(filesc);
+					}
+					
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				app.setUserid(userID);
+				app.setStid(stid);
+				app.setName(name);
+				app.setSex(sex);		
+				app.setVisatype(visatype);
+				app.setDocumenttype(documentType);
+				app.setCertificates(certificates);
+				app.setStudymajor(studyMajor);
+				app.setSubmittime(new Date());
+				app.setAuditstatus(1);
+				merchantBiz.addAppraisalapply(app);
+				return "redirect:/zg/c/queryAppraisalapply";
 	}
 	
 	@GetMapping("queryEvaluation")
