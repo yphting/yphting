@@ -61,14 +61,15 @@
 		select * from postcomment where postid=#{0} order by
 		reviewtime desc limit 0,1
 	</select>
-	
-	
+
+
 	<!-- 查询评论帖子 -->
 	<select id="queryCommentPid" resultMap="SimplePostcommentVoMap">
-		select * from postcomment where pcid=#{0}
+		select * from postcomment
+		where pcid=#{0}
 	</select>
-	
-	
+
+
 	<!-- 查询评论数 -->
 	<select id="queryCountByPostid" resultType="java.lang.Integer">
 		select count(1) from
@@ -214,7 +215,8 @@
 	<select id="checkHasFabulous" resultType="java.lang.Integer">
 		select count(1) from
 		postfabulous
-		where postId = #{postId} and userId = #{userId}
+		WHERE TO_DAYS(`fabuloustime`) = TO_DAYS(NOW())
+		and postId = #{postId} and userId = #{userId}
 	</select>
 	<!-- 点赞 -->
 	<select id="saveFabulous">
@@ -233,37 +235,68 @@
 	</insert>
 	<!-- 查询最早发帖时间 -->
 	<select id="queryLastComment" resultType="postcomment">
-		select * from postcomment
+		select * from
+		postcomment
 		where commentator = #{userId}
 		order by reviewtime desc
-		limit 0,1
+		limit
+		0,1
 	</select>
-	
+
 	<!-- 查询当天评论次数 -->
 	<select id="queryCommentCount" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM postcomment
+		SELECT COUNT(*) FROM
+		postcomment
 		WHERE TO_DAYS(`reviewtime`) = TO_DAYS(NOW())
-		AND commentator = #{userId}
+		AND commentator
+		= #{userId}
 	</select>
-	
+
 	<!-- 评论回帖加积分 -->
 	<update id="updateCommentJIntegral">
 		update user set userIntegral = userIntegral+3
-		where userId = #{comm.commentator};
-		update user set userIntegral = userIntegral+1
-		where userId = (select userId from post where postId = #{comm.postid})
+		where
+		userId = #{comm.commentator};
+		update user set userIntegral =
+		userIntegral+1
+		where userId = (select userId from post where postId =
+		#{comm.postid})
 	</update>
-	
+
 	<!-- 删除评论 -->
 	<delete id="removeComment">
 		DELETE FROM postcomment WHERE pcid = #{pcid};
-		DELETE FROM postcomment WHERE pid = #{pcid}
+		DELETE
+		FROM postcomment WHERE pid = #{pcid}
 	</delete>
-	
+	<!-- 查询发帖人 -->
 	<select id="queryCommentAtor" resultType="java.lang.Integer">
-		select userId from post 
+		select userId from post
 		where postId = #{postId}
 	</select>
+	<!-- 编辑帖子 -->
+	<update id="updatePost">
+		update post
+		<set>
+			<if test="post.fmid!=null">
+				fmid = #{post.fmid},
+			</if>
+			<if test="post.title!=null">
+				title = #{post.title},
+			</if>
+			<if test="post.content!=null">
+				content = #{post.content},
+			</if>
+			<if test="post.releasetime!=null">
+				releasetime = #{post.releasetime},
+			</if>
+		</set>
+		where postId = #{post.postid} and userId = #{post.userid}
+	</update>
 	
-	
+	<select id="queryUserInfo" resultType="user">
+		select * from user
+		where userId = #{userId}
+	</select>
+
 </mapper>

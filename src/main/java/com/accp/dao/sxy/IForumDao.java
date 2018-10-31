@@ -9,6 +9,7 @@ import com.accp.pojo.Post;
 import com.accp.pojo.Postcollection;
 import com.accp.pojo.Postcomment;
 import com.accp.pojo.Postfabulous;
+import com.accp.pojo.User;
 import com.accp.vo.sxy.PostVo;
 import com.accp.vo.sxy.PostcommentVo;
 
@@ -194,4 +195,17 @@ public interface IForumDao {
 	 */
 	public Integer queryCommentAtor(@Param("postId")Integer postId);
 
+	/**
+	 * 编辑帖子
+	 * @param post
+	 */
+	public void updatePost(@Param("post")Post post);
+	
+	/**
+	 * 查询用户信息
+	 * @param userId
+	 * @return
+	 */
+	public User queryUserInfo(@Param("userId")Integer userId);
+	
 }

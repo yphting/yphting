@@ -304,5 +304,56 @@ public class ForumAction {
 		return map;
 	}
 		
+	/**
+	 * 跳转编辑帖子页面
+	 * @param postvo
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("toUpdatePost")
+	public String toUpdatePost(Integer postId,Model model) {
+			//显示版块下拉框
+			PostVo postvo = biz.queryPostDetail(postId);
+			List<Forummanagement> list = biz.queryBlock();
+			model.addAttribute("BLIST", list);
+			model.addAttribute("pid", postvo.getForum().getPid());
+			model.addAttribute("fmid", postvo.getForum().getFmid());
+			model.addAttribute("POST", postvo);
+			return "lt-updateforum.html";
+	}
+	
+	@PostMapping("updatePost")
+	@ResponseBody
+	public Map<String,String> updatePost(@RequestBody Post post){		
+		Map<String,String> map=new HashMap<>();
+		biz.updatePost(post);
+		map.put("code", "200");
+		return map;
+	}
+	
+	@GetMapping("toCenter")
+	public String toCenter(Integer userId,Integer type,@RequestParam(defaultValue="1")Integer page,@RequestParam(required=false)String title,Model model) {
+		PageInfo<PostVo> userPostList = null;
+		User user = biz.queryUserInfo(userId);
+		//显示最新动态
+		if(type==1) {
+			model.addAttribute("postList",biz.queryMyForum(page, 3, userId,title));
+			model.addAttribute("postCollection",biz.queryMyCollection(page, 3, userId, title));
+			model.addAttribute("postComment",biz.queryMyComment(page, 3, userId, title));
+		}else if(type==2) {
+			//显示用户的发帖
+			userPostList = biz.queryMyForum(page, 3, userId,title);
+		}else if(type==3) {
+			//显示用户的收藏
+			userPostList = biz.queryMyCollection(page, 3, userId, title);
+		}else if(type==4){
+			//显示用户的回复
+			userPostList = biz.queryMyComment(page, 3, userId, title);
+		}
+		model.addAttribute("type", type);
+		model.addAttribute("user", user);
+		model.addAttribute("user_center", userPostList);
+		return "zjw-dongtai.html";
+	}
 
 }
