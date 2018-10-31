@@ -22,11 +22,11 @@
 			<div class="h_top">
 				<div class="b_box">
 					<div class="top_nav">
-						<a href="javascript:;">首页</a><span class="ht_line"></span>
+						<a th:href="@{/c/lsm/homeUrl}">首页</a><span class="ht_line"></span>
 						<a href="javascript:;">商家入驻</a><span class="ht_line"></span>
-						<a href="javascript:;">帮助中心</a><span class="ht_line"></span>
-						<a href="javascript:;">关于韩汀</a><span class="ht_line"></span>
-						<a href="javascript:;">联系我们</a>
+						<a href="/fw-bzzx.html">帮助中心</a><span class="ht_line"></span>
+						<a href="/fw-gyht.html">关于韩汀</a><span class="ht_line"></span>
+						<a href="/fw-lxwm.html">联系我们</a>
 					</div>
 
 					<div class="top_right">
@@ -39,25 +39,25 @@
 				<a href="javascript:;" class="logo logo_community">御品韩汀.社区</a>
 				<ul class="nav_ul">
 					<li>
-						<a href="javascript:;"><span class="community_sp csp1"></span><br>自驾游</a>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-zjyTAB&stid=1}"><span class="community_sp csp1"></span><br>自驾游</a>
 					</li>
 					<li>
-						<a href="javascript:;"><span class="community_sp csp2"></span><br>微整形</a>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-wzxTAB&stid=2}"><span class="community_sp csp2"></span><br>微整形</a>
 					</li>
 					<li>
-						<a href="javascript:;"><span class="community_sp csp3"></span><br>留学中介</a>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-lxzjTAB&stid=3}"><span class="community_sp csp3"></span><br>留学中介</a>
 					</li>
 					<li>
-						<a href="javascript:;"><span class="community_sp csp4"></span><br>韩语翻译</a>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-hyfyTAB&stid=4}"><span class="community_sp csp4"></span><br>韩语翻译</a>
 					</li>
 					<li>
-						<a href="javascript:;"><span class="community_sp csp5"></span><br>学习资源</a>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-xxzyTAB&stid=5}"><span class="community_sp csp5"></span><br>学习资源</a>
 					</li>
 					<li>
 						<a href="javascript:;"><span class="community_sp csp6"></span><br>韩汀物流</a>
 					</li>
 					<li class="cur">
-						<a href="javascript:;"><span class="community_sp csp7"></span><br>韩汀·论坛</a>
+						<a th:href="@{/c/sxy/column?pid=1&page=1&orderId=1&essence=0}"><span class="community_sp csp7"></span><br>韩汀·论坛</a>
 					</li>
 				</ul>
 			</div>
@@ -106,7 +106,7 @@
 					<ul class="bbs_list_ul">
 						<li th:each="temp,item : ${PAGE_INFO.list}">
 							<p class="bbs_user_photo">
-								<a href="javascript:;">
+								<a th:href="@{/c/sxy/toCenter(userId=${temp.user.userid},type=1,page=1)}">
 									<img th:src="${temp.user.userimgpath}" th:alt="${temp.user.username}">
 									<!--  商铺帖子
 									<img src="/Public/images/bbs_user_i.png" alt="" class="bbs_user_i">
@@ -117,14 +117,14 @@
 								<h3 class="bbs_text_title" >
 									<img th:if="${temp.essence==true}" src="/Public/images/i_jh.png" style="padding-bottom:2px;">
 									<img th:if="${temp.solid==true}" src="/Public/images/i_ding.png" style="padding-bottom:2px;">
-									<a href="javascript:;" th:text="${temp.title}"></a>
+									<a  th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}" th:text="${temp.title}"></a>
 								</h3>
 								<p class="bbs_user_i">
-									<a href="javascript:;" th:text="${temp.forum.fmname}">韩国大学简介</a><span class="bbs_dot">·</span>
-									<a href="javascript:;" th:text="${temp.user.username}">坏坏带点乖.</a><span class="bbs_dot">·</span>
-									<a href="javascript:;"><span th:text="${temp.count}">2</span>条回复</a><span class="bbs_dot">·</span><span th:text="${#dates.format(temp.releasetime, 'yyyy-MM-dd HH:mm')}">16</span><span class="bbs_dot"></span>
+									<a th:href="@{/c/sxy/column(pid=${temp.forum.pid},page=1,forumId=${temp.forum.fmid},orderId=0,essence=0)}" th:text="${temp.forum.fmname}">韩国大学简介</a><span class="bbs_dot">·</span>
+									<a th:href="@{/c/sxy/toCenter(userId=${temp.user.userid},type=1,page=1)}" th:text="${temp.user.username}">坏坏带点乖.</a><span class="bbs_dot">·</span>
+									<a  th:href="@{/c/sxy/postDetail(postId=${temp.postid},fmid=${temp.forum.fmid},pfmid=${temp.forum.pid},fmname=${temp.forum.fmname})}"><span th:text="${temp.count}">2</span>条回复</a><span class="bbs_dot">·</span><span th:text="${#dates.format(temp.releasetime, 'yyyy-MM-dd HH:mm')}">16</span><span class="bbs_dot"></span>
 									<span th:if="${temp.count!=0}"><span>·&nbsp;&nbsp;&nbsp;&nbsp;</span>最后回复									
-									<a href="javascript:;" class="lst_nem" th:text="${temp.lastcomment.user.username}">chaki</a></span>
+									<a  th:href="@{/c/sxy/toCenter(userId=${temp.lastcomment.user.userid},type=1,page=1)}" class="lst_nem" th:text="${temp.lastcomment.user.username}">chaki</a></span>
 								</p>
 							</div>
 						</li>

@@ -1,5 +1,6 @@
 package com.accp.biz.zsp;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -66,11 +67,15 @@ public class GoldnotesBiz {
     	dao.updUser(money, null,putforward.getUserid());
 		dao.addPutforWard(putforward);
 		
+		Date currentTime = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		String dateString = formatter.format(currentTime);
+		
 		News news=new News();
     	news.setAddressee(putforward.getUserid());
-    	news.setContent("金币提现");
+    	news.setContent("您于"+dateString+"进行金币提现");
     	news.setMessagegroup(2);
-    	news.setNewstype(2);
+    	news.setNewstype(1);
     	news.setReadstate(false);
     	news.setSendingtime(new Date());
     	news.setThesender(putforward.getUserid());
@@ -82,14 +87,17 @@ public class GoldnotesBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void addGoldnotes(Goldnotes  goldnotes) {
+    	Date currentTime = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		String dateString = formatter.format(currentTime);
     	News news=new News();
     	news.setAddressee(goldnotes.getUserid());
-    	news.setContent("支付充值");
-    	news.setMessagegroup(2);
-    	news.setNewstype(2);
+    	news.setContent("您于"+dateString+"进行了充值");
+    	news.setMessagegroup(1);
+    	news.setNewstype(1);
     	news.setReadstate(false);
     	news.setSendingtime(new Date());
-    	news.setThesender(goldnotes.getUserid());
+    	news.setThesender(null);
     	dao.addNews(news);
     	dao.addGoldnotes(goldnotes);
 	}
@@ -209,14 +217,18 @@ public class GoldnotesBiz {
 		goldnotes.setRecordinandout(-+(float)logisticss.getPrice());
 		goldnotes.setAuditstatus(2);
 		
+		Date currentTime = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		String dateString = formatter.format(currentTime);
+    
 		News news=new News();
     	news.setAddressee(goldnotes.getUserid());
-    	news.setContent("物流支付");
-    	news.setMessagegroup(2);
-    	news.setNewstype(2);
+    	news.setContent("您于"+dateString+"进行了物流支付");
+    	news.setMessagegroup(1);
+    	news.setNewstype(1);
     	news.setReadstate(false);
     	news.setSendingtime(new Date());
-    	news.setThesender(logisticss.getUserid());
+    	news.setThesender(null);
     	dao.addNews(news);
 		
 		dao.addGoldnotes(goldnotes);

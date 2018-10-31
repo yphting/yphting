@@ -16,6 +16,7 @@ import com.accp.pojo.Post;
 import com.accp.pojo.Postcollection;
 import com.accp.pojo.Postcomment;
 import com.accp.pojo.Postfabulous;
+import com.accp.pojo.User;
 import com.accp.vo.sxy.PostVo;
 import com.accp.vo.sxy.PostcommentVo;
 import com.github.pagehelper.PageHelper;
@@ -265,5 +266,22 @@ public class ForumBiz {
 	 */
 	public Integer queryCommentAtor(Integer postId) {
 		return dao.queryCommentAtor(postId);
+	}
+	
+	/**
+	 * 编辑帖子
+	 * @param post
+	 */
+	public void updatePost(Post post) {
+		dao.updatePost(post);
+	}
+	
+	/**
+	 * 查询用户信息
+	 * @param userId
+	 * @return
+	 */
+	public User queryUserInfo(Integer userId) {
+		return dao.queryUserInfo(userId);
 	}
 } 

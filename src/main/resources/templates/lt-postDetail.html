@@ -57,14 +57,11 @@
 		<div class="h_top">
 			<div class="b_box">
 				<div class="top_nav">
-					<a href="javascript:void(0);">首页</a><span class="ht_line"></span><a
-						href="javascript:void(0);">商家入驻</a><span
-						class="ht_line"></span><a
-						href="javascript:void(0);">帮助中心</a><span
-						class="ht_line"></span><a
-						href="javascript:void(0);">关于韩汀</a><span
-						class="ht_line"></span><a
-						href="javascript:void(0);">联系我们</a>
+						<a th:href="@{/c/lsm/homeUrl}">首页</a><span class="ht_line"></span>
+						<a href="javascript:;">商家入驻</a><span class="ht_line"></span>
+						<a href="/fw-bzzx.html">帮助中心</a><span class="ht_line"></span>
+						<a href="/fw-gyht.html">关于韩汀</a><span class="ht_line"></span>
+						<a href="/fw-lxwm.html">联系我们</a>
 				</div>
 
 				<div class="top_right">
@@ -81,20 +78,25 @@
 		<div class="b_box nav_header community_header">
 			<a href="javascript:void(0);" class="logo logo_community">御品韩汀.社区</a>
 			<ul class="nav_ul">
-				<li><a href="javascript:void(0);"><span
-						class="community_sp csp1"></span><br>自驾游</a></li>
-				<li><a href="javascript:void(0);"><span
-						class="community_sp csp2"></span><br>微整形</a></li>
-				<li><a href="javascript:void(0);"><span
-						class="community_sp csp3"></span><br>留学中介</a></li>
-				<li><a href="javascript:void(0);"><span
-						class="community_sp csp4"></span><br>韩语翻译</a></li>
-				<li><a href="javascript:void(0);"><span
-						class="community_sp csp5"></span><br>学习资源</a></li>
+					<li>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-zjyTAB&stid=1}"><span class="community_sp csp1"></span><br>自驾游</a>
+					</li>
+					<li>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-wzxTAB&stid=2}"><span class="community_sp csp2"></span><br>微整形</a>
+					</li>
+					<li>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-lxzjTAB&stid=3}"><span class="community_sp csp3"></span><br>留学中介</a>
+					</li>
+					<li>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-hyfyTAB&stid=4}"><span class="community_sp csp4"></span><br>韩语翻译</a>
+					</li>
+					<li>
+						<a th:href="@{/c/lsm/serviceUrl?htmlUrl=fw-xxzyTAB&stid=5}"><span class="community_sp csp5"></span><br>学习资源</a>
+					</li>
 				<li><a href="javascript:void(0);"><span
 						class="community_sp csp6"></span><br>韩汀物流</a></li>
 				<li class="cur"><a
-					href="javascript:void(0);"><span
+					th:href="@{/c/sxy/column?pid=1&page=1&orderId=1&essence=0}"><span
 						class="community_sp csp7"></span><br>韩汀·论坛</a></li>
 			</ul>
 		</div>
@@ -114,7 +116,7 @@
 					<dt>
 						<!--<img src="/Public/images/bbs_user_i.png" alt=""
 							class="bdu_img_hgi2">--> <a
-							href="javascript:void(0);">
+							 th:href="@{/c/sxy/toCenter(userId=${POSTVO.user.userid},type=1,page=1)}">
 							<img th:src="${POSTVO.user.userimgpath}" th:alt="${POSTVO.user.username}"></a>
 					</dt>
 					<dd>
@@ -124,10 +126,13 @@
 							<a th:if="${POSTVO.essence==true}"href="javascript:void(0);" class="ria2">精</a>	
 						</div>
 							<span th:text="${POSTVO.title}">延世大学排名及专业介绍</span>
+							<div th:if="${user.userid==POSTVO.user.userid}" class="tz_title_right">
+							<a th:href="@{/c/sxy/toUpdatePost(postId=${param.postId})}" class="ria3">编辑</a>
+							</div>
 						</h1>
 						<div class="tz_in_t2">
 							<span th:text="${#dates.format(POSTVO.releasetime, 'yyyy-MM-dd HH:mm')}">2017/03/19</span><span class="dot_i3">•</span><a
-								href="javascript:void(0);"><span th:text="${POSTVO.user.username}">坏坏带点乖</span>.</a><span
+								 th:href="@{/c/sxy/toCenter(userId=${POSTVO.user.userid},type=1,page=1)}"><span th:text="${POSTVO.user.username}">坏坏带点乖</span>.</a><span
 								class="dot_i3">•</span><a><span th:text="${POSTVO.browsenumber}">381</span>人浏览</a><span class="dot_i3">•</span><a
 								href="#comment"><span th:text="${POSTVO.commentnumber}">2</span>&nbsp;评论</a><span class="dot_i3">•</span><a
 								href="###" class="btna_a_jb">举报</a>
@@ -182,11 +187,11 @@
 						<p class="date_p fr" th:text="${#dates.format(temp.reviewtime, 'yyyy-MM-dd HH:mm')}">2018-09-08 10:39:57</p>
 						<div class="my_evaluation_text">
 							<h3 class="bbs_text_title">
-								<a href="javascript:void(0);" class="name_a_2" th:text="${temp.user.username}">许超雄</a>
+								<a th:href="@{/c/sxy/toCenter(userId=${temp.user.userid},type=1,page=1)}" class="name_a_2" th:text="${temp.user.username}">许超雄</a>
 							</h3>
 							
 							<!--  回复 -->
-							<div th:if="${temp.pc!=null}" class="hf_show"><span th:text="${temp.pc.content}">墨墨</span>　<a href="javascript:;" class="btna_s2" th:text="${temp.pc.user.username}">倾心</a></div>
+							<div th:if="${temp.pc!=null}" class="hf_show"><span th:text="${temp.pc.content}">墨墨</span>　<a  th:href="@{/c/sxy/toCenter(userId=${temp.pc.user.userid},type=1,page=1)}" class="btna_s2" th:text="${temp.pc.user.username}">倾心</a></div>
 							
 							<p class="pt_text2" th:text="${temp.content}">666</p>
 							<p class="f12 t_r mt0">
@@ -456,6 +461,7 @@
 	
 	<!--pop bg end-->
 </body>
+<script type="text/javascript" src="/Public/js/sessionHeader.js"></script>
 <script type="text/javascript">
 
 $("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
@@ -515,7 +521,7 @@ $("[data-page=[[${PAGE_INFO.pageNum}]]]").addClass("cur");
 					alert("请先登录！");
 					location.href="/szy-login.html";
 				}else if(data.code=="300"){
-					alert("请不要重复点赞！");
+					alert("对不起，每条帖子一天只能点赞一次。");
 				}else if(data.code=="400"){
 					alert("不允许对自己的帖子点赞！");
 				}else{

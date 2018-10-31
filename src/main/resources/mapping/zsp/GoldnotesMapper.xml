@@ -40,8 +40,8 @@ ORDER BY `recordDate` DESC
 	
 		 <!-- 记录金币流向记录 -->
 		INSERT INTO
-		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus)
-		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=TIMESTAMP},'金币提现',-#{putforWard.money},1)
+		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus,acquisitionMode)
+		VALUES(#{putforWard.userid},#{putforWard.submittime,jdbcType=TIMESTAMP},'金币提现',-#{putforWard.money},1,8)
 	</insert>
 	<!-- 添加金币流向记录表 -->
 	<insert id="addGoldnotes" useGeneratedKeys="true"
@@ -49,7 +49,7 @@ ORDER BY `recordDate` DESC
 		INSERT INTO
 		goldNotes(userID,recordDate,recordDescribe,recordInAndOut,auditStatus,acquisitionmode)
 		VALUES(#{userid},#{recorddate,jdbcType=TIMESTAMP}
-		,#{recorddescribe},#{recordinandout},#{auditstatus},#{acquisitionmode})
+		,#{recorddescribe},#{recordinandout},#{auditstatus},5)<!--#{acquisitionmode}  -->
 			</insert>
 	<!-- 查询物流记录 -->
 	<select id="getListlogistics" resultType="logistics">
@@ -150,8 +150,9 @@ WHERE u.userid=#{userId}
 	<insert id="addNews">
 	       INSERT INTO news  
 	       <set>
-	             <if test="news.thesender">theSender=#{news.thesender},</if>
-	             <if test="news.addressee">addRessee=#{news.addressee},</if>
+	       theSender=1,
+<!-- 	             <if test="news.thesender"></if>
+ -->	             <if test="news.addressee">addRessee=#{news.addressee},</if>
 	             <if test="news.content">content=#{news.content},</if>
 	             <if test="news.sendingtime">sendingTime=#{news.sendingtime,jdbcType=TIMESTAMP},</if>
 	             <if test="news.readstate">readState=#{news.readstate},</if>
