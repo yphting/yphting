@@ -49,7 +49,7 @@ public class OrdersAction {
 		return biz.querySerType(stid);
 	}
 	/**
-	 * 修改状态
+	 * 修改状态 并发送系统消息
 	 * @param orderStatus
 	 * @param orderID
 	 * @return
